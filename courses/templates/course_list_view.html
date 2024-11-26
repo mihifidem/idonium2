@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Course List{% endblock %}
+{% block content %}
+<h1>Courses</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Profile Teacher</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.profile_teacher }}</td>
+            <td>{{ course.title }}</td>
+            <td>{{ course.description }}</td>
+            <td>{{ course.category }}</td>
+            <td>
+                <a class="btn btn-warning" href="{% url 'course-update' course.pk %}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a class="btn btn-primary" href="{% url 'course-create' %}">Add Course</a>
+{% endblock %}
