@@ -15,11 +15,7 @@ def landing_page(request):
 
 # List Views ----------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 def courses_list_view(request):
-=======
-def coures_list_view(request):
->>>>>>> a6d56fa2fe3c147789943413c56471ebbf6e0a58
     course = Course.objects.filter(is_active = True)
     return render(request, 'course_list.html', {'courses': course})
 
@@ -123,7 +119,20 @@ def lesson_create_or_update_view(request, pk=None):
             return render(request, 'lesson_form.html', {'form': form})
         
 
-
+def review_create_or_update(request, pk=None):
+    if pk:
+        review = get_object_or_404(Review, pk=pk)
+    else:
+        pk = None
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('review-detail', pk=review.pk)
+        else:
+            form = ReviewForm(instance=review)
+            return render(request, 'course_review_form.html', {'form': form})
 
 
     
