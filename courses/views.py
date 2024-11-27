@@ -15,7 +15,11 @@ def landing_page(request):
 
 # List Views ----------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 def courses_list_view(request):
+=======
+def coures_list_view(request):
+>>>>>>> a6d56fa2fe3c147789943413c56471ebbf6e0a58
     course = Course.objects.filter(is_active = True)
     return render(request, 'course_list.html', {'courses': course})
 

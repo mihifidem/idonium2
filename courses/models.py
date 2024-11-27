@@ -37,7 +37,11 @@ class ProfileTeacher(models.Model):
 
 
     def __str__(self):
+<<<<<<< HEAD
         return f'{self.user.username}'
+=======
+        return f'{self.user.first_name} {self.user.last_name}'
+>>>>>>> a6d56fa2fe3c147789943413c56471ebbf6e0a58
     
 class Course(models.Model):
     profile_teacher = models.ForeignKey(ProfileTeacher, on_delete=models.CASCADE, null=True, related_name='teacher')
@@ -65,7 +69,11 @@ class Review(models.Model):
     comment = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     resource = models.ForeignKey('Resource', on_delete=models.CASCADE, blank=True, null=True)
+<<<<<<< HEAD
     # user_profile = models.ForeignKey(User,on_delete=models.CASCADE)
+=======
+    user_profile = models.ForeignKey(User)
+>>>>>>> a6d56fa2fe3c147789943413c56471ebbf6e0a58
     date = models.DateTimeField(auto_now_add=True)
 
     # class Meta:
@@ -144,7 +152,11 @@ class Resource(models.Model):
     # Restricción para garantizar que un usuario no pueda hacer varias reseñas del mismo recurso
     class Meta:
         constraints = [
+<<<<<<< HEAD
             # models.UniqueConstraint(fields=['user_profile', 'resource_pk'], name='unique_review_per_user_recurso')
+=======
+            models.UniqueConstraint(fields=['user_profile', 'resource_pk'], name='unique_review_per_user_recurso')
+>>>>>>> a6d56fa2fe3c147789943413c56471ebbf6e0a58
         ]
 
         def __str__(self):
@@ -160,8 +172,13 @@ class WishlistType(models.Model):
         return self.name
 
 class WishlistUser(models.Model):
+<<<<<<< HEAD
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     type_wish = models.ForeignKey(WishlistType,on_delete=models.CASCADE)
+=======
+    user = models.OneToOneField(User)
+    type_wish = models.ForeignKey(WishlistType)
+>>>>>>> a6d56fa2fe3c147789943413c56471ebbf6e0a58
     id_wish = models.IntegerField()
 
     def __str__(self):
