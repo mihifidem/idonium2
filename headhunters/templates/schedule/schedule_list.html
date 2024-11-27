@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>My Schedule</h2>
+  <ul>
+    {% for event in schedule_list %}
+      <li>
+        <a href="{% url 'schedule_detail' pk=event.pk %}">{{ event.title }} - {{ event.date }}</a>
+      </li>
+    {% empty %}
+      <p>No events scheduled.</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'schedule_create' %}">Create New Event</a>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>List of Actions</h2>
+  <ul>
+    {% for action in actions %}
+      <li>
+        <a href="{% url 'action_detail' pk=action.pk %}">{{ action.name }}</a>
+      </li>
+    {% empty %}
+      <p>No actions found.</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'action_create' %}">Create New Action</a>
+{% endblock %}

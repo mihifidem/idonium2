@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Work experience List{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Work experience list</h2>
+
+    <!-- Lista de crímenes filtrados -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Job title</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Current job</th>
+                <th>Company name</th>
+                <th>Description</th>
+                <th>Achievements</th>
+                <th>references</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for work_experience in work_experiences %}
+            <tr>
+                <td>{{ work_experience.job_title }}</td>
+                <td>{{ work_experience.start_date }}</td>
+                <td>{{ work_experience.end_date }}</td>
+                <td>{{ work_experience.current_job }}</td>
+                <td>{{ work_experience.company_name }}</td>
+                <td>{{ work_experience.description }}</td>
+                <td>{{ work_experience.achievements }}</td>
+                <td>{{ work_experience.references }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'work_experience_update' work_experience.pk %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'work_experience_delete' work_experience.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{% url 'work_experience_create' %}">Add Work Experience</a>
+</div>
+{% endblock %}
