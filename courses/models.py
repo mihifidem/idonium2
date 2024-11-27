@@ -10,7 +10,7 @@ class Status(models.Model):
     description = models.TextField(blank=True)
     
     def __str__(self):
-        return self.status
+        return self.name    
     
 class ProfileTeacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -93,22 +93,22 @@ class CourseUser(models.Model):
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} - {self.course}'
     
-    def calculate_progress(self):
-        # Total de lecciones del curso a través de los módulos
-        total_lessons = self.course.module_set.all().prefetch_related('lesson_set').count()
-        # Si el curso no tiene lecciones, el progreso es 0
-        if total_lessons == 0:
-            return 0.0
-        # Contamos las lecciones completadas por el usuario
-        completed_lessons = self.user.lesson_set.filter(module__course=self.course, completed=True).count()
-        # Calculamos el progreso
-        progress = (completed_lessons / total_lessons) * 100
-        return round(progress, 2)
+    # def calculate_progress(self):
+    #     # Total de lecciones del curso a través de los módulos
+    #     total_lessons = self.course.module_set.all().prefetch_related('lesson').count()
+    #     # Si el curso no tiene lecciones, el progreso es 0
+    #     if total_lessons == 0:
+    #         return 0.0
+    #     # Contamos las lecciones completadas por el usuario
+    #     completed_lessons = self.user.lesson.filter(module__course=self.course, completed=True).count()
+    #     # Calculamos el progreso
+    #     progress = (completed_lessons / total_lessons) * 100
+    #     return round(progress, 2)
     
-    def save(self, *args, **kwargs):
+    # def save(self, *args, **kwargs):
         # Sobrescribimos el campo progress_percentage con el valor calculado
-        self.progress_percentage = self.calculate_progress()
-        super().save(*args, **kwargs)  # Llamamos al save original para guardar la instancia
+        # self.progress_percentage = self.calculate_progress()
+        # super().save(*args, **kwargs)  # Llamamos al save original para guardar la instancia
 
 
 class Resource(models.Model):
@@ -123,7 +123,7 @@ class Resource(models.Model):
 
 
     def __str__(self):
-        return f"{self.name} - {self.user.username}"
+        return f"{self.name}"
 
 class WishlistType(models.Model):
     name = models.CharField(max_length=100)
