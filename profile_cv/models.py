@@ -106,7 +106,7 @@ class AcademicEducation(models.Model):
 class HardSkillUser(models.Model):
     hard_skill = models.ForeignKey("HardSkill", on_delete=models.CASCADE)  # Name of the skill
     description = models.TextField(blank=True, null=True)  # Optional description
-    level_skill = models.IntegerField(max_length= 5)  # Proficiency level of the skill
+    level_skill = models.PositiveIntegerField(choices=((1,'1'),(1,'2'),(3,'3'),(4,'4'),(5,'5'))) # Proficiency level of the skill
 
     def __str__(self):
         return self.hard_skill.name_hard_skill
