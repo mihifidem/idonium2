@@ -123,7 +123,7 @@ class SoftSkillUser(models.Model):
 # Model to represent a language
 class LanguageUser(models.Model):
     language = models.ForeignKey("Language", on_delete=models.CASCADE)  # Name of the language
-    level = models.CharField(max_length=50)  # Proficiency level of the language
+    level = models.ForeignKey("Level", on_delete=models.CASCADE)  # Proficiency level of the language
     certifications = models.TextField(blank=True, null=True)  # Optional certifications
 
     def __str__(self):
@@ -228,3 +228,9 @@ class Incorporation(models.Model):
 
     def __str__(self):
         return self.name_incorporation
+
+class Level (models.Model):
+    name_level = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.name_level
