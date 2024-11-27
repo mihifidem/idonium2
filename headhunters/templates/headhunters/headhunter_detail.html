@@ -3,6 +3,8 @@
 {% block content %}
   <h1>{{ headhunter.company }}</h1>
   <p>{{ headhunter.description }}</p>
+  <img src="{{ headhunter.profile_photo.url }}" alt="Profile Photo">
+
 
   <!-- Editar botón -->
   <a href="{% url 'headhunter_update' pk=headhunter.pk %}">Edit</a>

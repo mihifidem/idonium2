@@ -2,7 +2,7 @@
 
 {% block content %}
   <h2>Confirm Deletion</h2>
-  <p>Are you sure you want to delete the event "{{ schedule.title }}"?</p>
+  <p>Are you sure you want to delete the schedule "{{ schedule.name }}"?</p>
   
   <form method="post">
     {% csrf_token %}

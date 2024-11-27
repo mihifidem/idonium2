@@ -4,7 +4,6 @@ from django.urls import path
 from .views import (
     CandidateListView, CandidateDetailView, CandidateCreateView, CandidateUpdateView, CandidateDeleteView,
     JobOfferListView, JobOfferDetailView, JobOfferCreateView, JobOfferUpdateView, JobOfferDeleteView,
-    ActionListView, ActionDetailView, ActionCreateView, ActionUpdateView, ActionDeleteView, 
     HeadhunterListView, HeadhunterDetailView, HeadhunterCreateView, HeadhunterUpdateView, HeadhunterDeleteView,
     ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView
 )
@@ -22,12 +21,6 @@ urlpatterns = [
     path('joboffers/<int:pk>/update/', JobOfferUpdateView.as_view(), name='joboffer_update'),
     path('joboffers/<int:pk>/delete/', JobOfferDeleteView.as_view(), name='joboffer_delete'),
 
-    path('actions/', ActionListView.as_view(), name='action_list'),
-    path('actions/<int:pk>/', ActionDetailView.as_view(), name='action_detail'),
-    path('actions/create/', ActionCreateView.as_view(), name='action_create'),
-    path('actions/<int:pk>/update/', ActionUpdateView.as_view(), name='action_update'),
-    path('actions/<int:pk>/delete/', ActionDeleteView.as_view(), name='action_delete'),
-    
     path('headhunters/', HeadhunterListView.as_view(), name='headhunter_list'),
     path('headhunters/<int:pk>/', HeadhunterDetailView.as_view(), name='headhunter_detail'),
     path('headhunters/create/', HeadhunterCreateView.as_view(), name='headhunter_create'),
