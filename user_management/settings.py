@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'social_django',
     "blog",
     "django_summernote",
-
+    "test_management"
 ]
 
 MIDDLEWARE = [
