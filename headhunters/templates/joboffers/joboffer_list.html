@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Job Offers</h2>
+  <ul>
+    {% for job_offer in job_offers %}
+      <li>
+        <a href="{% url 'joboffer_detail' pk=job_offer.pk %}">{{ job_offer.title }}</a>
+      </li>
+    {% empty %}
+      <p>No job offers available.</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'joboffer_create' %}">Create New Job Offer</a>
+{% endblock %}

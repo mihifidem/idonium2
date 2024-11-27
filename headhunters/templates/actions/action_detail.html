@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Action Details</h2>
+  <p><strong>Name:</strong> {{ action.name }}</p>
+  <p><strong>Description:</strong> {{ action.description }}</p>
+  <p><strong>Date:</strong> {{ action.date }}</p>
+
+  <a href="{% url 'action_update' pk=action.pk %}">Edit</a>
+  <a href="{% url 'action_delete' pk=action.pk %}">Delete</a>
+  <a href="{% url 'action_list' %}">Back to List</a>
+{% endblock %}

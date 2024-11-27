@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Event Details</h2>
+  <p><strong>Title:</strong> {{ schedule.title }}</p>
+  <p><strong>Date:</strong> {{ schedule.date }}</p>
+  <p><strong>Time:</strong> {{ schedule.time }}</p>
+  <p><strong>Description:</strong> {{ schedule.description }}</p>
+
+  <a href="{% url 'schedule_update' pk=schedule.pk %}">Edit</a>
+  <a href="{% url 'schedule_delete' pk=schedule.pk %}">Delete</a>
+  <a href="{% url 'schedule_list' %}">Back to Schedule</a>
+{% endblock %}
