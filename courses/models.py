@@ -13,7 +13,7 @@ class Status(models.Model):
         return self.status
     
 class ProfileTeacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to='teachers_images/', null=True, blank=True)
     hardskills = models.ForeignKey(HardSkill, on_delete=models.SET_NULL, null=True, blank=True)
     categoriy = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
@@ -52,7 +52,7 @@ class Review(models.Model):
     comment = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     resource = models.ForeignKey('Resource', on_delete=models.CASCADE, blank=True, null=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -132,7 +132,7 @@ class WishlistType(models.Model):
         return self.name
 
 class WishlistUser(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE, null=True)
     type_wish = models.ForeignKey(WishlistType,on_delete=models.CASCADE)
     id_wish = models.IntegerField()
 
