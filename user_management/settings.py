@@ -59,8 +59,8 @@ INSTALLED_APPS = [
     "django_summernote",
     "courses",
     "headhunters",
-    "profile_cv",
     "test",
+    "cv_management",
 ]
 
 MIDDLEWARE = [
