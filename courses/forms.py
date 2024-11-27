@@ -26,3 +26,8 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ['module', 'name', 'description']
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']

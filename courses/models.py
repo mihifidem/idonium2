@@ -1,40 +1,23 @@
 from decimal import Decimal
 from django.db import models
+from profile_cv.models import HardSkill, Sector, Category
 
 from django.contrib.auth.models import User
 
-# Create your models here.
-# class Sector(models.Model):
-#     name = models.CharField(max_length=50, unique=True)
-#     description = models.TextField(blank=True)
-
-#     def __str__(self):
-#         return self.name
-    
-
-# class Category(models.Model):
-#     name = models.CharField(max_length=50, unique=True)
-#     description = models.TextField(blank=True)
-#     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL,null=True)
-
-#     def __str__(self):
-#         return f'{self.name} - {self.sector}'
-    
 
 class Status(models.Model):
     name = models.CharField(max_length=15)
     description = models.TextField(blank=True)
-    
+
     def __str__(self):
         return self.status
     
 class ProfileTeacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='teachers_images/', null=True, blank=True)
-    # hardskills = models.ForeignKey('Hardskills')
-    
-    
-
+    hardskills = models.ForeignKey(HardSkill, on_delete=models.SET_NULL, null=True, blank=True)
+    categoriy = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user.username}'
@@ -47,11 +30,14 @@ class Course(models.Model):
     is_member = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     image = models.ImageField(upload_to='courses_images/', null=True, blank=True)
+    is_free = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
 
     def __str__(self):
         return self.title
     
 class Certificate(models.Model):
+
     name = models.CharField(max_length=50)
     code = models.CharField(max_length=10, unique=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
@@ -66,14 +52,8 @@ class Review(models.Model):
     comment = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     resource = models.ForeignKey('Resource', on_delete=models.CASCADE, blank=True, null=True)
-    # user_profile = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(fields=['user_profile', 'course'], name='unique_review_per_user_course'),
-    #         models.UniqueConstraint(fields=['user_profile', 'resource'], name='unique_review_per_user_resource'),
-    #     ]
 
     def __str__(self):
         return f'{self.rating} - {self.comment[:50]}...'
@@ -95,7 +75,6 @@ class Lesson(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     completed = models.BooleanField(default=False)
-    verified = models.BooleanField(default=False)
     is_member = models.BooleanField(default=False)
 
     def __str__(self):
@@ -142,14 +121,6 @@ class Resource(models.Model):
     document = models.FileField(blank=True, null=True)
     is_active = models.BooleanField(default=False)
 
-    # Restricción para garantizar que un usuario no pueda hacer varias reseñas del mismo recurso
-    class Meta:
-        constraints = [
-            # models.UniqueConstraint(fields=['user_profile', 'resource_pk'], name='unique_review_per_user_recurso')
-        ]
-
-        def __str__(self):
-            return self.name
 
     def __str__(self):
         return f"{self.name} - {self.user.username}"
