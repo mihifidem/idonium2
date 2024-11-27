@@ -2,6 +2,7 @@ import random
 import string
 from django.db import models
 from django.contrib.auth.models import User
+from courses.models import CourseUser
 
 # Model to represent a user's profile
 class Profile_CV(models.Model):
@@ -36,7 +37,7 @@ class Profile_CV(models.Model):
     projects = models.ForeignKey("Project", on_delete=models.CASCADE, blank=True, null=True)  # Projects
     publications = models.ForeignKey("Publication", on_delete=models.CASCADE, blank=True, null=True)  # Publications
     recognitions_awards = models.ForeignKey("RecognitionAward", on_delete=models.CASCADE, blank=True, null=True)  # Recognitions and awards
-    certifications_courses = models.ForeignKey("CertificationCourse", on_delete=models.CASCADE, blank=True, null=True)  # Certifications and courses
+    certifications_courses = models.ForeignKey(CourseUser, on_delete=models.CASCADE, blank=True, null=True)  # Certifications and courses
 
     def __str__(self):
         return self.user.username
@@ -191,17 +192,6 @@ class RecognitionAward(models.Model):
 
     def __str__(self):
         return self.name
-
-# Model to represent a certification or course
-class CertificationCourse(models.Model):
-    title = models.CharField(max_length=255)  # Title of the certification or course
-    academy_name = models.CharField(max_length=255)  # Name of the academy
-    start_date = models.DateField()  # Start date
-    end_date = models.DateField(blank=True, null=True)  # Optional end date
-    current_course = models.BooleanField(blank=True, null=True)  # Current course
-
-    def __str__(self):
-        return self.title
 
 # Models to represent Enums
 class HardSkill (models.Model):
