@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>{% if schedule %}Edit{% else %}Create{% endif %} Event</h2>
+  <h2>{% if object %}Edit{% else %}Create{% endif %} schedule</h2>
 
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">{% if schedule %}Save Changes{% else %}Create Event{% endif %}</button>
+    <button type="submit">{% if object %}Save Changes{% else %}Create schedule{% endif %}</button>
   </form>
 
-  <a href="{% url 'schedule_list' %}">Back to Schedule</a>
+  <a href="{% url 'schedule_list' %}">Back to List</a>
 {% endblock %}
