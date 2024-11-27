@@ -218,3 +218,4 @@ def submit_quiz(request):
 
     return render(request, 'quiz/quiz_form.html', {'error': 'Invalid form submission'})
 
+
