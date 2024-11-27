@@ -271,191 +271,51 @@
         </div>
     </div> <!-- row -->
     <div class="row course-slied mt-30">
-        <div class="col-lg-4">
-            <div class="singel-course">
-                <div class="thum">
-                    <div class="image">
-                        <img src="{% static 'images/course/cu-1.jpg' %}" alt="Course">
-                    </div>
-                    <div class="price">
-                        <span>Free</span>
-                    </div>
-                </div>
-                <div class="cont">
-                    <ul>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <span>(20 Reviws)</span>
-                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                    <div class="course-teacher">
-                        <div class="thum">
-                            <a href="#"><img src="{% static 'images/course/teacher/t-1.jpg' %}" alt="teacher"></a>
-                        </div>
-                        <div class="name">
-                            <a href="#"><h6>Mark anthem</h6></a>
-                        </div>
-                        <div class="admin">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- singel course -->
+        {% for course in courses %}
+<div class="col-lg-4">
+    <div class="singel-course">
+        <div class="thum">
+            <div class="image">
+                <img src="{{ course.image.url }}" alt="{{ course.title }}">
+            </div>
+            <div class="price">
+                <span>Free</span>
+            </div>
         </div>
-        <div class="col-lg-4">
-            <div class="singel-course">
+        <div class="cont">
+            <ul>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul><br>
+            <span>(20 Reviws)</span> <br>
+            <a href="courses-singel.html">
+                <h4>{{course.title}}</h4>
+            </a>
+            <div class="course-teacher">
                 <div class="thum">
-                    <div class="image">
-                        <img src="{% static 'images/course/cu-2.jpg' %}" alt="Course">
-                    </div>
-                    <div class="price">
-                        <span>Free</span>
-                    </div>
+                    <a href="#"><img src="{{ course.profile_teacher.image.url }}" alt="teacher"></a>
+                    
                 </div>
-                <div class="cont">
+                <div class="name">
+                    <a href="#">
+                        <h6>{{ course.profile_teacher.user.first_name}} {{course.profile_teacher.user.last_name}}
+                        </h6>
+                    </a><br>
+                </div>
+                <div class="admin">
                     <ul>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
+                        <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
+                        <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
                     </ul>
-                    <span>(20 Reviws)</span>
-                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                    <div class="course-teacher">
-                        <div class="thum">
-                            <a href="#"><img src="{% static 'images/course/teacher/t-2.jpg' %}" alt="teacher"></a>
-                        </div>
-                        <div class="name">
-                            <a href="#"><h6>Mark anthem</h6></a>
-                        </div>
-                        <div class="admin">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-            </div> <!-- singel course -->
+            </div>
         </div>
-        <div class="col-lg-4">
-            <div class="singel-course">
-                <div class="thum">
-                    <div class="image">
-                        <img src="{% static 'images/course/cu-3.jpg' %}" alt="Course">
-                    </div>
-                    <div class="price">
-                        <span>Free</span>
-                    </div>
-                </div>
-                <div class="cont">
-                    <ul>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <span>(20 Reviws)</span>
-                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                    <div class="course-teacher">
-                        <div class="thum">
-                            <a href="#"><img src="{% static 'images/course/teacher/t-3.jpg' %}" alt="teacher"></a>
-                        </div>
-                        <div class="name">
-                            <a href="#"><h6>Mark anthem</h6></a>
-                        </div>
-                        <div class="admin">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- singel course -->
-        </div>
-        <div class="col-lg-4">
-            <div class="singel-course">
-                <div class="thum">
-                    <div class="image">
-                        <img src="{% static 'images/course/cu-4.jpg' %}" alt="Course">
-                    </div>
-                    <div class="price">
-                        <span>Free</span>
-                    </div>
-                </div>
-                <div class="cont">
-                    <ul>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <span>(20 Reviws)</span>
-                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                    <div class="course-teacher">
-                        <div class="thum">
-                            <a href="#"><img src="{% static 'images/course/teacher/t-4.jpg' %}" alt="teacher"></a>
-                        </div>
-                        <div class="name">
-                            <a href="#"><h6>Mark anthem</h6></a>
-                        </div>
-                        <div class="admin">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- singel course -->
-        </div>
-        <div class="col-lg-4">
-            <div class="singel-course">
-                <div class="thum">
-                    <div class="image">
-                        <img src="{% static 'images/course/cu-5.jpg' %}" alt="Course">
-                    </div>
-                    <div class="price">
-                        <span>Free</span>
-                    </div>
-                </div>
-                <div class="cont">
-                    <ul>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                    <span>(20 Reviws)</span>
-                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                    <div class="course-teacher">
-                        <div class="thum">
-                            <a href="#"><img src="{% static 'images/course/teacher/t-5.jpg' %}" alt="teacher"></a>
-                        </div>
-                        <div class="name">
-                            <a href="#"><h6>Mark anthem</h6></a>
-                        </div>
-                        <div class="admin">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- singel course -->
-        </div>
+    </div> <!-- singel course -->
+</div>
+{% endfor %}
     </div> <!-- course slied -->
 </div> <!-- container -->
 </section>
