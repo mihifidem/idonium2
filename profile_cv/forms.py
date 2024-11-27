@@ -116,18 +116,6 @@ class RecognitionForm(forms.ModelForm):
         model = RecognitionAward
         fields = ["name", "entity", "description"]
 
-# Form to represent a certification or course
-class CertificationForm(forms.ModelForm):
-    class Meta:
-        model = CertificationCourse
-        fields = [
-            "title",
-            "academy_name",
-            "start_date",
-            "end_date",
-            "current_course",
-        ]
-
 #form to represent a user cv
 class ToggleButtonWidget(forms.CheckboxInput):
     template_name = 'user_cv/button.html'

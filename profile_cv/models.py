@@ -3,7 +3,7 @@ import string
 
 from django.db import models
 from django.contrib.auth.models import User
-from courses.models import CourseUser
+from courses.models import *
 
 # Model to represent a user's profile
 class Profile_CV(models.Model):
@@ -38,7 +38,7 @@ class Profile_CV(models.Model):
     projects = models.ForeignKey("Project", on_delete=models.CASCADE, blank=True, null=True)  # Projects
     publications = models.ForeignKey("Publication", on_delete=models.CASCADE, blank=True, null=True)  # Publications
     recognitions_awards = models.ForeignKey("RecognitionAward", on_delete=models.CASCADE, blank=True, null=True)  # Recognitions and awards
-    certifications_courses = models.ForeignKey(CourseUser, on_delete=models.CASCADE, blank=True, null=True)  # Certifications and courses
+    certifications_courses = models.ManyToManyField("courses.Certificate")  # Certifications and courses
 
     def __str__(self):
         return self.user.username
@@ -124,7 +124,7 @@ class SoftSkillUser(models.Model):
 # Model to represent a language
 class LanguageUser(models.Model):
     language = models.ForeignKey("Language", on_delete=models.CASCADE)  # Name of the language
-    level = models.CharField(max_length=50)  # Proficiency level of the language
+    level = models.ForeignKey("Level", on_delete=models.CASCADE)  # Proficiency level of the language
     certifications = models.TextField(blank=True, null=True)  # Optional certifications
 
     def __str__(self):
@@ -229,3 +229,9 @@ class Incorporation(models.Model):
 
     def __str__(self):
         return self.name_incorporation
+
+class Level (models.Model):
+    name_level = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.name_level
