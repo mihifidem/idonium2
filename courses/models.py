@@ -38,6 +38,7 @@ class ProfileTeacher(models.Model):
 
     def __str__(self):
         return f'{self.user.username}'
+
     
 class Course(models.Model):
     profile_teacher = models.ForeignKey(ProfileTeacher, on_delete=models.CASCADE, null=True, related_name='teacher')
