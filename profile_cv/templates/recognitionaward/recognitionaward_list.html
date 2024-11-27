@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Recognition Award List{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Recognition Award list</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>entity</th>
+                <th>description</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for recognitionAward in recognitions_awards %}
+            <tr>
+                <td>{{ recognitionAward.name }}</td>
+                <td>{{ recognitionAward.entity }}</td>
+                <td>{{ recognitionAward.description }}</td>
+               
+                <td>
+                    <a class="btn btn-warning" href="{% url 'recognition_award_update' recognitionAward.pk %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'recognition_award_delete' recognitionAward.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Recognition Awards found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{% url 'recognition_award_create' %}">Add Recognition award</a>
+</div>
+{% endblock %}
