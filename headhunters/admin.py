@@ -6,7 +6,6 @@ from .models import StatusCandidate, JobOffer, HeadHunterUser, Schedule, Managem
 # Register your models here.
 admin.site.register(HeadHunterUser)
 admin.site.register(StatusCandidate)
-admin.site.register(Profile_CV)
 admin.site.register(Schedule)
 admin.site.register(ManagementCandidates)
 admin.site.register(StatusAction)
