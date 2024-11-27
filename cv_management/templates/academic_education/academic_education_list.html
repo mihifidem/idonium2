@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Academic Education List{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Academic Education List</h2>
+
+    <!-- Lista de Academic Education -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Academy Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Current Education</th>
+                <th>References</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for education in academic_educations %}
+            <tr>
+                <td>{{ education.title }}</td>
+                <td>{{ education.academy_name }}</td>
+                <td>{{ education.start_date }}</td>
+                <td>{{ education.end_date }}</td>
+                <td>{{ education.current_education }}</td>
+                <td>{{ education.references }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'academic_education_update' education.pk %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'academic_education_delete' education.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Education academic found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{% url 'academic_education_create' %}">Add Academic Education</a>
+</div>
+{% endblock %}

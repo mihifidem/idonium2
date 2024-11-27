@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Hard Skill List{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Hard Skill list</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hardskill in hardskills %}
+            <tr>
+                <td>{{ hardskill.hard_skill }}</td>
+                <td>{{ hardskill.description }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'hard_skill_update' hardskill.pk %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'hard_skill_delete' hardskill.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No Users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{% url 'hard_skill_create' %}">Add HardSkill</a>
+</div>
+{% endblock %}
