@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     "courses",
     "headhunters",
     "test",
-    "cv_management",
+    "profile_cv",
+   
 ]
 
 MIDDLEWARE = [
