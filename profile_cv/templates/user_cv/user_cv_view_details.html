@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %} Home Page {% endblock title %}
+{% load static %}
+{% block content %}
+    <!--====== TEACHERS PART START ======-->
+    
+    <section id="teachers-singel" class="pt-70 pb-120 gray-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-8">
+                    <div class="teachers-left mt-50">
+                        <div class="hero">
+                            {% if user_cv.has_img_profile %}
+                                <img src="{{ profile_cv.img_profile.url }}" alt="Teachers">
+                            {% else %}
+                                <img src="{% static 'images/teachers/t-1.jpg' %}" alt="Teachers">
+                            {% endif %}
+                        </div>
+                        <div class="name">
+                            <h6>{{ profile_cv.user.first_name }}</h6>
+                            <h6>{{ profile_cv.user.last_name }}</h6>
+                        </div>
+                        <div class="social">
+                            <ul>
+                                {% if user_cv.has_phone_1 %}
+                                <li>{{ profile_cv.phone_1 }}</li>
+                                {% endif %}
+                                {% if user_cv.has_phone_2 %}
+                                <li>{{ profile_cv.phone_2 }}</li>
+                                {% endif %}
+                                {% if user_cv.has_email_1 %}
+                                <li>{{ profile_cv.email_1 }}</li>
+                                {% endif %}
+                                {% if user_cv.has_email_2 %}
+                                <li>{{ profile_cv.email_2 }}</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="description">
+                            {% if user_cv.has_biography %}
+                            <p>{{ user_cv.biography }}</p>
+                            {% else %}
+                            <p>{{ profile_cv.biography }}</p>
+                            {% endif %}
+                        </div>
+                    </div> <!-- teachers left -->
+                </div>
+                <div class="col-lg-8">
+                    <div class="teachers-right mt-50">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <div class="dashboard-cont">
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_work_experiences %}
+                                        <h5>Work Experiences</h5>
+                                        <p>{{ profile_cv.work_experiences }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_academic_educations %}
+                                        <h5>Academic Educations</h5>
+                                        <p>{{ profile_cv.academic_educations }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_hard_skills %}
+                                        <h5>Hard Skills</h5>
+                                        <p>{{ profile_cv.hard_skills }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_soft_skills %}
+                                        <h5>Soft Skills</h5>
+                                        <p>{{ profile_cv.soft_skills }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_languages %}
+                                        <h5>Languages</h5>
+                                        <p>{{ profile_cv.languages }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_volunteerings %}
+                                        <h5>Volunteerings</h5>
+                                        <p>{{ profile_cv.volunteerings }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_projects %}
+                                        <h5>Projects</h5>
+                                        <p>{{ profile_cv.projects }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_publications %}
+                                        <h5>Publications</h5>
+                                        <p>{{ profile_cv.publications }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_recognitions_awards %}
+                                        <h5>Recognitions and Awards</h5>
+                                        <p>{{ profile_cv.recognitions_awards }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_certifications_courses %}
+                                        <h5>Certifications and Courses</h5>
+                                        <p>{{ profile_cv.certifications_courses }}</p>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                </div> <!-- dashboard cont -->
+                            </div>
+                        </div> <!-- tab content -->
+                    </div> <!-- teachers right -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== EVENTS PART ENDS ======-->
+
+{% endblock content %}

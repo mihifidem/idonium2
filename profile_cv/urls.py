@@ -83,16 +83,11 @@ urlpatterns = [
     path('recognitions_awards/update/<int:recognition_award_id>/', recognition_award_update, name='recognition_award_update'),
     path('recognitions_awards/delete/<int:recognition_award_id>/', recognition_award_delete, name='recognition_award_delete'),
 
-    # Certification and course URLs
-    path('certifications_courses/', certification_course_list, name='certification_course_list'),
-    path('certifications_courses/create/', certification_course_create, name='certification_course_create'),
-    path('certifications_courses/update/<int:certification_course_id>/', certification_course_update, name='certification_course_update'),
-    path('certifications_courses/delete/<int:certification_course_id>/', certification_course_delete, name='certification_course_delete'),
-
     # User cv URLs
     path('user_cvs/', user_cv_list, name='user_cv_list'),
-    path('user_cvs/create/<str:username>/', user_cv_create, name='user_cv_create'),
+    path('user_cvs/create/<int:profile_id>/', user_cv_create, name='user_cv_create'),
     path('user_cvs/update/<int:user_cv_id>/', user_cv_update, name='user_cv_update'),
     path('user_cvs/delete/<int:user_cv_id>/', user_cv_delete, name='user_cv_delete'),
+    path('user_cvs/<int:user_cv_id>/<int:profile_cv_id>/', user_cv_view_details, name='user_cv_view_details'),
 
 ]

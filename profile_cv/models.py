@@ -1,6 +1,3 @@
-import random
-import string
-
 from django.db import models
 from django.contrib.auth.models import User
 from courses.models import *
@@ -38,7 +35,7 @@ class Profile_CV(models.Model):
     projects = models.ForeignKey("Project", on_delete=models.CASCADE, blank=True, null=True)  # Projects
     publications = models.ForeignKey("Publication", on_delete=models.CASCADE, blank=True, null=True)  # Publications
     recognitions_awards = models.ForeignKey("RecognitionAward", on_delete=models.CASCADE, blank=True, null=True)  # Recognitions and awards
-    certifications_courses = models.ManyToManyField("courses.Certificate")  # Certifications and courses
+    certifications_courses = models.ManyToManyField("courses.Certificate", blank=True, null=True)  # Certifications and courses
 
     def __str__(self):
         return self.user.username
@@ -57,6 +54,7 @@ class User_cv(models.Model):
     has_dni = models.BooleanField(blank=True, null=True)  # Unique DNI of the user
     has_url = models.BooleanField(blank=True, null=True)  # Optional URL of the user
     has_biography = models.BooleanField(blank=True, null=True)  # Optional biography of the user
+    biography = models.TextField(blank=True, null=True)  # Optional biography of the user
     has_open_to_work = models.BooleanField(blank=True, null=True)
     has_vehicle = models.BooleanField(blank=False, null=True)
     has_disability = models.BooleanField(blank=True, null=True)
@@ -76,7 +74,7 @@ class User_cv(models.Model):
     has_certifications_courses = models.BooleanField(blank=True, null=True)
 
     def __str__(self):
-        return self.profile_cv
+        return self.profile_cv.user.username
 
 # Model to represent a work experience
 class WorkExperience(models.Model):
@@ -88,6 +86,7 @@ class WorkExperience(models.Model):
     description = models.TextField(blank=True, null=True)  # Optional description
     achievements = models.TextField(blank=True, null=True)  # Optional achievements
     references = models.TextField(blank=True, null=True)  # Optional references
+    hard_skills = models.ForeignKey("HardSkillUser", on_delete=models.CASCADE)  # Hard skills
 
     def __str__(self):
         return self.job_title

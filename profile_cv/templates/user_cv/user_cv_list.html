@@ -69,6 +69,7 @@
                 <td>
                     <a class="btn btn-warning" href="{% url 'user_cv_update' user_cv.pk %}">Edit</a>
                     <a class="btn btn-danger" href="{% url 'user_cv_delete' user_cv.pk %}">Delete</a>
+                    <a class="btn btn-success" href="{% url 'user_cv_view_details' user_cv.pk user_cv.profile_cv.pk%}">View CV</a>
                 </td>
             </tr>
             {% empty %}
