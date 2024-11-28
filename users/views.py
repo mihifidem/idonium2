@@ -16,6 +16,20 @@ def custom_logout(request):
     logout(request)
     return redirect('users-home')  # Redirige al home o cualquier otra página.
 
+
+# def custom_404_view(request, exception):
+#     return render(request, 'users/404.html', status=404)
+def pre_404_view(request):
+    # Lógica personalizada antes del 404
+    context = {
+        'message': '¡Algo salió mal!',
+        'suggestions': ['Inicio', 'Contáctanos', 'Buscar otra página'],
+    }
+    return render(request, 'users/404.html', context, status=404)
+
+
+def custom_404_view(request, exception=None):
+    return render(request, '404.html', status=404)
 # def home(request):
 #     return render(request, 'users/home.html')
 def home(request):
@@ -23,7 +37,9 @@ def home(request):
     latest_post = Post.objects.filter(status=1).order_by('-created_on').first()
     posts3MaxLike = Post.objects.filter(status=1).order_by('-likes')[:3]  # Limitar a los 3 primeros
     courses  = Course.objects.filter(is_active=True).order_by('-title') 
+    courses  = Course.objects.all()
 
+    print(courses)
 
     return render(request, 'users/home.html', {
         'latest_post': latest_post,

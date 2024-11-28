@@ -278,9 +278,15 @@
             <div class="image">
                 <img src="{{ course.image.url }}" alt="{{ course.title }}">
             </div>
+            {%if course.is_free %}
             <div class="price">
                 <span>Free</span>
             </div>
+            {%else%}
+            <div class="price">
+                <span>{{course.price}}€</span>
+            </div>
+            {%endif%}
         </div>
         <div class="cont">
             <ul>
