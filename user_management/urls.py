@@ -12,7 +12,10 @@ from users.forms import LoginForm
 
 # from django.contrib.sitemaps.views import sitemap
 import debug_toolbar
+from django.conf.urls import handler404
+from users.views import custom_404_view
 
+handler404 = 'users.views.custom_404_view'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
