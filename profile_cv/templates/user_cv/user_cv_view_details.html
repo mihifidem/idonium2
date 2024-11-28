@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "users/base.html" %}
 {% block title %} Home Page {% endblock title %}
 {% load static %}
 {% block content %}
@@ -20,6 +20,9 @@
                             <h6>{{ profile_cv.user.first_name }}</h6>
                             <h6>{{ profile_cv.user.last_name }}</h6>
                         </div>
+                        <div class="download-btn mt-20">
+                            <a href="{% url 'user_cv_pdf_view' user_cv.pk profile_cv.pk %}" class="main-btn">Download PDF</a>
+                        </div>
                         <div class="social">
                             <ul>
                                 {% if user_cv.has_phone_1 %}
@@ -36,11 +39,11 @@
                                 {% endif %}
                             </ul>
                         </div>
-                        <div class="description">
+                        <div class="description" style="height: auto; text-align: left;">
                             {% if user_cv.has_biography %}
-                            <p>{{ user_cv.biography }}</p>
+                            <p style="word-wrap: break-word;">{{ user_cv.biography }}</p>
                             {% else %}
-                            <p>{{ profile_cv.biography }}</p>
+                            <p style="word-wrap: break-word;">{{ profile_cv.biography }}</p>
                             {% endif %}
                         </div>
                     </div> <!-- teachers left -->
@@ -53,7 +56,19 @@
                                     <div class="singel-dashboard pt-40">
                                         {% if user_cv.has_work_experiences %}
                                         <h5>Work Experiences</h5>
-                                        <p>{{ profile_cv.work_experiences }}</p>
+                                            <ul style="list-style-type: circle;">
+                                                <li>{{ profile_cv.work_experiences.job_title }}</li>
+                                            </ul>
+                                            {% for work_experience in experiences %}
+                                                <p>start date: {{ work_experience.start_date }}</p>
+                                                <p>end date: {{ work_experience.end_date }}</p>
+                                                <p>current job: {{ work_experience.current_job }}</p>
+                                                <p>company name: {{ work_experiences.company_name }}</p>
+                                                <p>description: {{ work_experiences.description }}</p>
+                                                <p>achievements: {{ work_experiences.achievements }}</p>
+                                                <p>references: {{ work_experiences.references }}</p>
+                                                <p>hard skills: {{ work_experiences.hard_skills }}</p>
+                                            {% endfor %}
                                         {% endif %}
                                     </div> <!-- singel dashboard -->
                                     <div class="singel-dashboard pt-40">

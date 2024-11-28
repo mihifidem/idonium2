@@ -89,5 +89,6 @@ urlpatterns = [
     path('user_cvs/update/<int:user_cv_id>/', user_cv_update, name='user_cv_update'),
     path('user_cvs/delete/<int:user_cv_id>/', user_cv_delete, name='user_cv_delete'),
     path('user_cvs/<int:user_cv_id>/<int:profile_cv_id>/', user_cv_view_details, name='user_cv_view_details'),
+    path('user_cvs/pdf/<int:user_cv_id>/<int:profile_cv_id>', user_cv_pdf_view, name='user_cv_pdf_view'),
 
 ]

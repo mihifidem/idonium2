@@ -1,8 +1,13 @@
 import random
 import string
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from weasyprint import HTML
 from .models import *
 from .forms import *
+from django.template.loader import get_template
+
+
 
 # * |--------------------------------------------------------------------------
 # * | Home
@@ -465,4 +470,20 @@ def user_cv_delete(request, user_cv_id):
 def user_cv_view_details(request, user_cv_id, profile_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
     profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+
+    print("***************************************************", profile_cv.work_experiences)
     return render(request, 'user_cv/user_cv_view_details.html', {'user_cv': user_cv, 'profile_cv': profile_cv})
+
+def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
+    user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+
+    template = get_template('user_cv/user_cv_view_details.html')
+    html_content = template.render({'user_cv': user_cv, 'profile_cv': profile_cv})
+
+    pdf_file = HTML(string=html_content).write_pdf()
+
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = "inline; filename='user_cv.pdf'"
+
+    return response
