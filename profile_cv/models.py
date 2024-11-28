@@ -35,7 +35,7 @@ class Profile_CV(models.Model):
     projects = models.ForeignKey("Project", on_delete=models.CASCADE, blank=True, null=True)  # Projects
     publications = models.ForeignKey("Publication", on_delete=models.CASCADE, blank=True, null=True)  # Publications
     recognitions_awards = models.ForeignKey("RecognitionAward", on_delete=models.CASCADE, blank=True, null=True)  # Recognitions and awards
-    certifications_courses = models.ManyToManyField("courses.Certificate", blank=True, null=True)  # Certifications and courses
+    certifications_courses = models.ManyToManyField("courses.Certificate")  # Certifications and courses
 
     def __str__(self):
         return self.user.username

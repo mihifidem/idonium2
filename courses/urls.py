@@ -1,10 +1,13 @@
 from django.urls import path
 from .views import *
 
+app_name = "courses"
 
 urlpatterns = [
 
-    # path('courses/', landing_page, name = 'landing-page'),
+
+    path('courses/', courses_list_view, name = 'courses-list'),
+    path('courses_detail/', course_detail_view, name='course-detail'),
     # path('police_officers/', CourseListView.as_view(), name='course-list'),
     # path('police_officer/create/',CourseCreateView.as_view(), name='course-create'),
     # path('police_officer/<int:pk>/update/', CourseUpdateView.as_view(), name='course-update'),

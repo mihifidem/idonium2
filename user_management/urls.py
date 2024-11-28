@@ -47,6 +47,7 @@ urlpatterns = [
     path("blog/", include("blog.urls"), name="blog-urls"),
     path("summernote/", include("django_summernote.urls")),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('', include('courses.urls')),
 #     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 
 
