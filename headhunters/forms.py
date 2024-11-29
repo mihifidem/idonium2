@@ -11,10 +11,23 @@ class CandidateProfileForm(forms.ModelForm):
         model = Profile_CV
         fields = '__all__'
 
+from django import forms
+
 class JobOfferForm(forms.ModelForm):
     class Meta:
         model = JobOffer
-        fields = '__all__'
+        fields = [
+            'title', 'description', 'sector', 'category', 
+            'salary', 'location', 'close_date', 
+            'required_hard_skills', 'required_soft_skills', 
+            'required_experience', 'JobOfferTests'
+        ]
+        widgets = {
+            'required_hard_skills': forms.CheckboxSelectMultiple(),
+            'required_soft_skills': forms.CheckboxSelectMultiple(),
+            'JobOfferTests': forms.CheckboxSelectMultiple(),
+        }
+
 
 class ManagementCandidatesForm(forms.ModelForm):
     class Meta:
