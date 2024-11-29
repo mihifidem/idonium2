@@ -102,13 +102,13 @@ class QuizSelectForm(forms.Form):
     """Form for selecting a quiz file."""
     quiz_file = forms.ChoiceField(
         choices=[
-            ('Hard_skills_CSS.json', 'CSS'),
-            ('Hard_skills_Django.json', 'Django'),
-            ('Hard_skills_HTML.json', 'HTML'),
-            ('Hard_skills_Numpy.json', 'Numpy'),
-            ('Hard_skills_SQL.json', 'SQL'),
-            ('Hard_skills_Python.json', 'Python'),
-            ('Soft_Skills_Test.json', 'Soft Skills'),
+            ('CSS.json', 'CSS'),
+            ('Django.json', 'Django'),
+            ('HTML.json', 'HTML'),
+            ('Numpy.json', 'Numpy'),
+            ('SQL.json', 'SQL'),
+            ('Python-1.json', 'Python'),
+            ('Soft Skills.json', 'Soft Skills'),
         ],
         label="Select a quiz",
     )

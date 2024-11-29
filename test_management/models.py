@@ -54,4 +54,15 @@ class Catergory(models.Model):
     name = models.CharField(max_length=200) 
     type = models.ForeignKey(CatergoryType, on_delete=models.CASCADE)
 
+class TestResult(models.Model):
+    title = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_test_results")
+    duration = models.FloatField(help_text="Duration in minutes")
+    is_from_json = models.BooleanField(default=False)
+    result = models.FloatField(help_text="Result of the test")
+    
+    def _str_(self):
+        return self.name 
 

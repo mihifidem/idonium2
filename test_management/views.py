@@ -2,85 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from .models import Test, UserAnswer, TestResult, Question
+from .models import Test, UserAnswer, TestResult
 from .forms import  TestForm, QuestionForm
 from django.conf import settings
-from venv import logger
 import os
 import json
-from .forms import QuizSelectForm, QuizForm
-
-
-def load_quiz(file_name):
-    """Load quiz data from the selected JSON file."""
-    quiz_path = os.path.join(settings.BASE_DIR, 'quiz', 'static', file_name)
-    try:
-        with open(quiz_path, 'r') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return None
-
-
-def quiz_view(request):
-    """View to select and load a quiz."""
-    if request.method == "POST":
-        form = QuizSelectForm(request.POST)
-        if form.is_valid():
-            quiz_file = form.cleaned_data["quiz_file"]
-            quiz_data = load_quiz(quiz_file)
-
-            if quiz_data:
-                quiz_form = QuizForm(quiz_data=quiz_data)
-                return render(request, "quiz/quiz_form.html", {"quiz_form": quiz_form, "quiz_file": quiz_file})
-            else:
-                return render(request, "quiz/quiz_select.html", {"form": form, "error": "Quiz file not found."})
-    else:
-        form = QuizSelectForm()
-    return render(request, "quiz/quiz_select.html", {"form": form})
-
-
-def submit_quiz(request):
-    """Handle quiz submission and display results."""
-    if request.method == "POST":
-        # Retrieve the quiz file name from the hidden input
-        quiz_file = request.POST.get("quiz_file")
-        quiz_data = load_quiz(quiz_file)
-
-        # Debugging log
-        logger.debug(f"Quiz file: {quiz_file}")
-        logger.debug(f"POST data: {request.POST}")
-
-        if not quiz_data:
-            return render(request, "quiz/quiz_form.html", {"error": "Quiz file not found."})
-
-        # Initialize the QuizForm with the submitted data
-        quiz_form = QuizForm(quiz_data, request.POST)
-        if quiz_form.is_valid():
-            # Calculate the score
-            score = 0
-            for index, question in enumerate(quiz_data, start=1):
-                field_name = f"question_{index}"
-                selected_answer = quiz_form.cleaned_data[field_name]
-                if selected_answer == question["correct_answer"]:
-                    score += 1
-
-            # Render the results page
-            return render(request, "quiz/results.html", {"score": score, "total": len(quiz_data)})
-        else:
-            # Debugging: Show form errors
-            logger.debug(f"Form errors: {quiz_form.errors}")
-
-            # Re-render the quiz form with errors
-            return render(
-                request,
-                "quiz/quiz_form.html",
-                {"quiz_form": quiz_form, "quiz_file": quiz_file, "error": "Please answer all questions."},
-            )
-
-    return render(request, "quiz/quiz_form.html", {"error": "Invalid form submission."})
 
 # TEST CREATION
-#listar json, de momento, modificar
 @login_required
 def create_test(request):
     if not request.user.is_headhunter:
@@ -129,66 +57,73 @@ def take_test(request, test_id):
         return redirect("dashboard")
     return render(request, "test_platform/take_test.html", {"test": test})
 
-# AVAILABLE TESTS
-def available_tests(request):
-    json_path = settings.BASE_DIR / "static" / "Hard_skills_python.json"
-    with open(json_path) as f:
-        json_tests = json.load(f)
-    db_tests = Test.objects.filter(is_from_json=False)
-    return render(request, "test_platform/tests_avalible.html", {"db_tests": db_tests, "json_tests": json_tests})
-
-
-# RESOLVE JSON TEST
-def resolve_json_test(request):
-    if request.method == "POST":
-        test_data = json.loads(request.POST["test_data"])
-        questions = test_data["questions"]
-        if "answers" in request.POST:
-            answers = request.POST.getlist("answers")
-            score = sum(1 for i, q in enumerate(questions) if q["correct_answer"] == answers[i])
-            return render(request, "test_platform/test_result.html", {"score": score, "total": len(questions)})
-        return render(request, "test_platform/test_resolve.html", {"test": test_data, "questions": questions})
-    return redirect("available_tests")
-
 def load_quiz(file_name):
     """Load quiz data from the selected JSON file."""
-    quiz_path = os.path.join(settings.BASE_DIR, 'quiz', 'static', file_name)
+    quiz_path = os.path.join(settings.BASE_DIR, "test_management", "static", file_name)
     try:
         with open(quiz_path, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
         return None
-#programar logica de ponderacion vista respuestas.
 
 # View to display quiz selection form
 def quiz_view(request):
     if request.method == 'POST':
-        # Get the selected quiz file from the form submission
         quiz_file = request.POST.get('quiz_file')
 
-        # Load the selected quiz
+        if not quiz_file:
+            return render(request, 'quiz/quiz_select.html', {
+                'error': 'No quiz file selected. Please select a quiz from the list.',
+                'quiz_files': [
+                    'CSS.json',
+                    'Django.json',
+                    'HTML.json',
+                    'Numpy.json',
+                    'SQL.json',
+                    'Python-1.json',
+                    'Python-2.json',
+                    'Python-3.json',
+                    'Soft Skills.json',
+                    'Belbin.json'
+                ]
+            })
+
         quiz_data = load_quiz(quiz_file)
 
         if quiz_data:
             return render(request, 'quiz/quiz_form.html', {'quiz_data': quiz_data, 'quiz_file': quiz_file})
         else:
-            return render(request, 'quiz/quiz_form.html', {'error': 'Quiz file not found'})
+            return render(request, 'quiz/quiz_select.html', {
+                'error': f'Quiz file "{quiz_file}" not found. Please select a valid quiz.',
+                'quiz_files': [
+                    'CSS.json',
+                    'Django.json',
+                    'HTML.json',
+                    'Numpy.json',
+                    'SQL.json',
+                    'Python-1.json',
+                    'Python-2.json',
+                    'Python-3.json',
+                    'Soft Skills.json',
+                    'Belbin.json'
+                ]
+            })
 
     else:
-        # Display the form with the list of quiz files
         quiz_files = [
-            'Hard_skills_CSS.json',
-            'Hard_skills_Django.json',
-            'Hard_skills_HTML.json',
-            'Hard_skills_Numpy.json',
-            'Hard_skills_SQL.json',
-            'Hard_skills_Python.json',
-            'Soft_Skills_Test.json'
+            'CSS.json',
+            'Django.json',
+            'HTML.json',
+            'Numpy.json',
+            'SQL.json',
+            'Python-1.json',
+            'Python-2.json',
+            'Python-3.json',
+            'Soft Skills.json',
+            'Belbin.json'
         ]
         return render(request, 'quiz/quiz_select.html', {'quiz_files': quiz_files})
 
-
-# View to handle quiz submission and show results
 
 # View to handle quiz submission and show results
 def submit_quiz(request):
@@ -200,22 +135,34 @@ def submit_quiz(request):
             return render(request, 'quiz/quiz_form.html', {'error': 'Quiz file not found'})
 
         score = 0
+        total_questions = len(quiz_data)
+        wrong_questions = []
+
         for question in quiz_data:
-            # Get the selected answer for this question (based on the question index)
-            question_id = quiz_data.index(question) + 1  # Unique identifier for the question
-            selected_answer = request.POST.get(f'question_{question_id}')  # Get selected answer for this question
+            question_id = quiz_data.index(question) + 1
+            selected_answer = request.POST.get(f'question_{question_id}')
 
-            # Log for debugging purposes (optional)
-            logger.debug(f"Selected answer for question {question_id}: {selected_answer}")
-            logger.debug(f"Correct answer for question {question_id}: {question['correct_answer']}")
-
-            # Compare the selected answer with the correct one
+            # Check if the selected answer matches the correct answer
             if selected_answer == question['correct_answer']:
                 score += 1
+            else:
+                wrong_questions.append({
+                    'question': question['question'],
+                    'selected_answer': selected_answer,
+                    'correct_answer': question['correct_answer']
+                })
 
-        # Return results to the user
-        return render(request, 'quiz/results.html', {'score': score, 'total': len(quiz_data)})
+        # Calculate score percentage
+        score_percentage = (score / total_questions) * 100 if total_questions else 0
+
+        return render(request, 'quiz/results.html', {
+            'score': score,
+            'total': total_questions,
+            'wrong_questions': wrong_questions,
+            'score_percentage': score_percentage
+        })
 
     return render(request, 'quiz/quiz_form.html', {'error': 'Invalid form submission'})
+
 
 

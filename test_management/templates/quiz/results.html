@@ -1,13 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "users/base.html" %}
+{% block title %} Quiz Results {% endblock title %}
+{% load static %}
+{% block content %}
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Results</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Quiz Results</h1>
-    <p>You scored {{ score }} out of {{ total }}.</p>
-    <a href="{% url 'quiz_view' %}">Take another quiz</a>
+    <div class="container mt-5">
+        <h1 class="text-center">Quiz Results</h1>
+        <p class="text-center">You scored <strong>{{ score }}</strong> out of <strong>{{ total }}</strong></p>
+
+        <!-- Progress Bar -->
+        <div class="progress my-4" style="height: 30px;">
+            <div
+                class="progress-bar bg-success"
+                role="progressbar"
+                style="width: {{ score_percentage|floatformat:2 }}%;"
+                aria-valuenow="{{ score }}"
+                aria-valuemin="0"
+                aria-valuemax="{{ total }}">
+                {{ score_percentage|floatformat:2 }}%
+            </div>
+        </div>
+
+        {% if wrong_questions %}
+            <h3 class="mt-4">Questions You Got Wrong</h3>
+            <ul class="list-group">
+                {% for question in wrong_questions %}
+                    <li class="list-group-item">
+                        <strong>Question:</strong> {{ question.question }} <br>
+                        <strong>Your Answer:</strong>
+                        {{ question.selected_answer|default:"Not answered" }} <br>
+                        <strong>Correct Answer:</strong> {{ question.correct_answer }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-success text-center">Great job! You answered all the questions correctly.</p>
+        {% endif %}
+
+        <div class="text-center mt-5">
+            <a href="{% url 'quiz_view' %}" class="btn btn-primary">Take another quiz</a>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>&copy; 2024 DuckyWays App</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% endblock %}
