@@ -470,16 +470,73 @@ def user_cv_delete(request, user_cv_id):
 def user_cv_view_details(request, user_cv_id, profile_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
     profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
-    
+    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+    languages = LanguageUser.objects.filter(profile_user=profile_cv)
+    categories = CategoryUser.objects.filter(profile_user=profile_cv)
+    sectors = SectorUser.objects.filter(profile_user=profile_cv)
+    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+    projects = Project.objects.filter(profile_user=profile_cv)
+    publications = Publication.objects.filter(profile_user=profile_cv)
+    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
 
-    return render(request, 'user_cv/user_cv_view_details.html', {'user_cv': user_cv, 'profile_cv': profile_cv})
+    context = {
+        'user_cv': user_cv,
+        'profile_cv': profile_cv,
+        'work_experiences': work_experiences,
+        'academic_educations': academic_educations,
+        'hard_skills': hard_skills,
+        'soft_skills': soft_skills,
+        'languages': languages,
+        'categories': categories,
+        'sectors': sectors,
+        'incorporations': incorporations,
+        'volunteerings': volunteerings,
+        'projects': projects,
+        'publications': publications,
+        'recognitions_awards': recognitions_awards,
+    }
+
+    return render(request, 'user_cv/user_cv_view_details.html', context)
 
 def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
     profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+    languages = LanguageUser.objects.filter(profile_user=profile_cv)
+    categories = CategoryUser.objects.filter(profile_user=profile_cv)
+    sectors = SectorUser.objects.filter(profile_user=profile_cv)
+    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+    projects = Project.objects.filter(profile_user=profile_cv)
+    publications = Publication.objects.filter(profile_user=profile_cv)
+    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+
+    context = {
+        'user_cv': user_cv,
+        'profile_cv': profile_cv,
+        'work_experiences': work_experiences,
+        'academic_educations': academic_educations,
+        'hard_skills': hard_skills,
+        'soft_skills': soft_skills,
+        'languages': languages,
+        'categories': categories,
+        'sectors': sectors,
+        'incorporations': incorporations,
+        'volunteerings': volunteerings,
+        'projects': projects,
+        'publications': publications,
+        'recognitions_awards': recognitions_awards,
+    }
 
     template = get_template('user_cv/user_cv_view_details.html')
-    html_content = template.render({'user_cv': user_cv, 'profile_cv': profile_cv})
+    html_content = template.render(context)
 
     pdf_file = HTML(string=html_content).write_pdf()
 

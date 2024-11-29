@@ -59,7 +59,7 @@ class User_cv(models.Model):
     has_certifications_courses = models.BooleanField(blank=True, null=True)
 
     def __str__(self):
-        return self.profile_cv.user.username
+        return self.profile_user.user.username
 
 # Model to represent a work experience
 class WorkExperience(models.Model):

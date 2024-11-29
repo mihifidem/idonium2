@@ -40,7 +40,7 @@
         <tbody>
             {% for user_cv in user_cv %}
             <tr>
-                <td>{{ user_cv.profile_cv.user.username }}</td>
+                <td>{{ user_cv.profile_user.user.username }}</td>
                 <td>{{ user_cv.has_address }}</td>
                 <td>{{ user_cv.has_phone_1 }}</td>
                 <td>{{ user_cv.has_phone_2 }}</td>
@@ -69,7 +69,7 @@
                 <td>
                     <a class="btn btn-warning" href="{% url 'user_cv_update' user_cv.pk %}">Edit</a>
                     <a class="btn btn-danger" href="{% url 'user_cv_delete' user_cv.pk %}">Delete</a>
-                    <a class="btn btn-success" href="{% url 'user_cv_view_details' user_cv.pk user_cv.profile_cv.pk%}">View CV</a>
+                    <a class="btn btn-success" href="{% url 'user_cv_view_details' user_cv.pk user_cv.profile_user.pk%}">View CV</a>
                 </td>
             </tr>
             {% empty %}
