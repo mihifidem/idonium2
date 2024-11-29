@@ -4,7 +4,7 @@ from faker import Faker
 import datetime
 from django.core.management.base import BaseCommand
 from courses.models import (  # Cambia `courses` por el nombre de tu aplicación
-    User, ProfileTeacher, Course, Module, Lesson, Resource, CourseUser, Status, WishlistType, WishlistUser, LessonCompletion
+    User, ProfileTeacher, Course, Module, Lesson, Resource, CourseUser, Status, WishListType, WishListUser, LessonCompletion
 )
 
 faker = Faker()
@@ -112,17 +112,15 @@ class Command(BaseCommand):
                     status=random.choice(statuses),
                     start_date=faker.date_time_this_year(),
                     end_date=None,
-                    current_lesson=None,  # Agregado si necesitas este campo
-                    progress_percentage=Decimal(random.uniform(0, 100)).quantize(Decimal("0.00")),  # Agregado si necesitas este campo
-                    certified=False
+                
                 )
 
     def create_wishlist(self):
         users = User.objects.all()
         for user in users:
-            WishlistUser.objects.create(
+            WishListUser.objects.create(
                 user=user,
-                type_wish=WishlistType.objects.create(name=faker.word()),
+                type_wish=WishListType.objects.create(name=faker.word()),
                 id_wish=random.randint(1, 100)
             )
 

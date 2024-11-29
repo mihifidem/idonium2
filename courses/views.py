@@ -128,14 +128,17 @@ def resource_list_view(request):
 
 
 # VISTA CON TODA LA INFORMACIÓN PARA EL HOME DE OSCAR!!!!!!!!!!!
-def course_detail_view(request):
-    # course = Course.objects.get(pk=pk)
-    # module = Module.objects.get(pk=course.pk)
-    # lesson = Lesson.objects.get(pk=module.pk)
-    # teacher = ProfileTeacher.objects.get(pk=course.pk)
-    # resource = Resource.objects.get(pk=lesson.pk)
+def course_detail_view(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    profile_teacher = get_object_or_404(ProfileTeacher, pk=course.pk)
+    module = Module.objects.filter(course=course)
+    lesson = Lesson.objects.filter(module=module)
+    review = Review.objects.filter(course=course)
+    course_review_count = Review.objects.filter(course=course).count()
+    average_rating = review.aggregate(Avg('rating'))['rating__avg']
 
-    return render(request, 'course-singel.html')
+    return render(request, 'course-detail.html', {'course_info': course, 'profile_teacher': profile_teacher, \
+                                                  'module': module, 'lesson': lesson, 'review': review, 'average_rating': average_rating, 'course_review_count': course_review_count})
 
 
 def certificate_create_or_update_view(request, pk=None):
