@@ -470,8 +470,8 @@ def user_cv_delete(request, user_cv_id):
 def user_cv_view_details(request, user_cv_id, profile_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
     profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+    
 
-    print("***************************************************", profile_cv.work_experiences)
     return render(request, 'user_cv/user_cv_view_details.html', {'user_cv': user_cv, 'profile_cv': profile_cv})
 
 def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
