@@ -30,13 +30,45 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='CourseUser',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('start_date', models.DateTimeField(auto_now_add=True)),
+                ('end_date', models.DateTimeField(null=True)),
+                ('certified', models.BooleanField(default=False)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Lesson',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255, unique=True)),
                 ('description', models.TextField(blank=True)),
-                ('completed', models.BooleanField(default=False)),
                 ('is_member', models.BooleanField(default=False)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='LessonCompletion',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('started_at', models.DateTimeField(auto_now_add=True)),
+                ('finished_at', models.DateTimeField(null=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Module',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=255, unique=True)),
+                ('description', models.TextField(blank=True)),
+                ('is_active', models.BooleanField(default=False)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ProfileTeacher',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('image', models.ImageField(blank=True, null=True, upload_to='teachers_images/')),
             ],
         ),
         migrations.CreateModel(
@@ -62,14 +94,14 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='WishlistType',
+            name='WishListType',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='WishlistUser',
+            name='WishListUser',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('id_wish', models.IntegerField()),
