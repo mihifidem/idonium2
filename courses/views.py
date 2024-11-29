@@ -18,7 +18,6 @@ def landing_page(request):
 
 # Funciones Auxiliares ----------------------------------------------------------------
 
-
 def group_required(group_name):
     """Decorator to check if a user belongs to a specific group."""
     def check_group(user):
@@ -27,7 +26,69 @@ def group_required(group_name):
 
 # List Views ----------------------------------------------------------------------------------
 
+def courses_list_view(request):
+    # Obtener todos los cursos activos
+    courses = Course.objects.filter(is_active=True)
+    # Obtener el tipo de wishlist para cursos
+    course_type = WishListType.objects.get(name="Course")
 
+    completed_status = Status.objects.get(name="completed") 
+    
+     # Asegúrate de que el estado 'completado' sea correcto
+
+    completed_courses = []
+    for course in courses:
+        # Contar los usuarios que han completado el curso
+        completed_users_count = CourseUser.objects.filter(course=course, status=completed_status).count()
+
+        # Contar las veces que el curso ha sido añadido a la wishlist
+        course_wishlist_count = WishListUser.objects.filter(type_wish=course_type, id_wish=course.id).count()
+
+        #Contar las reviews que tiene el curso
+        course_reviews_count = Review.objects.filter(course=course).count()
+
+        reviews = Review.objects.filter(course=course)
+        if reviews.exists():
+            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+            
+        else:
+            average_rating = 0  # Si no hay calificaciones, el promedio es 0
+
+        # Agregar el curso y los resultados de los contadores a la lista
+        completed_courses.append({
+            'course': course,
+            'completed_users_count': completed_users_count,
+            'course_wishlist_count': course_wishlist_count,
+            'course_reviews_count': course_reviews_count,
+            'average_rating': round(average_rating, 1)
+        })
+
+    # Pasar los datos al contexto para renderizarlos en el template
+    return render(request, 'courses_list.html', {'completed_courses': completed_courses})
+
+def resources_list_view(request):
+    resources = Resource.objects.filter(is_active=True, downloadable=True)
+    resource_type = WishListType.objects.get(name="Resource")
+
+    resources_list = []
+    for resource in resources:
+        resource_wishlist_count = WishListUser.objects.filter(type_wish=resource_type, id_wish=resource.pk).count()
+        resource_reviews_count = Review.objects.filter(resource=resource).count()
+
+        reviews = Review.objects.filter(resource=resource)
+        if reviews.exists():
+            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+        else:
+            average_rating = 0
+
+        resources_list.append({
+            "resource": resource,
+            "resource_wishlist_count": resource_wishlist_count,
+            "resource_reviews_count": resource_reviews_count,
+            "average_rating": round(average_rating, 1)
+        })
+        
+    return render(request, 'resources_list.html', {'resources_list': resources_list})
 
 # TeacherViews ----------------------------------------------------------------
 @login_required
@@ -71,61 +132,6 @@ def resource_create_or_update_view(request, pk=None):
 #     teacher = User.objects.filter(groups=teacher_group)
 #     profile_teacher = ProfileTeacher.objects.filter(user = teacher)
 #     return render(request, 'profile_teacher_list.html', {'teachers': teacher})
-
-from django.db.models import Count
-
-def courses_list_view(request):
-    # Obtener todos los cursos activos
-    courses = Course.objects.filter(is_active=True)
-    # Obtener el tipo de wishlist para cursos
-    course_type = WishListType.objects.get(name="Course")
-
-    completed_status = Status.objects.get(name="completed") 
-    
-     # Asegúrate de que el estado 'completado' sea correcto
-
-    completed_courses = []
-    for course in courses:
-        # Contar los usuarios que han completado el curso
-        completed_users_count = CourseUser.objects.filter(course=course, status=completed_status).count()
-
-        # Contar las veces que el curso ha sido añadido a la wishlist
-        course_wishlist_count = WishListUser.objects.filter(type_wish=course_type, id_wish=course.id).count()
-
-        #Contar las reviews que tiene el curso
-        course_reviews_count = Review.objects.filter(course=course).count()
-
-        reviews = Review.objects.filter(course=course)
-        if reviews.exists():
-            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-            
-        else:
-            average_rating = 0  # Si no hay calificaciones, el promedio es 0
-
-        # Agregar el curso y los resultados de los contadores a la lista
-        completed_courses.append({
-            'course': course,
-            'completed_users_count': completed_users_count,
-            'course_wishlist_count': course_wishlist_count,
-            'course_reviews_count': course_reviews_count,
-            'average_rating': round(average_rating, 1)
-        })
-
-    # Pasar los datos al contexto para renderizarlos en el template
-    return render(request, 'courses_list.html', {'completed_courses': completed_courses})
-
-
-# return render(request, 'whislist_user_list.html', {
-#         'whislist_users': whislist_user,
-#         'course_wishlist_count': course_wishlist_count
-#     })
-
-
-def resource_list_view(request):
-    resource = Resource.objects.all()
-    return render(request, 'resource_list.html', {'resources': resource})
-
-
 
 # VISTA CON TODA LA INFORMACIÓN PARA EL HOME DE OSCAR!!!!!!!!!!!
 def course_detail_view(request):
