@@ -6,6 +6,7 @@ from ..models import HeadHunterUser,JobOffer,ManagementCandidates
 from ..forms import HeadHunterForm
 from django.shortcuts import render,redirect,get_object_or_404
 from profile_cv.models import Profile_CV
+from django.views import View
 
 
 
@@ -78,24 +79,29 @@ class LandingHeadHuntersView(ListView):
 
 
  #Esta Vista relacionara los candidatos seleccionados con la oferta:
-def manage_candidates(request):
-     if request.method == "POST":
-         selected_candidates_ids = request.POST.getlist("selected_candidates")
-         action = request.POST.get("action")
 
-         if not selected_candidates_ids:
-             # Manejo de error si no se seleccionan candidatos
-             return redirect("landing_headhunters")
 
-         candidates = Profile_CV.objects.filter(id__in=selected_candidates_ids)
+class ManageCandidatesView(View):
+    def post(self, request, *args, **kwargs):
+        # Obtener los candidatos seleccionados y la acción
+        selected_candidates_ids = request.POST.getlist("selected_candidates")
+        action = request.POST.get("action")
 
-         if action == "create_offer":
-             return redirect("create_offer", candidate_ids=",".join(selected_candidates_ids))
+        # Verificar si se seleccionaron candidatos
+        if not selected_candidates_ids:
+            return redirect("landing_headhunters")
 
-         elif action == "add_to_offer":
-             return redirect("add_to_offer", candidate_ids=",".join(selected_candidates_ids))
+        candidates = Profile_CV.objects.filter(id__in=selected_candidates_ids)
 
-     return redirect("landing_headhunters")
+        # Realizar acción según el valor de 'action'
+        if action == "create_offer":
+            return redirect("create_offer", candidate_ids=",".join(selected_candidates_ids))
+
+        elif action == "add_to_offer":
+            return redirect("add_to_offer", candidate_ids=",".join(selected_candidates_ids))
+
+        return redirect("landing_headhunters")
+
 
 # def create_offer_view(request, candidate_ids):
 #     candidate_ids = candidate_ids.split(",")

@@ -42,7 +42,6 @@
 
   <!-- Lista de candidatos con checkboxes -->
   <form method="post" action="{% url 'manage_candidates' %}">
-  <form method="post">
       {% csrf_token %}
       <ul>
           {% for candidate in candidates %}
