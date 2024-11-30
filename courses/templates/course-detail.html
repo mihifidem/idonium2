@@ -29,12 +29,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-banner-cont">
-                        <h2>Learn basic javascript</h2>
+                        <h2>{{course_info.title}}</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="#">Courses</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Learn basic javasript</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{course_info.title}}</li>
                             </ol>
                         </nav>
                     </div>  <!-- page banner cont -->
@@ -53,37 +53,46 @@
                 <div class="col-lg-8">
                     <div class="corses-singel-left mt-30">
                         <div class="title">
-                            <h3>Learn basis javascirpt from start for beginner</h3>
+                            <h3>{{course_info.title}}</h3>
                         </div> <!-- title -->
                         <div class="course-terms">
                             <ul>
                                 <li>
                                     <div class="teacher-name">
                                         <div class="thum">
-                                            <img src="images/course/teacher/t-1.jpg" alt="Teacher">
+                                            <img src="{{profile_teacher.image.url}}" alt="Teacher">
                                         </div>
                                         <div class="name">
                                             <span>Teacher</span>
-                                            <h6>Mark anthem</h6>
+                                            <h6>{{profile_teacher.user.first_name}} {{profile_teacher.user.last_name}}</h6>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="course-category">
                                         <span>Category</span>
-                                        <h6>Programaming </h6>
+                                        <h6>{{course_info.category}}</h6>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="review">
                                         <span>Review</span>
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="rating">(20 Reviws)</li>
+                                            {% if review %}
+                                            <li><a href='#'>Add a review</a></li>
+                                             {% else %}
+                                            <li>{{average_rating}}</li>
+                                             {% endif %}
+                                            {% if average_rating > 0 %}
+                                            <li><i class="fa fa-star"></i></li>
+                                            {%else%}
+                                            <li><i class="far fa-star"></i></li>
+                                            {% endif %}
+                                            {% if course_reviews_count == 0 %}
+                                            <li class="rating">(0 Reviews)</li>
+                                             {% else %}
+                                            <li class="rating">({{course_reviews_count}} Reviews)</li>
+                                             {% endif %}
                                         </ul>
                                     </div>
                                 </li>
@@ -91,7 +100,7 @@
                         </div> <!-- course terms -->
                         
                         <div class="corses-singel-image pt-50">
-                            <img src="images/course/cu-1.jpg" alt="Courses">
+                            <img src="{{course_info.image.url}}" alt="Courses">
                         </div> <!-- corses singel image -->
                         
                         <div class="corses-tab mt-30">
@@ -263,11 +272,11 @@
                                     <div class="instructor-cont">
                                         <div class="instructor-author">
                                             <div class="author-thum">
-                                                <img src="images/instructor/i-1.jpg" alt="Instructor">
+                                                <img src="{{profile_teacher.image.url}}" alt="Instructor">
                                             </div>
                                             <div class="author-name">
-                                                <a href="#"><h5>Sumon Hasan</h5></a>
-                                                <span>Senior WordPress Developer</span>
+                                                <a href="#"><h5>{{profile_teacher.user.first_name}} {{profile_teacher.user.last_name}}</h5></a>
+                                                <span>{{profile_teacher.hardskills}}</span>
                                                 <ul class="social">
                                                     <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -277,7 +286,7 @@
                                             </div>
                                         </div>
                                         <div class="instructor-description pt-25">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus fuga ratione molestiae unde provident quibusdam sunt, doloremque. Error omnis mollitia, ex dolor sequi. Et, quibusdam excepturi. Animi assumenda, consequuntur dolorum odio sit inventore aliquid, optio fugiat alias. Veritatis minima, dicta quam repudiandae repellat non sit, distinctio, impedit, expedita tempora numquam?</p>
+                                            <p>{{profile_teacher.bio}}</p>
                                         </div>
                                     </div> <!-- instructor cont -->
                                 </div>
@@ -287,6 +296,7 @@
                                             <h6>Student Reviews</h6>
                                         </div>
                                         <ul>
+                                            {% for review in reviews %}
                                            <li>
                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
@@ -294,77 +304,26 @@
                                                             <img src="images/review/r-1.jpg" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
-                                                            <h6>Bobby Aktar</h6>
-                                                            <span>April 03, 2019</span>
+                                                            <h6>{{review.user.first_name}} {{review.user.last_name}}</h6>
+                                                            <span>{{review.date}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="reviews-description pt-20">
-                                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which.</p>
+                                                        <p>{{review.comment}}</p>
                                                         <div class="rating">
                                                             <ul>
+                                                                <li>{{review.rating}}</li>
+                                                                {% if review.rating > 0 %}
                                                                 <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
+                                                                {%else%}
+                                                                <li><i class="far fa-star"></i></li>
+                                                                {% endif %}
                                                             </ul>
-                                                            <span>/ 5 Star</span>
                                                         </div>
                                                     </div>
                                                 </div> <!-- singel reviews -->
                                            </li>
-                                           <li>
-                                               <div class="singel-reviews">
-                                                    <div class="reviews-author">
-                                                        <div class="author-thum">
-                                                            <img src="images/review/r-2.jpg" alt="Reviews">
-                                                        </div>
-                                                        <div class="author-name">
-                                                            <h6>Humayun Ahmed</h6>
-                                                            <span>April 13, 2019</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="reviews-description pt-20">
-                                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which.</p>
-                                                        <div class="rating">
-                                                            <ul>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                            </ul>
-                                                            <span>/ 5 Star</span>
-                                                        </div>
-                                                    </div>
-                                                </div> <!-- singel reviews -->
-                                           </li>
-                                           <li>
-                                               <div class="singel-reviews">
-                                                    <div class="reviews-author">
-                                                        <div class="author-thum">
-                                                            <img src="images/review/r-3.jpg" alt="Reviews">
-                                                        </div>
-                                                        <div class="author-name">
-                                                            <h6>Tania Aktar</h6>
-                                                            <span>April 20, 2019</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="reviews-description pt-20">
-                                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which.</p>
-                                                        <div class="rating">
-                                                            <ul>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                            </ul>
-                                                            <span>/ 5 Star</span>
-                                                        </div>
-                                                    </div>
-                                                </div> <!-- singel reviews -->
-                                           </li>
+                                           {% endfor %}
                                         </ul>
                                         <div class="title pt-15">
                                             <h6>Leave A Comment</h6>

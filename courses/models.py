@@ -14,6 +14,7 @@ class Status(models.Model):
     
 class ProfileTeacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    bio = models.TextField(blank=True)
     image = models.ImageField(upload_to='teachers_images/', null=True, blank=True)
     hardskills = models.ForeignKey(HardSkill, on_delete=models.SET_NULL, null=True, blank=True)
     categoriy = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
@@ -32,6 +33,10 @@ class Course(models.Model):
     image = models.ImageField(upload_to='courses_images/', null=True, blank=True)
     is_free = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    catergory = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
+    sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
+    hardskills = models.ForeignKey(HardSkill, blank=True, null=True, on_delete=models.CASCADE)
+    duration = models.IntegerField(null=True, blank=True, default=10)
 
     def __str__(self):
         return self.title
@@ -54,6 +59,9 @@ class Review(models.Model):
     resource = models.ForeignKey('Resource', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'course')
 
     def __str__(self):
         return f'{self.rating} - {self.comment[:50]}...'
@@ -113,7 +121,7 @@ class WishListType(models.Model):
         return self.name
 
 class WishListUser(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     type_wish = models.ForeignKey(WishListType,on_delete=models.CASCADE)
     id_wish = models.IntegerField()
 
