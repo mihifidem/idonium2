@@ -7,9 +7,11 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import user_passes_test, login_required
+from django.db.models import Prefetch
 
 from courses.models import *
 from courses.forms import *
+from profile_cv.models import Profile_CV
 
 # Landing page ------------------------------------------------------------------------------
 
@@ -135,20 +137,56 @@ def resource_create_or_update_view(request, pk=None):
 
 # VISTA CON TODA LA INFORMACIÓN PARA EL HOME DE OSCAR!!!!!!!!!!!
 def course_detail_view(request, pk):
+    # Obtener el curso
     course = get_object_or_404(Course, pk=pk)
+    
+    # Obtener el perfil del profesor
     profile_teacher = get_object_or_404(ProfileTeacher, pk=course.pk)
+    
+    # Obtener las reseñas del curso
     reviews = Review.objects.filter(course=course)
-    course_reviews_count = Review.objects.filter(course=course).count()
+    
+    # Contar las reseñas y calcular la puntuación promedio
+    course_reviews_count = reviews.count()
     average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+    
+    # Obtener los módulos del curso y prefetch lecciones
+    modules = Module.objects.filter(course=course).prefetch_related(
+        Prefetch('lesson_set', queryset=Lesson.objects.all())
+    )
 
-    return render(request, 'course-detail.html', {'course_info':course, 'profile_teacher':profile_teacher, 'course_reviews_count':course_reviews_count, 'average_rating':average_rating, 'reviews':reviews})
+    reviews_with_profiles = []
+    for review in reviews:
+        try:
+            profile = review.user.profile_cv  # Intentamos acceder al Profile_CV del usuario
+            user_image = profile.image.url if profile.image else None  # Verificamos si tiene imagen
+        except Profile_CV.DoesNotExist:  # Si no tiene un Profile_CV asociado
+            user_image = None  # Establecemos la imagen en None o en una imagen por defecto
+
+        reviews_with_profiles.append({
+            'review': review,
+            'user_image': user_image
+        })
+
+    return render(
+        request,
+        'course-detail.html',
+        {
+            'course_info': course,
+            'profile_teacher': profile_teacher,
+            'course_reviews_count': course_reviews_count,
+            'average_rating': average_rating,
+            'reviews_with_profiles': reviews_with_profiles,  # Pasamos las reseñas con imágenes a la plantilla
+            'modules': modules,
+        }
+    )
 
 
 def certificate_create_or_update_view(request, pk=None):
     
     if pk:
         certificate = get_object_or_404(Certificate, pk=pk)
-    else: 
+    else:
         pk = None
     
     if request.method == 'POST':

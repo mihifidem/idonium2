@@ -123,28 +123,35 @@
                                 <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                     <div class="overview-description">
                                         <div class="singel-description pt-40">
-                                            <h6>Course Summery</h6>
-                                            <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
+                                            <h6>Course Summary</h6>
+                                            <p>{{course_info.description}}.</p>
                                         </div>
                                         <div class="singel-description pt-40">
-                                            <h6>Requrements</h6>
-                                            <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
+                                            <h6>Harskills</h6>
+                                            <p>
+                                                {% for hardskill in hardskills %}
+                                                    {{ hardskill.name }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </p>
                                         </div>
                                     </div> <!-- overview description -->
                                 </div>
+                                {% for module in modules %}
                                 <div class="tab-pane fade" id="curriculam" role="tabpanel" aria-labelledby="curriculam-tab">
                                     <div class="curriculam-cont">
                                         <div class="title">
-                                            <h6>Learn basis javascirpt Lecture Started</h6>
+                                            <h6>{{forloop.counter}}. {{module.title}}</h6>
+                                            <p>Number of modules: {{ modules|length }}</p>
                                         </div>
                                         <div class="accordion" id="accordionExample">
+                                            {% for lesson in module.lesson_set.all %}
                                             <div class="card">
                                                 <div class="card-header" id="headingOne">
                                                     <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture 1.1</span></li>
-                                                            <li><span class="head">What is javascirpt</span></li>
+                                                            <li><span class="lecture">Lecture {{ forloop.counter }}.1</span></li>
+                                                            <li><span class="head">{{lesson.name}}</span></li>
                                                             <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
                                                         </ul>
                                                     </a>
@@ -152,122 +159,15 @@
 
                                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                                     <div class="card-body">
-                                                        <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
+                                                        <p>{{lesson.description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="card">
-                                                <div class="card-header" id="headingTow">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseTow" aria-expanded="true" aria-controls="collapseTow">
-                                                        <ul>
-                                                            <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture 1.2</span></li>
-                                                            <li><span class="head">What is javascirpt</span></li>
-                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
-                                                        </ul>
-                                                    </a>
-                                                </div>
-
-                                                <div id="collapseTow" class="collapse" aria-labelledby="headingTow" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card">
-                                                <div class="card-header" id="headingThree">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        <ul>
-                                                            <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture 1.3</span></li>
-                                                            <li><span class="head">What is javascirpt</span></li>
-                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
-                                                        </ul>
-                                                    </a>
-                                                </div>
-                                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card">
-                                                <div class="card-header" id="headingFore">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseFore" aria-expanded="false" aria-controls="collapseFore">
-                                                        <ul>
-                                                            <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture 1.4</span></li>
-                                                            <li><span class="head">What is javascirpt</span></li>
-                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
-                                                        </ul>
-                                                    </a>
-                                                </div>
-                                                <div id="collapseFore" class="collapse" aria-labelledby="headingFore" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card">
-                                                <div class="card-header" id="headingFive">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                                        <ul>
-                                                            <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture 1.5</span></li>
-                                                            <li><span class="head">What is javascirpt</span></li>
-                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
-                                                        </ul>
-                                                    </a>
-                                                </div>
-                                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="card">
-                                                <div class="card-header" id="headingSix">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                                        <ul>
-                                                            <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture 1.6</span></li>
-                                                            <li><span class="head">What is javascirpt</span></li>
-                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
-                                                        </ul>
-                                                    </a>
-                                                </div>
-                                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="card">
-                                                <div class="card-header" id="headingSeven">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                                        <ul>
-                                                            <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture 1.7</span></li>
-                                                            <li><span class="head">What is javascirpt</span></li>
-                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
-                                                        </ul>
-                                                    </a>
-                                                </div>
-                                                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div> <!-- curriculam cont -->
                                 </div>
+                                {% endfor %}
                                 <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
                                     <div class="instructor-cont">
                                         <div class="instructor-author">
@@ -296,34 +196,43 @@
                                             <h6>Student Reviews</h6>
                                         </div>
                                         <ul>
-                                            {% for review in reviews %}
-                                           <li>
-                                               <div class="singel-reviews">
+                                            {% for item in reviews_with_profiles %}
+                                            <li>
+                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
-                                                            <img src="images/review/r-1.jpg" alt="Reviews">
+                                                            <!-- Mostrar la imagen del usuario -->
+                                                            {% if item.user_image %}
+                                                                <img src="{{ item.user_image.url }}" alt="Reviews">
+                                                            {% else %}
+                                                                <!-- Imagen por defecto si no tiene imagen el usuario -->
+                                                                <img src="media\default.jpg" alt="Default Reviews">
+                                                            {% endif %}
                                                         </div>
                                                         <div class="author-name">
-                                                            <h6>{{review.user.first_name}} {{review.user.last_name}}</h6>
-                                                            <span>{{review.date}}</span>
+                                                            <!-- Mostrar el nombre completo del usuario -->
+                                                            <h6>{{ item.review.user.first_name }} {{ item.review.user.last_name }}</h6>
+                                                            <span>{{ item.review.date }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="reviews-description pt-20">
-                                                        <p>{{review.comment}}</p>
+                                                        <!-- Mostrar el comentario de la reseña -->
+                                                        <p>{{ item.review.comment }}</p>
                                                         <div class="rating">
                                                             <ul>
-                                                                <li>{{review.rating}}</li>
-                                                                {% if review.rating > 0 %}
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                {%else%}
-                                                                <li><i class="far fa-star"></i></li>
+                                                                <!-- Mostrar la puntuación de la reseña -->
+                                                                <li>{{ item.review.rating }}</li>
+                                                                {% if item.review %}
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                {% else%}
+                                                                    <li><i class="far fa-star"></i></li>
                                                                 {% endif %}
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div> <!-- singel reviews -->
-                                           </li>
-                                           {% endfor %}
+                                            </li>
+                                        {% endfor %}
                                         </ul>
                                         <div class="title pt-15">
                                             <h6>Leave A Comment</h6>
@@ -381,7 +290,7 @@
                             <div class="course-features mt-30">
                                <h4>Course Features </h4>
                                 <ul>
-                                    <li><i class="fa fa-clock-o"></i>Duaration : <span>10 Hours</span></li>
+                                    <li><i class="fa fa-clock-o"></i>Duaration : <span>{{course_info.duration}}</span></li>
                                     <li><i class="fa fa-clone"></i>Leactures : <span>09</span></li>
                                     <li><i class="fa fa-beer"></i>Quizzes :  <span>05</span></li>
                                     <li><i class="fa fa-user-o"></i>Students :  <span>100</span></li>
