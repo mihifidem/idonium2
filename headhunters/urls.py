@@ -6,6 +6,7 @@ from .views import (
     HeadhunterListView, HeadhunterDetailView, HeadhunterCreateView, HeadhunterUpdateView, HeadhunterDeleteView,
     ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView,
     LandingHeadHuntersView,ManageCandidatesView,
+    CreateOfferView,
     # #create_offer_view, add_to_offer_view,
 )
 
@@ -33,6 +34,8 @@ urlpatterns = [
      #Rutas para gestion de candidatos en la landing
      #
       path('manage_candidates/', ManageCandidatesView.as_view(), name='manage_candidates'),
+    #Ruta para crear oferta desde seleccionados
+      path('create_offer/<str:candidate_ids>/', CreateOfferView.as_view(), name='create_offer'),
     # path("create-offer/<str:candidate_ids>/", create_offer_view, name="create_offer"),
     # path("add-to-offer/<str:candidate_ids>/", add_to_offer_view, name="add_to_offer"),
 ]

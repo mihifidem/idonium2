@@ -58,7 +58,8 @@
                           <div class="card-body">
                               <!-- Foto del candidato -->
                               {% if candidate.img_1_profile %}
-                              <!-- TENGO QUE VER DE DONDE SACAR LA IMG -->
+                              <!-- TENGO QUE VER DE DONDE SACAR LA IMG del USER 0 QUE AUN NO ESTA
+                               Y NO ME ENCUENTRA LA DEFAULT JPG -->
     
                                   <img src="{{ candidate.img_1_profile }}" alt="{{ candidate.user.get_full_name }}" class="img-fluid rounded-circle mb-3" style="max-height: 100px; max-width: 100px;">
                               {% else %}
@@ -81,6 +82,7 @@
 
           <!-- Botones de acción -->
           <div class="btn-group">
+            
               <button type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
               <button type="submit" name="action" value="add_to_offer" class="btn btn-warning">Agregar a oferta existente</button>
           </div>
