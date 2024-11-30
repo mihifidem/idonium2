@@ -127,7 +127,7 @@
                                             <p>{{course_info.description}}.</p>
                                         </div>
                                         <div class="singel-description pt-40">
-                                            <h6>Harskills</h6>
+                                            <h6>Hardskills</h6>
                                             <p>
                                                 {% for hardskill in hardskills %}
                                                     {{ hardskill.name }}{% if not forloop.last %}, {% endif %}
@@ -136,38 +136,42 @@
                                         </div>
                                     </div> <!-- overview description -->
                                 </div>
-                                {% for module in modules %}
+                                
                                 <div class="tab-pane fade" id="curriculam" role="tabpanel" aria-labelledby="curriculam-tab">
                                     <div class="curriculam-cont">
+                                        {% for module in modules_with_index %}
                                         <div class="title">
-                                            <h6>{{forloop.counter}}. {{module.title}}</h6>
-                                            <p>Number of modules: {{ modules|length }}</p>
+                                            <h6>{{ module.module_index }}. {{ module.title }}</h6>
                                         </div>
-                                        <div class="accordion" id="accordionExample">
-                                            {% for lesson in module.lesson_set.all %}
+                                        <div class="accordion" id="accordionExample{{ module.module_index }}">
+                                            {% for lesson in module.lesson_set_indexed %}
                                             <div class="card">
-                                                <div class="card-header" id="headingOne">
-                                                    <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <div class="card-header" id="heading{{ lesson.lesson_index }}-module{{ module.module_index }}">
+                                                    <a href="#" data-toggle="collapse" data-target="#collapse{{ lesson.lesson_index }}-module{{ module.module_index }}" aria-expanded="true" aria-controls="collapse{{ lesson.lesson_index }}-module{{ module.module_index }}">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
-                                                            <li><span class="lecture">Lecture {{ forloop.counter }}.1</span></li>
-                                                            <li><span class="head">{{lesson.name}}</span></li>
-                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span> 00.30.00</span></span></li>
+                                                            <li><span class="lecture">Lecture {{ module.module_index }}.{{ lesson.lesson_index }}</span></li>
+                                                            <li><span class="head">{{ lesson.name }}</span></li>
+                                                            {% if lesson.duration %}
+                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
+                                                            {%else%}
+                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>0 min</span></span></li>
+                                                            {% endif %}
                                                         </ul>
                                                     </a>
                                                 </div>
-
-                                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <p>{{lesson.description}}</p>
-                                                    </div>
+                                            <div id="collapse{{ lesson.lesson_index }}-module{{ module.module_index }}" class="collapse" aria-labelledby="heading{{ lesson.lesson_index }}-module{{ module.module_index }}" data-parent="#accordionExample{{ module.module_index }}">
+                                                <div class="card-body">
+                                                    <p>{{ lesson.description }}</p>
                                                 </div>
                                             </div>
+                                        </div>
                                             {% endfor %}
                                         </div>
+                                        <br>
+                                    {% endfor %}
                                     </div> <!-- curriculam cont -->
                                 </div>
-                                {% endfor %}
                                 <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
                                     <div class="instructor-cont">
                                         <div class="instructor-author">

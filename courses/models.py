@@ -36,7 +36,7 @@ class Course(models.Model):
     catergory = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
     sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
     hardskills = models.ForeignKey(HardSkill, blank=True, null=True, on_delete=models.CASCADE)
-    duration = models.IntegerField(null=True, blank=True, default=10)
+    
 
     def __str__(self):
         return self.title
@@ -83,6 +83,7 @@ class Lesson(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     is_member = models.BooleanField(default=False)
+    duration = models.IntegerField(null=True, blank=True, default=10)
     
 
     def __str__(self):

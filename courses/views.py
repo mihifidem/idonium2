@@ -152,8 +152,23 @@ def course_detail_view(request, pk):
     
     # Obtener los módulos del curso y prefetch lecciones
     modules = Module.objects.filter(course=course).prefetch_related(
-        Prefetch('lesson_set', queryset=Lesson.objects.all())
-    )
+        Prefetch('lesson_set', queryset=Lesson.objects.all()))
+
+    modules_with_index = []
+    for module_index, module in enumerate(modules, start=1):  # Índice de módulo comienza en 1
+        # Agregamos un atributo "module_index" al módulo
+        module.module_index = module_index
+        
+        # Añadimos índices para las lecciones del módulo
+        lessons_with_indices = []
+        for lesson_index, lesson in enumerate(module.lesson_set.all(), start=1):  # Índice de lección comienza en 1
+            # Agregamos un atributo "lesson_index" a cada lección
+            lesson.lesson_index = lesson_index
+            lessons_with_indices.append(lesson)
+
+        # Reemplazamos la relación con la lista de lecciones indexadas
+        module.lesson_set_indexed = lessons_with_indices
+        modules_with_index.append(module)
 
     reviews_with_profiles = []
     for review in reviews:
@@ -177,7 +192,7 @@ def course_detail_view(request, pk):
             'course_reviews_count': course_reviews_count,
             'average_rating': average_rating,
             'reviews_with_profiles': reviews_with_profiles,  # Pasamos las reseñas con imágenes a la plantilla
-            'modules': modules,
+            'modules_with_index': modules_with_index,
         }
     )
 
