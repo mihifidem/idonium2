@@ -160,9 +160,9 @@
                                         <a href="about.html">About us</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="courses.html">Courses</a>
+                                        <a href="{% url 'courses:courses-list' %}">Courses</a>
                                         <ul class="sub-menu">
-                                            <li><a href="courses.html">Courses</a></li>
+                                            <li><a href="{% url 'courses:courses-list' %}">Courses</a></li>
                                             <li><a href="courses-singel.html">Course Singel</a></li>
                                         </ul>
                                     </li>
@@ -252,7 +252,7 @@
                             <ul>
                                 <li><a href="index-2.html"><i class="fa fa-angle-right"></i>Home</a></li>
                                 <li><a href="about.html"><i class="fa fa-angle-right"></i>About us</a></li>
-                                <li><a href="courses.html"><i class="fa fa-angle-right"></i>Courses</a></li>
+                                <li><a href="{% url 'courses:courses-list' %}"><i class="fa fa-angle-right"></i>Courses</a></li>
                                 <li><a href="blog.html"><i class="fa fa-angle-right"></i>News</a></li>
                                 <li><a href="events.html"><i class="fa fa-angle-right"></i>Event</a></li>
                             </ul>

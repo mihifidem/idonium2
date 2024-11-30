@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'users/base.html' %}
 
 {% block content %}
 <div class="profile-cv">
@@ -23,7 +23,7 @@
     <p><strong>Habilidades blandas:</strong> {{ profile.soft_skills }}</p>
 
     <!-- crear curriculum -->
-    <a class="btn btn-primary" href="{% url 'user_cv_create' profile.user.username %}">Crear curriculum</a>
+    <a class="btn btn-primary" href="{% url 'user_cv_create' profile.pk %}">Crear curriculum</a>
 
 </div>
 {% endblock %}

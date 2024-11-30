@@ -1,6 +1,13 @@
+import random
+import string
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from weasyprint import HTML
 from .models import *
 from .forms import *
+from django.template.loader import get_template
+
+
 
 # * |--------------------------------------------------------------------------
 # * | Home
@@ -375,46 +382,6 @@ def recognition_award_delete(request, recognition_award_id):
     return render(request, "recognitionaward/recognitionaward_confirm_delete.html", {"recognitions_awards": recognitionaward})
 
 # * |--------------------------------------------------------------------------
-# * | Class CertificationCourse
-# * |--------------------------------------------------------------------------
-
-#? Función para listar las certificaciones y cursos
-def certification_course_list(request):
-    certifications_courses = CertificationCourse.objects.all()
-    return render(request, "certificationcourse/certificationcourse_list.html", {"certifications_courses": certifications_courses})
-
-#? Función para crear una certificación o curso
-def certification_course_create(request):
-    if request.method == "POST":
-        form = CertificationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("certification_course_list")
-    else:
-        form = CertificationForm()
-    return render(request, "certificationcourse/certificationcourse_form.html", {"form": form})
-
-# Función para actualizar una certificación o curso
-def certification_course_update(request, certification_course_id):
-    certificationcourse = get_object_or_404(CertificationCourse, id=certification_course_id)
-    if request.method == "POST":
-        form = CertificationForm(request.POST, instance=certificationcourse)
-        if form.is_valid():
-            form.save()
-            return redirect("certification_course_list")
-    else:
-        form = CertificationForm(instance=certificationcourse)
-    return render(request, "certificationcourse/certificationcourse_form.html", {"form": form})
-
-# Función para eliminar una certificación o curso
-def certification_course_delete(request, certification_course_id):
-    certificationcourse = get_object_or_404(CertificationCourse, id=certification_course_id)
-    if request.method == "POST":
-        certificationcourse.delete()
-        return redirect("certification_course_list")
-    return render(request, "certificationcourse/certificationcourse_confirm_delete.html", {"certificationcourse": certificationcourse})
-
-# * |--------------------------------------------------------------------------
 # * | Class Publication
 # * |--------------------------------------------------------------------------
 
@@ -464,8 +431,8 @@ def user_cv_list(request):
     return render(request, "user_cv/user_cv_list.html", {"user_cv": user_cv})
 
 #? Función para crear un CV
-def user_cv_create(request, username):
-    profile_cv = get_object_or_404(Profile_CV, user__username=username)
+def user_cv_create(request, profile_id):
+    profile_cv = get_object_or_404(Profile_CV, id=profile_id)
     if request.method == "POST":
         form = UserCvForm(request.POST)
         if form.is_valid():
@@ -475,7 +442,7 @@ def user_cv_create(request, username):
             return redirect("user_cv_list")
     else:
         random_numbers = ''.join(random.choices(string.digits, k=4))
-        initial_urlCV = f"https://{username}-{random_numbers}.com"
+        initial_urlCV = f"https://{profile_cv.user.username}-{random_numbers}.com"
         form = UserCvForm(initial={'urlCV': initial_urlCV})
     return render(request, "user_cv/user_cv_form.html", {"form": form})
 
@@ -499,3 +466,81 @@ def user_cv_delete(request, user_cv_id):
         return redirect("user_cv_list")
     return render(request, "user_cv/user_cv_confirm_delete.html", {"user_cv": user_cv})
 
+#? Función para ver los detalles de un CV
+def user_cv_view_details(request, user_cv_id, profile_cv_id):
+    user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+    languages = LanguageUser.objects.filter(profile_user=profile_cv)
+    categories = CategoryUser.objects.filter(profile_user=profile_cv)
+    sectors = SectorUser.objects.filter(profile_user=profile_cv)
+    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+    projects = Project.objects.filter(profile_user=profile_cv)
+    publications = Publication.objects.filter(profile_user=profile_cv)
+    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+
+    context = {
+        'user_cv': user_cv,
+        'profile_cv': profile_cv,
+        'work_experiences': work_experiences,
+        'academic_educations': academic_educations,
+        'hard_skills': hard_skills,
+        'soft_skills': soft_skills,
+        'languages': languages,
+        'categories': categories,
+        'sectors': sectors,
+        'incorporations': incorporations,
+        'volunteerings': volunteerings,
+        'projects': projects,
+        'publications': publications,
+        'recognitions_awards': recognitions_awards,
+    }
+
+    return render(request, 'user_cv/user_cv_view_details.html', context)
+
+def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
+    user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+    languages = LanguageUser.objects.filter(profile_user=profile_cv)
+    categories = CategoryUser.objects.filter(profile_user=profile_cv)
+    sectors = SectorUser.objects.filter(profile_user=profile_cv)
+    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+    projects = Project.objects.filter(profile_user=profile_cv)
+    publications = Publication.objects.filter(profile_user=profile_cv)
+    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+
+    context = {
+        'user_cv': user_cv,
+        'profile_cv': profile_cv,
+        'work_experiences': work_experiences,
+        'academic_educations': academic_educations,
+        'hard_skills': hard_skills,
+        'soft_skills': soft_skills,
+        'languages': languages,
+        'categories': categories,
+        'sectors': sectors,
+        'incorporations': incorporations,
+        'volunteerings': volunteerings,
+        'projects': projects,
+        'publications': publications,
+        'recognitions_awards': recognitions_awards,
+    }
+
+    template = get_template('user_cv/user_cv_view_details.html')
+    html_content = template.render(context)
+
+    pdf_file = HTML(string=html_content).write_pdf()
+
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = "inline; filename='user_cv.pdf'"
+
+    return response

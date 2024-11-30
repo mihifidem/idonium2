@@ -22,19 +22,6 @@ class ProfileForm(forms.ModelForm):
             "vehicle",
             "disability",
             "disability_percentage",
-            "incorporation",
-            "sector",
-            "category",
-            "work_experiences",
-            "hard_skills",
-            "soft_skills",
-            "languages",
-            "academic_educations",
-            "volunteerings",
-            "projects",
-            "publications",
-            "recognitions_awards",
-            "certifications_courses",
         ]
 
 # Form to represent a work experience
@@ -42,6 +29,7 @@ class WorkExperienceForm(forms.ModelForm):
     class Meta:
         model = WorkExperience
         fields = [
+            "profile_user",
             "job_title",
             "start_date",
             "end_date",
@@ -57,6 +45,7 @@ class AcademicEducationForm(forms.ModelForm):
     class Meta:
         model = AcademicEducation
         fields = [
+            "profile_user",
             "title",
             "academy_name",
             "start_date",
@@ -69,25 +58,26 @@ class AcademicEducationForm(forms.ModelForm):
 class HardSkillForm(forms.ModelForm):
     class Meta:
         model = HardSkillUser
-        fields = ["hard_skill", "description", "level_skill"]
+        fields = ["profile_user","hard_skill", "description", "level_skill"]
 
 # Form to represent a soft skill
 class SoftSkillForm(forms.ModelForm):
     class Meta:
         model = SoftSkillUser
-        fields = ["soft_skill", "description"]
+        fields = ["profile_user","soft_skill", "description"]
 
 # Form to represent a language
 class LanguageForm(forms.ModelForm):
     class Meta:
         model = LanguageUser
-        fields = ["language", "level", "certifications"]
+        fields = ["profile_user","language", "level", "certifications"]
 
 # Form to represent a volunteering
 class VolunteeringForm(forms.ModelForm):
     class Meta:
         model = Volunteering
         fields = [
+            "profile_user",
             "volunteering_position",
             "start_date",
             "end_date",
@@ -102,19 +92,19 @@ class VolunteeringForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["name", "description", "link"]
+        fields = ["profile_user","name", "description", "link"]
 
 # Form to represent a publication
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
-        fields = ["doi", "url", "role", "name"]
+        fields = ["profile_user","doi", "url", "role", "name"]
 
 # Form to represent a recognition or award
 class RecognitionForm(forms.ModelForm):
     class Meta:
         model = RecognitionAward
-        fields = ["name", "entity", "description"]
+        fields = ["profile_user","name", "entity", "description"]
 
 #form to represent a user cv
 class ToggleButtonWidget(forms.CheckboxInput):
@@ -129,6 +119,7 @@ class UserCvForm(forms.ModelForm):
     class Meta:
         model = User_cv
         fields = [
+            "profile_user",
             "urlCV",
             "template",
             "has_img_profile",
