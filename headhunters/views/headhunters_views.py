@@ -2,8 +2,12 @@
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from ..models import HeadHunterUser
+from ..models import HeadHunterUser,JobOffer,ManagementCandidates
 from ..forms import HeadHunterForm
+from django.shortcuts import render,redirect,get_object_or_404
+from profile_cv.models import Profile_CV
+
+
 
 class HeadhunterListView(ListView):
     model = HeadHunterUser
@@ -31,3 +35,76 @@ class HeadhunterDeleteView(DeleteView):
     model = HeadHunterUser
     template_name = 'headhunters/headhunter_confirm_delete.html'
     success_url = reverse_lazy('headhunter_list')
+    
+    
+class LandingHeadHuntersView(ListView):
+    model = Profile_CV
+    template_name = 'headhunters/landing_headhunters.html'
+    context_object_name = 'candidates'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Obtener filtros de manera más segura
+        location_filter = self.request.GET.get('location', '')
+        availability_filter = self.request.GET.get('open_to_work', '')
+        vehicle_filter = self.request.GET.get('vehicle', '')
+        disability_filter = self.request.GET.get('disability', '')
+        disability_percentage_filter = self.request.GET.get('disability_percentage', '')
+
+        # Filtrar por ubicación
+        if location_filter:
+            queryset = queryset.filter(address__icontains=location_filter)
+
+        # Filtro por disponibilidad
+        if availability_filter.lower() in ['true', 'false']:
+            queryset = queryset.filter(open_to_work=availability_filter.lower() == 'true')
+
+        # Filtro por vehículo
+        if vehicle_filter.lower() in ['true', 'false']:
+            queryset = queryset.filter(vehicle=vehicle_filter.lower() == 'true')
+
+        # Filtro por discapacidad
+        if disability_filter.lower() in ['true', 'false']:
+            queryset = queryset.filter(disability=disability_filter.lower() == 'true')
+
+        # Filtro por porcentaje de discapacidad
+        if disability_percentage_filter.isdigit():
+            queryset = queryset.filter(disability_percentage__gte=int(disability_percentage_filter))
+
+        return queryset
+
+
+
+ #Esta Vista relacionara los candidatos seleccionados con la oferta:
+def manage_candidates(request):
+     if request.method == "POST":
+         selected_candidates_ids = request.POST.getlist("selected_candidates")
+         action = request.POST.get("action")
+
+         if not selected_candidates_ids:
+             # Manejo de error si no se seleccionan candidatos
+             return redirect("landing_headhunters")
+
+         candidates = Profile_CV.objects.filter(id__in=selected_candidates_ids)
+
+         if action == "create_offer":
+             return redirect("create_offer", candidate_ids=",".join(selected_candidates_ids))
+
+         elif action == "add_to_offer":
+             return redirect("add_to_offer", candidate_ids=",".join(selected_candidates_ids))
+
+     return redirect("landing_headhunters")
+
+# def create_offer_view(request, candidate_ids):
+#     candidate_ids = candidate_ids.split(",")
+#     candidates = Profile_CV.objects.filter(id__in=candidate_ids)
+#     # Lógica para crear una oferta con los candidatos seleccionados
+#     return render(request, "headhunters/create_offer.html", {"candidates": candidates})
+
+# def add_to_offer_view(request, candidate_ids):
+#     candidate_ids = candidate_ids.split(",")
+#     candidates = Profile_CV.objects.filter(id__in=candidate_ids)
+#     # Lógica para agregar candidatos a una oferta existente
+#     return render(request, "headhunters/add_to_offer.html", {"candidates": candidates})
