@@ -1,61 +1,89 @@
 {% extends "users/base.html" %}
+{% load static %}  <!-- Cargar el tag static aquí -->
 
 {% block content %}
-  <h1>Candidates</h1>
+  <div class="container mt-4">
+      <h1>Candidates</h1>
 
-  <!-- Filtros -->
-  <form method="get">
-      <div>
-          <label for="location">Ubicación:</label>
-          <input type="text" name="location" id="location" value="{{ request.GET.location }}">
-      </div>
-      <div>
-          <label for="open_to_work">Disponibilidad para trabajar:</label>
-          <select name="open_to_work" id="open_to_work">
-              <option value="" {% if request.GET.open_to_work == "" %}selected{% endif %}>Todos</option>
-              <option value="true" {% if request.GET.open_to_work == "true" %}selected{% endif %}>Sí</option>
-              <option value="false" {% if request.GET.open_to_work == "false" %}selected{% endif %}>No</option>
-          </select>
-      </div>
-      <div>
-          <label for="vehicle">Vehículo disponible:</label>
-          <select name="vehicle" id="vehicle">
-              <option value="" {% if request.GET.vehicle == "" %}selected{% endif %}>Todos</option>
-              <option value="true" {% if request.GET.vehicle == "true" %}selected{% endif %}>Sí</option>
-              <option value="false" {% if request.GET.vehicle == "false" %}selected{% endif %}>No</option>
-          </select>
-      </div>
-      <div>
-          <label for="disability">Discapacidad:</label>
-          <select name="disability" id="disability">
-              <option value="" {% if request.GET.disability == "" %}selected{% endif %}>Todos</option>
-              <option value="true" {% if request.GET.disability == "true" %}selected{% endif %}>Sí</option>
-              <option value="false" {% if request.GET.disability == "false" %}selected{% endif %}>No</option>
-          </select>
-      </div>
-      <div>
-          <label for="disability_percentage">Porcentaje de discapacidad (mínimo):</label>
-          <input type="number" name="disability_percentage" id="disability_percentage" value="{{ request.GET.disability_percentage }}">
-      </div>
-      <button type="submit">Aplicar filtros</button>
-  </form>
+      <!-- Filtros -->
+      <form method="get" class="mb-4">
+          <div class="row">
+              <div class="col-md-4 col-sm-12 form-group">
+                  <label for="location">Ubicación:</label>
+                  <input type="text" name="location" id="location" class="form-control" value="{{ request.GET.location }}">
+              </div>
+              <div class="col-md-4 col-sm-12 form-group">
+                  <label for="open_to_work">Disponibilidad para trabajar:</label>
+                  <select name="open_to_work" id="open_to_work" class="form-control">
+                      <option value="" {% if request.GET.open_to_work == "" %}selected{% endif %}>Todos</option>
+                      <option value="true" {% if request.GET.open_to_work == "true" %}selected{% endif %}>Sí</option>
+                      <option value="false" {% if request.GET.open_to_work == "false" %}selected{% endif %}>No</option>
+                  </select>
+              </div>
+              <div class="col-md-4 col-sm-12 form-group">
+                  <label for="vehicle">Vehículo disponible:</label>
+                  <select name="vehicle" id="vehicle" class="form-control">
+                      <option value="" {% if request.GET.vehicle == "" %}selected{% endif %}>Todos</option>
+                      <option value="true" {% if request.GET.vehicle == "true" %}selected{% endif %}>Sí</option>
+                      <option value="false" {% if request.GET.vehicle == "false" %}selected{% endif %}>No</option>
+                  </select>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-4 col-sm-12 form-group">
+                  <label for="disability">Discapacidad:</label>
+                  <select name="disability" id="disability" class="form-control">
+                      <option value="" {% if request.GET.disability == "" %}selected{% endif %}>Todos</option>
+                      <option value="true" {% if request.GET.disability == "true" %}selected{% endif %}>Sí</option>
+                      <option value="false" {% if request.GET.disability == "false" %}selected{% endif %}>No</option>
+                  </select>
+              </div>
+              <div class="col-md-4 col-sm-12 form-group">
+                  <label for="disability_percentage">Porcentaje de discapacidad (mínimo):</label>
+                  <input type="number" name="disability_percentage" id="disability_percentage" class="form-control" value="{{ request.GET.disability_percentage }}">
+              </div>
+              <div class="col-md-4 col-sm-12 form-group d-flex align-items-end">
+                  <button type="submit" class="btn btn-primary w-100">Aplicar filtros</button>
+              </div>
+          </div>
+      </form>
 
-  <!-- Lista de candidatos con checkboxes -->
-  <form method="post" action="{% url 'manage_candidates' %}">
-      {% csrf_token %}
-      <ul>
-          {% for candidate in candidates %}
-              <li>
-                  <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}">
-                  {{ candidate.user.get_full_name }} - {{ candidate.address }}
-              </li>
-          {% empty %}
-              <li>No hay candidatos que coincidan con los filtros.</li>
-          {% endfor %}
-      </ul>
+      <!-- Lista de candidatos con checkboxes -->
+      <form method="post" action="{% url 'manage_candidates' %}">
+          {% csrf_token %}
+          <div class="row">
+              {% for candidate in candidates %}
+                  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                      <div class="card">
+                          <div class="card-body">
+                              <!-- Foto del candidato -->
+                              {% if candidate.img_1_profile %}
+                              <!-- TENGO QUE VER DE DONDE SACAR LA IMG -->
+    
+                                  <img src="{{ candidate.img_1_profile }}" alt="{{ candidate.user.get_full_name }}" class="img-fluid rounded-circle mb-3" style="max-height: 100px; max-width: 100px;">
+                              {% else %}
+                                  <img src='http://127.0.0.1:8000/media/profile_images/2.png' alt="Foto por defecto" class="img-fluid rounded-circle mb-3" style="max-height: 100px; max-width: 100px;">
+                              {% endif %}
+                              
+                              <!-- Información del candidato -->
+                              <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2">
+                              <strong>{{ candidate.user.get_full_name }}</strong><br>
+                              <small>{{ candidate.address }}</small>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <div class="col-12">
+                      <div class="alert alert-warning">No hay candidatos que coincidan con los filtros.</div>
+                  </div>
+              {% endfor %}
+          </div>
 
-      <!-- Botones de acción -->
-      <button type="submit" name="action" value="create_offer">Crear oferta a partir de seleccionados</button>
-      <button type="submit" name="action" value="add_to_offer">Agregar a oferta existente</button>
-  </form>
+          <!-- Botones de acción -->
+          <div class="btn-group">
+              <button type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
+              <button type="submit" name="action" value="add_to_offer" class="btn btn-warning">Agregar a oferta existente</button>
+          </div>
+      </form>
+  </div>
 {% endblock %}
