@@ -71,7 +71,7 @@
                                 <li>
                                     <div class="course-category">
                                         <span>Category</span>
-                                        <h6>{{course_info.category}}</h6>
+                                        <h6>{{course_info.sector.category}}</h6>
                                     </div>
                                 </li>
                                 <li>
@@ -129,8 +129,8 @@
                                         <div class="singel-description pt-40">
                                             <h6>Hardskills</h6>
                                             <p>
-                                                {% for hardskill in hardskills %}
-                                                    {{ hardskill.name }}{% if not forloop.last %}, {% endif %}
+                                                {% for hardskill in course_info.hardskills %}
+                                                 <span>{{ hardskill.name }}</span>
                                                 {% endfor %}
                                             </p>
                                         </div>
@@ -300,7 +300,11 @@
                                     <li><i class="fa fa-user-o"></i>Students :  <span>{{total_users_count}}</span></li>
                                 </ul>
                                 <div class="price-button pt-10">
+                                    {% if course_info.is_free == True %}
+                                    <span>Price : <b>Free</b></span>
+                                    {%else%}
                                     <span>Price : <b>{{course_info.price}} €</b></span>
+                                    {%endif%}
                                     <a href="#" class="main-btn">Enroll Now</a>
                                 </div>
                             </div> <!-- course features -->
@@ -353,41 +357,40 @@
                 <div class="col-lg-8">
                     <div class="releted-courses pt-95">
                         <div class="title">
-                            <h3>Releted Courses</h3>
+                            <h3>Related Courses</h3>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="singel-course mt-30">
                                     <div class="thum">
                                         <div class="image">
-                                            <img src="images/course/cu-2.jpg" alt="Course">
+                                            <img src="images/course/cu-1.jpg" alt="Course">
                                         </div>
                                         <div class="price">
-                                            <span>{{course_most_completed.price}} €</span>
+                                            <span>Free</span>
                                         </div>
                                     </div>
                                     <div class="cont">
                                         <ul>
-                                            <li>{{average_rating_most_completed}}</li>
-                                            {% if average_rating_most_completed and average_rating_most_completed > 0 %}
                                             <li><i class="fa fa-star"></i></li>
-                                            {%else%}
-                                            <li><i class="fa far fa-star"></i></li>
-                                            {%endif%}
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
                                         </ul>
-                                        <span>({{total_reviews_most_completed}} Reviews)</span>
+                                        <span>(20 Reviws)</span>
                                         <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
-                                                <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>
+                                                <a href="#"><img src="images/course/teacher/t-3.jpg" alt="teacher"></a>
                                             </div>
                                             <div class="name">
-                                                <a href="#"><h6>{{course_most_completed.profile_teacher.user.first_name}} {{course_most_completed.profile_teacher.user.last_name}}</h6></a>
+                                                <a href="#"><h6>Mark anthem</h6></a>
                                             </div>
                                             <div class="admin">
                                                 <ul>
-                                                    <li><a href="#"><i class="fa fa-user"></i><span>{{completions}}</span></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i><span>{{total_wished_most_completed}}</span></a></li>
+                                                    <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
+                                                    <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>

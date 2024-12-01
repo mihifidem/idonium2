@@ -36,7 +36,7 @@ class Course(models.Model):
     catergory = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
     sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
     hardskills = models.ForeignKey(HardSkill, blank=True, null=True, on_delete=models.CASCADE)
-    
+
 
     def __str__(self):
         return self.title
