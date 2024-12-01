@@ -97,20 +97,10 @@ class ManageCandidatesView(View):
         if action == "create_offer":
             return redirect("create_offer", candidate_ids=",".join(selected_candidates_ids))
 
-        elif action == "add_to_offer":
-            return redirect("add_to_offer", candidate_ids=",".join(selected_candidates_ids))
+        elif action == "add_to_existing_offer":
+            return redirect("add_to_existing_offer", candidate_ids=",".join(selected_candidates_ids))
 
         return redirect("landing_headhunters")
 
 
-# def create_offer_view(request, candidate_ids):
-#     candidate_ids = candidate_ids.split(",")
-#     candidates = Profile_CV.objects.filter(id__in=candidate_ids)
-#     # Lógica para crear una oferta con los candidatos seleccionados
-#     return render(request, "headhunters/create_offer.html", {"candidates": candidates})
 
-# def add_to_offer_view(request, candidate_ids):
-#     candidate_ids = candidate_ids.split(",")
-#     candidates = Profile_CV.objects.filter(id__in=candidate_ids)
-#     # Lógica para agregar candidatos a una oferta existente
-#     return render(request, "headhunters/add_to_offer.html", {"candidates": candidates})
