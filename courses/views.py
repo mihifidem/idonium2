@@ -69,7 +69,7 @@ def courses_list_view(request):
     return render(request, 'courses_list.html', {'completed_courses': completed_courses})
 
 def resources_list_view(request):
-    resources = Resource.objects.filter(is_active=True, downloadable=True)
+    resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
     resource_type = WishListType.objects.get(name="Resource")
 
     resources_list = []

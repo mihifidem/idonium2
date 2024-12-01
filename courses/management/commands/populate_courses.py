@@ -20,6 +20,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         Status.objects.create(name='completed', description='Completed')
         WishListType.objects.create(name="Course")
+        WishListType.objects.create(name="Resource")
         self.create_users()
         self.create_teachers()
         self.create_status()
@@ -103,7 +104,9 @@ class Command(BaseCommand):
                     link=faker.url(),
                     image=self.get_random_image(RESOURCES_IMAGE_DIR),
                     document=None,
-                    is_active=True
+                    is_active=True,
+                    is_free=random.choice([True, False]),
+                    price=Decimal(random.uniform(10, 100)).quantize(Decimal("0.00")),
                 )
 
     def create_course_users(self):
