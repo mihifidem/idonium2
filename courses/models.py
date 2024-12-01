@@ -55,16 +55,40 @@ class Certificate(models.Model):
 class Review(models.Model):
     rating = models.PositiveIntegerField(choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')))
     comment = models.TextField(blank=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
-    resource = models.ForeignKey('Resource', on_delete=models.CASCADE, blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
+    resource = models.ForeignKey('Resource', on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'course')
+        constraints = [
+            # Garantiza que una Review solo pueda estar vinculada a un curso o a un recurso
+            models.CheckConstraint(
+                check=(
+                    models.Q(course__isnull=False, resource__isnull=True) |
+                    models.Q(course__isnull=True, resource__isnull=False)
+                ),
+                name='review_course_or_resource_not_both'
+            ),
+            # Asegura que un usuario pueda dejar solo una review por curso
+            models.UniqueConstraint(
+                fields=['user', 'course'],
+                name='unique_user_course_review'
+            ),
+            # Asegura que un usuario pueda dejar solo una review por recurso
+            models.UniqueConstraint(
+                fields=['user', 'resource'],
+                name='unique_user_resource_review'
+            )
+        ]
 
     def __str__(self):
-        return f'{self.rating} - {self.comment[:50]}...'
+        if self.course:
+            return f'{self.user.username} - Course: {self.course.title}'
+        elif self.resource:
+            return f'{self.user.username} - Resource: {self.resource.name}'
+        else:
+            return f'{self.user.username} - Unlinked Review'
 
 
 class Module(models.Model):
@@ -73,8 +97,6 @@ class Module(models.Model):
     description = models.TextField(blank=True)
     is_active = models.BooleanField(default=False)
     
-    
-
     def __str__(self):
         return self.title
 
@@ -111,7 +133,8 @@ class Resource(models.Model):
     link = models.CharField(max_length=50, blank=True, null=True)
     document = models.FileField(blank=True, null=True)
     is_active = models.BooleanField(default=False)
-
+    is_free = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
 
     def __str__(self):
         return f"{self.name}"

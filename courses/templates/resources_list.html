@@ -75,7 +75,7 @@
               <div class="tab-pane fade show active" id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
                     <div class="row">
                         {% for resource_info in resources_list %}
-                        <!-- INICIO ESTRUCTURA CURSO-->
+                        <!-- INICIO ESTRUCTURA Resource-->
                         <div class="col-lg-4 col-md-6">
                             <div class="singel-course mt-30">
                                 <div class="thum">
@@ -91,15 +91,17 @@
                                     </div>
                                 </div>
                                 <div class="cont">
-                                    <ul>
-                                        <li>{{ resource_info.average_rating }}</li>
-                                        {% if resource_info.average_rating > 0 %}
-                                            <li><i class="fa fa-star"></i></li>
-                                        {% else %}
-                                            <li><i class="far fa-star"></i></li>
-                                        {% endif %}
-                                    </ul>
-                                    <span>({{ resource_info.resource_reviews_count }} Reviews)</span>
+                                    <div class="d-flex align-items-center">
+                                        <ul class="list-unstyled d-flex me-3 mb-0">
+                                            <li>{{ resource_info.average_rating }}</li>
+                                            {% if resource_info.average_rating > 0 %}
+                                                <li class="ms-2"><i class="fa fa-star"></i></li>
+                                            {% else %}
+                                                <li class="ms-2"><i class="far fa-star"></i></li>
+                                            {% endif %}
+                                        </ul>
+                                        <span class="ml-2">({{ resource_info.resource_reviews_count }} Reviews)</span>
+                                    </div>
                                     <a href="courses-singel.html"><h4>{{ resource_info.resource.name }}</h4></a>
                                     <div class="course-teacher">
                                         <div class="admin">
