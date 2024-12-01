@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Sum
 
 from courses.models import *
 from courses.forms import *
@@ -153,6 +153,76 @@ def course_detail_view(request, pk):
     # Obtener los módulos del curso y prefetch lecciones
     modules = Module.objects.filter(course=course).prefetch_related(
         Prefetch('lesson_set', queryset=Lesson.objects.all()))
+    
+    total_lessons_count = Lesson.objects.filter(module__course=course).count()
+
+    total_duration_minutes = Lesson.objects.filter(module__course=course).aggregate(Sum('duration'))['duration__sum'] or 0
+
+    # Convertir la duración total a horas y minutos
+    hours = total_duration_minutes // 60
+    minutes = total_duration_minutes % 60
+    formatted_duration = f"{hours} hours {minutes} minutes"
+    
+    total_resources_count = Resource.objects.filter(lesson__module__course=course).count()
+    total_users_count = CourseUser.objects.filter(course=course, status__name="active").count()
+    
+
+    
+    
+    completed_courses = CourseUser.objects.filter(status__name='completed').values('course') \
+    .annotate(num_completions=Count('course')) \
+    .order_by('-num_completions')
+
+# Verificar si hay resultados
+    if completed_courses.exists():
+        # Obtener el primer curso más completado
+        most_completed_course = completed_courses[0]
+        course_id = most_completed_course['course']
+        completions = most_completed_course['num_completions']
+        # Obtener el curso correspondiente usando el ID del curso
+        course_most_completed = Course.objects.get(pk=course_id)
+    else:
+        # Si no hay cursos completados, asignar valores predeterminados
+        course_most_completed = None
+        completions = 0
+
+    # Si se ha encontrado un curso más completado, obtener las estadísticas correspondientes
+    if course_most_completed:
+        total_reviews_most_completed = Review.objects.filter(course=course_most_completed).count()
+        average_rating_most_completed = Review.objects.filter(course=course_most_completed).aggregate(Avg('rating'))['rating__avg'] or 0
+        total_wished_most_completed = WishListUser.objects.filter(id_wish=course_most_completed.pk).count()
+    else:
+        total_reviews_most_completed = 0
+        average_rating_most_completed = 0
+        total_wished_most_completed = 0
+
+
+    wishlist_courses = WishListUser.objects.filter(type_wish__name="Course") \
+        .values('id_wish') \
+        .annotate(num_wishlist=Count('id_wish')) \
+        .order_by('-num_wishlist')
+
+    if wishlist_courses.exists():  # Verificar si hay resultados
+        # Obtener el id_wish (id del curso más deseado)
+        most_wished_course = wishlist_courses.first()  # El curso con más wishlist
+        course_id_wishlist = most_wished_course['id_wish']  # El curso con más wishlist
+        wishlist_count = most_wished_course['num_wishlist']  # Cuántos usuarios lo tienen en wishlist
+        
+        # Obtener el objeto de curso más deseado
+        course_most_wished = Course.objects.get(pk=course_id_wishlist)
+    else:
+        course_most_wished = None
+        wishlist_count = 0
+
+    # Obtener el número total de reseñas, puntuación promedio y elementos en la wishlist para el curso más añadido a wishlist
+    if course_most_wished:
+        total_reviews_most_wished = Review.objects.filter(course=course_most_wished).count()
+        average_rating_most_wished = Review.objects.filter(course=course_most_wished).aggregate(Avg('rating'))['rating__avg'] or 0
+        total_wishlist_most_wished = WishListUser.objects.filter(id_wish=course_most_wished.pk).count()
+    else:
+        total_reviews_most_wished = 0
+        average_rating_most_wished = 0
+        total_wishlist_most_wished = 0
 
     modules_with_index = []
     for module_index, module in enumerate(modules, start=1):  # Índice de módulo comienza en 1
@@ -193,6 +263,21 @@ def course_detail_view(request, pk):
             'average_rating': average_rating,
             'reviews_with_profiles': reviews_with_profiles,  # Pasamos las reseñas con imágenes a la plantilla
             'modules_with_index': modules_with_index,
+            'total_lessons_count': total_lessons_count,
+            'formatted_duration': formatted_duration,
+            'total_resources_count': total_resources_count,
+            'total_users_count': total_users_count,
+            'course_most_completed': course_most_completed,
+            'completions': completions,
+            'total_reviews_most_completed': total_reviews_most_completed,
+            'average_rating_most_completed': average_rating_most_completed,
+            'total_wished_most_completed': total_wished_most_completed,
+            'course_most_wished': course_most_wished,
+            'total_reviews_most_wished': total_reviews_most_wished,
+            'average_rating_most_wished': average_rating_most_wished,
+            'total_wished_most_completed': total_wishlist_most_wished,
+            'wishlist_count': wishlist_count
+
         }
     )
 

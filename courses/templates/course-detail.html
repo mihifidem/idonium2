@@ -294,20 +294,20 @@
                             <div class="course-features mt-30">
                                <h4>Course Features </h4>
                                 <ul>
-                                    <li><i class="fa fa-clock-o"></i>Duaration : <span>{{course_info.duration}}</span></li>
-                                    <li><i class="fa fa-clone"></i>Leactures : <span>09</span></li>
-                                    <li><i class="fa fa-beer"></i>Quizzes :  <span>05</span></li>
-                                    <li><i class="fa fa-user-o"></i>Students :  <span>100</span></li>
+                                    <li><i class="fa fa-clock-o"></i>Duration : <span>{{formatted_duration}}</span></li>
+                                    <li><i class="fa fa-clone"></i>Lessons : <span>{{total_lessons_count}}</span></li>
+                                    <li><i class="fa fa-beer"></i>Resources :  <span>{{total_resources_count}}</span></li>
+                                    <li><i class="fa fa-user-o"></i>Students :  <span>{{total_users_count}}</span></li>
                                 </ul>
                                 <div class="price-button pt-10">
-                                    <span>Price : <b>$25</b></span>
+                                    <span>Price : <b>{{course_info.price}} €</b></span>
                                     <a href="#" class="main-btn">Enroll Now</a>
                                 </div>
                             </div> <!-- course features -->
                         </div>
                         <div class="col-lg-12 col-md-6">
                             <div class="You-makelike mt-30">
-                                <h4>You make like </h4> 
+                                <h4>You make like </h4>
                                 <div class="singel-makelike mt-20">
                                     <div class="image">
                                         <img src="images/your-make/y-1.jpg" alt="Image">
@@ -363,30 +363,31 @@
                                             <img src="images/course/cu-2.jpg" alt="Course">
                                         </div>
                                         <div class="price">
-                                            <span>Free</span>
+                                            <span>{{course_most_completed.price}} €</span>
                                         </div>
                                     </div>
                                     <div class="cont">
                                         <ul>
+                                            <li>{{average_rating_most_completed}}</li>
+                                            {% if average_rating_most_completed and average_rating_most_completed > 0 %}
                                             <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
+                                            {%else%}
+                                            <li><i class="fa far fa-star"></i></li>
+                                            {%endif%}
                                         </ul>
-                                        <span>(20 Reviws)</span>
+                                        <span>({{total_reviews_most_completed}} Reviews)</span>
                                         <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
                                                 <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>
                                             </div>
                                             <div class="name">
-                                                <a href="#"><h6>Mark anthem</h6></a>
+                                                <a href="#"><h6>{{course_most_completed.profile_teacher.user.first_name}} {{course_most_completed.profile_teacher.user.last_name}}</h6></a>
                                             </div>
                                             <div class="admin">
                                                 <ul>
-                                                    <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
+                                                    <li><a href="#"><i class="fa fa-user"></i><span>{{completions}}</span></a></li>
+                                                    <li><a href="#"><i class="fa fa-heart"></i><span>{{total_wished_most_completed}}</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>
