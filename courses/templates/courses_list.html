@@ -59,7 +59,7 @@
                             <li class="nav-item">
                                 <a id="courses-list-tab" data-toggle="tab" href="#courses-list" role="tab" aria-controls="courses-list" aria-selected="false"><i class="fa fa-th-list"></i></a>
                             </li>
-                            <li class="nav-item">Showning 4 0f 24 Results</li>
+                            <li class="nav-item">Showning {{total_courses}} courses</li>
                         </ul> <!-- nav -->
                         
                         <div class="courses-search float-right">
@@ -74,7 +74,7 @@
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
                     <div class="row">
-                        {% for course_info in completed_courses %}
+                        {% for course_info in page_obj.object_list %}
                         <!-- INICIO ESTRUCTURA CURSO-->
                         <div class="col-lg-4 col-md-6">
                             <div class="singel-course mt-30">
@@ -99,8 +99,9 @@
                                         <li><i class="far fa-star"></i></li>
                                         {% endif %}
                                     </ul>
+                                    <p>{{course_info.course.pk}}</p>
                                     <span>({{course_info.course_reviews_count}} Reviews)</span>
-                                    <a href="{% url 'courses:course-detail' course_info.course.pk %}"><h4>{{course_info.course.title}}</h4></a>
+                                    <a href="{% url 'courses:course-detail' pk=course_info.course.pk %}"><h4>{{course_info.course.title}}</h4></a>
                                     <div class="course-teacher">
                                         <div class="thum">
                                             <a href="#"><img src="{{course_info.course.profile_teacher.image.url}}" alt="teacher"></a>
@@ -140,14 +141,26 @@
                                     <i class="fa fa-angle-left"></i>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="active" href="#">1</a></li>
-                            <li class="page-item"><a href="#">2</a></li>
-                            <li class="page-item"><a href="#">3</a></li>
+                            {% for page_num in page_obj.paginator.page_range %}
+                            {% if page_num == page_obj.number %}
+                                <li class="page-item"><a class="active" href="#">{{ page_num }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
                             <li class="page-item">
+                                <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
                                 <a href="#" aria-label="Next">
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </li>
+                        {% endif %}
                         </ul>
                     </nav>  <!-- courses pagination -->
                 </div>

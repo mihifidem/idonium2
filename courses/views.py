@@ -8,7 +8,7 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.db.models import Prefetch, Sum
-
+from django.core.paginator import Paginator
 from courses.models import *
 from courses.forms import *
 from profile_cv.models import Profile_CV
@@ -63,8 +63,14 @@ def courses_list_view(request):
             'average_rating': round(average_rating, 1)
         })
 
+    paginator = Paginator(completed_courses, 9)
+    page_number = request.GET.get('page')  # Obtén el número de página actual
+    page_obj = paginator.get_page(page_number)
+    
+
     # Pasar los datos al contexto para renderizarlos en el template
-    return render(request, 'courses_list.html', {'completed_courses': completed_courses})
+    return render(request, 'courses_list.html', {'page_obj': page_obj, 'total_courses': courses.count()})
+    
 
 def resources_list_view(request):
     resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
