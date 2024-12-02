@@ -84,7 +84,9 @@ def quiz_view(request):
                     'Python-2.json',
                     'Python-3.json',
                     'Soft Skills.json',
-                    'Belbin.json'
+                    'Belbin.json',
+                    'Git.json',
+                    'JavaScript.json'
                 ]
             })
 
@@ -105,7 +107,9 @@ def quiz_view(request):
                     'Python-2.json',
                     'Python-3.json',
                     'Soft Skills.json',
-                    'Belbin.json'
+                    'Belbin.json',
+                    'Git.json',
+                    'JavaScript.json'
                 ]
             })
 
@@ -120,7 +124,9 @@ def quiz_view(request):
             'Python-2.json',
             'Python-3.json',
             'Soft Skills.json',
-            'Belbin.json'
+            'Belbin.json',
+            'Git.json',
+            'JavaScript.json'
         ]
         return render(request, 'quiz/quiz_select.html', {'quiz_files': quiz_files})
 
