@@ -7,6 +7,7 @@ from .forms import  TestForm, QuestionForm
 from django.conf import settings
 import os
 import json
+from datetime import datetime
 
 # TEST CREATION
 @login_required
@@ -144,11 +145,16 @@ def submit_quiz(request):
         total_questions = len(quiz_data)
         wrong_questions = []
 
+        # Calculate duration
+        start_time = float(request.POST.get('start_time'))
+        duration_seconds = (datetime.now().timestamp() - start_time)
+        duration_minutes = int(duration_seconds // 60)
+        duration_seconds %= 60
+
         for question in quiz_data:
             question_id = quiz_data.index(question) + 1
             selected_answer = request.POST.get(f'question_{question_id}')
 
-            # Check if the selected answer matches the correct answer
             if selected_answer == question['correct_answer']:
                 score += 1
             else:
@@ -158,14 +164,15 @@ def submit_quiz(request):
                     'correct_answer': question['correct_answer']
                 })
 
-        # Calculate score percentage
         score_percentage = (score / total_questions) * 100 if total_questions else 0
 
         return render(request, 'quiz/results.html', {
             'score': score,
             'total': total_questions,
             'wrong_questions': wrong_questions,
-            'score_percentage': score_percentage
+            'score_percentage': score_percentage,
+            'duration_minutes': duration_minutes,
+            'duration_seconds': int(duration_seconds)
         })
 
     return render(request, 'quiz/quiz_form.html', {'error': 'Invalid form submission'})
