@@ -60,11 +60,11 @@
                                 <li>
                                     <div class="teacher-name">
                                         <div class="thum">
-                                            <img src="{{profile_teacher.image.url}}" alt="Teacher">
+                                            <img src="{{course_info.profile_teacher.image.url}}" alt="Teacher">
                                         </div>
                                         <div class="name">
                                             <span>Teacher</span>
-                                            <h6>{{profile_teacher.user.first_name}} {{profile_teacher.user.last_name}}</h6>
+                                            <h6>{{course_info.profile_teacher.user.first_name}} {{course_info.profile_teacher.user.last_name}}</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -176,11 +176,11 @@
                                     <div class="instructor-cont">
                                         <div class="instructor-author">
                                             <div class="author-thum">
-                                                <img src="{{profile_teacher.image.url}}" alt="Instructor">
+                                                <img src="{{course_info.profile_teacher.image.url}}" alt="Instructor">
                                             </div>
                                             <div class="author-name">
-                                                <a href="#"><h5>{{profile_teacher.user.first_name}} {{profile_teacher.user.last_name}}</h5></a>
-                                                <span>{{profile_teacher.hardskills}}</span>
+                                                <a href="#"><h5>{{course_info.profile_teacher.user.first_name}} {{course_info.profile_teacher.user.last_name}}</h5></a>
+                                                <span>{{course_info.profile_teacher.hardskills}}</span>
                                                 <ul class="social">
                                                     <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -190,7 +190,7 @@
                                             </div>
                                         </div>
                                         <div class="instructor-description pt-25">
-                                            <p>{{profile_teacher.bio}}</p>
+                                            <p>{{course_info.profile_teacher.bio}}</p>
                                         </div>
                                     </div> <!-- instructor cont -->
                                 </div>

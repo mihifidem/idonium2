@@ -36,8 +36,6 @@ def courses_list_view(request):
 
     completed_status = Status.objects.get(name="completed") 
     
-     # Asegúrate de que el estado 'completado' sea correcto
-
     completed_courses = []
     for course in courses:
         # Contar los usuarios que han completado el curso
@@ -139,9 +137,6 @@ def resource_create_or_update_view(request, pk=None):
 def course_detail_view(request, pk):
     # Obtener el curso
     course = get_object_or_404(Course, pk=pk)
-    
-    # Obtener el perfil del profesor
-    profile_teacher = get_object_or_404(ProfileTeacher, pk=course.pk)
     
     # Obtener las reseñas del curso
     reviews = Review.objects.filter(course=course)
@@ -255,10 +250,9 @@ def course_detail_view(request, pk):
 
     return render(
         request,
-        'course-detail.html',
+        'course_detail.html',
         {
             'course_info': course,
-            'profile_teacher': profile_teacher,
             'course_reviews_count': course_reviews_count,
             'average_rating': average_rating,
             'reviews_with_profiles': reviews_with_profiles,  # Pasamos las reseñas con imágenes a la plantilla

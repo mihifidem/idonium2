@@ -23,7 +23,6 @@ class Command(BaseCommand):
         WishListType.objects.create(name="Resource")
         self.create_users()
         self.create_teachers()
-        self.create_status()
         self.create_courses()
         self.create_modules_and_lessons()
         self.create_resources()
@@ -52,27 +51,22 @@ class Command(BaseCommand):
                 profile_teacher.sector = None
                 profile_teacher.save()
 
-    def create_status(self):
-        for _ in range(3):  # Ejemplo de 3 estados
-            Status.objects.create(
-                name=faker.word(),
-                description=faker.sentence()
-            )
-
     def create_courses(self):
         teachers = ProfileTeacher.objects.all()
         for teacher in teachers:
             for _ in range(2):  # Cada profesor tiene 2 cursos
-                Course.objects.create(
+                course = Course.objects.create(
                     profile_teacher=teacher,
                     title=faker.unique.sentence(nb_words=4),
                     description=faker.paragraph(),
-                    image=self.get_random_image(COURSES_IMAGE_DIR),
+                    image=self.get_random_image(COURSES_IMAGE_DIR) or "default.jpg",  # Imagen por defecto
                     is_member=random.choice([True, False]),
                     is_active=True,
                     is_free=random.choice([True, False]),
                     price=Decimal(random.uniform(10, 100)).quantize(Decimal("0.00")),
                 )
+                # Validar atributos obligatorios
+                assert course.profile_teacher, "El curso debe tener un profesor asignado"
 
     def create_modules_and_lessons(self):
         courses = Course.objects.all()
@@ -113,8 +107,8 @@ class Command(BaseCommand):
         users = User.objects.all()
         courses = Course.objects.all()
         statuses = Status.objects.all()
-        for user in users:
-            for course in random.sample(list(courses), 2):  # Cada usuario se inscribe en 2 cursos
+        for course in courses:
+            for user in random.sample(list(users), 3):  # Cambia a 3 o más usuarios por curso
                 CourseUser.objects.create(
                     user=user,
                     course=course,
@@ -126,10 +120,11 @@ class Command(BaseCommand):
 
     def create_wishlist(self):
         users = User.objects.all()
+        wishlisttype = WishListType.objects.all()
         for user in users:
             WishListUser.objects.create(
                 user=user,
-                type_wish=WishListType.objects.create(name=faker.word()),
+                type_wish=random.choice(wishlisttype),
                 id_wish=random.randint(1, 100)
             )
 

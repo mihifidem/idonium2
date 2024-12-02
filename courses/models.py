@@ -25,14 +25,14 @@ class ProfileTeacher(models.Model):
 
     
 class Course(models.Model):
-    profile_teacher = models.ForeignKey(ProfileTeacher, on_delete=models.CASCADE, null=True, related_name='teacher')
+    profile_teacher = models.ForeignKey(ProfileTeacher, on_delete=models.CASCADE, related_name='teacher')
     title = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(null=True, blank=True)
     is_member = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     image = models.ImageField(upload_to='courses_images/', null=True, blank=True)
     is_free = models.BooleanField(default=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'), null=True, blank=True)
     catergory = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
     sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
     hardskills = models.ForeignKey(HardSkill, blank=True, null=True, on_delete=models.CASCADE)
@@ -92,18 +92,18 @@ class Review(models.Model):
 
 
 class Module(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE,null=True)
-    title = models.CharField(max_length=255, unique=True)
-    description = models.TextField(blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=False)
     
     def __str__(self):
         return self.title
 
 class Lesson(models.Model):
-    module = models.ForeignKey(Module, on_delete=models.CASCADE,null=True)
-    name = models.CharField(max_length=255, unique=True)
-    description = models.TextField(blank=True)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
     is_member = models.BooleanField(default=False)
     duration = models.IntegerField(null=True, blank=True, default=10)
     
@@ -116,8 +116,7 @@ class CourseUser(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL,null=True)
     status = models.ForeignKey(Status, on_delete=models.SET_NULL,null=True)
     start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(null=True)
-    lessons = models.ForeignKey('LessonCompletion', on_delete=models.CASCADE, null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     certified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -134,7 +133,7 @@ class Resource(models.Model):
     document = models.FileField(blank=True, null=True)
     is_active = models.BooleanField(default=False)
     is_free = models.BooleanField(default=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'), null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -145,8 +144,8 @@ class WishListType(models.Model):
         return self.name
 
 class WishListUser(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-    type_wish = models.ForeignKey(WishListType,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    type_wish = models.ForeignKey(WishListType, on_delete=models.CASCADE)
     id_wish = models.IntegerField()
 
     def __str__(self):

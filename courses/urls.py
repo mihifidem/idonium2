@@ -8,9 +8,6 @@ urlpatterns = [
 
     path('courses/<int:pk>', course_detail_view, name='course-detail'),
 
-
-
-    path('courses_detail/', course_detail_view, name='course-detail'),
     path('resources/', resources_list_view, name = 'resources-list'),
 
 ]
