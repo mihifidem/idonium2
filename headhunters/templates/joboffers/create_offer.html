@@ -1,0 +1,38 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+      <h1>Crear Oferta</h1>
+
+      <!-- Mostrar mensajes de éxito o error -->
+      {% if messages %}
+          <div class="alert alert-info">
+              {% for message in messages %}
+                  <p>{{ message }}</p>
+              {% endfor %}
+          </div>
+      {% endif %}
+
+      <!-- Candidatos seleccionados -->
+      <p>Candidatos seleccionados:</p>
+      <ul>
+          {% for candidate in candidates %}
+              <li>{{ candidate.user.get_full_name }}</li>
+          {% endfor %}
+      </ul>
+
+      <!-- Formulario para crear la oferta -->
+      <h2>Detalles de la Oferta</h2>
+      <form method="post">
+          {% csrf_token %}
+          
+          <!-- Renderiza el formulario de la oferta -->
+          {{ form.as_p }}
+          
+          <button type="submit" class="btn btn-success">Crear Oferta</button>
+      </form>
+
+      <!-- Botón para continuar a otra vista después de crear la oferta -->
+      <a href="{% url 'landing_headhunters' %}" class="btn btn-primary mt-3">Volver a Landing</a>
+  </div>
+{% endblock %}

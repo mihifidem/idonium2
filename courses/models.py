@@ -16,7 +16,7 @@ class ProfileTeacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to='teachers_images/', null=True, blank=True)
     hardskills = models.ForeignKey(HardSkill, on_delete=models.SET_NULL, null=True, blank=True)
-    categoriy = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
@@ -32,6 +32,9 @@ class Course(models.Model):
     image = models.ImageField(upload_to='courses_images/', null=True, blank=True)
     is_free = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
+    sector = models.ForeignKey(Sector, null=True, on_delete=models.CASCADE)
+    hardskill = models.ForeignKey(HardSkill, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -59,12 +62,12 @@ class Review(models.Model):
         return f'{self.rating} - {self.comment[:50]}...'
 
 
-
 class Module(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     is_active = models.BooleanField(default=False)
+    
     
 
     def __str__(self):
@@ -74,8 +77,8 @@ class Lesson(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
-    completed = models.BooleanField(default=False)
     is_member = models.BooleanField(default=False)
+    
 
     def __str__(self):
         return f'{self.module} - {self.name}'
@@ -86,30 +89,12 @@ class CourseUser(models.Model):
     status = models.ForeignKey(Status, on_delete=models.SET_NULL,null=True)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(null=True)
-    current_lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True, null=True)
-    progress_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.00'))
-    
+    lessons = models.ForeignKey('LessonCompletion', on_delete=models.CASCADE, null=True, blank=True)
+    certified = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} - {self.course}'
     
-    # def calculate_progress(self):
-    #     # Total de lecciones del curso a través de los módulos
-    #     total_lessons = self.course.module_set.all().prefetch_related('lesson').count()
-    #     # Si el curso no tiene lecciones, el progreso es 0
-    #     if total_lessons == 0:
-    #         return 0.0
-    #     # Contamos las lecciones completadas por el usuario
-    #     completed_lessons = self.user.lesson.filter(module__course=self.course, completed=True).count()
-    #     # Calculamos el progreso
-    #     progress = (completed_lessons / total_lessons) * 100
-    #     return round(progress, 2)
-    
-    # def save(self, *args, **kwargs):
-        # Sobrescribimos el campo progress_percentage con el valor calculado
-        # self.progress_percentage = self.calculate_progress()
-        # super().save(*args, **kwargs)  # Llamamos al save original para guardar la instancia
-
 
 class Resource(models.Model):
     lesson = models.ForeignKey(Lesson, related_name='lesson', blank=True, null=True, on_delete=models.SET_NULL)
@@ -125,18 +110,26 @@ class Resource(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-class WishlistType(models.Model):
+class WishListType(models.Model):
     name = models.CharField(max_length=100)
-
     def __str__(self):
         return self.name
 
-class WishlistUser(models.Model):
+class WishListUser(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, null=True)
-    type_wish = models.ForeignKey(WishlistType,on_delete=models.CASCADE)
+    type_wish = models.ForeignKey(WishListType,on_delete=models.CASCADE)
     id_wish = models.IntegerField()
 
     def __str__(self):
         return f"{self.user.username} - {self.type_wish.name}"
 
+
+class LessonCompletion(models.Model):
+    course_user = models.ForeignKey(CourseUser, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    started_at = models.DateTimeField(auto_now_add=True)
+    finished_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return f"{self.course_user.user.username} - {self.lesson.name}"
 

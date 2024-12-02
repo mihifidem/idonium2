@@ -14,4 +14,7 @@ admin.site.register(Review)
 admin.site.register(Lesson)
 admin.site.register(Module)
 admin.site.register(Resource)
+admin.site.register(LessonCompletion)
+admin.site.register(WishListType)
+admin.site.register(WishListUser)
 
