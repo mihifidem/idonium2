@@ -489,7 +489,7 @@ def user_cv_update(request, user_cv_id):
             return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
     else:
         form = UserCvForm(instance=user_cv)
-    return render(request, "user_cv/user_cv_form.html", {"form": form})
+    return render(request, "user_cv/user_cv_form.html", {"form": form, "user_cv": user_cv})
 
 #? Función para eliminar un CV
 def user_cv_delete(request, user_cv_id):
