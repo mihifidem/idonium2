@@ -4,7 +4,31 @@ from .models import HeadHunterUser, JobOffer, ManagementCandidates, Schedule, Jo
 class HeadHunterForm(forms.ModelForm):
     class Meta:
         model = HeadHunterUser
-        fields = '__all__'
+        fields = [
+            'company', 'phone', 'position', 'website',
+            'linkedin_profile', 'city', 'country', 'profile_photo'
+        ]
+        labels = {
+            'company': 'Nombre de la empresa',
+            'phone': 'Teléfono',
+            'position': 'Cargo',
+            'website': 'Sitio Web',
+            'linkedin_profile': 'Perfil de LinkedIn',
+            'city': 'Ciudad',
+            'country': 'País',
+            'profile_photo': 'Foto de Perfil',
+        }
+
+        widgets = {
+            'company': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Idonium'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Teléfono'}),
+            'position': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Recursos Humanos'}),
+            'website': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://'}),
+            'linkedin_profile': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'LinkedIn URL'}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Barcelona'}),
+            'country': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'España'}),
+            'profile_photo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
 
 class CandidateProfileForm(forms.ModelForm):
     class Meta:
@@ -37,7 +61,23 @@ class ManagementCandidatesForm(forms.ModelForm):
 class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = '__all__'
+        fields = ['headhunter', 'candidate', 'type_action', 'description', 'date', 'status']
+        labels = {
+            'headhunter': 'Headhunter',
+            'candidate': 'Candidato',
+            'type_action': 'Tipo de acción',
+            'description': 'Descripción',
+            'date': 'Fecha y hora',
+            'status': 'Estado',
+        }
+        widgets = {
+            'headhunter': forms.Select(attrs={'class': 'form-control'}),
+            'candidate': forms.Select(attrs={'class': 'form-control'}),
+            'type_action': forms.Select(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Detalles de la acción'}),
+            'date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+        }
 
 
 class JobOfferNotificationForm(forms.ModelForm):
