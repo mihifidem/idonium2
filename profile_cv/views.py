@@ -434,6 +434,7 @@ def user_cv_list(request, profile_id):
 #? Función para crear un CV
 def user_cv_create(request, profile_id):
     profile_cv = get_object_or_404(Profile_CV, id=profile_id)
+    user_cv = User_cv.objects.filter(profile_user=profile_cv)
     work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
     academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
     hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
@@ -453,7 +454,7 @@ def user_cv_create(request, profile_id):
             user_cv = form.save(commit=False)
             user_cv.profile_user = profile_cv  # Asigna el perfil del usuario
             user_cv.save()
-            return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
+            return redirect("user_cv_list", profile_id)  # Pasa el profile_id aquí
     else:
         random_numbers = ''.join(random.choices(string.digits, k=4))
         initial_urlCV = f"https://{profile_cv.user.username}-{random_numbers}.com"
@@ -482,6 +483,7 @@ def user_cv_create(request, profile_id):
 def user_cv_update(request, user_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
     profile_id = user_cv.profile_user.id  # Obtén el profile_id del user_cv
+    profile_cv = get_object_or_404(Profile_CV, id=profile_id)
     if request.method == "POST":
         form = UserCvForm(request.POST, instance=user_cv)
         if form.is_valid():
@@ -489,7 +491,7 @@ def user_cv_update(request, user_cv_id):
             return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
     else:
         form = UserCvForm(instance=user_cv)
-    return render(request, "user_cv/user_cv_form.html", {"form": form, "user_cv": user_cv})
+    return render(request, "user_cv/user_cv_form.html", {"form": form, "user_cv": user_cv, "profile_cv": profile_cv})
 
 #? Función para eliminar un CV
 def user_cv_delete(request, user_cv_id):
