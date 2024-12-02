@@ -119,7 +119,6 @@ class UserCvForm(forms.ModelForm):
     class Meta:
         model = User_cv
         fields = [
-            "profile_user",
             "urlCV",
             "template",
             "has_img_profile",
@@ -148,6 +147,7 @@ class UserCvForm(forms.ModelForm):
             "has_publications",
             "has_recognitions_awards",
             "has_certifications_courses",
+            "relations",
         ]
         widgets = {
             'urlCV': ReadOnlyWidget(),

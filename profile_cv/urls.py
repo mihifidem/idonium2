@@ -84,7 +84,7 @@ urlpatterns = [
     path('recognitions_awards/delete/<int:recognition_award_id>/', recognition_award_delete, name='recognition_award_delete'),
 
     # User cv URLs
-    path('user_cvs/', user_cv_list, name='user_cv_list'),
+    path('user_cvs/<int:profile_id>', user_cv_list, name='user_cv_list'),
     path('user_cvs/create/<int:profile_id>/', user_cv_create, name='user_cv_create'),
     path('user_cvs/update/<int:user_cv_id>/', user_cv_update, name='user_cv_update'),
     path('user_cvs/delete/<int:user_cv_id>/', user_cv_delete, name='user_cv_delete'),

@@ -421,39 +421,72 @@ def publication_delete(request, publication_id):
         return redirect("publication_list")
     return render(request, "publication/publication_confirm_delete.html", {"publication": publication})
 
-# * |-------------------------------------------------------------------------- 
+# * |--------------------------------------------------------------------------
 # * | User_CV
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los CV
-def user_cv_list(request):
-    user_cv = User_cv.objects.all()
+def user_cv_list(request, profile_id):
+    profile = get_object_or_404(Profile_CV, id=profile_id)
+    user_cv = User_cv.objects.filter(profile_user=profile)
     return render(request, "user_cv/user_cv_list.html", {"user_cv": user_cv})
 
 #? Función para crear un CV
 def user_cv_create(request, profile_id):
     profile_cv = get_object_or_404(Profile_CV, id=profile_id)
+    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+    languages = LanguageUser.objects.filter(profile_user=profile_cv)
+    categories = CategoryUser.objects.filter(profile_user=profile_cv)
+    sectors = SectorUser.objects.filter(profile_user=profile_cv)
+    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+    projects = Project.objects.filter(profile_user=profile_cv)
+    publications = Publication.objects.filter(profile_user=profile_cv)
+    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+
     if request.method == "POST":
         form = UserCvForm(request.POST)
         if form.is_valid():
             user_cv = form.save(commit=False)
-            user_cv.profile_cv = profile_cv  # Asigna el nombre del usuario
+            user_cv.profile_user = profile_cv  # Asigna el perfil del usuario
             user_cv.save()
-            return redirect("user_cv_list")
+            return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
     else:
         random_numbers = ''.join(random.choices(string.digits, k=4))
         initial_urlCV = f"https://{profile_cv.user.username}-{random_numbers}.com"
         form = UserCvForm(initial={'urlCV': initial_urlCV})
-    return render(request, "user_cv/user_cv_form.html", {"form": form})
+
+    context = {
+        'form': form,
+        'profile_cv': profile_cv,
+        'work_experiences': work_experiences,
+        'academic_educations': academic_educations,
+        'hard_skills': hard_skills,
+        'soft_skills': soft_skills,
+        'languages': languages,
+        'categories': categories,
+        'sectors': sectors,
+        'incorporations': incorporations,
+        'volunteerings': volunteerings,
+        'projects': projects,
+        'publications': publications,
+        'recognitions_awards': recognitions_awards,
+    }
+
+    return render(request, "user_cv/user_cv_form.html", context)
 
 #? Función para actualizar un CV
 def user_cv_update(request, user_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    profile_id = user_cv.profile_user.id  # Obtén el profile_id del user_cv
     if request.method == "POST":
         form = UserCvForm(request.POST, instance=user_cv)
         if form.is_valid():
             form.save()
-            return redirect("user_cv_list")
+            return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
     else:
         form = UserCvForm(instance=user_cv)
     return render(request, "user_cv/user_cv_form.html", {"form": form})
@@ -461,9 +494,11 @@ def user_cv_update(request, user_cv_id):
 #? Función para eliminar un CV
 def user_cv_delete(request, user_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    profile_id = user_cv.profile_user.id  # Obtén el profile_id del user_cv
+
     if request.method == "POST":
         user_cv.delete()
-        return redirect("user_cv_list")
+        return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
     return render(request, "user_cv/user_cv_confirm_delete.html", {"user_cv": user_cv})
 
 #? Función para ver los detalles de un CV

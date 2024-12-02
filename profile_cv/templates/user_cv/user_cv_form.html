@@ -1,11 +1,321 @@
 {% extends 'users/base.html' %}
-{% block title %}Add/Edit User CV{% endblock %}
+{% load static %}
+
+{% block title %}Customize Your CV Visibility{% endblock %}
+
 {% block content %}
-<h1>{{ view.action }} User CV</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-success" type="submit">Submit</button>
-    <a class="btn btn-secondary" href="{% url 'user_cv_list' %}">Cancel</a>
-</form>
+<section class="pt-90 pb-120 gray-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h3 class="card-title text-center mb-0">{{ view.action }} CV Configuration</h3>
+                    </div>
+                    <div class="card-body bg-light border-bottom">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <label class="font-weight-bold mb-0">CV URL:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-link"></i>
+                                        </span>
+                                    </div>
+                                    {{ form.urlCV }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted text-center mb-4">Select which sections you want to display in your CV</p>
+
+                        <form method="post" class="needs-validation" novalidate>
+                            {% csrf_token %}
+
+                            <!-- Personal Information Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-user-circle mr-2"></i>Personal Information
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_img_profile.label_tag }}</strong>
+                                                {{ form.has_img_profile }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.img_profile.name }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_address.label_tag }}</strong>
+                                                {{ form.has_address }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.address }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_phone_1.label_tag }}</strong>
+                                                {{ form.has_phone_1 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.phone_1 }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_phone_2.label_tag }}</strong>
+                                                {{ form.has_phone_2 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.phone_2 }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_email_1.label_tag }}</strong>
+                                                {{ form.has_email_1 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.email_1 }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_email_2.label_tag }}</strong>
+                                                {{ form.has_email_2 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.email_2 }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professional Profile Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-briefcase mr-2"></i>Professional Profile
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_biography.label_tag }}</strong>
+                                                {{ form.has_biography }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.biography }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_sector.label_tag }}</strong>
+                                                {{ form.has_sector }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.sector }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_category.label_tag }}</strong>
+                                                {{ form.has_category }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.category }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_open_to_work.label_tag }}</strong>
+                                                {{ form.has_open_to_work }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.open_to_work }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_incorporation.label_tag }}</strong>
+                                                {{ form.has_incorporation }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.incorporation }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_url.label_tag }}</strong>
+                                                {{ form.has_url }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.url }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Skills & Experience Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-star mr-2"></i>Skills & Experience
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="work_experiences">Work Experiences:</label>
+                                                {% for work_experience in work_experiences %}
+                                                    <div>
+                                                        <input type="checkbox" name="work_experiences" value="{{ work_experience.id }}">
+                                                        <span>{{ work_experience.job_title }} at {{ work_experience.company_name }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_hard_skills.label_tag }}</strong>
+                                                {{ form.has_hard_skills }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.hard_skills }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_soft_skills.label_tag }}</strong>
+                                                {{ form.has_soft_skills }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.soft_skills }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_languages.label_tag }}</strong>
+                                                {{ form.has_languages }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.languages }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_academic_educations.label_tag }}</strong>
+                                                {{ form.has_academic_educations }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.academic_educations }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_certifications_courses.label_tag }}</strong>
+                                                {{ form.has_certifications_courses }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.certifications_courses }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Information Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-plus-circle mr-2"></i>Additional Information
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_volunteerings.label_tag }}</strong>
+                                                {{ form.has_volunteerings }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.volunteerings }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group"></div>
+                                                <strong>{{ form.has_projects.label_tag }}</strong>
+                                                {{ form.has_projects }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.projects }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_publications.label_tag }}</strong>
+                                                {{ form.has_publications }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.publications }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_recognitions_awards.label_tag }}</strong>
+                                                {{ form.has_recognitions_awards }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.recognitions_awards }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other Details Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-info-circle mr-2"></i>Other Details
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_vehicle.label_tag }}</strong>
+                                                {{ form.has_vehicle }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.vehicle }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_disability.label_tag }}</strong>
+                                                {{ form.has_disability }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.disability }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_disability_percentage.label_tag }}</strong>
+                                                {{ form.has_disability_percentage }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.disability_percentage }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Hidden Fields -->
+                            <div>
+                                Choose your template
+                                {{ form.template }}
+                            </div>
+
+                            <div class="form-group text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="fas fa-save mr-2"></i>Save Configuration
+                                </button>
+                                <a href="{% url 'user_cv_list' %}" class="btn btn-secondary btn-lg ml-2">
+                                    <i class="fas fa-times mr-2"></i>Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
