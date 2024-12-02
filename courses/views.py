@@ -235,7 +235,7 @@ def course_detail_view(request, pk):
         
         # Añadimos índices para las lecciones del módulo
         lessons_with_indices = []
-        for lesson_index, lesson in enumerate(module.lesson_set.all(), start=1):  # Índice de lección comienza en 1
+        for lesson_index, lesson in enumerate(module.lessons.all(), start=1):  # Índice de lección comienza en 1
             # Agregamos un atributo "lesson_index" a cada lección
             lesson.lesson_index = lesson_index
             lessons_with_indices.append(lesson)
