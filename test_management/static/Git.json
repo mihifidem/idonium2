@@ -1,0 +1,269 @@
+[
+  {
+    "category": "Git",
+    "question": "1. What is Git?",
+    "answers": [
+      "1. A remote repository platform",
+      "2. A nickname for GitHub",
+      "3. A programming language",
+      "4. A version control system"
+    ],
+    "correct_answer": "4. A version control system"
+  },
+  {
+    "category": "Git",
+    "question": "2. Git is the same as GitHub.",
+    "answers": [
+      "1. True",
+      "2. False"
+    ],
+    "correct_answer": "2. False"
+  },
+  {
+    "category": "Git",
+    "question": "3. What is the command to get the installed version of Git?",
+    "answers": [
+      "1. git help version",
+      "2. git --version",
+      "3. getGitVersion",
+      "4. gitVersion"
+    ],
+    "correct_answer": "2. git --version"
+  },
+  {
+    "category": "Git",
+    "question": "4. Which option should you use to set the default user name for every repository on your computer?",
+    "answers": [
+      "1. --A",
+      "2. No need to specify, that is the default.",
+      "3. --all",
+      "4. --global"
+    ],
+    "correct_answer": "4. --global"
+  },
+  {
+    "category": "Git",
+    "question": "5. What is the command to set the user email for the current repository?",
+    "answers": [
+      "1. git config user.email",
+      "2. git config email",
+      "3. git email.user"
+    ],
+    "correct_answer": "1. git config user.email"
+  },
+  {
+    "category": "Git",
+    "question": "6. What is the command to add all files and changes of the current folder to the staging environment of the Git repository?",
+    "answers": [
+      "1. git add --files",
+      "2. git add --all",
+      "3. git add"
+    ],
+    "correct_answer": "2. git add --all"
+  },
+  {
+    "category": "Git",
+    "question": "7. What is the command to get the current status of the Git repository?",
+    "answers": [
+      "1. --status",
+      "2. git status",
+      "3. git getStatus",
+      "4. git config --status"
+    ],
+    "correct_answer": "2. git status"
+  },
+  {
+    "category": "Git",
+    "question": "8. What is the command to initialize Git on the current repository?",
+    "answers": [
+      "1. git init",
+      "2. start git",
+      "3. initialize git",
+      "4. git start"
+    ],
+    "correct_answer": "1. git init"
+  },
+  {
+    "category": "Git",
+    "question": "9. Git automatically adds new files to the repository and starts tracking them.",
+    "answers": [
+      "1. False",
+      "2. True"
+    ],
+    "correct_answer": "1. False"
+  },
+  {
+    "category": "Git",
+    "question": "10. Git commit history is automatically deleted:",
+    "answers": [
+      "1. Every month.",
+      "2. Every 2 weeks.",
+      "3. Every year.",
+      "4. Commit history is never automatically deleted."
+    ],
+    "correct_answer": "4. Commit history is never automatically deleted."
+  },
+  {
+    "category": "Git",
+    "question": "11. What is the command to commit the staged changes for the Git repository?",
+    "answers": [
+      "1. git com",
+      "2. git save",
+      "3. git snapshot",
+      "4. git commit"
+    ],
+    "correct_answer": "4. git commit"
+  },
+  {
+    "category": "Git",
+    "question": "12. What is the command to commit with the message 'New email':",
+    "answers": [
+      "1. git commit -m 'New email'",
+      "2. git commit -mess 'New email'",
+      "3. git commit message 'New email'",
+      "4. git commit -log 'New email'"
+    ],
+    "correct_answer": "1. git commit -m 'New email'"
+  },
+  {
+    "category": "Git",
+    "question": "13. What is the command to view the history of commits for the repository?",
+    "answers": [
+      "1. git history",
+      "2. git commits",
+      "3. git --full-log",
+      "4. git log"
+    ],
+    "correct_answer": "4. git log"
+  },
+  {
+    "category": "Git",
+    "question": "14. What is the command to see the available options for the commit command?",
+    "answers": [
+      "1. git commit -help",
+      "2. gitHelp commit",
+      "3. git commitHelp",
+      "4. git commit readme"
+    ],
+    "correct_answer": "1. git commit -help"
+  },
+  {
+    "category": "Git",
+    "question": "15. In Git, a branch is:",
+    "answers": [
+      "1. A secret part of Git config.",
+      "2. A small wooden stick you can use to type commands.",
+      "3. A separate version of the main repository.",
+      "4. Nothing, it is a nonsense word."
+    ],
+    "correct_answer": "3. A separate version of the main repository."
+  },
+  {
+    "category": "Git",
+    "question": "16. What is the command to create a new branch named 'new-email'?",
+    "answers": [
+      "1. git branch new-email",
+      "2. git add branch 'new-email'",
+      "3. git newBranch 'new-email'",
+      "4. git branch new 'new-email'"
+    ],
+    "correct_answer": "1. git branch new-email"
+  },
+  {
+    "category": "Git",
+    "question": "17. What is the command to move to the branch named 'new-email'?",
+    "answers": [
+      "1. git checkout new-email",
+      "2. git branch new-email",
+      "3. git branch -move new-email",
+      "4. git checkout branch new-email"
+    ],
+    "correct_answer": "1. git checkout new-email"
+  },
+  {
+    "category": "Git",
+    "question": "18. What is the option, when moving to a branch, to create the branch it if it does not exist?",
+    "answers": [
+      "1. -all",
+      "2. -b",
+      "3. -new",
+      "4. -newbranch"
+    ],
+    "correct_answer": "2. -b"
+  },
+  {
+    "category": "Git",
+    "question": "19. What is the command to merge the current branch with the branch 'new-email'?",
+    "answers": [
+      "1. git add new-email",
+      "2. git commit -merge new-email",
+      "3. git merge new-email"
+    ],
+    "correct_answer": "3. git merge new-email"
+  },
+  {
+    "category": "Git",
+    "question": "20. What is the command to delete the branch 'new-email'?",
+    "answers": [
+      "1. git gone new-email",
+      "2. git delete new-email",
+      "3. git branch -d new-email",
+      "4. git delete branch new-email"
+    ],
+    "correct_answer": "3. git branch -d new-email"
+  },
+  {
+    "category": "Git",
+    "question": "21. What is the command to add the remote repository 'https://abc.xyz/d/e.git' as 'origin'?",
+    "answers": [
+      "1. git remote https://abc.xyz/d/e.git",
+      "2. git remote add origin https://abc.xyz/d/e.git",
+      "3. git add origin https://abc.xyz/d/e.git",
+      "4. git origin=https://abc.xyz/d/e.git"
+    ],
+    "correct_answer": "2. git remote add origin https://abc.xyz/d/e.git"
+  },
+  {
+    "category": "Git",
+    "question": "22. What is the command to push the current repository to the remote origin?",
+    "answers": [
+      "1. git merge remote",
+      "2. git remote push",
+      "3. git push origin",
+      "4. git remote commmit"
+    ],
+    "correct_answer": "3. git push origin"
+  },
+  {
+    "category": "Git",
+    "question": "23. What is the command to get all the change history of the remote repository 'origin'?",
+    "answers": [
+      "1. git origin help",
+      "2. git get log origin",
+      "3. git fetch origin",
+      "4. git status remote origin"
+    ],
+    "correct_answer": "3. git fetch origin"
+  },
+  {
+    "category": "Git",
+    "question": "24. What is the command to show the differences between the current branch and the branch 'new-email'?",
+    "answers": [
+      "1. git changes new-email",
+      "2. git status new-email",
+      "3. git diff new-email",
+      "4. git log new-email"
+    ],
+    "correct_answer": "3. git diff new-email"
+  },
+  {
+    "category": "Git",
+    "question": "25. Git Pull is a combination of:",
+    "answers": [
+      "1. add and commit",
+      "2. fetch and merge",
+      "3. branch and checkout"
+    ],
+    "correct_answer": "2. fetch and merge"
+  }
+]
