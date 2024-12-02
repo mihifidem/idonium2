@@ -78,7 +78,7 @@
                                     <div class="review">
                                         <span>Review</span>
                                         <ul>
-                                            {% if review %}
+                                            {% if course_reviews_count == 0 %}
                                             <li><a href='#'>Add a review</a></li>
                                              {% else %}
                                             <li>{{average_rating}}</li>
@@ -88,11 +88,6 @@
                                             {%else%}
                                             <li><i class="far fa-star"></i></li>
                                             {% endif %}
-                                            {% if course_reviews_count == 0 %}
-                                            <li class="rating">(0 Reviews)</li>
-                                             {% else %}
-                                            <li class="rating">({{course_reviews_count}} Reviews)</li>
-                                             {% endif %}
                                         </ul>
                                     </div>
                                 </li>
