@@ -42,6 +42,7 @@ class StatusCandidate(models.Model):
 # Model for Job Offer
 #JobOffer: Almacena la información de una oferta de trabajo creada por un HeadHunter, incluyendo el título, descripción y requisitos de la oferta. Cada oferta está relacionada con un HeadHunter específico.
 class JobOffer(models.Model):
+    headhunter = models.ForeignKey(HeadHunterUser, on_delete=models.CASCADE)  # Headhunter que creó la oferta
     title = models.CharField(max_length=255)  # Título del puesto
     description = models.TextField()  # Descripción del trabajo
     sector = models.ForeignKey(Sector, on_delete=models.CASCADE)  # Sector de la oferta
