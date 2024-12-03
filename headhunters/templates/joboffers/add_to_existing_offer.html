@@ -13,7 +13,10 @@
               <select name="selected_offer" id="selected_offer" class="form-control" required>
                   <option value="" disabled selected>Selecciona una oferta</option>
                   {% for offer in offers %}
-                      <option value="{{ offer.id }}">{{ offer.title }}</option>
+                      <!-- Verificar que el usuario logueado es el user del headhunter asociado a la oferta -->
+                      {% if offer.headhunter.user.id == request.user.id %}
+                          <option value="{{ offer.id }}">{{ offer.title }}</option>
+                      {% endif %}
                   {% endfor %}
               </select>
           </div>
