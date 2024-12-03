@@ -121,11 +121,18 @@ class AddToExistingOfferView(View):
             messages.error(request, 'No se seleccionaron candidatos.')
             return redirect('add_to_existing_offer', candidate_ids=",".join(request.POST.getlist('selected_candidates')))
 
-        # Agregar los candidatos a la oferta
+        # Agregar los candidatos a la oferta evitando duplicados
+        
         for candidate_id in selected_candidates_ids:
             try:
                 candidate = Profile_CV.objects.get(id=candidate_id)
-                ManagementCandidates.objects.create(job_offer=offer, candidate=candidate)
+                 # Verificar si ya existe una relación entre el candidato y la oferta
+                if not ManagementCandidates.objects.filter(job_offer=offer, candidate=candidate).exists():
+                    # Si no existe, crear la relación
+                    ManagementCandidates.objects.create(job_offer=offer, candidate=candidate)
+                else:
+                    messages.warning(request, f'El candidato {candidate.id} ya está asociado a esta oferta.')
+                    
             except Profile_CV.DoesNotExist:
                 messages.error(request, f'Candidato con ID {candidate_id} no encontrado.')
                 continue

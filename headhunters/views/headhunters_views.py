@@ -48,7 +48,7 @@ class LandingHeadHuntersView(ListView):
     template_name = 'headhunters/landing_headhunters.html'
     context_object_name = 'candidates'
     #manejar la paginacion
-    paginate_by = 10
+    paginate_by = 9
     
 
     def get_queryset(self):
