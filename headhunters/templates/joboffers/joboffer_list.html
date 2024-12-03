@@ -4,9 +4,11 @@
   <h2>Job Offers</h2>
   <ul>
     {% for job_offer in job_offers %}
+    {% if job_offer.headhunter.user.id == request.user.id %}
       <li>
         <a href="{% url 'joboffer_detail' pk=job_offer.pk %}">{{ job_offer.title }}</a>
       </li>
+    {% endif %}
     {% empty %}
       <p>No job offers available.</p>
     {% endfor %}
