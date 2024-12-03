@@ -83,7 +83,7 @@
                               {% endif %}
                               
                               <!-- Información del candidato -->
-                              <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2">
+                              <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2 candidate-checkbox">
                               <strong>{{ candidate.user.get_full_name }}</strong><br>
                               <small>{{ candidate.address }}</small>
                           </div>
@@ -100,13 +100,36 @@
           <!-- Botones de acción -->
           <div class="btn-group">
             
-              <button type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
-             <button type="submit" name="action" value="add_to_existing_offer" class="btn btn-warning">Agregar a oferta existente</button>
+              <button id="create-offer-btn" type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
+             <button id="add-to-offer-btn" type="submit" name="action" value="add_to_existing_offer" class="btn btn-warning">Agregar a oferta existente</button>
             
             </div>
       </form>
 
   </div>
 
+  <!-- Script que deshabilita botones de crear o agregar oferta mientras no haya ningun caniddato seleccionado -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.candidate-checkbox');
+        const createOfferButton = document.getElementById('create-offer-btn');
+        const addToOfferButton = document.getElementById('add-to-offer-btn');
+
+        function toggleButtons() {
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            createOfferButton.disabled = !anyChecked;
+            addToOfferButton.disabled = !anyChecked;
+        }
+
+        // Escuchar cambios en todos los checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleButtons);
+        });
+
+        // Inicializar estado de los botones al cargar la página
+        toggleButtons();
+    });
+</script>
 
 {% endblock %}
