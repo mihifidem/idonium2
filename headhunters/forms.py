@@ -4,11 +4,14 @@ from .models import HeadHunterUser, JobOffer, ManagementCandidates, Schedule, Jo
 class HeadHunterForm(forms.ModelForm):
     class Meta:
         model = HeadHunterUser
+        #Se agrega el campo user, para probar la creacion de headhunter y la vista de detalle, luego con el manejo de login se eliminara
+        
         fields = [
-            'company', 'phone', 'position', 'website',
+            'user','company', 'phone', 'position', 'website',
             'linkedin_profile', 'city', 'country', 'profile_photo'
         ]
         labels = {
+            'usuario' : 'Usuario',
             'company': 'Nombre de la empresa',
             'phone': 'Teléfono',
             'position': 'Cargo',
