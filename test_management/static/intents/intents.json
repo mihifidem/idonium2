@@ -1,0 +1,439 @@
+{
+    "intents": [
+      {
+        "tag": "django_project_creation",
+        "category": "Django",
+        "patterns": [
+          "What is a correct syntax for creating a Django project?",
+          "How do I create a new Django project?",
+          "What command starts a Django project?",
+          "Syntax for starting a Django project?",
+          "Command to initialize a Django project?",
+          "How can I create a project using Django?",
+          "Which command is used to set up a Django project?",
+          "How to start a new Django project?",
+          "Steps to create a Django project?"
+        ],
+        "responses": [
+          "To start a new Django project, use the command: `django-admin startproject project_name`.",
+          "Ensure you have Django installed before creating a project using `django-admin`.",
+          "Use `django-admin startproject <project_name>` to initialize a Django project. Replace `<project_name>` with your desired project name."
+        ]
+      },
+      {
+        "tag": "django_runserver",
+        "category": "Django",
+        "patterns": [
+          "What is the syntax to start a Django development server?",
+          "How do I run a Django server?",
+          "What command is used to start the server in Django?",
+          "How can I start the Django server?",
+          "How do you initiate the development server in Django?",
+          "What do I type to run the server in Django?",
+          "What command activates the Django local server?",
+          "How to launch Django development server?",
+          "Django command for running a local server?"
+        ],
+        "responses": [
+          "To start the server, use the command: `python manage.py runserver`. Access the server at `http://127.0.0.1:8000`.",
+          "Ensure you're in the project root directory and use the command `python manage.py runserver` to start the server.",
+          "You can stop the server by pressing `Ctrl+C` in the terminal."
+        ]
+      },
+      {
+        "tag": "django_folder_content",
+        "category": "Django",
+        "patterns": [
+          "Which file is not part of the Django project folder?",
+          "What files are included in a new Django project?",
+          "Which file is missing in a default Django project folder?",
+          "How do I know what files are part of a Django project?",
+          "Which file doesn't belong to a Django project's folder structure?",
+          "What files are created when initializing a Django project?",
+          "Is templates.py included in the default Django project?",
+          "What is the default content of a Django project folder?"
+        ],
+        "responses": [
+          "A Django project folder typically includes files like `manage.py`, `settings.py`, and `urls.py`. It does not include `templates.py` by default.",
+          "The `templates` directory is created manually for organizing template files, rather than being a Python file.",
+          "To explore the default files, navigate to the project folder after running `django-admin startproject`."
+        ]
+      },
+      {
+        "tag": "django_written_language",
+        "category": "Django",
+        "patterns": [
+          "Which language is Django written in?",
+          "What programming language does Django use?",
+          "Django is written in what language?",
+          "What language powers Django?",
+          "In what language is the Django framework built?",
+          "What is the base programming language for Django?",
+          "Django is implemented using which language?",
+          "What language is behind Django's framework?"
+        ],
+        "responses": [
+          "Django is written in Python, a versatile language known for its readability and wide use in web development.",
+          "The framework is based on Python, a popular language for scripting and building scalable web applications.",
+          "Python powers Django, providing its clean syntax and rapid development capabilities."
+        ]
+      },
+      {
+        "tag": "django_handle_requests",
+        "category": "Django",
+        "patterns": [
+          "In Django, incoming requests are handled in which file?",
+          "What file manages requests in Django?",
+          "Where are URL routing and request handling configured in Django?",
+          "Which file handles HTTP requests in Django?",
+          "Where can I define how requests are processed in Django?",
+          "How does Django map requests to specific functions?",
+          "Where do I define routing rules in Django?",
+          "What file is used for request handling in Django?"
+        ],
+        "responses": [
+          "Incoming requests in Django are typically routed using the `urls.py` file.",
+          "The `urls.py` file maps request paths to the corresponding views.",
+          "For handling requests, define URL patterns in the `urls.py` file and link them to views."
+        ]
+      },
+      {
+        "tag": "django_admin_interface",
+        "category": "Django",
+        "patterns": [
+          "How do I create a superuser in Django?",
+          "What is the command to create an admin user in Django?",
+          "How can I set up an admin account for Django's admin interface?",
+          "What is the syntax for creating a superuser in Django?",
+          "How do I access Django's admin panel as an admin?",
+          "How can I generate a superuser for the Django admin?",
+          "What command is used to make a superuser in Django?",
+          "Steps to create a Django admin user?"
+        ],
+        "responses": [
+          "To create a superuser, run the command: `python manage.py createsuperuser`. Follow the prompts to set a username and password.",
+          "Before running the command, ensure your database migrations are up-to-date with `python manage.py migrate`.",
+          "Once the superuser is created, access the admin panel at `/admin` in your application."
+        ]
+      },
+      {
+        "tag": "general_django",
+        "category": "Django",
+        "patterns": [
+          "Tell me about Django.",
+          "What can I do with Django?",
+          "Explain Django in simple terms.",
+          "What is Django used for?",
+          "How does Django help in web development?",
+          "Why should I use Django?",
+          "What makes Django unique?"
+        ],
+        "responses": [
+          "Django is a high-level Python framework for building robust and scalable web applications.",
+          "It simplifies web development by providing tools for database interaction, URL routing, and templating.",
+          "Django is designed to help developers build secure and efficient web applications rapidly."
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_1",
+        "patterns": [
+          "What is a correct syntax to create a NumPy array?",
+          "How do I create a NumPy array?",
+          "What function do I use to create a NumPy array?",
+          "Can you tell me how to create a NumPy array?",
+          "What’s the proper way to make a NumPy array?",
+          "How can I initialize an array in NumPy?",
+          "How to define a NumPy array?"
+        ],
+        "responses": [
+          "To create a NumPy array, you'll need to use a function that takes a list or an iterable. It usually starts with 'np.' and the argument is a list of values. Do you remember the function that does this?",
+          "Think about a function that starts with 'np.' and initializes an array. The syntax typically involves passing in a sequence of values. What could that function be?",
+          "What function does NumPy provide for creating arrays? It often uses the prefix 'np.' and takes a list as an argument.",
+          "Consider how arrays are typically created. The function you need might start with 'np' and require an iterable as input. What do you think?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_2",
+        "patterns": [
+          "Which of the following arrays is a two dimensional (2-D) array?",
+          "How do I know which array is 2-D?",
+          "What does a 2-D array look like?",
+          "Can you show me what a 2-D array is?",
+          "How can I distinguish a 2-D array?",
+          "How do I identify a two-dimensional array?"
+        ],
+        "responses": [
+          "A 2-D array looks like a table, with rows and columns. Can you spot the array that has this format?",
+          "To identify a 2-D array, look for nested lists (arrays inside arrays). This structure gives it two dimensions. Does that help?",
+          "Think of a grid or a table—each entry is in a specific row and column. Does this help you recognize the right format?",
+          "A 2-D array will have two sets of data. It’s not just one row or column, but multiple. Can you find the one that fits this pattern?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_3",
+        "patterns": [
+          "How can I check the number of dimensions in an array?",
+          "What is the syntax to check the number of dimensions in an array?",
+          "How to find the dimensions of an array?",
+          "Can you tell me how to find the shape of an array?",
+          "How do I check the dimensions of a NumPy array?",
+          "Which method is used to check the dimensions of an array?"
+        ],
+        "responses": [
+          "To check the number of dimensions, think about using an attribute of the array. It should give you a property related to the structure of the array. Can you recall that method?",
+          "The method you're looking for is part of NumPy, and it returns a property related to the number of axes in the array. What method would you try?",
+          "Consider what method you can use to access an attribute of an array that tells you how many axes or dimensions it has. Do you know the one?",
+          "Check if there's a way to access the shape or size information about the array. One of those should help you find the number of dimensions."
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_4",
+        "patterns": [
+          "How do I print the first item of an array?",
+          "What is the syntax to print the first element of an array?",
+          "How can I access the first item in an array?",
+          "What is the correct way to get the first item of an array?",
+          "How do I get the first value from an array?",
+          "What is the way to print the first element in Python?"
+        ],
+        "responses": [
+          "To access elements, remember that array indices start from 0 in Python. You can use this index to access the first element. Does that help?",
+          "You can access the first element using an index. Try using 0 as the index to access the first value. Does that work for you?",
+          "Remember that in Python, indexing starts at 0. If you're looking for the first item, what index do you think you should use?",
+          "Array indexing starts at zero. Can you figure out which index you need to access the first item?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_5",
+        "patterns": [
+          "How do I print the number 8 from the array arr = np.array([[1,2,3,4,5], [6,7,8,9,10]])?",
+          "What is the syntax to access the number 8 in the array arr?",
+          "How can I print the number 8 from the given array?",
+          "What is the way to access the value 8 in a NumPy array?",
+          "How do I extract the number 8 from this array?",
+          "How do I access the number 8 from a 2D array?"
+        ],
+        "responses": [
+          "Consider how you would access an element from a 2D array. You will need to provide two indices: one for the row and one for the column. What values do you think those should be?",
+          "In a 2D array, use two indices to access the element: one for the row and another for the column. Can you identify the right indices?",
+          "A two-dimensional array requires two indices. The first index refers to the row, and the second to the column. Which one do you think gives you the number 8?",
+          "Think about how you'd access the element from the second row and the third column in a 2D array. What index values could you try?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_6",
+        "patterns": [
+          "How do I print the numbers [3, 4, 5] from the array arr = np.array([1,2,3,4,5,6,7])?",
+          "What syntax is used to print the numbers 3, 4, 5 from the array?",
+          "How do I access specific elements from an array?",
+          "What’s the best way to select a range of values from an array?"
+        ],
+        "responses": [
+          "You can access a range of elements by specifying the start and end indices. In Python, this is often done with slicing. Do you recall how slicing works?",
+          "To print a specific range of values, you should slice the array. Try selecting the values between index 2 and 5, remembering that the upper limit is exclusive.",
+          "When you want a slice of an array, remember that the end index is not included in the selection. Can you think of the correct indices for this range?",
+          "Remember that when you slice an array, you use the format: start:end. What do you think would be the correct start and end values for this task?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_7",
+        "patterns": [
+          "Which syntax would print the last 4 numbers from the array arr = np.array([1,2,3,4,5,6,7])?",
+          "What’s the correct way to access the last 4 elements in an array?",
+          "How can I get the last few values from an array?",
+          "What is the syntax to access the last 4 numbers in the array?"
+        ],
+        "responses": [
+          "To get the last few values, you can use slicing. Try specifying the start index as 3 and leave the end index blank. Do you remember how to do that?",
+          "Think about how negative indexing works in Python. This could be useful for getting the last elements of an array. What indices would you use?",
+          "For accessing the last few elements of an array, you might want to use negative indices. Can you try using them to select the last four numbers?",
+          "Slicing with negative indices is helpful when working with the end of the array. Can you figure out how to use this for the last 4 elements?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "tag": "help_8",
+        "patterns": [
+          "How can I check the data type of an array?",
+          "What is the syntax to check an array’s data type?",
+          "How do I find out the data type of a NumPy array?",
+          "What method is used to check the data type of an array?"
+        ],
+        "responses": [
+          "The method you're looking for is used to access the array’s attributes. It typically starts with 'dtype'. Do you recall the exact syntax?",
+          "To check the type of the array, you should use an attribute that starts with 'dtype'. Does this clue help you?",
+          "Consider looking for an attribute related to the type or data type. It’s often part of the array object. Do you remember what it's called?",
+          "The 'dtype' property of a NumPy array will help you check its type. Can you figure out how to use it in your code?"
+        ]
+      },
+      {
+        "tag": "sql_sql_stand_for",
+        "category": "SQL",
+        "patterns": [
+          "What does SQL stand for?",
+          "What is SQL short for?",
+          "Can you explain what SQL means?",
+          "What is the full form of SQL?",
+          "What does SQL represent?",
+          "What is the acronym for SQL?",
+          "What is SQL short for in databases?"
+        ],
+        "responses": [
+          "SQL stands for Structured Query Language. It’s a language used for managing and manipulating databases.",
+          "SQL is short for Structured Query Language. It is designed for managing relational databases.",
+          "Structured Query Language (SQL) is the standard language used for interacting with relational databases.",
+          "SQL is a standardized programming language used to manage data held in a relational database management system."
+        ]
+      },
+      {
+        "tag": "sql_select_statement",
+        "category": "SQL",
+        "patterns": [
+          "Which SQL statement retrieves data from a database?",
+          "What command should I use to fetch data from a table?",
+          "How do I select information from a table in SQL?",
+          "What is the query to get data from a database?",
+          "How can I retrieve data from a table?",
+          "What command do I use to pull data from a table?",
+          "How do I display information from a table?"
+        ],
+        "responses": [
+          "To retrieve data from a table, you use the `SELECT` statement. You can specify which columns or rows you want to see.",
+          "The `SELECT` statement is used to fetch data from a table in a database. You can list the columns or use `*` to get all columns.",
+          "You can use the `SELECT` statement to fetch specific columns from a table. For example: `SELECT column_name FROM table_name`.",
+          "The `SELECT` statement is one of the most commonly used SQL commands. It's used to query data from a table or view."
+        ]
+      },
+      {
+        "tag": "sql_update_statement",
+        "category": "SQL",
+        "patterns": [
+          "Which SQL statement is used to modify data in a database?",
+          "How do I change existing records in SQL?",
+          "I need to update some information in a table, what SQL command should I use?",
+          "What is the query to modify a value in SQL?",
+          "How can I update data in a table?",
+          "What statement should I use to update a record in SQL?",
+          "How do I edit an entry in SQL?"
+        ],
+        "responses": [
+          "To modify existing records, you can use the `UPDATE` statement. Don’t forget to specify the conditions with `WHERE` so you don’t update all rows.",
+          "The `UPDATE` statement is used to change existing data. You need to specify both the new values and the condition under which to apply those changes.",
+          "You can use the `UPDATE` command to modify specific columns in a table. Remember to use a `WHERE` clause to target specific rows.",
+          "To update a record, write `UPDATE table_name SET column_name = value WHERE condition`. This ensures only targeted rows are updated."
+        ]
+      },
+      {
+        "tag": "sql_delete_statement",
+        "category": "SQL",
+        "patterns": [
+          "Which SQL statement is used to delete data?",
+          "How do I remove records from a database in SQL?",
+          "What SQL command should I use to delete rows?",
+          "How do I delete data from a specific table?",
+          "What is the command to delete records in SQL?",
+          "How can I delete entries from a table in SQL?",
+          "How do I erase data from a database?"
+        ],
+        "responses": [
+          "To delete records, you can use the `DELETE FROM` statement. Make sure to use a condition to avoid deleting all rows in the table.",
+          "The `DELETE` statement removes records from a table. Always be cautious and specify a condition with `WHERE`.",
+          "You can delete rows from a table using the `DELETE` statement. For example: `DELETE FROM table_name WHERE condition`.",
+          "To delete specific records, use `DELETE FROM table_name WHERE condition`. Be very careful as this operation cannot be undone."
+        ]
+      },
+      {
+        "tag": "sql_insert_statement",
+        "category": "SQL",
+        "patterns": [
+          "How do I add new records to a database in SQL?",
+          "Which command is used to insert data into a table?",
+          "What is the query to insert a new record in SQL?",
+          "How can I insert a new row into a table in SQL?",
+          "What command do I use to add new data to a table?",
+          "How do I insert a record into SQL?",
+          "What is the statement to insert a new entry?"
+        ],
+        "responses": [
+          "To insert new records, use the `INSERT INTO` statement. You'll need to specify the table and the values you want to add.",
+          "The `INSERT INTO` statement allows you to add a new record into a table. You can specify the values for each column in the table.",
+          "You can add a new row using the `INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...)`.",
+          "Use the `INSERT INTO` statement to insert new data into a table. Be sure to provide values for all necessary columns."
+        ]
+      },
+      {
+        "tag": "sql_select_column",
+        "category": "SQL",
+        "patterns": [
+          "How do I select the 'FirstName' column from a table?",
+          "Which command should I use to retrieve a specific column from a table?",
+          "I only need the 'FirstName' from the table, how do I write the query?",
+          "How do I pull the 'FirstName' from a table in SQL?",
+          "What is the query to get the 'FirstName' column?"
+        ],
+        "responses": [
+          "To select a specific column, write `SELECT` followed by the column name and the table name. For example, `SELECT FirstName FROM table_name`.",
+          "You can select individual columns by mentioning them after the `SELECT` keyword. For instance, `SELECT FirstName FROM table_name`.",
+          "In SQL, use the `SELECT column_name FROM table_name` statement to fetch only the required column.",
+          "To get a specific column, simply write: `SELECT column_name FROM table_name`. For example: `SELECT FirstName FROM employees`."
+        ]
+      },
+      {
+        "tag": "sql_select_all_columns",
+        "category": "SQL",
+        "patterns": [
+          "How do I select all columns from a table?",
+          "What command should I use to retrieve everything from a table?",
+          "How can I query all the data from a table without specifying columns?",
+          "What is the query to select all columns from a table?",
+          "How do I fetch all the data in a table?"
+        ],
+        "responses": [
+          "To retrieve all columns, use the `SELECT *` statement followed by the table name. For example, `SELECT * FROM table_name`.",
+          "You can use `SELECT *` to get all columns from a table. Just specify the table after the `FROM` keyword.",
+          "Use `SELECT * FROM table_name` to get all rows and columns from a table. Be careful as this can return large amounts of data.",
+          "The `SELECT *` statement retrieves all columns from a table, like `SELECT * FROM employees`."
+        ]
+      },
+      {
+        "tag": "sql_select_firstname_equals_peter",
+        "category": "SQL",
+        "patterns": [
+          "How do I find all records where 'FirstName' is 'Peter'?",
+          "What is the SQL query to select 'Peter' from the 'FirstName' column?",
+          "Can I filter results to only show 'Peter' in the 'FirstName' column?",
+          "What command do I use to get rows where 'FirstName' equals 'Peter'?"
+        ],
+        "responses": [
+          "To filter rows, you can use the `WHERE` clause. For example: `SELECT * FROM table_name WHERE FirstName = 'Peter'`.",
+          "You can use `WHERE` to filter data based on conditions. In this case, `SELECT * FROM table_name WHERE FirstName = 'Peter'`.",
+          "Use the `WHERE` clause to filter specific rows. For example: `SELECT * FROM table_name WHERE FirstName = 'Peter'`.",
+          "To get records where the `FirstName` is 'Peter', the query would be: `SELECT * FROM table_name WHERE FirstName = 'Peter'`."
+        ]
+      },
+      {
+        "tag": "sql_select_firstname_startswith_a",
+        "category": "SQL",
+        "patterns": [
+          "How do I select records where 'FirstName' starts with 'a'?",
+          "Which SQL query will get all rows where 'FirstName' starts with an 'a'?",
+          "How can I filter records by names starting with 'a'?",
+          "How do I select 'FirstName' starting with 'A'?"
+        ],
+        "responses": [
+          "To filter by patterns, use the `LIKE` operator. For example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`.",
+          "Use the `LIKE` keyword and a `%` wildcard to match records where the `FirstName` starts with 'A'. Example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`.",
+          "You can use `LIKE 'A%'` to find names starting with 'A'. Example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`.",
+          "In SQL, you can use the `LIKE` operator with a `%` wildcard for partial matching. Example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`."
+        ]
+      }
+    ]
+  }
+  

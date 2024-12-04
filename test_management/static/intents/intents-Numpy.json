@@ -1,0 +1,144 @@
+{
+    "intents": [
+      {
+        "category": "NumPy",
+        "intent": "help_1",
+        "patterns": [
+          "What is a correct syntax to create a NumPy array?",
+          "How do I create a NumPy array?",
+          "What function do I use to create a NumPy array?",
+          "Can you tell me how to create a NumPy array?",
+          "What’s the proper way to make a NumPy array?",
+          "How can I initialize an array in NumPy?",
+          "How to define a NumPy array?"
+        ],
+        "responses": [
+          "To create a NumPy array, you'll need to use a function that takes a list or an iterable. It usually starts with 'np.' and the argument is a list of values. Do you remember the function that does this?",
+          "Think about a function that starts with 'np.' and initializes an array. The syntax typically involves passing in a sequence of values. What could that function be?",
+          "What function does NumPy provide for creating arrays? It often uses the prefix 'np.' and takes a list as an argument.",
+          "Consider how arrays are typically created. The function you need might start with 'np' and require an iterable as input. What do you think?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "intent": "help_2",
+        "patterns": [
+          "Which of the following arrays is a two dimensional (2-D) array?",
+          "How do I know which array is 2-D?",
+          "What does a 2-D array look like?",
+          "Can you show me what a 2-D array is?",
+          "How can I distinguish a 2-D array?",
+          "How do I identify a two-dimensional array?"
+        ],
+        "responses": [
+          "A 2-D array looks like a table, with rows and columns. Can you spot the array that has this format?",
+          "To identify a 2-D array, look for nested lists (arrays inside arrays). This structure gives it two dimensions. Does that help?",
+          "Think of a grid or a table—each entry is in a specific row and column. Does this help you recognize the right format?",
+          "A 2-D array will have two sets of data. It’s not just one row or column, but multiple. Can you find the one that fits this pattern?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "intent": "help_3",
+        "patterns": [
+          "How can I check the number of dimensions in an array?",
+          "What is the syntax to check the number of dimensions in an array?",
+          "How to find the dimensions of an array?",
+          "Can you tell me how to find the shape of an array?",
+          "How do I check the dimensions of a NumPy array?",
+          "Which method is used to check the dimensions of an array?"
+        ],
+        "responses": [
+          "To check the number of dimensions, think about using an attribute of the array. It should give you a property related to the structure of the array. Can you recall that method?",
+          "The method you're looking for is part of NumPy, and it returns a property related to the number of axes in the array. What method would you try?",
+          "Consider what method you can use to access an attribute of an array that tells you how many axes or dimensions it has. Do you know the one?",
+          "Check if there's a way to access the shape or size information about the array. One of those should help you find the number of dimensions."
+        ]
+      },
+      {
+        "category": "NumPy",
+        "intent": "help_4",
+        "patterns": [
+          "How do I print the first item of an array?",
+          "What is the syntax to print the first element of an array?",
+          "How can I access the first item in an array?",
+          "What is the correct way to get the first item of an array?",
+          "How do I get the first value from an array?",
+          "What is the way to print the first element in Python?"
+        ],
+        "responses": [
+          "To access elements, remember that array indices start from 0 in Python. You can use this index to access the first element. Does that help?",
+          "You can access the first element using an index. Try using 0 as the index to access the first value. Does that work for you?",
+          "Remember that in Python, indexing starts at 0. If you're looking for the first item, what index do you think you should use?",
+          "Array indexing starts at zero. Can you figure out which index you need to access the first item?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "intent": "help_5",
+        "patterns": [
+          "How do I print the number 8 from the array arr = np.array([[1,2,3,4,5], [6,7,8,9,10]])?",
+          "What is the syntax to access the number 8 in the array arr?",
+          "How can I print the number 8 from the given array?",
+          "What is the way to access the value 8 in a NumPy array?",
+          "How do I extract the number 8 from this array?",
+          "How do I access the number 8 from a 2D array?"
+        ],
+        "responses": [
+          "Consider how you would access an element from a 2D array. You will need to provide two indices: one for the row and one for the column. What values do you think those should be?",
+          "In a 2D array, use two indices to access the element: one for the row and another for the column. Can you identify the right indices?",
+          "A two-dimensional array requires two indices. The first index refers to the row, and the second to the column. Which one do you think gives you the number 8?",
+          "Think about how you'd access the element from the second row and the third column in a 2D array. What index values could you try?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "intent": "help_6",
+        "patterns": [
+          "How do I print the numbers [3, 4, 5] from the array arr = np.array([1,2,3,4,5,6,7])?",
+          "What syntax is used to print the numbers 3, 4, 5 from the array?",
+          "How do I access specific elements from an array?",
+          "What’s the best way to select a range of values from an array?"
+        ],
+        "responses": [
+          "You can access a range of elements by specifying the start and end indices. In Python, this is often done with slicing. Do you recall how slicing works?",
+          "To print a specific range of values, you should slice the array. Try selecting the values between index 2 and 5, remembering that the upper limit is exclusive.",
+          "When you want a slice of an array, remember that the end index is not included in the selection. Can you think of the correct indices for this range?",
+          "Remember that when you slice an array, you use the format: start:end. What do you think would be the correct start and end values for this task?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "intent": "help_7",
+        "patterns": [
+          "Which syntax would print the last 4 numbers from the array arr = np.array([1,2,3,4,5,6,7])?",
+          "What’s the correct way to access the last 4 elements in an array?",
+          "How can I get the last few values from an array?",
+          "What is the syntax to access the last 4 numbers in the array?"
+        ],
+        "responses": [
+          "To get the last few values, you can use slicing. Try specifying the start index as 3 and leave the end index blank. Do you remember how to do that?",
+          "Think about how negative indexing works in Python. This could be useful for getting the last elements of an array. What indices would you use?",
+          "For accessing the last few elements of an array, you might want to use negative indices. Can you try using them to select the last four numbers?",
+          "Slicing with negative indices is helpful when working with the end of the array. Can you figure out how to use this for the last 4 elements?"
+        ]
+      },
+      {
+        "category": "NumPy",
+        "intent": "help_8",
+        "patterns": [
+          "How can I check the data type of an array?",
+          "What is the syntax to check an array’s data type?",
+          "How do I find out the data type of a NumPy array?",
+          "What method is used to check the data type of an array?"
+        ],
+        "responses": [
+          "The method you're looking for is used to access the array’s attributes. It typically starts with 'dtype'. Do you recall the exact syntax?",
+          "To check the type of the array, you should use an attribute that starts with 'dtype'. Does this clue help you?",
+          "Consider looking for an attribute related to the type or data type. It’s often part of the array object. Do you remember what it's called?",
+          "The 'dtype' property of a NumPy array will help you check its type. Can you figure out how to use it in your code?"
+        ]
+      }
+    ]
+  }
+  

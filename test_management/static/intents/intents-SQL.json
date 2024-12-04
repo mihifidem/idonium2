@@ -1,0 +1,166 @@
+{
+    "intents": [
+      {
+        "tag": "sql_sql_stand_for",
+        "category": "SQL",
+        "patterns": [
+          "What does SQL stand for?",
+          "What is SQL short for?",
+          "Can you explain what SQL means?",
+          "What is the full form of SQL?",
+          "What does SQL represent?",
+          "What is the acronym for SQL?",
+          "What is SQL short for in databases?"
+        ],
+        "responses": [
+          "SQL stands for Structured Query Language. It’s a language used for managing and manipulating databases.",
+          "SQL is short for Structured Query Language. It is designed for managing relational databases.",
+          "Structured Query Language (SQL) is the standard language used for interacting with relational databases.",
+          "SQL is a standardized programming language used to manage data held in a relational database management system."
+        ]
+      },
+      {
+        "tag": "sql_select_statement",
+        "category": "SQL",
+        "patterns": [
+          "Which SQL statement retrieves data from a database?",
+          "What command should I use to fetch data from a table?",
+          "How do I select information from a table in SQL?",
+          "What is the query to get data from a database?",
+          "How can I retrieve data from a table?",
+          "What command do I use to pull data from a table?",
+          "How do I display information from a table?"
+        ],
+        "responses": [
+          "To retrieve data from a table, you use the `SELECT` statement. You can specify which columns or rows you want to see.",
+          "The `SELECT` statement is used to fetch data from a table in a database. You can list the columns or use `*` to get all columns.",
+          "You can use the `SELECT` statement to fetch specific columns from a table. For example: `SELECT column_name FROM table_name`.",
+          "The `SELECT` statement is one of the most commonly used SQL commands. It's used to query data from a table or view."
+        ]
+      },
+      {
+        "tag": "sql_update_statement",
+        "category": "SQL",
+        "patterns": [
+          "Which SQL statement is used to modify data in a database?",
+          "How do I change existing records in SQL?",
+          "I need to update some information in a table, what SQL command should I use?",
+          "What is the query to modify a value in SQL?",
+          "How can I update data in a table?",
+          "What statement should I use to update a record in SQL?",
+          "How do I edit an entry in SQL?"
+        ],
+        "responses": [
+          "To modify existing records, you can use the `UPDATE` statement. Don’t forget to specify the conditions with `WHERE` so you don’t update all rows.",
+          "The `UPDATE` statement is used to change existing data. You need to specify both the new values and the condition under which to apply those changes.",
+          "You can use the `UPDATE` command to modify specific columns in a table. Remember to use a `WHERE` clause to target specific rows.",
+          "To update a record, write `UPDATE table_name SET column_name = value WHERE condition`. This ensures only targeted rows are updated."
+        ]
+      },
+      {
+        "tag": "sql_delete_statement",
+        "category": "SQL",
+        "patterns": [
+          "Which SQL statement is used to delete data?",
+          "How do I remove records from a database in SQL?",
+          "What SQL command should I use to delete rows?",
+          "How do I delete data from a specific table?",
+          "What is the command to delete records in SQL?",
+          "How can I delete entries from a table in SQL?",
+          "How do I erase data from a database?"
+        ],
+        "responses": [
+          "To delete records, you can use the `DELETE FROM` statement. Make sure to use a condition to avoid deleting all rows in the table.",
+          "The `DELETE` statement removes records from a table. Always be cautious and specify a condition with `WHERE`.",
+          "You can delete rows from a table using the `DELETE` statement. For example: `DELETE FROM table_name WHERE condition`.",
+          "To delete specific records, use `DELETE FROM table_name WHERE condition`. Be very careful as this operation cannot be undone."
+        ]
+      },
+      {
+        "tag": "sql_insert_statement",
+        "category": "SQL",
+        "patterns": [
+          "How do I add new records to a database in SQL?",
+          "Which command is used to insert data into a table?",
+          "What is the query to insert a new record in SQL?",
+          "How can I insert a new row into a table in SQL?",
+          "What command do I use to add new data to a table?",
+          "How do I insert a record into SQL?",
+          "What is the statement to insert a new entry?"
+        ],
+        "responses": [
+          "To insert new records, use the `INSERT INTO` statement. You'll need to specify the table and the values you want to add.",
+          "The `INSERT INTO` statement allows you to add a new record into a table. You can specify the values for each column in the table.",
+          "You can add a new row using the `INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...)`.",
+          "Use the `INSERT INTO` statement to insert new data into a table. Be sure to provide values for all necessary columns."
+        ]
+      },
+      {
+        "tag": "sql_select_column",
+        "category": "SQL",
+        "patterns": [
+          "How do I select the 'FirstName' column from a table?",
+          "Which command should I use to retrieve a specific column from a table?",
+          "I only need the 'FirstName' from the table, how do I write the query?",
+          "How do I pull the 'FirstName' from a table in SQL?",
+          "What is the query to get the 'FirstName' column?"
+        ],
+        "responses": [
+          "To select a specific column, write `SELECT` followed by the column name and the table name. For example, `SELECT FirstName FROM table_name`.",
+          "You can select individual columns by mentioning them after the `SELECT` keyword. For instance, `SELECT FirstName FROM table_name`.",
+          "In SQL, use the `SELECT column_name FROM table_name` statement to fetch only the required column.",
+          "To get a specific column, simply write: `SELECT column_name FROM table_name`. For example: `SELECT FirstName FROM employees`."
+        ]
+      },
+      {
+        "tag": "sql_select_all_columns",
+        "category": "SQL",
+        "patterns": [
+          "How do I select all columns from a table?",
+          "What command should I use to retrieve everything from a table?",
+          "How can I query all the data from a table without specifying columns?",
+          "What is the query to select all columns from a table?",
+          "How do I fetch all the data in a table?"
+        ],
+        "responses": [
+          "To retrieve all columns, use the `SELECT *` statement followed by the table name. For example, `SELECT * FROM table_name`.",
+          "You can use `SELECT *` to get all columns from a table. Just specify the table after the `FROM` keyword.",
+          "Use `SELECT * FROM table_name` to get all rows and columns from a table. Be careful as this can return large amounts of data.",
+          "The `SELECT *` statement retrieves all columns from a table, like `SELECT * FROM employees`."
+        ]
+      },
+      {
+        "tag": "sql_select_firstname_equals_peter",
+        "category": "SQL",
+        "patterns": [
+          "How do I find all records where 'FirstName' is 'Peter'?",
+          "What is the SQL query to select 'Peter' from the 'FirstName' column?",
+          "Can I filter results to only show 'Peter' in the 'FirstName' column?",
+          "What command do I use to get rows where 'FirstName' equals 'Peter'?"
+        ],
+        "responses": [
+          "To filter rows, you can use the `WHERE` clause. For example: `SELECT * FROM table_name WHERE FirstName = 'Peter'`.",
+          "You can use `WHERE` to filter data based on conditions. In this case, `SELECT * FROM table_name WHERE FirstName = 'Peter'`.",
+          "Use the `WHERE` clause to filter specific rows. For example: `SELECT * FROM table_name WHERE FirstName = 'Peter'`.",
+          "To get records where the `FirstName` is 'Peter', the query would be: `SELECT * FROM table_name WHERE FirstName = 'Peter'`."
+        ]
+      },
+      {
+        "tag": "sql_select_firstname_startswith_a",
+        "category": "SQL",
+        "patterns": [
+          "How do I select records where 'FirstName' starts with 'a'?",
+          "Which SQL query will get all rows where 'FirstName' starts with an 'a'?",
+          "How can I filter records by names starting with 'a'?",
+          "How do I select 'FirstName' starting with 'A'?"
+        ],
+        "responses": [
+          "To filter by patterns, use the `LIKE` operator. For example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`.",
+          "Use the `LIKE` keyword and a `%` wildcard to match records where the `FirstName` starts with 'A'. Example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`.",
+          "You can use `LIKE 'A%'` to find names starting with 'A'. Example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`.",
+          "In SQL, you can use the `LIKE` operator with a `%` wildcard for partial matching. Example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`."
+        ]
+      }
+    ]
+  }
+  

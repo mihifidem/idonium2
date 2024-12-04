@@ -1,0 +1,139 @@
+{
+    "intents": [
+      {
+        "tag": "django_project_creation",
+        "category": "Django",
+        "patterns": [
+          "What is a correct syntax for creating a Django project?",
+          "How do I create a new Django project?",
+          "What command starts a Django project?",
+          "Syntax for starting a Django project?",
+          "Command to initialize a Django project?",
+          "How can I create a project using Django?",
+          "Which command is used to set up a Django project?",
+          "How to start a new Django project?",
+          "Steps to create a Django project?"
+        ],
+        "responses": [
+          "To start a new Django project, use the command: `django-admin startproject project_name`.",
+          "Ensure you have Django installed before creating a project using `django-admin`.",
+          "Use `django-admin startproject <project_name>` to initialize a Django project. Replace `<project_name>` with your desired project name."
+        ]
+      },
+      {
+        "tag": "django_runserver",
+        "category": "Django",
+        "patterns": [
+          "What is the syntax to start a Django development server?",
+          "How do I run a Django server?",
+          "What command is used to start the server in Django?",
+          "How can I start the Django server?",
+          "How do you initiate the development server in Django?",
+          "What do I type to run the server in Django?",
+          "What command activates the Django local server?",
+          "How to launch Django development server?",
+          "Django command for running a local server?"
+        ],
+        "responses": [
+          "To start the server, use the command: `python manage.py runserver`. Access the server at `http://127.0.0.1:8000`.",
+          "Ensure you're in the project root directory and use the command `python manage.py runserver` to start the server.",
+          "You can stop the server by pressing `Ctrl+C` in the terminal."
+        ]
+      },
+      {
+        "tag": "django_folder_content",
+        "category": "Django",
+        "patterns": [
+          "Which file is not part of the Django project folder?",
+          "What files are included in a new Django project?",
+          "Which file is missing in a default Django project folder?",
+          "How do I know what files are part of a Django project?",
+          "Which file doesn't belong to a Django project's folder structure?",
+          "What files are created when initializing a Django project?",
+          "Is templates.py included in the default Django project?",
+          "What is the default content of a Django project folder?"
+        ],
+        "responses": [
+          "A Django project folder typically includes files like `manage.py`, `settings.py`, and `urls.py`. It does not include `templates.py` by default.",
+          "The `templates` directory is created manually for organizing template files, rather than being a Python file.",
+          "To explore the default files, navigate to the project folder after running `django-admin startproject`."
+        ]
+      },
+      {
+        "tag": "django_written_language",
+        "category": "Django",
+        "patterns": [
+          "Which language is Django written in?",
+          "What programming language does Django use?",
+          "Django is written in what language?",
+          "What language powers Django?",
+          "In what language is the Django framework built?",
+          "What is the base programming language for Django?",
+          "Django is implemented using which language?",
+          "What language is behind Django's framework?"
+        ],
+        "responses": [
+          "Django is written in Python, a versatile language known for its readability and wide use in web development.",
+          "The framework is based on Python, a popular language for scripting and building scalable web applications.",
+          "Python powers Django, providing its clean syntax and rapid development capabilities."
+        ]
+      },
+      {
+        "tag": "django_handle_requests",
+        "category": "Django",
+        "patterns": [
+          "In Django, incoming requests are handled in which file?",
+          "What file manages requests in Django?",
+          "Where are URL routing and request handling configured in Django?",
+          "Which file handles HTTP requests in Django?",
+          "Where can I define how requests are processed in Django?",
+          "How does Django map requests to specific functions?",
+          "Where do I define routing rules in Django?",
+          "What file is used for request handling in Django?"
+        ],
+        "responses": [
+          "Incoming requests in Django are typically routed using the `urls.py` file.",
+          "The `urls.py` file maps request paths to the corresponding views.",
+          "For handling requests, define URL patterns in the `urls.py` file and link them to views."
+        ]
+      },
+      {
+        "tag": "django_admin_interface",
+        "category": "Django",
+        "patterns": [
+          "How do I create a superuser in Django?",
+          "What is the command to create an admin user in Django?",
+          "How can I set up an admin account for Django's admin interface?",
+          "What is the syntax for creating a superuser in Django?",
+          "How do I access Django's admin panel as an admin?",
+          "How can I generate a superuser for the Django admin?",
+          "What command is used to make a superuser in Django?",
+          "Steps to create a Django admin user?"
+        ],
+        "responses": [
+          "To create a superuser, run the command: `python manage.py createsuperuser`. Follow the prompts to set a username and password.",
+          "Before running the command, ensure your database migrations are up-to-date with `python manage.py migrate`.",
+          "Once the superuser is created, access the admin panel at `/admin` in your application."
+        ]
+      },
+      {
+        "tag": "general_django",
+        "category": "Django",
+        "patterns": [
+          "Tell me about Django.",
+          "What can I do with Django?",
+          "Explain Django in simple terms.",
+          "What is Django used for?",
+          "How does Django help in web development?",
+          "Why should I use Django?",
+          "What makes Django unique?"
+        ],
+        "responses": [
+          "Django is a high-level Python framework for building robust and scalable web applications.",
+          "It simplifies web development by providing tools for database interaction, URL routing, and templating.",
+          "Django is designed to help developers build secure and efficient web applications rapidly."
+        ]
+      }
+    ]
+  }
+  
