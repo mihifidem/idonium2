@@ -95,8 +95,8 @@ class ScheduleForm(forms.ModelForm):
             'status': 'Estado',
         }
         widgets = {
-            'joboffer': forms.Select(attrs={'id': 'id_joboffer', 'class': 'form-control'}),
-            'candidate': forms.Select(attrs={'id': 'id_candidate', 'class': 'form-control'}),
+            'joboffer': forms.Select(attrs={'class': 'form-control'}),
+            'candidate': forms.Select(attrs={'class': 'form-control'}),
             'type_action': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Detalles de la acción'}),
             'date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
