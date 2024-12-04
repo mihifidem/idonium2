@@ -114,39 +114,45 @@
                                             <div class="form-group">
                                                 <strong>{{ form.has_sector.label_tag }}</strong>
                                                 {{ form.has_sector }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.sector }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for sector in sectors %}
+                                                    <div>
+                                                        <input type="checkbox" name="sector" value="{{ sector.id }}">
+                                                        <span>{{ sector.sector.name_sector }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                             <div class="form-group">
                                                 <strong>{{ form.has_category.label_tag }}</strong>
                                                 {{ form.has_category }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.category }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for category in categories %}
+                                                    <div>
+                                                        <input type="checkbox" name="category" value="{{ category.id }}">
+                                                        <span>{{ category.category.name_category }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <strong>{{ form.has_open_to_work.label_tag }}</strong>
                                                 {{ form.has_open_to_work }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.open_to_work }}</li>
-                                                </ul>
                                             </div>
                                             <div class="form-group">
                                                 <strong>{{ form.has_incorporation.label_tag }}</strong>
                                                 {{ form.has_incorporation }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.incorporation }}</li>
-                                                </ul>
                                             </div>
-                                            <div class="form-group">
-                                                <strong>{{ form.has_url.label_tag }}</strong>
-                                                {{ form.has_url }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.url }}</li>
-                                                </ul>
+                                            <div>
+                                                <label for="category">Incorporation:</label>
+                                                {% for incorporation in incorporations %}
+                                                    <div>
+                                                        <input type="checkbox" name="incorporation" value="{{ incorporation.id }}">
+                                                        <span>{{ incorporation.incorporation.name_incorporation }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
@@ -163,8 +169,11 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_work_experiences.label_tag }}</strong>
+                                                {{ form.has_work_experiences }}
+                                            </div>
                                             <div>
-                                                <label for="work_experiences">Work Experiences:</label>
                                                 {% for work_experience in work_experiences %}
                                                     <div>
                                                         <input type="checkbox" name="work_experiences" value="{{ work_experience.id }}">
@@ -175,39 +184,62 @@
                                             <div class="form-group">
                                                 <strong>{{ form.has_hard_skills.label_tag }}</strong>
                                                 {{ form.has_hard_skills }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.hard_skills }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for hard_skills in hard_skills %}
+                                                    <div>
+                                                        <input type="checkbox" name="hard_skills" value="{{ hard_skills.id }}">
+                                                        <span>{{ hard_skills.hard_skill.name_hard_skill }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                             <div class="form-group">
                                                 <strong>{{ form.has_soft_skills.label_tag }}</strong>
                                                 {{ form.has_soft_skills }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.soft_skills }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for soft_skills in soft_skills %}
+                                                    <div>
+                                                        <input type="checkbox" name="soft_skills" value="{{ soft_skills.id }}">
+                                                        <span>{{ soft_skills.soft_skill.name_soft_skill }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <strong>{{ form.has_languages.label_tag }}</strong>
                                                 {{ form.has_languages }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.languages }}</li>
-                                                </ul>
                                             </div>
+                                            <div>
+                                                {% for language in languages %}
+                                                    <div>
+                                                        <input type="checkbox" name="languages" value="{{ language.id }}">
+                                                        <span>{{ language.language.name_language }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             <div class="form-group">
                                                 <strong>{{ form.has_academic_educations.label_tag }}</strong>
                                                 {{ form.has_academic_educations }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.academic_educations }}</li>
-                                                </ul>
                                             </div>
+                                            <div>
+                                                {% for academic_education in academic_educations %}
+                                                    <div>
+                                                        <input type="checkbox" name="academic_educations" value="{{ academic_education.id }}">
+                                                        <span>{{ academic_education.degree }} at {{ academic_education.institution_name }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             <div class="form-group">
                                                 <strong>{{ form.has_certifications_courses.label_tag }}</strong>
                                                 {{ form.has_certifications_courses }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.certifications_courses }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for course in courses %}
+                                                    <div>
+                                                        <input type="checkbox" name="course" value="{{ course.id }}">
+                                                        <span>{{ certification_course.name_certification_course }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
@@ -272,18 +304,12 @@
                                             <div class="form-group">
                                                 <strong>{{ form.has_vehicle.label_tag }}</strong>
                                                 {{ form.has_vehicle }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.vehicle }}</li>
-                                                </ul>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <strong>{{ form.has_disability.label_tag }}</strong>
                                                 {{ form.has_disability }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.disability }}</li>
-                                                </ul>
                                             </div>
                                             <div class="form-group">
                                                 <strong>{{ form.has_disability_percentage.label_tag }}</strong>

@@ -6,7 +6,7 @@ from weasyprint import HTML
 from .models import *
 from .forms import *
 from django.template.loader import get_template
-
+from django.contrib.auth.models import User
 
 
 # * |--------------------------------------------------------------------------
@@ -454,6 +454,17 @@ def user_cv_create(request, profile_id):
             user_cv = form.save(commit=False)
             user_cv.profile_user = profile_cv  # Asigna el perfil del usuario
             user_cv.save()
+
+            # Obtener las experiencias laborales seleccionadas
+            selected_experiences = request.POST.getlist('work_experiences')
+
+            # Crear relaciones entre el User_cv y las experiencias laborales seleccionadas
+            for experience_id in selected_experiences:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    work_experience_id=experience_id
+                )
+
             return redirect("user_cv_list", profile_id)  # Pasa el profile_id aquí
     else:
         random_numbers = ''.join(random.choices(string.digits, k=4))
@@ -507,7 +518,13 @@ def user_cv_delete(request, user_cv_id):
 def user_cv_view_details(request, user_cv_id, profile_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
     profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
-    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+
+    # Filtrar solo las experiencias laborales asociadas al User_cv
+    user_cv_relations = UserCvRelation.objects.filter(user_cv=user_cv)
+
+    # Filtrar solo las experiencias laborales que están relacionadas con este User_cv
+    work_experiences = WorkExperience.objects.filter(id__in=user_cv_relations.values('work_experience'))
+
     academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
     hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
     soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
