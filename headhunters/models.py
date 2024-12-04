@@ -108,6 +108,7 @@ class TypeAction(models.Model):
 #Action: Almacena las acciones o interacciones realizadas por el headhunter con un candidato, como enviar un mensaje, realizar una videoconferencia o enviar un email. Cada Action está relacionada con un HeadHunter y un CandidateProfile y tiene un tipo de acción (type_action), una descripción y una fecha.
 class Schedule(models.Model):
     headhunter = models.ForeignKey(HeadHunterUser, on_delete=models.CASCADE)
+    joboffer = models.ForeignKey(JobOffer, on_delete=models.CASCADE)
     candidate = models.ForeignKey(Profile_CV, on_delete=models.CASCADE)
     type_action = models.ForeignKey(TypeAction, on_delete=models.SET_NULL, null=True)
     description = models.TextField()

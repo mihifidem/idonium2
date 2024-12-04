@@ -11,6 +11,14 @@
     <div class="text-danger">{{ error }}</div>
     {% endfor %}
   </div>
+  <!--Div que contenga las ofertas relacionadas al headhunter id-->
+  <div class="form-group">
+    <label for="{{ form.joboffer.id_for_label }}">{{ form.joboffer.label }}</label>
+    {{ form.joboffer }}
+    {% for error in form.joboffer.errors %}
+        <div class="text-danger">{{ error }}</div>
+    {% endfor %}
+</div>
 
   <div class="form-group">
     <label for="{{ form.candidate.id_for_label }}">{{ form.candidate.label }}</label>
@@ -58,4 +66,6 @@
 
 
 <a href="{% url 'schedule_list' %}">Back to List</a>
+
 {% endblock %}
+

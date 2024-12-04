@@ -85,24 +85,23 @@ class ManagementCandidatesForm(forms.ModelForm):
 class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['headhunter', 'candidate', 'type_action', 'description', 'date', 'status']
+        fields = ['joboffer', 'candidate', 'type_action', 'description', 'date', 'status']
         labels = {
-            'headhunter': 'Headhunter',
             'candidate': 'Candidato',
+            'joboffer': 'Oferta de trabajo',
             'type_action': 'Tipo de acción',
             'description': 'Descripción',
             'date': 'Fecha y hora',
             'status': 'Estado',
         }
         widgets = {
-            'headhunter': forms.Select(attrs={'class': 'form-control'}),
-            'candidate': forms.Select(attrs={'class': 'form-control'}),
+            'joboffer': forms.Select(attrs={'id': 'id_joboffer', 'class': 'form-control'}),
+            'candidate': forms.Select(attrs={'id': 'id_candidate', 'class': 'form-control'}),
             'type_action': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Detalles de la acción'}),
             'date': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
-
 
 class JobOfferNotificationForm(forms.ModelForm):
     class Meta:

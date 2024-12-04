@@ -8,6 +8,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from profile_cv.models import Profile_CV
+from django.http import JsonResponse
 
 
 class JobOfferListView(ListView):
@@ -152,3 +153,4 @@ class AddToExistingOfferView(View):
 
         messages.success(request, 'Candidatos agregados a la oferta con éxito.')
         return redirect('landing_headhunters')  # Cambiar a la página deseada después del éxito
+    

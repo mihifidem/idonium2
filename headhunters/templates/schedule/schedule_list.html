@@ -8,6 +8,7 @@
       <thead>
         <tr>
           <th>Tipo de Acción</th>
+          <th>Oferta</th>
           <th>Candidato</th>
           <th>Descripción</th>
           <th>Fecha</th>
@@ -19,6 +20,12 @@
         {% for schedule in schedule %}
           <tr>
             <td>{{ schedule.type_action.name }}</td>
+            <td>
+              {% if schedule.joboffer %}
+                {{ schedule.joboffer }}
+              {% else %}
+                <em>No asignado</em>
+              {% endif %}
             <td>
               {% if schedule.candidate %}
                 {{ schedule.candidate }}

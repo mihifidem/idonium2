@@ -8,6 +8,7 @@ from .views import (
     LandingHeadHuntersView,ManageCandidatesView,
     CreateOfferView,
     AddToExistingOfferView,
+    
 )
 
 
@@ -36,6 +37,8 @@ urlpatterns = [
       path('manage_candidates/', ManageCandidatesView.as_view(), name='manage_candidates'),
     #Ruta para crear oferta desde seleccionados
       path('create_offer/<str:candidate_ids>/', CreateOfferView.as_view(), name='create_offer'),
-    path('add_to_existing_offer/<str:candidate_ids>/', AddToExistingOfferView.as_view(), name='add_to_existing_offer'),
+      path('add_to_existing_offer/<str:candidate_ids>/', AddToExistingOfferView.as_view(), name='add_to_existing_offer'),
+      
+      
    
 ]
