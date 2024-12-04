@@ -118,7 +118,7 @@
                                             <div>
                                                 {% for sector in sectors %}
                                                     <div>
-                                                        <input type="checkbox" name="sector" value="{{ sector.id }}">
+                                                        <input type="checkbox" name="sectors" value="{{ sector.id }}">
                                                         <span>{{ sector.sector.name_sector }}</span>
                                                     </div>
                                                 {% endfor %}
@@ -130,7 +130,7 @@
                                             <div>
                                                 {% for category in categories %}
                                                     <div>
-                                                        <input type="checkbox" name="category" value="{{ category.id }}">
+                                                        <input type="checkbox" name="categories" value="{{ category.id }}">
                                                         <span>{{ category.category.name_category }}</span>
                                                     </div>
                                                 {% endfor %}
@@ -146,10 +146,9 @@
                                                 {{ form.has_incorporation }}
                                             </div>
                                             <div>
-                                                <label for="category">Incorporation:</label>
                                                 {% for incorporation in incorporations %}
                                                     <div>
-                                                        <input type="checkbox" name="incorporation" value="{{ incorporation.id }}">
+                                                        <input type="checkbox" name="incorporations" value="{{ incorporation.id }}">
                                                         <span>{{ incorporation.incorporation.name_incorporation }}</span>
                                                     </div>
                                                 {% endfor %}
@@ -237,10 +236,12 @@
                                                 {% for course in courses %}
                                                     <div>
                                                         <input type="checkbox" name="course" value="{{ course.id }}">
-                                                        <span>{{ certification_course.name_certification_course }}</span>
+                                                        <span>{{ course.course.title }}</span>
                                                     </div>
                                                 {% endfor %}
                                             </div>
+                                        </div>
+                                    </div>
                                         </div>
                                     </div>
                                 </div>
@@ -259,32 +260,50 @@
                                             <div class="form-group">
                                                 <strong>{{ form.has_volunteerings.label_tag }}</strong>
                                                 {{ form.has_volunteerings }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.volunteerings }}</li>
-                                                </ul>
                                             </div>
-                                            <div class="form-group"></div>
+                                            <div>
+                                                {% for volunteering in volunteerings %}
+                                                    <div>
+                                                        <input type="checkbox" name="volunteerings" value="{{ volunteering.id }}">
+                                                        <span>{{ volunteering.volunteering_position }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-group">
                                                 <strong>{{ form.has_projects.label_tag }}</strong>
                                                 {{ form.has_projects }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.projects }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for project in projects %}
+                                                    <input type="checkbox" name="projects" value="{{ project.id }}">
+                                                    <span>{{ project.link }}</span>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <strong>{{ form.has_publications.label_tag }}</strong>
                                                 {{ form.has_publications }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.publications }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for publication in publications %}
+                                                    <div>
+                                                        <input type="checkbox" name="publications" value="{{ publication.id }}">
+                                                        <span>{{ publication.doi }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                             <div class="form-group">
                                                 <strong>{{ form.has_recognitions_awards.label_tag }}</strong>
                                                 {{ form.has_recognitions_awards }}
-                                                <ul>
-                                                    <li style="list-style-type:circle">{{ profile_cv.recognitions_awards }}</li>
-                                                </ul>
+                                            </div>
+                                            <div>
+                                                {% for recognition in recognitions_awards %}
+                                                    <div>
+                                                        <input type="checkbox" name="recognitions_awards" value="{{ recognition.id }}">
+                                                        <span>{{ recognition.name }}</span>
+                                                    </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>

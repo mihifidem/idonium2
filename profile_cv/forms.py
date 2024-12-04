@@ -53,6 +53,33 @@ class AcademicEducationForm(forms.ModelForm):
             "current_education",
             "references",
         ]
+        widgets = {
+            'academy_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter academy name'
+            }),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter title or degree name'
+            }),
+            'start_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'end_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'current_education': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
+            'references': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Enter references or additional information'
+            })
+        }
+
 
 # Form to represent a hard skill
 class HardSkillForm(forms.ModelForm):

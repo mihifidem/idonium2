@@ -7,7 +7,7 @@ from .models import *
 from .forms import *
 from django.template.loader import get_template
 from django.contrib.auth.models import User
-
+from courses.models import Course
 
 # * |--------------------------------------------------------------------------
 # * | Home
@@ -457,13 +457,107 @@ def user_cv_create(request, profile_id):
 
             # Obtener las experiencias laborales seleccionadas
             selected_experiences = request.POST.getlist('work_experiences')
-
-            # Crear relaciones entre el User_cv y las experiencias laborales seleccionadas
             for experience_id in selected_experiences:
                 UserCvRelation.objects.create(
                     user_cv=user_cv,
                     work_experience_id=experience_id
                 )
+
+            # Obtener las educaciones académicas seleccionadas
+            selected_academic_educations = request.POST.getlist('academic_educations')
+            for education_id in selected_academic_educations:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    academic_education_id=education_id
+                )
+
+            # Obtener las habilidades duras seleccionadas
+            selected_hard_skills = request.POST.getlist('hard_skills')
+            for skill_id in selected_hard_skills:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    hard_skill_id=skill_id
+                )
+
+            # Obtener las habilidades blandas seleccionadas
+            selected_soft_skills = request.POST.getlist('soft_skills')
+            for skill_id in selected_soft_skills:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    soft_skill_id=skill_id
+                )
+
+            # Obtener los idiomas seleccionados
+            selected_languages = request.POST.getlist('languages')
+            for language_id in selected_languages:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    language_id=language_id
+                )
+
+            # Obtener las categorías seleccionadas
+            selected_categories = request.POST.getlist('categories')
+            for category_id in selected_categories:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    category_id=category_id
+                )
+
+            # Obtener los sectores seleccionados
+            selected_sectors = request.POST.getlist('sectors')
+            for sector_id in selected_sectors:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    sector_id=sector_id
+                )
+
+            # Obtener las incorporaciones seleccionadas
+            selected_incorporations = request.POST.getlist('incorporations')
+            for incorporation_id in selected_incorporations:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    incorporation_id=incorporation_id
+                )
+
+            # Obtener los voluntariados seleccionados
+            selected_volunteerings = request.POST.getlist('volunteerings')
+            for volunteering_id in selected_volunteerings:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    volunteering_id=volunteering_id
+                )
+
+            # Obtener los proyectos seleccionados
+            selected_projects = request.POST.getlist('projects')
+            for project_id in selected_projects:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    project_id=project_id
+                )
+
+            # Obtener las publicaciones seleccionadas
+            selected_publications = request.POST.getlist('publications')
+            for publication_id in selected_publications:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    publication_id=publication_id
+                )
+
+            # Obtener los reconocimientos y premios seleccionados
+            selected_recognitions = request.POST.getlist('recognitions_awards')
+            for recognition_id in selected_recognitions:
+                UserCvRelation.objects.create(
+                    user_cv=user_cv,
+                    recognition_award_id=recognition_id
+                )
+            
+            # Obtener cursos
+            # selected_course = request.POST.getlist('course')
+            # for course_id in selected_course:
+            #     UserCvRelation.objects.create(
+            #         user_cv=user_cv,
+            #         course_id=course_id
+            #     )
 
             return redirect("user_cv_list", profile_id)  # Pasa el profile_id aquí
     else:
@@ -485,6 +579,7 @@ def user_cv_create(request, profile_id):
         'volunteerings': volunteerings,
         'projects': projects,
         'publications': publications,
+        "courses": profile_cv.user.enrolled_courses.filter(status__name='completed'),
         'recognitions_awards': recognitions_awards,
     }
 
@@ -519,23 +614,21 @@ def user_cv_view_details(request, user_cv_id, profile_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
     profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
 
-    # Filtrar solo las experiencias laborales asociadas al User_cv
+    # Filtrar solo los campos asociadas al User_cv
     user_cv_relations = UserCvRelation.objects.filter(user_cv=user_cv)
 
-    # Filtrar solo las experiencias laborales que están relacionadas con este User_cv
     work_experiences = WorkExperience.objects.filter(id__in=user_cv_relations.values('work_experience'))
-
-    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
-    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
-    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
-    languages = LanguageUser.objects.filter(profile_user=profile_cv)
-    categories = CategoryUser.objects.filter(profile_user=profile_cv)
-    sectors = SectorUser.objects.filter(profile_user=profile_cv)
-    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
-    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
-    projects = Project.objects.filter(profile_user=profile_cv)
-    publications = Publication.objects.filter(profile_user=profile_cv)
-    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+    academic_educations = AcademicEducation.objects.filter(id__in=user_cv_relations.values('academic_education'))
+    hard_skills = HardSkillUser.objects.filter(id__in=user_cv_relations.values('hard_skill'))
+    soft_skills = SoftSkillUser.objects.filter(id__in=user_cv_relations.values('soft_skill'))
+    languages = LanguageUser.objects.filter(id__in=user_cv_relations.values('language'))
+    categories = CategoryUser.objects.filter(id__in=user_cv_relations.values('category'))
+    sectors = SectorUser.objects.filter(id__in=user_cv_relations.values('sector'))
+    incorporations = IncorporationUser.objects.filter(id__in=user_cv_relations.values('incorporation'))
+    volunteerings = Volunteering.objects.filter(id__in=user_cv_relations.values('volunteering'))
+    projects = Project.objects.filter(id__in=user_cv_relations.values('project'))
+    publications = Publication.objects.filter(id__in=user_cv_relations.values('publication'))
+    recognitions_awards = RecognitionAward.objects.filter(id__in=user_cv_relations.values('recognition_award'))
 
     context = {
         'user_cv': user_cv,
