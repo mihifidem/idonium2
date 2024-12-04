@@ -19,6 +19,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         Status.objects.create(name='completed', description='Completed')
+        Status.objects.create(name='inprogress', description='In Progress')
         WishListType.objects.create(name="Course")
         WishListType.objects.create(name="Resource")
         self.create_users()
@@ -47,7 +48,7 @@ class Command(BaseCommand):
             if created:
                 profile_teacher.image = self.get_random_image(TEACHERS_IMAGE_DIR)
                 profile_teacher.hardskills = None
-                profile_teacher.categoriy = None
+                profile_teacher.category = None
                 profile_teacher.sector = None
                 profile_teacher.save()
 

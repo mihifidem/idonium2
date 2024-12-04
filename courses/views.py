@@ -31,23 +31,24 @@ def group_required(group_name):
 def courses_list_view(request):
     # Obtener todos los cursos activos
     courses = Course.objects.filter(is_active=True)
+
     # Obtener el tipo de wishlist para cursos
     course_type = WishListType.objects.get(name="Course")
 
-    completed_status = Status.objects.get(name="completed") 
-    
     completed_courses = []
     for course in courses:
         # Contar los usuarios que han completado el curso
-        completed_users_count = CourseUser.objects.filter(course=course, status=completed_status).count()
+        completed_users_count = course.enrolled_users.filter(status__name="completed").count()
 
         # Contar las veces que el curso ha sido añadido a la wishlist
-        course_wishlist_count = WishListUser.objects.filter(type_wish=course_type, id_wish=course.id).count()
+        course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.pk).count()
 
         #Contar las reviews que tiene el curso
-        course_reviews_count = Review.objects.filter(course=course).count()
+        #course_reviews_count = Review.objects.filter(course=course).count()
+        course_reviews_count = course.reviews.all().count()
 
-        reviews = Review.objects.filter(course=course)
+        #reviews = Review.objects.filter(course=course)
+        reviews = course.reviews.all()
         if reviews.exists():
             average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
             
@@ -153,7 +154,7 @@ def course_detail_view(request, pk):
     
     # Obtener los módulos del curso y prefetch lecciones
     modules = Module.objects.filter(course=course).prefetch_related(
-        Prefetch('lesson_set', queryset=Lesson.objects.all()))
+        Prefetch('lessons', queryset=Lesson.objects.all()))
     
     total_lessons_count = Lesson.objects.filter(module__course=course).count()
 
@@ -232,7 +233,7 @@ def course_detail_view(request, pk):
         
         # Añadimos índices para las lecciones del módulo
         lessons_with_indices = []
-        for lesson_index, lesson in enumerate(module.lesson_set.all(), start=1):  # Índice de lección comienza en 1
+        for lesson_index, lesson in enumerate(module.lessons.all(), start=1):  # Índice de lección comienza en 1
             # Agregamos un atributo "lesson_index" a cada lección
             lesson.lesson_index = lesson_index
             lessons_with_indices.append(lesson)

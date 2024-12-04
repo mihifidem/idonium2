@@ -13,11 +13,11 @@ class Status(models.Model):
         return self.name    
     
 class ProfileTeacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    bio = models.TextField(blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile_teacher") # para usar la query --> user.profile_teacher.get(id=1)
+    bio = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='teachers_images/', null=True, blank=True)
     hardskills = models.ForeignKey(HardSkill, on_delete=models.SET_NULL, null=True, blank=True)
-    categoriy = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
@@ -25,7 +25,7 @@ class ProfileTeacher(models.Model):
 
     
 class Course(models.Model):
-    profile_teacher = models.ForeignKey(ProfileTeacher, on_delete=models.CASCADE, related_name='teacher')
+    profile_teacher = models.ForeignKey(ProfileTeacher, on_delete=models.CASCADE, related_name="courses") # para usar la query --> profile_teacher.courses.all()
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField(null=True, blank=True)
     is_member = models.BooleanField(default=False)
@@ -33,7 +33,7 @@ class Course(models.Model):
     image = models.ImageField(upload_to='courses_images/', null=True, blank=True)
     is_free = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'), null=True, blank=True)
-    catergory = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
     sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
     hardskills = models.ManyToManyField(HardSkill)
 
@@ -42,22 +42,20 @@ class Course(models.Model):
         return self.title
     
 class Certificate(models.Model):
-
     name = models.CharField(max_length=50)
     code = models.CharField(max_length=10, unique=True)
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="certificates") # para usar la query --> user.enrolled_courses.all()
     ext_certificate = models.FileField(blank=True, null=True)
     
-
     def __str__(self):
         return f'{self.name} - {self.code}'
     
 class Review(models.Model):
     rating = models.PositiveIntegerField(choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')))
-    comment = models.TextField(blank=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
-    resource = models.ForeignKey('Resource', on_delete=models.CASCADE, null=True, blank=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    comment = models.TextField(null=True, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True, related_name="reviews") # para usar la query --> course.reviews.all()
+    resource = models.ForeignKey('Resource', on_delete=models.CASCADE, null=True, blank=True, related_name="reviews") # para usar la query --> resource.reviews.all()
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -92,7 +90,7 @@ class Review(models.Model):
 
 
 class Module(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="modules") # para usar la query --> course.modules.all()
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=False)
@@ -101,30 +99,34 @@ class Module(models.Model):
         return self.title
 
 class Lesson(models.Model):
-    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name="lessons") # para usar la query --> module.lessons.all()
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     is_member = models.BooleanField(default=False)
     duration = models.IntegerField(null=True, blank=True, default=10)
     
-
     def __str__(self):
         return f'{self.module} - {self.name}'
     
 class CourseUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL,null=True)
-    status = models.ForeignKey(Status, on_delete=models.SET_NULL,null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="enrolled_courses") # para usar la query --> user.enrolled_courses.all()
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="enrolled_users") # para usar la query --> course.enrolled_users.all()
+    status = models.ForeignKey(Status, on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(null=True, blank=True)
     certified = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'course'], name='unique_user_course')
+        ]
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} - {self.course}'
     
 
 class Resource(models.Model):
-    lesson = models.ForeignKey(Lesson, related_name='lesson', blank=True, null=True, on_delete=models.SET_NULL)
+    lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, blank=True, null=True, related_name='resources') # para usar la query --> lesson.resources.all()
     name = models.CharField(max_length=255, unique=True)
     downloadable = models.BooleanField(default=False)
     is_member = models.BooleanField(default=False)
@@ -144,7 +146,7 @@ class WishListType(models.Model):
         return self.name
 
 class WishListUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="wishlist")# para usar la query --> user.wishlist.all()
     type_wish = models.ForeignKey(WishListType, on_delete=models.CASCADE)
     id_wish = models.IntegerField()
 
@@ -153,8 +155,8 @@ class WishListUser(models.Model):
 
 
 class LessonCompletion(models.Model):
-    course_user = models.ForeignKey(CourseUser, on_delete=models.CASCADE)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    course_user = models.ForeignKey(CourseUser, on_delete=models.CASCADE, related_name="lessons_completed") # para usar la query --> course_user.user_lessons_completed.all()
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="users_completed_lessons") # para usar la query --> lesson.users_completed_lessons.all()
     started_at = models.DateTimeField(auto_now_add=True)
     finished_at = models.DateTimeField(null=True)
 

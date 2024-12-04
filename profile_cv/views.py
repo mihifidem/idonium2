@@ -2,7 +2,7 @@ import random
 import string
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-# from weasyprint import HTML
+#from weasyprint import HTML
 from .models import *
 from .forms import *
 from django.template.loader import get_template
