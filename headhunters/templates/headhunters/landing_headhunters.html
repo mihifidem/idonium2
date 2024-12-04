@@ -6,47 +6,63 @@
       <h1>Candidates</h1>
 
       <!-- Filtros -->
-      <form method="get" class="mb-4">
-          <div class="row">
-              <div class="col-md-4 col-sm-12 form-group">
-                  <label for="location">Ubicación:</label>
-                  <input type="text" name="location" id="location" class="form-control" value="{{ request.GET.location }}">
-              </div>
-              <div class="col-md-4 col-sm-12 form-group">
-                  <label for="open_to_work">Disponibilidad para trabajar:</label>
-                  <select name="open_to_work" id="open_to_work" class="form-control">
-                      <option value="" {% if request.GET.open_to_work == "" %}selected{% endif %}>Todos</option>
-                      <option value="true" {% if request.GET.open_to_work == "true" %}selected{% endif %}>Sí</option>
-                      <option value="false" {% if request.GET.open_to_work == "false" %}selected{% endif %}>No</option>
-                  </select>
-              </div>
-              <div class="col-md-4 col-sm-12 form-group">
-                  <label for="vehicle">Vehículo disponible:</label>
-                  <select name="vehicle" id="vehicle" class="form-control">
-                      <option value="" {% if request.GET.vehicle == "" %}selected{% endif %}>Todos</option>
-                      <option value="true" {% if request.GET.vehicle == "true" %}selected{% endif %}>Sí</option>
-                      <option value="false" {% if request.GET.vehicle == "false" %}selected{% endif %}>No</option>
-                  </select>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-md-4 col-sm-12 form-group">
-                  <label for="disability">Discapacidad:</label>
-                  <select name="disability" id="disability" class="form-control">
-                      <option value="" {% if request.GET.disability == "" %}selected{% endif %}>Todos</option>
-                      <option value="true" {% if request.GET.disability == "true" %}selected{% endif %}>Sí</option>
-                      <option value="false" {% if request.GET.disability == "false" %}selected{% endif %}>No</option>
-                  </select>
-              </div>
-              <div class="col-md-4 col-sm-12 form-group">
-                  <label for="disability_percentage">Porcentaje de discapacidad (mínimo):</label>
-                  <input type="number" name="disability_percentage" id="disability_percentage" class="form-control" value="{{ request.GET.disability_percentage }}">
-              </div>
-              <div class="col-md-4 col-sm-12 form-group d-flex align-items-end">
-                  <button type="submit" class="btn btn-primary w-100">Aplicar filtros</button>
-              </div>
-          </div>
-      </form>
+    <style>
+        .form-control,
+        .form-select {
+            height: calc(2.5rem); /* Asegura la misma altura para inputs y selects */
+        }
+        
+    </style>
+    
+    <form method="get" class="mb-4 p-3 bg-light rounded shadow-sm headhuntersfiltersform">
+        <div class="row gy-3">
+            <div class="col-md-4 col-sm-12">
+                <label for="location" class="form-label text-primary fw-bold">Ubicación:</label>
+                <input type="text" name="location" id="location" class="form-control border-primary rounded-pill" placeholder="Ej. Barcelona" value="{{ request.GET.location }}">
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-center">
+                <label for="open_to_work" class="form-label text-primary fw-bold">Disponibilidad para trabajar:</label>
+                <select name="open_to_work" id="open_to_work" class="form-select border-primary rounded-pill">
+                    <option value="" {% if request.GET.open_to_work == "" %}selected{% endif %}>Todos</option>
+                    <option value="true" {% if request.GET.open_to_work == "true" %}selected{% endif %}>Sí</option>
+                    <option value="false" {% if request.GET.open_to_work == "false" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-center">
+                <label for="vehicle" class="form-label text-primary fw-bold">Vehículo disponible:</label>
+                <select name="vehicle" id="vehicle" class="form-select border-primary rounded-pill">
+                    <option value="" {% if request.GET.vehicle == "" %}selected{% endif %}>Todos</option>
+                    <option value="true" {% if request.GET.vehicle == "true" %}selected{% endif %}>Sí</option>
+                    <option value="false" {% if request.GET.vehicle == "false" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+        </div>
+        <div class="row g-3 mt-3">
+            <div class="col-md-4 col-sm-12 d-flex align-items-center">
+                <label for="disability" class="form-label text-primary fw-bold">Discapacidad:</label>
+                <select name="disability" id="disability" class="form-select border-primary rounded-pill">
+                    <option value="" {% if request.GET.disability == "" %}selected{% endif %}>Todos</option>
+                    <option value="true" {% if request.GET.disability == "true" %}selected{% endif %}>Sí</option>
+                    <option value="false" {% if request.GET.disability == "false" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            
+            <div class="col-md-4 col-sm-12">
+                <label for="disability_percentage" class="form-label text-primary fw-bold">Porcentaje de discapacidad:</label>
+                <div class="input-group">
+                    <input type="number" name="disability_percentage" id="disability_percentage" 
+                           class="form-control border-primary rounded-pill" 
+                           placeholder="Ej. 20" min="0" max="100" step="-1"
+                           value="{{ request.GET.disability_percentage }}">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary rounded-pill w-100">Aplicar filtros</button>
+            </div>
+        </div>
+    </form>
+        
 
       <!-- Lista de candidatos con checkboxes -->
       <form method="post" action="{% url 'manage_candidates' %}">
@@ -67,7 +83,7 @@
                               {% endif %}
                               
                               <!-- Información del candidato -->
-                              <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2">
+                              <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2 candidate-checkbox">
                               <strong>{{ candidate.user.get_full_name }}</strong><br>
                               <small>{{ candidate.address }}</small>
                           </div>
@@ -78,14 +94,42 @@
                       <div class="alert alert-warning">No hay candidatos que coincidan con los filtros.</div>
                   </div>
               {% endfor %}
+               
           </div>
 
           <!-- Botones de acción -->
           <div class="btn-group">
             
-              <button type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
-              <button type="submit" name="action" value="add_to_existing_offer" class="btn btn-warning">Agregar a oferta existente</button>
-          </div>
+              <button id="create-offer-btn" type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
+             <button id="add-to-offer-btn" type="submit" name="action" value="add_to_existing_offer" class="btn btn-warning">Agregar a oferta existente</button>
+            
+            </div>
       </form>
+
   </div>
+
+  <!-- Script que deshabilita botones de crear o agregar oferta mientras no haya ningun caniddato seleccionado -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.candidate-checkbox');
+        const createOfferButton = document.getElementById('create-offer-btn');
+        const addToOfferButton = document.getElementById('add-to-offer-btn');
+
+        function toggleButtons() {
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            createOfferButton.disabled = !anyChecked;
+            addToOfferButton.disabled = !anyChecked;
+        }
+
+        // Escuchar cambios en todos los checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleButtons);
+        });
+
+        // Inicializar estado de los botones al cargar la página
+        toggleButtons();
+    });
+</script>
+
 {% endblock %}

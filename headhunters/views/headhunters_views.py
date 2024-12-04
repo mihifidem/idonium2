@@ -24,7 +24,12 @@ class HeadhunterCreateView(CreateView):
     model = HeadHunterUser
     form_class = HeadHunterForm
     template_name = 'headhunters/headhunter_form.html'
-    success_url = reverse_lazy('headhunter_list')
+    
+    def form_valid(self, form):
+        #Guardo el headhunter en la base de datos
+        headhunter = form.save()
+        #lo redirigo a el detalle del headhunter
+        return redirect('headhunter_detail', pk=headhunter.pk)
 
 class HeadhunterUpdateView(UpdateView):
     model = HeadHunterUser
@@ -42,7 +47,9 @@ class LandingHeadHuntersView(ListView):
     model = Profile_CV
     template_name = 'headhunters/landing_headhunters.html'
     context_object_name = 'candidates'
-    paginate_by = 10
+    #manejar la paginacion
+    paginate_by = 9
+    
 
     def get_queryset(self):
         queryset = super().get_queryset()
