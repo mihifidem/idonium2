@@ -35,15 +35,13 @@ def courses_list_view(request):
     # Obtener el tipo de wishlist para cursos
     course_type = WishListType.objects.get(name="Course")
 
-    completed_status = Status.objects.get(name="completed") 
-    
     completed_courses = []
     for course in courses:
         # Contar los usuarios que han completado el curso
-        completed_users_count = course.enrolled_users.filter(status=completed_status).count()
+        completed_users_count = course.enrolled_users.filter(status__name="completed").count()
 
         # Contar las veces que el curso ha sido añadido a la wishlist
-        course_wishlist_count = WishListUser.objects.filter(type_wish=course_type, id_wish=course.pk).count()
+        course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.pk).count()
 
         #Contar las reviews que tiene el curso
         #course_reviews_count = Review.objects.filter(course=course).count()
