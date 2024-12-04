@@ -2,10 +2,10 @@
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from ..models import JobOffer, ManagementCandidates
+from ..models import JobOffer, ManagementCandidates, HeadHunterUser
 from ..forms import JobOfferForm
 from django.views.generic import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from profile_cv.models import Profile_CV
 
@@ -14,6 +14,10 @@ class JobOfferListView(ListView):
     model = JobOffer
     template_name = 'joboffers/joboffer_list.html'
     context_object_name = 'job_offers'
+    #filtrar para mostrar solo las ofertas del headhunter
+    def get_queryset(self):
+        headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
+        return JobOffer.objects.filter(headhunter=headhunter)
 
 class JobOfferDetailView(DetailView):
     model = JobOffer
@@ -25,6 +29,10 @@ class JobOfferCreateView(CreateView):
     form_class = JobOfferForm
     template_name = 'joboffers/joboffer_form.html'
     success_url = reverse_lazy('joboffer_list')
+    def form_valid(self, form):
+        headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
+        form.instance.headhunter = headhunter
+        return super().form_valid(form)
 
 class JobOfferUpdateView(UpdateView):
     model = JobOffer
@@ -40,14 +48,13 @@ class JobOfferDeleteView(DeleteView):
 
 
 
-
 class CreateOfferView(View):
-    def get(self, request, candidate_ids):
-        # Obtener los IDs de candidatos seleccionados
-        candidate_ids_list = candidate_ids.split(",")
-        
-        # Filtrar los candidatos según los IDs proporcionados
-        candidates = Profile_CV.objects.filter(id__in=candidate_ids_list)
+    def get(self, request, candidate_ids=None):
+        # Obtener los IDs de candidatos seleccionados si se proporcionan
+        candidates = []
+        if candidate_ids:
+            candidate_ids_list = candidate_ids.split(",")
+            candidates = Profile_CV.objects.filter(id__in=candidate_ids_list)
         
         # Crear un formulario vacío para crear una oferta de trabajo
         form = JobOfferForm()
@@ -55,25 +62,31 @@ class CreateOfferView(View):
         # Renderizar la plantilla con los candidatos y el formulario
         return render(request, 'joboffers/create_offer.html', {'form': form, 'candidates': candidates})
 
-    def post(self, request, candidate_ids):
+    def post(self, request, candidate_ids=None):
         # Manejar el envío del formulario
         form = JobOfferForm(request.POST)
         
         if form.is_valid():
-            # Guardar la nueva oferta de trabajo
-            job_offer = form.save()
+            # Obtener el objeto HeadhunterUser correspondiente al usuario autenticado
+            headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
             
-            # Obtener los candidatos seleccionados con los IDs
-            candidate_ids_list = candidate_ids.split(",")
-            candidates = Profile_CV.objects.filter(id__in=candidate_ids_list)
+            # Asignar el headhunter al formulario antes de guardarlo
+            job_offer = form.save(commit=False)
+            job_offer.headhunter = headhunter
+            job_offer.save()
             
-            # Asociar los candidatos seleccionados a la oferta de trabajo
-            for candidate in candidates:
-                ManagementCandidates.objects.create(
-                    job_offer=job_offer,
-                    candidate=candidate,
-                    is_selected_by_headhunter=True,
-                )
+            # Obtener los candidatos seleccionados si se proporcionan
+            if candidate_ids:
+                candidate_ids_list = candidate_ids.split(",")
+                candidates = Profile_CV.objects.filter(id__in=candidate_ids_list)
+                
+                # Asociar los candidatos seleccionados a la oferta de trabajo
+                for candidate in candidates:
+                    ManagementCandidates.objects.create(
+                        job_offer=job_offer,
+                        candidate=candidate,
+                        is_selected_by_headhunter=True,
+                    )
             
             # Mostrar mensaje de éxito
             messages.success(request, '¡La oferta ha sido creada exitosamente y los candidatos han sido asociados!')

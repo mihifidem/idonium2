@@ -44,8 +44,9 @@ from django import forms
 class JobOfferForm(forms.ModelForm):
     class Meta:
         model = JobOffer
+        exclude = ['headhunter']
         fields = [
-            'title', 'description', 'sector', 'category', 
+            'headhunter','title', 'description', 'sector', 'category', 
             'salary', 'location', 'close_date', 
             'required_hard_skills', 'required_soft_skills', 
             'required_experience', 'JobOfferTests'

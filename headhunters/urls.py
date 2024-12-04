@@ -14,7 +14,7 @@ from .views import (
 urlpatterns = [
     path('joboffers/', JobOfferListView.as_view(), name='joboffer_list'),
     path('joboffers/<int:pk>/', JobOfferDetailView.as_view(), name='joboffer_detail'),
-    path('joboffers/create/', JobOfferCreateView.as_view(), name='joboffer_create'),
+    path('joboffers/create/', CreateOfferView.as_view(), name='joboffer_create'),
     path('joboffers/<int:pk>/update/', JobOfferUpdateView.as_view(), name='joboffer_update'),
     path('joboffers/<int:pk>/delete/', JobOfferDeleteView.as_view(), name='joboffer_delete'),
 
