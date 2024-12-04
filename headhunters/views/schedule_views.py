@@ -52,18 +52,8 @@ class ScheduleUpdateView(UpdateView):
         form = super().get_form(form_class)
         headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
         form.fields['joboffer'].queryset = JobOffer.objects.filter(headhunter=headhunter)
-        
-        # Filtrar los candidatos en función de la oferta seleccionada
-        if self.request.POST.get('joboffer'):
-            joboffer_id = self.request.POST.get('joboffer')
-            form.fields['candidate'].queryset = Profile_CV.objects.filter(
-                id__in=ManagementCandidates.objects.filter(job_offer_id=joboffer_id).values_list('candidate_id', flat=True)
-            )
-        else:
-            form.fields['candidate'].queryset = Profile_CV.objects.none()
-        
         return form
-    
+        
     def form_valid(self, form):
         headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
         form.instance.headhunter = headhunter
