@@ -86,6 +86,21 @@ class HardSkillForm(forms.ModelForm):
     class Meta:
         model = HardSkillUser
         fields = ["profile_user","hard_skill", "description", "level_skill"]
+        widgets ={
+            'hard_skill': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter a hard skill'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Enter description'
+            }),
+            'level_skill': forms.Select(attrs={
+                'class': 'form-select',
+                'placeholder': 'Select a level'
+            })
+        }
 
 # Form to represent a soft skill
 class SoftSkillForm(forms.ModelForm):
