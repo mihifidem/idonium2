@@ -35,7 +35,7 @@ class Course(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'), null=True, blank=True)
     catergory = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
     sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
-    hardskills = models.ForeignKey(HardSkill, blank=True, null=True, on_delete=models.CASCADE)
+    hardskills = models.ManyToManyField(HardSkill)
 
 
     def __str__(self):
@@ -160,4 +160,7 @@ class LessonCompletion(models.Model):
 
     def __str__(self):
         return f"{self.course_user.user.username} - {self.lesson.name}"
+    
+
+
 

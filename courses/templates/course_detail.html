@@ -123,11 +123,9 @@
                                         </div>
                                         <div class="singel-description pt-40">
                                             <h6>Hardskills</h6>
-                                            <p>
-                                                {% for hardskill in course_info.hardskills %}
-                                                 <span>{{ hardskill.name }}</span>
-                                                {% endfor %}
-                                            </p>
+                                            {% for hardskill in course_info.hardskills.all %}
+                                                <span class="badge rounded-pill text-bg-warning">{{ hardskill.name_hard_skill }}</span>
+                                            {% endfor %}
                                         </div>
                                     </div> <!-- overview description -->
                                 </div>

@@ -208,13 +208,13 @@ class Language (models.Model):
         return self.name_language
 class Category(models.Model):
     name_category = models.CharField(max_length=100)  # Name of the category
+    sector = models.ForeignKey('Sector', null=True, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.name_category
+        return f'{self.name_category} + {self.sector}'
 
 class Sector(models.Model):
     name_sector = models.CharField(max_length=100)  # Name
-    category = models.ForeignKey("Category", on_delete=models.CASCADE)  # Category
 
     def __str__(self):
         return self.name_sector
