@@ -8,7 +8,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from profile_cv.models import Profile_CV
-from django.http import JsonResponse
+
 
 
 class JobOfferListView(ListView):
@@ -38,8 +38,20 @@ class JobOfferCreateView(CreateView):
 class JobOfferUpdateView(UpdateView):
     model = JobOffer
     form_class = JobOfferForm
-    template_name = 'joboffers/joboffer_form.html'
+    template_name = 'joboffers/create_offer.html'
     success_url = reverse_lazy('joboffer_list')
+    def get_object(self, queryset=None):
+        # Usamos el ID de la oferta de trabajo que se pasa a través de la URL
+        job_offer_id = self.kwargs.get('pk') 
+        return get_object_or_404(JobOffer, id=job_offer_id)
+    
+    def form_valid(self, form):
+        # Aquí puedes agregar cualquier lógica adicional antes de guardar los datos
+        headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
+        form.instance.headhunter = headhunter
+        return super().form_valid(form)
+    
+    
 
 class JobOfferDeleteView(DeleteView):
     model = JobOffer
@@ -90,7 +102,7 @@ class CreateOfferView(View):
                     )
             
             # Mostrar mensaje de éxito
-            messages.success(request, '¡La oferta ha sido creada exitosamente y los candidatos han sido asociados!')
+            #messages.success(request, '¡La oferta ha sido creada exitosamente y los candidatos han sido asociados!')
             
             # Redirigir al landing page o a otra vista después de crear la oferta
             return redirect('landing_headhunters')
