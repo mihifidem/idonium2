@@ -1,5 +1,6 @@
 from django import forms
-from profile_cv.models import Profile_CV
+from test_management.models import Test
+from profile_cv.models import Profile_CV, Sector, Category
 from .models import HeadHunterUser, JobOffer, ManagementCandidates, Schedule, JobOfferNotification
 class HeadHunterForm(forms.ModelForm):
     class Meta:
@@ -46,7 +47,26 @@ class JobOfferForm(forms.ModelForm):
             'required_hard_skills', 'required_soft_skills', 
             'required_experience', 'JobOfferTests'
         ]
-        widgets = {
+        sector = forms.ModelChoiceField(
+        queryset=Sector.objects.all(),  # Obtiene todos los sectores
+        widget=forms.Select(attrs={'class': 'form-control'}),  # Estilo de Bootstrap para el <select>
+        required=True  # Asegúrate de que este campo sea obligatorio
+    )
+
+        category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),  # Obtiene todas las categorías
+        widget=forms.Select(attrs={'class': 'form-control'}),  # Estilo de Bootstrap para el <select>
+        required=True  # Asegúrate de que este campo sea obligatorio
+        )
+
+        JobOfferTests = forms.ModelMultipleChoiceField(
+        queryset=Test.objects.all(),  # Obtener todos los tests disponibles
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),  # Añadir clase CSS para estilo
+        required=False,  # Este campo no es obligatorio
+    )
+    
+    
+    widgets = {
             'required_hard_skills': forms.CheckboxSelectMultiple(),
             'required_soft_skills': forms.CheckboxSelectMultiple(),
             'JobOfferTests': forms.CheckboxSelectMultiple(),
