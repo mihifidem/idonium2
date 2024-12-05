@@ -23,13 +23,6 @@ class JobOfferListView(ListView):
             headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
             return JobOffer.objects.filter(headhunter=headhunter)
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        if queryset == None:
-            return redirect('users:users-home')
-        return super().get(request, *args, **kwargs)
- 
-
 class JobOfferDetailView(DetailView):
     model = JobOffer
     template_name = 'joboffers/joboffer_detail.html'
