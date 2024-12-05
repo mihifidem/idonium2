@@ -124,6 +124,7 @@ class Command(BaseCommand):
         wishlisttype = WishListType.objects.all()
         for user in users:
             WishListUser.objects.create(
+            WishListUser.objects.create(
                 user=user,
                 type_wish=random.choice(wishlisttype),
                 id_wish=random.randint(1, 100)

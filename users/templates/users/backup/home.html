@@ -1,14 +1,10 @@
 {% extends "users/base.html" %}
 {% block title %} Home Page {% endblock title%}
 {% load static %}
-{% block content %}
 
 
-<!--====== HEADER PART ENDS ======-->
+{%block navbar %}
 
-
-
-{% block navbar %}
 <div class="navigation">
     <div class="container">
         <div class="row">
@@ -90,7 +86,28 @@
         </div> <!-- row -->
     </div> <!-- container -->
 </div>
-{%endblock navbar  %}
+{%endblock navbar %}
+{% block content %}
+
+
+<!--====== HEADER PART ENDS ======-->
+
+<!--====== SEARCH BOX PART START ======-->
+
+<div class="search-box">
+<div class="serach-form">
+    <div class="closebtn">
+        <span></span>
+        <span></span>
+    </div>
+    <form action="#">
+        <input type="text" placeholder="Search by keyword">
+        <button><i class="fa fa-search"></i></button>
+    </form>
+</div> <!-- serach form -->
+</div>
+
+<!--====== SEARCH BOX PART ENDS ======-->
 
 <!--====== SLIDER PART START ======-->
 
@@ -340,9 +357,6 @@
         </div>
     </div> <!-- row -->
     <div class="row course-slied mt-30">
-
-
-        
         {% for course in courses %}
 <div class="col-lg-4">
     <div class="singel-course">
@@ -369,7 +383,7 @@
                 <li><i class="fa fa-star"></i></li>
             </ul><br>
             <span>(20 Reviws)</span> <br>
-            <a href="{% url 'courses:course-detail' pk=course.pk %}">
+            <a href="courses-singel.html">
                 <h4>{{course.title}}</h4>
             </a>
             <div class="course-teacher">

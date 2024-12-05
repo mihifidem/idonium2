@@ -39,6 +39,42 @@ class WorkExperienceForm(forms.ModelForm):
             "achievements",
             "references",
         ]
+        widgets = {
+            'job_title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your job title'
+            }),
+            'start_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'end_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'current_job': forms.CheckboxInput(attrs={
+                'class': 'form-check-input'
+            }),
+            'company_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter company name'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Describe your role and responsibilities'
+            }),
+            'achievements': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'List your key achievements and contributions'
+            }),
+            'references': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Add professional references (optional)'
+            })
+        }
 
 # Form to represent an academic education
 class AcademicEducationForm(forms.ModelForm):
@@ -53,24 +89,89 @@ class AcademicEducationForm(forms.ModelForm):
             "current_education",
             "references",
         ]
+        widgets = {
+            'academy_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter academy name'
+            }),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter title or degree name'
+            }),
+            'start_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'end_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'current_education': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
+            'references': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Enter references or additional information'
+            })
+        }
+
 
 # Form to represent a hard skill
 class HardSkillForm(forms.ModelForm):
     class Meta:
         model = HardSkillUser
         fields = ["profile_user","hard_skill", "description", "level_skill"]
+        widgets ={
+            'hard_skill': forms.Select(attrs={
+            'class': 'form-control',
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Enter description'
+            }),
+            'level_skill': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Select a level'
+            })
+        }
 
 # Form to represent a soft skill
 class SoftSkillForm(forms.ModelForm):
     class Meta:
         model = SoftSkillUser
         fields = ["profile_user","soft_skill", "description"]
+        widgets = {
+            'soft_skill': forms.Select(attrs={
+            'class': 'form-control',
+            }),
+            'description': forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 3,
+            'placeholder': 'Enter description'
+            })
+        }
 
 # Form to represent a language
 class LanguageForm(forms.ModelForm):
     class Meta:
         model = LanguageUser
         fields = ["profile_user","language", "level", "certifications"]
+        widgets = {
+            'language': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter a language'
+            }),
+            'level': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'certifications': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Enter certifications'
+            })
+        }
 
 # Form to represent a volunteering
 class VolunteeringForm(forms.ModelForm):
@@ -87,24 +188,82 @@ class VolunteeringForm(forms.ModelForm):
             "achievements",
             "references",
         ]
+        widgets = {
+            'volunteering_position': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Enter the position you are applying for'}),
+            'start_date': forms.DateInput(attrs={'class': 'form-control','type': 'date'}),
+            'end_date': forms.DateInput(attrs={'class': 'form-control','type': 'date'}),
+            'current_volunteering': forms.CheckboxInput(),
+            'entity_name': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Enter the name of the entity'}),
+            'description': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Enter a description of the volunteering experience'}),
+            'achievements': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Enter any achievements or awards you have received'}),
+            'references': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Enter any references or sources'}),
+        }
 
 # Form to represent a project
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ["profile_user","name", "description", "link"]
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter project name'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Describe your project and your role in it'
+            }),
+            'link': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'https://...'
+            })
+        }
 
 # Form to represent a publication
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
         fields = ["profile_user","doi", "url", "role", "name"]
+        widgets = {
+            'doi': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter DOI (e.g., 10.1000/xyz123)'
+            }),
+            'url': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'https://...'
+            }),
+            'role': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your role in the publication (e.g., Author, Co-author)'
+            }),
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Publication title'
+            })
+        }
 
 # Form to represent a recognition or award
 class RecognitionForm(forms.ModelForm):
     class Meta:
         model = RecognitionAward
         fields = ["profile_user","name", "entity", "description"]
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter the name of the award or recognition'
+            }),
+            'entity': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter the name of the awarding organization'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Describe the recognition and its significance'
+            })
+        }
 
 #form to represent a user cv
 class ToggleButtonWidget(forms.CheckboxInput):
@@ -119,7 +278,6 @@ class UserCvForm(forms.ModelForm):
     class Meta:
         model = User_cv
         fields = [
-            "profile_user",
             "urlCV",
             "template",
             "has_img_profile",
@@ -148,6 +306,7 @@ class UserCvForm(forms.ModelForm):
             "has_publications",
             "has_recognitions_awards",
             "has_certifications_courses",
+            "relations",
         ]
         widgets = {
             'urlCV': ReadOnlyWidget(),

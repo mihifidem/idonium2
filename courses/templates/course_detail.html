@@ -30,10 +30,12 @@
                 <div class="col-lg-12">
                     <div class="page-banner-cont">
                         <h2>{{course_info.title}}</h2>
+                        <h2>{{course_info.title}}</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="#">Courses</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{course_info.title}}</li>
                                 <li class="breadcrumb-item active" aria-current="page">{{course_info.title}}</li>
                             </ol>
                         </nav>
@@ -54,6 +56,7 @@
                     <div class="corses-singel-left mt-30">
                         <div class="title">
                             <h3>{{course_info.title}}</h3>
+                            <h3>{{course_info.title}}</h3>
                         </div> <!-- title -->
                         <div class="course-terms">
                             <ul>
@@ -61,9 +64,11 @@
                                     <div class="teacher-name">
                                         <div class="thum">
                                             <img src="{{course_info.profile_teacher.image.url}}" alt="Teacher">
+                                            <img src="{{course_info.profile_teacher.image.url}}" alt="Teacher">
                                         </div>
                                         <div class="name">
                                             <span>Teacher</span>
+                                            <h6>{{course_info.profile_teacher.user.first_name}} {{course_info.profile_teacher.user.last_name}}</h6>
                                             <h6>{{course_info.profile_teacher.user.first_name}} {{course_info.profile_teacher.user.last_name}}</h6>
                                         </div>
                                     </div>
@@ -71,6 +76,7 @@
                                 <li>
                                     <div class="course-category">
                                         <span>Category</span>
+                                        <h6>{{course_info.sector.category}}</h6>
                                         <h6>{{course_info.sector.category}}</h6>
                                     </div>
                                 </li>
@@ -88,6 +94,16 @@
                                             {%else%}
                                             <li><i class="far fa-star"></i></li>
                                             {% endif %}
+                                            {% if course_reviews_count == 0 %}
+                                            <li><a href='#'>Add a review</a></li>
+                                             {% else %}
+                                            <li>{{average_rating}}</li>
+                                             {% endif %}
+                                            {% if average_rating > 0 %}
+                                            <li><i class="fa fa-star"></i></li>
+                                            {%else%}
+                                            <li><i class="far fa-star"></i></li>
+                                            {% endif %}
                                         </ul>
                                     </div>
                                 </li>
@@ -95,6 +111,7 @@
                         </div> <!-- course terms -->
                         
                         <div class="corses-singel-image pt-50">
+                            <img src="{{course_info.image.url}}" alt="Courses">
                             <img src="{{course_info.image.url}}" alt="Courses">
                         </div> <!-- corses singel image -->
                         
@@ -120,6 +137,8 @@
                                         <div class="singel-description pt-40">
                                             <h6>Course Summary</h6>
                                             <p>{{course_info.description}}.</p>
+                                            <h6>Course Summary</h6>
+                                            <p>{{course_info.description}}.</p>
                                         </div>
                                         <div class="singel-description pt-40">
                                             <h6>Hardskills</h6>
@@ -130,19 +149,33 @@
                                     </div> <!-- overview description -->
                                 </div>
                                 
+                                
                                 <div class="tab-pane fade" id="curriculam" role="tabpanel" aria-labelledby="curriculam-tab">
                                     <div class="curriculam-cont">
                                         {% for module in modules_with_index %}
+                                        {% for module in modules_with_index %}
                                         <div class="title">
                                             <h6>{{ module.module_index }}. {{ module.title }}</h6>
+                                            <h6>{{ module.module_index }}. {{ module.title }}</h6>
                                         </div>
+                                        <div class="accordion" id="accordionExample{{ module.module_index }}">
+                                            {% for lesson in module.lesson_set_indexed %}
                                         <div class="accordion" id="accordionExample{{ module.module_index }}">
                                             {% for lesson in module.lesson_set_indexed %}
                                             <div class="card">
                                                 <div class="card-header" id="heading{{ lesson.lesson_index }}-module{{ module.module_index }}">
                                                     <a href="#" data-toggle="collapse" data-target="#collapse{{ lesson.lesson_index }}-module{{ module.module_index }}" aria-expanded="true" aria-controls="collapse{{ lesson.lesson_index }}-module{{ module.module_index }}">
+                                                <div class="card-header" id="heading{{ lesson.lesson_index }}-module{{ module.module_index }}">
+                                                    <a href="#" data-toggle="collapse" data-target="#collapse{{ lesson.lesson_index }}-module{{ module.module_index }}" aria-expanded="true" aria-controls="collapse{{ lesson.lesson_index }}-module{{ module.module_index }}">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
+                                                            <li><span class="lecture">Lecture {{ module.module_index }}.{{ lesson.lesson_index }}</span></li>
+                                                            <li><span class="head">{{ lesson.name }}</span></li>
+                                                            {% if lesson.duration %}
+                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
+                                                            {%else%}
+                                                            <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>0 min</span></span></li>
+                                                            {% endif %}
                                                             <li><span class="lecture">Lecture {{ module.module_index }}.{{ lesson.lesson_index }}</span></li>
                                                             <li><span class="head">{{ lesson.name }}</span></li>
                                                             {% if lesson.duration %}
@@ -156,9 +189,16 @@
                                             <div id="collapse{{ lesson.lesson_index }}-module{{ module.module_index }}" class="collapse" aria-labelledby="heading{{ lesson.lesson_index }}-module{{ module.module_index }}" data-parent="#accordionExample{{ module.module_index }}">
                                                 <div class="card-body">
                                                     <p>{{ lesson.description }}</p>
+                                            <div id="collapse{{ lesson.lesson_index }}-module{{ module.module_index }}" class="collapse" aria-labelledby="heading{{ lesson.lesson_index }}-module{{ module.module_index }}" data-parent="#accordionExample{{ module.module_index }}">
+                                                <div class="card-body">
+                                                    <p>{{ lesson.description }}</p>
                                                 </div>
                                             </div>
                                         </div>
+                                            {% endfor %}
+                                        </div>
+                                        <br>
+                                    {% endfor %}
                                             {% endfor %}
                                         </div>
                                         <br>
@@ -170,8 +210,11 @@
                                         <div class="instructor-author">
                                             <div class="author-thum">
                                                 <img src="{{course_info.profile_teacher.image.url}}" alt="Instructor">
+                                                <img src="{{course_info.profile_teacher.image.url}}" alt="Instructor">
                                             </div>
                                             <div class="author-name">
+                                                <a href="#"><h5>{{course_info.profile_teacher.user.first_name}} {{course_info.profile_teacher.user.last_name}}</h5></a>
+                                                <span>{{course_info.profile_teacher.hardskills}}</span>
                                                 <a href="#"><h5>{{course_info.profile_teacher.user.first_name}} {{course_info.profile_teacher.user.last_name}}</h5></a>
                                                 <span>{{course_info.profile_teacher.hardskills}}</span>
                                                 <ul class="social">
@@ -183,6 +226,7 @@
                                             </div>
                                         </div>
                                         <div class="instructor-description pt-25">
+                                            <p>{{course_info.profile_teacher.bio}}</p>
                                             <p>{{course_info.profile_teacher.bio}}</p>
                                         </div>
                                     </div> <!-- instructor cont -->
@@ -196,8 +240,18 @@
                                             {% for item in reviews_with_profiles %}
                                             <li>
                                                 <div class="singel-reviews">
+                                            {% for item in reviews_with_profiles %}
+                                            <li>
+                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
+                                                            <!-- Mostrar la imagen del usuario -->
+                                                            {% if item.user_image %}
+                                                                <img src="{{ item.user_image.url }}" alt="Reviews">
+                                                            {% else %}
+                                                                <!-- Imagen por defecto si no tiene imagen el usuario -->
+                                                                <img src="media\default.jpg" alt="Default Reviews">
+                                                            {% endif %}
                                                             <!-- Mostrar la imagen del usuario -->
                                                             {% if item.user_image %}
                                                                 <img src="{{ item.user_image.url }}" alt="Reviews">
@@ -210,9 +264,14 @@
                                                             <!-- Mostrar el nombre completo del usuario -->
                                                             <h6>{{ item.review.user.first_name }} {{ item.review.user.last_name }}</h6>
                                                             <span>{{ item.review.date }}</span>
+                                                            <!-- Mostrar el nombre completo del usuario -->
+                                                            <h6>{{ item.review.user.first_name }} {{ item.review.user.last_name }}</h6>
+                                                            <span>{{ item.review.date }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="reviews-description pt-20">
+                                                        <!-- Mostrar el comentario de la reseña -->
+                                                        <p>{{ item.review.comment }}</p>
                                                         <!-- Mostrar el comentario de la reseña -->
                                                         <p>{{ item.review.comment }}</p>
                                                         <div class="rating">
@@ -224,10 +283,19 @@
                                                                 {% else%}
                                                                     <li><i class="far fa-star"></i></li>
                                                                 {% endif %}
+                                                                <!-- Mostrar la puntuación de la reseña -->
+                                                                <li>{{ item.review.rating }}</li>
+                                                                {% if item.review %}
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                {% else%}
+                                                                    <li><i class="far fa-star"></i></li>
+                                                                {% endif %}
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div> <!-- singel reviews -->
+                                            </li>
+                                        {% endfor %}
                                             </li>
                                         {% endfor %}
                                         </ul>
@@ -291,8 +359,17 @@
                                     <li><i class="fa fa-clone"></i>Lessons : <span>{{total_lessons_count}}</span></li>
                                     <li><i class="fa fa-beer"></i>Resources :  <span>{{total_resources_count}}</span></li>
                                     <li><i class="fa fa-user-o"></i>Students :  <span>{{total_users_count}}</span></li>
+                                    <li><i class="fa fa-clock-o"></i>Duration : <span>{{formatted_duration}}</span></li>
+                                    <li><i class="fa fa-clone"></i>Lessons : <span>{{total_lessons_count}}</span></li>
+                                    <li><i class="fa fa-beer"></i>Resources :  <span>{{total_resources_count}}</span></li>
+                                    <li><i class="fa fa-user-o"></i>Students :  <span>{{total_users_count}}</span></li>
                                 </ul>
                                 <div class="price-button pt-10">
+                                    {% if course_info.is_free == True %}
+                                    <span>Price : <b>Free</b></span>
+                                    {%else%}
+                                    <span>Price : <b>{{course_info.price}} €</b></span>
+                                    {%endif%}
                                     {% if course_info.is_free == True %}
                                     <span>Price : <b>Free</b></span>
                                     {%else%}
@@ -304,6 +381,7 @@
                         </div>
                         <div class="col-lg-12 col-md-6">
                             <div class="You-makelike mt-30">
+                                <h4>You make like </h4>
                                 <h4>You make like </h4>
                                 <div class="singel-makelike mt-20">
                                     <div class="image">
@@ -351,12 +429,14 @@
                     <div class="releted-courses pt-95">
                         <div class="title">
                             <h3>Related Courses</h3>
+                            <h3>Related Courses</h3>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="singel-course mt-30">
                                     <div class="thum">
                                         <div class="image">
+                                            <img src="images/course/cu-1.jpg" alt="Course">
                                             <img src="images/course/cu-1.jpg" alt="Course">
                                         </div>
                                         <div class="price">
@@ -375,6 +455,7 @@
                                         <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
+                                                <a href="#"><img src="images/course/teacher/t-3.jpg" alt="teacher"></a>
                                                 <a href="#"><img src="images/course/teacher/t-3.jpg" alt="teacher"></a>
                                             </div>
                                             <div class="name">

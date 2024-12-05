@@ -1,0 +1,149 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-sm-auto bg-light sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                <!-- User Profile Image -->
+                <div class="dropdown">
+                    <a class="d-flex align-items-center justify-content-center p-1 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if user_role == 'member1' and profile_user.profile_photo %}
+                            <img class="thum-red" src="{{ profile_user.profile_photo.url }}" alt="User" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {% elif user_role == 'teacher' and profile_teacher.image %}
+                            <img class="thum-red" src="{{ profile_teacher.image.url }}" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {% elif user_role == 'fremium' and profile_user.image %}
+                            <img class="thum-red" src="{{ profile_teacher.image.url }}" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {% elif user_role == 'headhunter' and headHunterUser.profile_photo %}
+                            <img class="thum-red" src="{{ headhunter.profile_photo.url }}" alt="HeadHunter" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {% else %}
+                            <img class="thum-red" src="{% static 'images/default-profile.png' %}" alt="Default Image" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <li><a class="dropdown-item" href="#">Home</a></li>
+                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar Icons -->
+                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                    {% if user_role == 'member1' %}
+                   
+
+                        <li class="nav-item">
+                            <a href="/member1_profile" class="nav-link py-1 px-3 text-navy" title="Profile user" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-lines-fill fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/heading" class="nav-link py-1 px-3 text-navy" title="Heading Data" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-card-heading fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Skills" class="nav-link py-1 px-3 text-navy" title="Skills" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-tags fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                        <li>
+                            <a href="/academic_education" class="nav-link py-1 px-3 text-navy" title="Academic Education" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-mortarboard-fill fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>   
+                            <a href="/work_experience" class="nav-link py-1 px-3 text-navy" title="Work Experience" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-workspace fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/volunteering" class="nav-link py-1 px-3 text-navy" title="Volunteering" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-bookmark-heart fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/publications" class="nav-link py-1 px-3 text-navy" title="Publications" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-book fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/certifications" class="nav-link py-1 px-3 text-navy" title="Certifications" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-award fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/certifications" class="nav-link py-1 px-3 text-navy" title="Certifications" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-award fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        
+                    {% elif user_role == 'teacher' %}
+                        <li class="nav-item">
+                            <a href="/role/teacher_dashboard" class="nav-link py-1 px-3 text-navy" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-lines-fill fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_classes" class="nav-link py-1 px-3 text-navy" title="Courses" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-journal-code fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_chat" class="nav-link py-1 px-3 text-navy" title="Chat" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-chat-dots fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_calendar" class="nav-link py-1 px-3 text-navy" title="Calendar" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-calendar3 fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_tasks" class="nav-link py-1 px-3 text-navy" title="Tasks" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-list-task fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_settings" class="nav-link py-1 px-3 text-navy" title="Settings" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-gear fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                    {% elif user_role == 'headhunter' %}
+                        <li class="nav-item">
+                            <a href="/headhunter_profile" class="nav-link py-1 px-3 text-navy" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-lines-fill fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/headhunter_offers" class="nav-link py-1 px-3 text-navy" title="Offers" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-card-checklist fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/headhunter_calendar" class="nav-link py-1 px-3 text-navy" title="Calendar" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-calendar3 fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/headhunter_settings" class="nav-link py-1 px-3 text-navy" title="Settings" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-gear fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-sm p-3 min-vh-100">
+            {% block content_hh %}
+            <!-- Dynamic content -->
+            {% endblock content_hh %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
