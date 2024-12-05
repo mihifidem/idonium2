@@ -235,7 +235,7 @@ def course_create_or_update_view(request, course_id):
                 module = module_form.save(commit=False)
                 module.course = course
                 module.save()
-                return redirect('<name de la url>', course_id=course.id, module_id=module.id)
+                return redirect('teacher_dashboard', course_id=course.id, module_id=module.id)
 
         elif "lesson_form" in request.POST and module:
             lesson_form = LessonForm(request.POST)
@@ -243,7 +243,7 @@ def course_create_or_update_view(request, course_id):
                 lesson = lesson_form.save(commit=False)
                 lesson.module = module
                 lesson.save()
-                return redirect('<name de la url>', course_id=course.id, module_id=module.id)
+                return redirect('teacher_dashboard', course_id=course.id, module_id=module.id)
     else:
         if module:
             module_form = ModuleForm(instance=module)
