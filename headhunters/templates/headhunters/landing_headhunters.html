@@ -84,7 +84,9 @@
                               
                               <!-- Información del candidato -->
                               <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2 candidate-checkbox">
-                              <strong>{{ candidate.user.get_full_name }}</strong><br>
+                              <a href="{% url 'profile_view' candidate.id %}" class="text-primary fw-bold">
+                                {{ candidate.user.get_full_name }}
+                             </a>
                               <small>{{ candidate.address }}</small>
                           </div>
                       </div>
