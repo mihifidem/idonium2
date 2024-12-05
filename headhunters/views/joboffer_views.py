@@ -1,7 +1,7 @@
 
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from ..models import JobOffer, ManagementCandidates, HeadHunterUser
 from ..forms import JobOfferForm
 from django.views.generic import View
@@ -15,10 +15,19 @@ class JobOfferListView(ListView):
     model = JobOffer
     template_name = 'joboffers/joboffer_list.html'
     context_object_name = 'job_offers'
-    #filtrar para mostrar solo las ofertas del headhunter
     def get_queryset(self):
-        headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
-        return JobOffer.objects.filter(headhunter=headhunter)
+        groups = list(self.request.user.groups.all())
+        if 'premium' in [group.name for group in groups] or 'freemium' in [group.name for group in groups]:
+            return JobOffer.objects.all()
+        if 'headhunter' in [group.name for group in groups]:
+            headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
+            return JobOffer.objects.filter(headhunter=headhunter)
+        
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if queryset == None:
+            return redirect('users:users-home')
+        return super().get(request, *args, **kwargs)
 
 class JobOfferDetailView(DetailView):
     model = JobOffer
