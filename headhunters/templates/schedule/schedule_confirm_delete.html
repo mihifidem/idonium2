@@ -1,13 +1,18 @@
 {% extends "users/base.html" %}
 
 {% block content %}
-  <h2>Confirm Deletion</h2>
-  <p>Are you sure you want to delete the schedule "{{ schedule.name }}"?</p>
-  
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, Delete</button>
-  </form>
-
-  <a href="{% url 'schedule_list' %}">Cancel</a>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="card-title text-danger text-center">Confirm Deletion</h2>
+      <p class="text-center">Are you sure you want to delete the schedule <strong>"{{ schedule.name }}"</strong>?</p>
+      
+      <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger me-2">Yes, Delete</button>
+        <a href="{% url 'schedule_list' %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

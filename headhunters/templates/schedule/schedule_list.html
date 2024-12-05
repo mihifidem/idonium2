@@ -38,7 +38,7 @@
             <td>{{ schedule.status }}</td>
             <td>
               <a href="{% url 'schedule_update' schedule.id %}" class="btn btn-primary btn-sm">Editar</a>
-              <a href="{% url 'schedule_delete' schedule.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta acción?');">Eliminar</a>
+              <a href="{% url 'schedule_delete' schedule.id %}" class="btn btn-danger btn-sm">Eliminar</a>
             </td>
           </tr>
         {% empty %}
