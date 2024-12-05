@@ -46,6 +46,10 @@
       {% if request.user == headhunter.user %}
       <a href="{% url 'headhunter_update' pk=headhunter.pk %}" class="btn btn-warning me-2">Editar</a>
       <a href="{% url 'headhunter_delete' pk=headhunter.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+      {% else %}
+      <!-- Botones Volver a oferta, que vaya hacia atras -->
+      <button onclick="window.history.back();" class="btn btn-secondary btn-sm">Volver a Oferta</button>
+      
       {% endif %}
     </div>
   </div>
