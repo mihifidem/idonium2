@@ -1,12 +1,18 @@
 {% extends "users/base.html" %}
 
 {% block content %}
-  <h1>Are you sure you want to delete {{ headhunter.name }}?</h1>
-  
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-  </form>
-  
-  <a href="{% url 'headhunter_list' %}">Cancel</a>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="card-title text-danger text-center">Confirm Deletion</h2>
+      <p class="text-center">Are you sure you want to delete <strong>{{ headhunter.name }}</strong>?</p>
+      
+      <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger me-2">Yes, Delete</button>
+        <a href="{% url 'headhunter_list' %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

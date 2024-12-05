@@ -23,7 +23,7 @@ urlpatterns = [
     path('headhunters/<int:pk>/', HeadhunterDetailView.as_view(), name='headhunter_detail'),
     path('headhunters/create/', HeadhunterCreateView.as_view(), name='headhunter_create'),
     path('headhunters/<int:pk>/update/', HeadhunterUpdateView.as_view(), name='headhunter_update'),
-    path('headhunters/<int:pk>/delete/', HeadhunterDeleteView.as_view(), name='headhunter_delete'),
+    path('headhunters/<int:pk>/delete/', HeadhunterDeleteView.as_view(), name='headhunter_delete'),  
     
     path('schedule/', ScheduleListView.as_view(), name='schedule_list'),
     path('schedule/<int:pk>/', ScheduleDetailView.as_view(), name='schedule_detail'),
