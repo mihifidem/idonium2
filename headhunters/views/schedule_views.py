@@ -58,7 +58,6 @@ class ScheduleUpdateView(UpdateView):
         headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
         form.instance.headhunter = headhunter
         return super().form_valid(form)
-    #
 
 # Vista para eliminar un evento de la agenda
 class ScheduleDeleteView(DeleteView):
