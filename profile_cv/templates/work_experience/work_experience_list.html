@@ -32,7 +32,7 @@
                             <th>Description</th>
                             <th>Achievements</th>
                             <th>References</th>
-                            <th class="text-end">Actions</th>
+                            <th class="text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,19 +46,45 @@
                             <td>{{ work_experience.description }}</td>
                             <td>{{ work_experience.achievements }}</td>
                             <td>{{ work_experience.references }}</td>
-                            <td class="text-end">
+                            <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="{% url 'work_experience_update' work_experience.id %}" 
+                                    <a href="{% url 'work_experience_update' work_experience.id %}"
                                        class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <a href="{% url 'work_experience_delete' work_experience.id %}" 
-                                       class="btn btn-sm btn-outline-danger">
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-danger"
+                                            data-toggle="modal"
+                                            data-target="#deleteModal{{ work_experience.id }}">
                                         <i class="fas fa-trash"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
+
+                        <!-- Delete Modal for each work experience -->
+                        <div class="modal fade" id="deleteModal{{ work_experience.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ work_experience.id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{ work_experience.id }}">Confirm Delete Work Experience</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete the work experience <strong>"{{ work_experience.job_title }}"</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <form method="post" action="{% url 'work_experience_delete' work_experience.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Yes, delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -87,7 +113,7 @@
         font-weight: 600;
         color: #444;
     }
-    
+   
     .table td {
         vertical-align: middle;
     }
@@ -102,6 +128,16 @@
 
     .badge {
         padding: 0.5em 0.75em;
+    }
+
+    .modal-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .modal-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #dee2e6;
     }
 </style>
 {% endblock %}
