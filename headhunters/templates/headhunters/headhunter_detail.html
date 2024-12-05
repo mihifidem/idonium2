@@ -43,12 +43,13 @@
     </div>
     <div class="card-footer text-center">
       <!-- Botones de acción -->
+      {% if request.user == headhunter.user %}
       <a href="{% url 'headhunter_update' pk=headhunter.pk %}" class="btn btn-warning me-2">Editar</a>
       <form method="post" action="{% url 'headhunter_delete' pk=headhunter.pk %}" style="display:inline;">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este headhunter?');">Eliminar</button>
       </form>
-      <a href="{% url 'headhunter_list' %}" class="btn btn-secondary ms-2">Volver a la lista</a>
+      {% endif %}
     </div>
   </div>
 </div>
