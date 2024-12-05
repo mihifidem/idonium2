@@ -27,8 +27,11 @@
                             <td>{{ job.posted_date|date:"d M, Y" }}</td>
                             <td>
                                 <a href="{% url 'joboffer_detail' job.id %}" class="btn btn-info btn-sm">Ver</a>
+                                <!-- Si soy el headhunter que creo esta oferta puedo ver estos botones -->
+                                {% if request.user == job.headhunter.user %}
                                 <a href="{% url 'joboffer_update' job.id %}" class="btn btn-warning btn-sm">Editar</a>
                                 <a href="{% url 'joboffer_delete' job.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
