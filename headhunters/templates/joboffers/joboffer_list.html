@@ -1,12 +1,36 @@
 {% extends "users/base.html" %}
 
 {% block content %}
+<style>
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5; /* Resalta filas al pasar el ratón */
+    }
+
+    .btn-success {
+        padding: 12px 24px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-success:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .my-5 {
+        margin-bottom: 3rem !important; /* Incrementa el espacio hacia el footer */
+    }
+</style>
+
 <div class="container mt-5">
     <h1 class="mb-4">Lista de Ofertas de Trabajo</h1>
     <div class="row">
-      {% if job_offers%}
-            <table class="table table-striped">
-                <thead>
+        {% if job_offers %}
+            <table class="table table-striped table-hover shadow-sm">
+                <thead class="bg-primary text-white">
                     <tr>
                         <th>#</th>
                         <th>Título</th>
@@ -18,19 +42,17 @@
                 </thead>
                 <tbody>
                     {% for job in job_offers %}
-                    
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ job.title }}</td>
-                            <td>{{ job.company }}</td>
+                            <td>{{ job.headhunter.company }}</td>
                             <td>{{ job.location }}</td>
                             <td>{{ job.posted_date|date:"d M, Y" }}</td>
                             <td>
                                 <a href="{% url 'joboffer_detail' job.id %}" class="btn btn-info btn-sm">Ver</a>
-                                <!-- Si soy el headhunter que creo esta oferta puedo ver estos botones -->
                                 {% if request.user == job.headhunter.user %}
-                                <a href="{% url 'joboffer_update' job.id %}" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="{% url 'joboffer_delete' job.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                    <a href="{% url 'joboffer_update' job.id %}" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="{% url 'joboffer_delete' job.id %}" class="btn btn-danger btn-sm">Eliminar</a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -42,5 +64,9 @@
         {% endif %}
     </div>
 </div>
-<a href="{% url 'joboffer_create' %}">Crear nueva oferta</a>
+<div class="d-flex justify-content-center my-5">
+    <a href="{% url 'joboffer_create' %}" class="btn btn-success btn-lg">
+        Crear Nueva Oferta
+    </a>
+</div>
 {% endblock %}
