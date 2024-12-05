@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "test",
     "profile_cv",
     "role_management",
+    "test_management",
    
 ]
 
