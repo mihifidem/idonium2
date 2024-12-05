@@ -13,12 +13,16 @@ from courses.models import *
 from courses.forms import *
 from profile_cv.models import Profile_CV
 
-# Landing page ------------------------------------------------------------------------------
+# * |--------------------------------------------------------------------------
+# * | Landing Page
+# * |--------------------------------------------------------------------------
 
 def landing_page(request):
     return render(request, 'landing_page.html')
 
-# Funciones Auxiliares ----------------------------------------------------------------
+# * |--------------------------------------------------------------------------
+# * | Funciones Auxiliares
+# * |--------------------------------------------------------------------------
 
 def group_required(group_name):
     """Decorator to check if a user belongs to a specific group."""
@@ -26,14 +30,13 @@ def group_required(group_name):
         return user.is_authenticated and user.groups.filter(name=group_name).exists()
     return user_passes_test(check_group)
 
-# List Views ----------------------------------------------------------------------------------
+# * |--------------------------------------------------------------------------
+# * | Course Views
+# * |--------------------------------------------------------------------------
 
 def courses_list_view(request):
     # Obtener todos los cursos activos
     courses = Course.objects.filter(is_active=True)
-
-    # Obtener el tipo de wishlist para cursos
-    course_type = WishListType.objects.get(name="Course")
 
     completed_courses = []
     for course in courses:
@@ -51,7 +54,7 @@ def courses_list_view(request):
         reviews = course.reviews.all()
         if reviews.exists():
             average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-            
+
         else:
             average_rating = 0  # Si no hay calificaciones, el promedio es 0
 
@@ -67,95 +70,26 @@ def courses_list_view(request):
     paginator = Paginator(completed_courses, 9)
     page_number = request.GET.get('page')  # Obtén el número de página actual
     page_obj = paginator.get_page(page_number)
-    
+
 
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {'page_obj': page_obj, 'total_courses': courses.count()})
-    
 
-def resources_list_view(request):
-    resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
-    resource_type = WishListType.objects.get(name="Resource")
-
-    resources_list = []
-    for resource in resources:
-        resource_wishlist_count = WishListUser.objects.filter(type_wish=resource_type, id_wish=resource.pk).count()
-        resource_reviews_count = Review.objects.filter(resource=resource).count()
-
-        reviews = Review.objects.filter(resource=resource)
-        if reviews.exists():
-            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-        else:
-            average_rating = 0
-
-        resources_list.append({
-            "resource": resource,
-            "resource_wishlist_count": resource_wishlist_count,
-            "resource_reviews_count": resource_reviews_count,
-            "average_rating": round(average_rating, 1)
-        })
-        
-    return render(request, 'resources_list.html', {'resources_list': resources_list})
-
-# TeacherViews ----------------------------------------------------------------
-@login_required
-@group_required('teacher')
-def course_create_or_update_view(request, pk=None):
-    
-    if pk:
-        course = get_object_or_404(Course, pk=pk)
-
-    else:
-        pk = None
-
-    if request.method == 'POST':
-        form = CourseForm(request.POST, instance=course)
-        if form.is_valid():
-            form.save()
-            return redirect('course-detail')
-        else:
-            form = CourseForm(instance=course)
-            return render(request, 'course_form.html', {'form': form})
-
-@login_required
-@group_required('teacher')
-def resource_create_or_update_view(request, pk=None):
-    if pk:
-        resource = get_object_or_404(Resource, pk=pk)
-    else:
-        resource = None
-    
-    if request.method == 'POST':
-        form = ResourceForm(request.POST, instance=resource)
-        if form.is_valid():
-            form.save()
-            return redirect('resource-list', pk=resource.pk)
-        else:
-            form = ResourceForm(instance=resource)
-            return render(request, 'resource_form.html', {'form': form})
-        
-# def profileteacher_list_view(request):
-#     teacher_group = Group.objects.get(name = 'teachers')
-#     teacher = User.objects.filter(groups=teacher_group)
-#     profile_teacher = ProfileTeacher.objects.filter(user = teacher)
-#     return render(request, 'profile_teacher_list.html', {'teachers': teacher})
-
-# VISTA CON TODA LA INFORMACIÓN PARA EL HOME DE OSCAR!!!!!!!!!!!
 def course_detail_view(request, pk):
     # Obtener el curso
     course = get_object_or_404(Course, pk=pk)
-    
+
     # Obtener las reseñas del curso
     reviews = Review.objects.filter(course=course)
-    
+
     # Contar las reseñas y calcular la puntuación promedio
     course_reviews_count = reviews.count()
     average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-    
+
     # Obtener los módulos del curso y prefetch lecciones
     modules = Module.objects.filter(course=course).prefetch_related(
         Prefetch('lessons', queryset=Lesson.objects.all()))
-    
+
     total_lessons_count = Lesson.objects.filter(module__course=course).count()
 
     total_duration_minutes = Lesson.objects.filter(module__course=course).aggregate(Sum('duration'))['duration__sum'] or 0
@@ -164,13 +98,11 @@ def course_detail_view(request, pk):
     hours = total_duration_minutes // 60
     minutes = total_duration_minutes % 60
     formatted_duration = f"{hours} hours {minutes} minutes"
-    
+
     total_resources_count = Resource.objects.filter(lesson__module__course=course).count()
     total_users_count = CourseUser.objects.filter(course=course, status__name="active").count()
-    
 
-    
-    
+
 #     completed_courses = CourseUser.objects.filter(status__name='completed').values('course') \
 #     .annotate(num_completions=Count('course')) \
 #     .order_by('-num_completions')
@@ -209,7 +141,7 @@ def course_detail_view(request, pk):
 #         most_wished_course = wishlist_courses.first()  # El curso con más wishlist
 #         course_id_wishlist = most_wished_course['id_wish']  # El curso con más wishlist
 #         wishlist_count = most_wished_course['num_wishlist']  # Cuántos usuarios lo tienen en wishlist
-        
+
 #         # Obtener el objeto de curso más deseado
 #         course_most_wished = Course.objects.get(pk=course_id_wishlist)
 #     else:
@@ -230,7 +162,7 @@ def course_detail_view(request, pk):
     for module_index, module in enumerate(modules, start=1):  # Índice de módulo comienza en 1
         # Agregamos un atributo "module_index" al módulo
         module.module_index = module_index
-        
+
         # Añadimos índices para las lecciones del módulo
         lessons_with_indices = []
         for lesson_index, lesson in enumerate(module.lessons.all(), start=1):  # Índice de lección comienza en 1
@@ -282,30 +214,70 @@ def course_detail_view(request, pk):
         }
     )
 
+# Course: ---- Create/Update Views ----
+@login_required
+@group_required('teacher')
+def course_create_or_update_view(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
 
-def certificate_create_or_update_view(request, pk=None):
-    
-    if pk:
-        certificate = get_object_or_404(Certificate, pk=pk)
+    module = None
+    if "module_id" in request.GET:
+        module = get_object_or_404(Module, id=request.GET["module_id"], course=course)
+
+    if request.method == "POST":
+        if "module_form" in request.POST:
+            if module:
+                module_form = ModuleForm(request.POST, instance=module)
+            else:
+                module_form = ModuleForm(request.POST)
+
+            if module_form.is_valid():
+                module = module_form.save(commit=False)
+                module.course = course
+                module.save()
+                return redirect('<name de la url>', course_id=course.id, module_id=module.id)
+
+        elif "lesson_form" in request.POST and module:
+            lesson_form = LessonForm(request.POST)
+            if lesson_form.is_valid():
+                lesson = lesson_form.save(commit=False)
+                lesson.module = module
+                lesson.save()
+                return redirect('<name de la url>', course_id=course.id, module_id=module.id)
     else:
-        pk = None
-    
-    if request.method == 'POST':
-        form = CertificateForm(request.POST, instance=certificate)
-        if form.is_valid():
-            form.save()
-            return redirect('certificate-detail', pk=certificate.pk)
+        if module:
+            module_form = ModuleForm(instance=module)
         else:
-            form = CertificateForm(instance=certificate)
-            return render(request, 'certificate_form.html', {'form': form})
-        
+            module_form = ModuleForm()
+
+        lesson_form = LessonForm()
+
+    return render(request, 'course_module_lesson_form.html', {
+        'course': course,
+        'module': module,
+        'module_form': module_form,
+        'lesson_form': lesson_form })
+
+# * |--------------------------------------------------------------------------
+# * | Teacher Views
+# * |--------------------------------------------------------------------------
+
+@login_required
+@group_required("teacher")
+def teacher_courses_list_view(request):
+    courses = Course.objects.filter(profile_teacher=request.user.profile_teacher)
+    return render(request, '<template de oscar>.html', {'teacher_courses': courses})
+
+# * |--------------------------------------------------------------------------
+# * | Module and Lesson Views
+# * |--------------------------------------------------------------------------
+
 def module_create_or_update_view(request, pk=None):
-    
     if pk:
         module = get_object_or_404(Module, pk=pk)
-    else: 
+    else:
         pk = None
-    
+
     if request.method == 'POST':
         form = ModuleForm(request.POST, instance=module)
         if form.is_valid():
@@ -314,15 +286,13 @@ def module_create_or_update_view(request, pk=None):
         else:
             form = ModuleForm(instance=module)
             return render(request, 'module_form.html', {'form': form})
-    
 
 def lesson_create_or_update_view(request, pk=None):
-    resources = Resource.objects.all()
     if pk:
         lesson = get_object_or_404(Lesson, pk=pk)
-    else: 
+    else:
         pk = None
-    
+
     if request.method == 'POST':
         form = LessonForm(request.POST, instance=lesson)
         if form.is_valid():
@@ -331,14 +301,83 @@ def lesson_create_or_update_view(request, pk=None):
         else:
             form = LessonForm(instance=lesson)
             return render(request, 'lesson_form.html', {'form': form})
-        
 
+# * |--------------------------------------------------------------------------
+# * | Resource Views
+# * |--------------------------------------------------------------------------
+
+def resources_list_view(request):
+    resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
+    resource_type = WishListType.objects.get(name="Resource")
+
+    resources_list = []
+    for resource in resources:
+        resource_wishlist_count = WishListUser.objects.filter(type_wish=resource_type, id_wish=resource.pk).count()
+        resource_reviews_count = Review.objects.filter(resource=resource).count()
+
+        reviews = Review.objects.filter(resource=resource)
+        if reviews.exists():
+            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+        else:
+            average_rating = 0
+
+        resources_list.append({
+            "resource": resource,
+            "resource_wishlist_count": resource_wishlist_count,
+            "resource_reviews_count": resource_reviews_count,
+            "average_rating": round(average_rating, 1)
+        })
+
+    return render(request, 'resources_list.html', {'resources_list': resources_list})
+
+# Resource: ---- Create/Update Views ----
+@login_required
+@group_required('teacher')
+def resource_create_or_update_view(request, pk=None):
+    if pk:
+        resource = get_object_or_404(Resource, pk=pk)
+    else:
+        resource = None
+
+    if request.method == 'POST':
+        form = ResourceForm(request.POST, instance=resource)
+        if form.is_valid():
+            form.save()
+            return redirect('resource-list', pk=resource.pk)
+        else:
+            form = ResourceForm(instance=resource)
+            return render(request, 'resource_form.html', {'form': form})
+
+# * |--------------------------------------------------------------------------
+# * | Certificate Views
+# * |--------------------------------------------------------------------------
+
+def certificate_create_or_update_view(request, pk=None):
+    if pk:
+        certificate = get_object_or_404(Certificate, pk=pk)
+    else:
+        pk = None
+
+    if request.method == 'POST':
+        form = CertificateForm(request.POST, instance=certificate)
+        if form.is_valid():
+            form.save()
+            return redirect('certificate-detail', pk=certificate.pk)
+        else:
+            form = CertificateForm(instance=certificate)
+            return render(request, 'certificate_form.html', {'form': form})
+
+# * |--------------------------------------------------------------------------
+# * | Review Views
+# * |--------------------------------------------------------------------------
+
+# Review: ---- Create/Update Views ----
 def review_create_or_update(request, pk=None):
     if pk:
         review = get_object_or_404(Review, pk=pk)
     else:
         pk = None
-    
+
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
@@ -347,7 +386,3 @@ def review_create_or_update(request, pk=None):
         else:
             form = ReviewForm(instance=review)
             return render(request, 'course_review_form.html', {'form': form})
-        
-
-
-   
