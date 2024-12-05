@@ -255,7 +255,7 @@ def language_update(request, language_id):
 
 #? Función para eliminar un idioma
 def language_delete(request, language_id):
-    language = get_object_or_404(Language, id=language_id)
+    language = get_object_or_404(LanguageUser, id=language_id)
     if request.method == "POST":
         language.delete()
         return redirect("language_list")

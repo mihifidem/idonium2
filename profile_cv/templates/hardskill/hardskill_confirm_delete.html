@@ -1,13 +1,25 @@
 {% extends 'users/base.html' %}
 {% block title %}Delete Hard Skill{% endblock %}
 {% block content %}
-<div class="container">
-    <h1>Confirm Delete Hard Skill</h1>
-    <p>Are you sure you want to delete the hard skill "{{ hardskill.name }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Yes, delete</button>
-        <a href="{% url 'hard_skill_list' %}" class="btn btn-secondary">Cancel</a>
-    </form>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Confirm Delete Hard Skill</h3>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete the hard skill "<strong>{{ hardskill.hard_skill.name_hard_skill }}</strong>"?</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-danger me-md-2"><i class="fas fa-trash"></i> Yes, delete</button>
+                            <a href="{% url 'hard_skill_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,14 +1,25 @@
 {% extends 'users/base.html' %}
 {% block title %}Delete Recognition Award{% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>Confirm Delete Recognition Award</h1>
-        <p>Are you sure you want to delete the Recognition Award "{{ recognitions_awards.name }}"?</p>
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Yes, delete</button>
-            <a href="{% url 'recognition_award_list' %}" class="btn btn-secondary">Cancel</a>
-        </form>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Confirm Delete Recognition Award</h3>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete the recognition award "<strong>{{ recognitions_awards.name }}</strong>"?</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-danger me-md-2"><i class="fas fa-trash"></i> Yes, delete</button>
+                            <a href="{% url 'recognition_award_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
+</div>
 {% endblock %}
