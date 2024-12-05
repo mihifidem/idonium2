@@ -1,4 +1,3 @@
-
 {% extends "users/base.html" %}
 {% block title %} Home Page {% endblock title%}
 {% load static %}
@@ -99,6 +98,7 @@
                                         <li><i class="far fa-star"></i></li>
                                         {% endif %}
                                     </ul>
+                                    <p>{{course_info.course.pk}}</p>
                                     <span>({{course_info.course_reviews_count}} Reviews)</span>
                                     <a href="{% url 'courses:course-detail' pk=course_info.course.pk %}"><h4>{{course_info.course.title}}</h4></a>
                                     <div class="course-teacher">
