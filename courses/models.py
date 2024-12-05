@@ -18,7 +18,6 @@ class ProfileTeacher(models.Model):
     image = models.ImageField(upload_to='teachers_images/', null=True, blank=True)
     hardskills = models.ForeignKey(HardSkill, on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
