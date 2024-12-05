@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "headhunters",
     "test",
     "profile_cv",
+    'test_management'
    
 ]
 

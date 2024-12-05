@@ -2,22 +2,20 @@
 
 from django.urls import path
 from .views import (
-    CandidateListView, CandidateDetailView, CandidateCreateView, CandidateUpdateView, CandidateDeleteView,
     JobOfferListView, JobOfferDetailView, JobOfferCreateView, JobOfferUpdateView, JobOfferDeleteView,
     HeadhunterListView, HeadhunterDetailView, HeadhunterCreateView, HeadhunterUpdateView, HeadhunterDeleteView,
-    ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView
+    ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView, get_candidates,
+    LandingHeadHuntersView,ManageCandidatesView,
+    CreateOfferView,
+    AddToExistingOfferView,
+    
 )
 
-urlpatterns = [
-    path('candidates/', CandidateListView.as_view(), name='candidate_list'),
-    path('candidates/<int:pk>/', CandidateDetailView.as_view(), name='candidate_detail'),
-    path('candidates/create/', CandidateCreateView.as_view(), name='candidate_create'),
-    path('candidates/<int:pk>/update/', CandidateUpdateView.as_view(), name='candidate_update'),
-    path('candidates/<int:pk>/delete/', CandidateDeleteView.as_view(), name='candidate_delete'),
 
+urlpatterns = [
     path('joboffers/', JobOfferListView.as_view(), name='joboffer_list'),
     path('joboffers/<int:pk>/', JobOfferDetailView.as_view(), name='joboffer_detail'),
-    path('joboffers/create/', JobOfferCreateView.as_view(), name='joboffer_create'),
+    path('joboffers/create/', CreateOfferView.as_view(), name='joboffer_create'),
     path('joboffers/<int:pk>/update/', JobOfferUpdateView.as_view(), name='joboffer_update'),
     path('joboffers/<int:pk>/delete/', JobOfferDeleteView.as_view(), name='joboffer_delete'),
 
@@ -30,6 +28,19 @@ urlpatterns = [
     path('schedule/', ScheduleListView.as_view(), name='schedule_list'),
     path('schedule/<int:pk>/', ScheduleDetailView.as_view(), name='schedule_detail'),
     path('schedule/create/', ScheduleCreateView.as_view(), name='schedule_create'),
+    
+    
     path('schedule/<int:pk>/update/', ScheduleUpdateView.as_view(), name='schedule_update'),
     path('schedule/<int:pk>/delete/', ScheduleDeleteView.as_view(), name='schedule_delete'),
+    path("landing/", LandingHeadHuntersView.as_view(), name="landing_headhunters"),
+    
+     #Rutas para gestion de candidatos en la landing
+     #
+      path('manage_candidates/', ManageCandidatesView.as_view(), name='manage_candidates'),
+    #Ruta para crear oferta desde seleccionados
+      path('create_offer/<str:candidate_ids>/', CreateOfferView.as_view(), name='create_offer'),
+      path('add_to_existing_offer/<str:candidate_ids>/', AddToExistingOfferView.as_view(), name='add_to_existing_offer'),
+      path('get-candidates/<int:joboffer_id>/', get_candidates, name='get_candidates'),
+     
+   
 ]
