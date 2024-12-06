@@ -34,11 +34,21 @@ class JobOfferDetailView(DetailView):
         # Obtener la oferta de trabajo actual
         job_offer = self.get_object()
 
-        # Obtener los candidatos relacionados a través de ManagementCandidates
-        related_candidates = ManagementCandidates.objects.filter(job_offer=job_offer).select_related('candidate')
-        context['related_candidates'] = related_candidates
+        # Obtener todos los candidatos relacionados a través de ManagementCandidates
+        all_candidates = ManagementCandidates.objects.filter(job_offer=job_offer).select_related('candidate')
+
+        # Filtrar candidatos por los que están seleccionados por el headhunter
+        selected_candidates = all_candidates.filter(is_selected_by_headhunter=True)
+        
+        # Filtrar candidatos por los que aplicaron directamente
+        direct_application_candidates = all_candidates.filter(applied_directly=True)
+
+        # Añadir los candidatos seleccionados y los aplicados directamente al contexto
+        context['selected_candidates'] = selected_candidates
+        context['direct_application_candidates'] = direct_application_candidates
 
         return context
+
 
 class JobOfferCreateView(CreateView):
     model = JobOffer
