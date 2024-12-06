@@ -74,10 +74,21 @@ class JobOfferDeleteView(DeleteView):
     template_name = 'joboffers/joboffer_confirm_delete.html'
     success_url = reverse_lazy('joboffer_list')
     
+class JobOfferCreateView(CreateView):
+    model = JobOffer
+    form_class = JobOfferForm
+    template_name = 'joboffers/create_offer.html'
+    success_url = reverse_lazy('joboffer_list')
+    
+    def form_valid(self, form):
+        # Aquí puedes agregar cualquier lógica adicional antes de guardar los datos
+        headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
+        form.instance.headhunter = headhunter
+        return super().form_valid(form)
 
 
 
-class CreateOfferView(View):
+class CreateOfferFromSelectedView(View):
     def get(self, request, candidate_ids=None):
         # Obtener los IDs de candidatos seleccionados si se proporcionan
         candidates = []
@@ -89,7 +100,7 @@ class CreateOfferView(View):
         form = JobOfferForm()
         
         # Renderizar la plantilla con los candidatos y el formulario
-        return render(request, 'joboffers/create_offer.html', {'form': form, 'candidates': candidates})
+        return render(request, 'joboffers/create_offer_from_selected.html', {'form': form, 'candidates': candidates})
 
     def post(self, request, candidate_ids=None):
         # Manejar el envío del formulario

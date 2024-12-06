@@ -2,11 +2,11 @@
 
 from django.urls import path
 from .views import (
-    JobOfferListView, JobOfferDetailView, JobOfferUpdateView, JobOfferDeleteView,
+    JobOfferListView, JobOfferDetailView, JobOfferUpdateView, JobOfferDeleteView,JobOfferCreateView,
     HeadhunterListView, HeadhunterDetailView, HeadhunterCreateView, HeadhunterUpdateView, HeadhunterDeleteView,
     ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView, get_candidates,
     LandingHeadHuntersView,ManageCandidatesView,
-    CreateOfferView,
+    CreateOfferFromSelectedView,
     AddToExistingOfferView,
     DeleteCandidateView
     
@@ -16,7 +16,7 @@ from .views import (
 urlpatterns = [
     path('joboffers/', JobOfferListView.as_view(), name='joboffer_list'),
     path('joboffers/<int:pk>/', JobOfferDetailView.as_view(), name='joboffer_detail'),
-    path('joboffers/create/', CreateOfferView.as_view(), name='joboffer_create'),
+    path('joboffers/create/', JobOfferCreateView.as_view(), name='joboffer_create'),
     path('joboffers/<int:pk>/update/', JobOfferUpdateView.as_view(), name='joboffer_update'),
     path('joboffers/<int:pk>/delete/', JobOfferDeleteView.as_view(), name='joboffer_delete'),
 
@@ -39,7 +39,7 @@ urlpatterns = [
      #
       path('manage_candidates/', ManageCandidatesView.as_view(), name='manage_candidates'),
     #Ruta para crear oferta desde seleccionados
-      path('create_offer/<str:candidate_ids>/', CreateOfferView.as_view(), name='create_offer'),
+      path('create_offer/<str:candidate_ids>/', CreateOfferFromSelectedView.as_view(), name='create_offer'),
       path('add_to_existing_offer/<str:candidate_ids>/', AddToExistingOfferView.as_view(), name='add_to_existing_offer'),
       path('get-candidates/<int:joboffer_id>/', get_candidates, name='get_candidates'),
       #Eliminar Candidato de la oferta
