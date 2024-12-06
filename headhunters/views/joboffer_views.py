@@ -170,7 +170,8 @@ class AddToExistingOfferView(View):
                  # Verificar si ya existe una relación entre el candidato y la oferta
                 if not ManagementCandidates.objects.filter(job_offer=offer, candidate=candidate).exists():
                     # Si no existe, crear la relación
-                    ManagementCandidates.objects.create(job_offer=offer, candidate=candidate)
+                    ManagementCandidates.objects.create(job_offer=offer, candidate=candidate, is_selected_by_headhunter=True)
+                    
                 else:
                     messages.warning(request, f'El candidato {candidate.id} ya está asociado a esta oferta.')
                     
