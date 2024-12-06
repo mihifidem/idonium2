@@ -64,11 +64,13 @@
         {% endif %}
     </div>
 </div>
-{% if request.user.is_headhunter %}
-<div class="d-flex justify-content-center my-5">
-    <a href="{% url 'joboffer_create' %}" class="btn btn-success btn-lg">
-        Crear Nueva Oferta
-    </a>
-</div>
+{% if job_offers %}
+    {% if job_offers.0.headhunter.user == request.user %}
+        <div class="d-flex justify-content-center my-5">
+            <a href="{% url 'joboffer_create' %}" class="btn btn-success btn-lg">
+                Crear Nueva Oferta
+            </a>
+        </div>
+    {% endif %}
 {% endif %}
 {% endblock %}
