@@ -1,11 +1,6 @@
 from django.db.models import Count, Avg
-from urllib import request
-from django import forms
-from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.db.models import Prefetch, Sum
 from django.core.paginator import Paginator
@@ -24,11 +19,15 @@ def landing_page(request):
 # * | Funciones Auxiliares
 # * |--------------------------------------------------------------------------
 
-def group_required(group_name):
+def group_required(group_name, redirect_url='/no-permission/'):
     """Decorator to check if a user belongs to a specific group."""
-    def check_group(user):
-        return user.is_authenticated and user.groups.filter(name=group_name).exists()
-    return user_passes_test(check_group)
+    def decorator(view_func):
+        def wrapper(request, *args, **kwargs):
+            if not request.user.groups.filter(name=group_name).exists():
+                return redirect(redirect_url)
+            return view_func(request, *args, **kwargs)
+        return wrapper
+    return decorator
 
 # * |--------------------------------------------------------------------------
 # * | Course Views
@@ -219,44 +218,7 @@ def course_detail_view(request, pk):
 @group_required('teacher')
 def course_create_or_update_view(request, course_id):
     course = get_object_or_404(Course, id=course_id)
-
-    module = None
-    if "module_id" in request.GET:
-        module = get_object_or_404(Module, id=request.GET["module_id"], course=course)
-
-    if request.method == "POST":
-        if "module_form" in request.POST:
-            if module:
-                module_form = ModuleForm(request.POST, instance=module)
-            else:
-                module_form = ModuleForm(request.POST)
-
-            if module_form.is_valid():
-                module = module_form.save(commit=False)
-                module.course = course
-                module.save()
-                return redirect('teacher_dashboard', course_id=course.id, module_id=module.id)
-
-        elif "lesson_form" in request.POST and module:
-            lesson_form = LessonForm(request.POST)
-            if lesson_form.is_valid():
-                lesson = lesson_form.save(commit=False)
-                lesson.module = module
-                lesson.save()
-                return redirect('teacher_dashboard', course_id=course.id, module_id=module.id)
-    else:
-        if module:
-            module_form = ModuleForm(instance=module)
-        else:
-            module_form = ModuleForm()
-
-        lesson_form = LessonForm()
-
-    return render(request, 'course_module_lesson_form.html', {
-        'course': course,
-        'module': module,
-        'module_form': module_form,
-        'lesson_form': lesson_form })
+    return render(request, 'course_module_lesson_form.html', {'course': course,})
 
 # * |--------------------------------------------------------------------------
 # * | Teacher Views
@@ -265,8 +227,8 @@ def course_create_or_update_view(request, course_id):
 @login_required
 @group_required("teacher")
 def teacher_courses_list_view(request):
-    courses = Course.objects.filter(profile_teacher=request.user.profile_teacher)
-    return render(request, '<template de oscar>.html', {'teacher_courses': courses})
+    profile_teacher = request.user.profile_teacher
+    return render(request, 'role_management/dashboard_teacher.html', {'profile_teacher': profile_teacher, 'teacher_courses': profile_teacher.courses.all(), 'user_role':'teacher'})
 
 # * |--------------------------------------------------------------------------
 # * | Module and Lesson Views
