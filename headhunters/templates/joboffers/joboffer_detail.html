@@ -116,8 +116,10 @@
                                 <!-- Botón para Eliminar -->
                                 <a href="{% url 'delete_candidate' management_candidate.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
                                 <!-- Botón para Agendar Cita -->
-                                <a href="#" 
-                                   class="btn btn-primary btn-sm mx-1">Agendar Cita</a>
+                                <a href="{% url 'schedule_create' %}?joboffer_id={{ job_offer.id }}&candidate_id={{ management_candidate.candidate.id }}" 
+                                    class="btn btn-primary btn-sm mx-1">
+                                    Agendar Cita
+                                </a>
                             </div>
                         </td>
                     </tr>
