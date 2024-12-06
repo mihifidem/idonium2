@@ -1,5 +1,5 @@
 {% extends "users/base.html" %}
-{% load static %}  <!-- Cargar el tag static aquí -->
+{% load static %}
 
 {% block content %}
   <div class="container mt-4">
@@ -11,9 +11,76 @@
         .form-select {
             height: calc(2.5rem); /* Asegura la misma altura para inputs y selects */
         }
-        
+
+        /* Estilo para los checkboxes más modernos */
+        .candidate-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Personalización de checkboxes usando border radius y estilo de Bootstrap */
+        .candidate-checkbox:checked {
+            background-color: rgb(14, 219, 32);
+            border-color: rgb(14, 219, 32);
+        }
+
+        .candidate-checkbox:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+
+        /* Estilo para las imágenes para que sean circulares sin perder calidad */
+        .candidate-img {
+            width: 100px; /* Ajusta el tamaño según lo que necesites */
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%; /* Hace que la imagen sea circular */
+        }
+
+        /* Versión más grande de la imagen para pantallas Retina */
+        @media (min-resolution: 192dpi), (min-resolution: 2dppx) {
+            .candidate-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* Asegurando que los nombres de los candidatos se vean bien */
+        .candidate-name {
+            color: #000000; /* Azul claro para el nombre */
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 10px; /* Espaciado entre la imagen y el nombre */
+        }
+
+        /* Asegurando que el nombre se vea correctamente en diferentes pantallas */
+        .candidate-name:hover {
+            color: #000000;
+        }
+
+        .candidate-info {
+            display: flex;
+            align-items: center; /* Para alinear imagen y nombre */
+            gap: 10px;
+        }
+
+        /* Asegurando que la dirección también se vea de forma adecuada */
+        .candidate-address {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Espaciado y estilo para las tarjetas de candidato */
+        .candidate-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
     </style>
-    
+
     <form method="get" class="mb-4 p-3 bg-light rounded shadow-sm headhuntersfiltersform">
         <div class="row gy-3">
             <div class="col-md-4 col-sm-12">
@@ -62,7 +129,6 @@
             </div>
         </div>
     </form>
-        
 
       <!-- Lista de candidatos con checkboxes -->
       <form method="post" action="{% url 'manage_candidates' %}">
@@ -70,24 +136,24 @@
           <div class="row">
               {% for candidate in candidates %}
                   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                      <div class="card">
+                      <div class="card candidate-card">
                           <div class="card-body">
                               <!-- Foto del candidato -->
                               {% if candidate.img_1_profile %}
-                              <!-- TENGO QUE VER DE DONDE SACAR LA IMG del USER 0 QUE AUN NO ESTA
-                               Y NO ME ENCUENTRA LA DEFAULT JPG -->
-    
-                                  <img src="{{ candidate.img_1_profile }}" alt="{{ candidate.user.get_full_name }}" class="img-fluid rounded-circle mb-3" style="max-height: 100px; max-width: 100px;">
+                                  <!-- Usar imágenes de alta resolución para pantallas retina -->
+                                  <img src="{{ candidate.img_1_profile }}" alt="{{ candidate.user.get_full_name }}" class="candidate-img mb-3">
                               {% else %}
-                                  <img src='http://127.0.0.1:8000/media/profile_images/2.png' alt="Foto por defecto" class="img-fluid rounded-circle mb-3" style="max-height: 100px; max-width: 100px;">
+                                  <img src="http://127.0.0.1:8000/media/profile_images/2.png" alt="Foto por defecto" class="candidate-img mb-3">
                               {% endif %}
                               
                               <!-- Información del candidato -->
-                              <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2 candidate-checkbox">
-                              <a href="{% url 'profile_view' candidate.id %}" class="text-primary fw-bold">
-                                {{ candidate.user.get_full_name }}
-                             </a>
-                              <small>{{ candidate.address }}</small>
+                              <div class="candidate-info">
+                                  <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="candidate-checkbox">
+                                  <a href="{% url 'profile_view' candidate.id %}" class="candidate-name">
+                                    {{ candidate.user.get_full_name }}
+                                 </a>
+                              </div>
+                              <small class="candidate-address">{{ candidate.address }}</small>
                           </div>
                       </div>
                   </div>
@@ -101,17 +167,14 @@
 
           <!-- Botones de acción -->
           <div class="btn-group">
-            
               <button id="create-offer-btn" type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
-             <button id="add-to-offer-btn" type="submit" name="action" value="add_to_existing_offer" class="btn btn-warning">Agregar a oferta existente</button>
-            
-            </div>
+              <button id="add-to-offer-btn" type="submit" name="action" value="add_to_existing_offer" class="btn btn-warning">Agregar a oferta existente</button>
+          </div>
       </form>
 
   </div>
 
   <!-- Script que deshabilita botones de crear o agregar oferta mientras no haya ningun caniddato seleccionado -->
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
         const checkboxes = document.querySelectorAll('.candidate-checkbox');
@@ -132,6 +195,6 @@
         // Inicializar estado de los botones al cargar la página
         toggleButtons();
     });
-</script>
+  </script>
 
 {% endblock %}

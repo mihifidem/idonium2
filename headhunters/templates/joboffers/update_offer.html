@@ -1,0 +1,91 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="col-md-8 col-lg-6"> <!-- Define el ancho del formulario, ajustando según tu necesidad -->
+        <h2 class="text-center mb-4">Editar Oferta de Trabajo</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        
+            <!-- Título -->
+            <div class="form-group mb-3">
+                <label for="id_title" class="form-label">Título del Puesto</label>
+                {{ form.title }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Descripción -->
+            <div class="form-group mb-3">
+                <label for="id_description" class="form-label">Descripción</label>
+                {{ form.description }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Sector -->
+            <div class="form-group mb-3">
+                <label for="id_sector" class="form-label">Sector</label>
+                {{ form.sector }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Categoría -->
+            <div class="form-group mb-3">
+                <label for="id_category" class="form-label">Categoría</label>
+                {{ form.category }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Salario -->
+            <div class="form-group mb-3">
+                <label for="id_salary" class="form-label">Salario</label>
+                {{ form.salary }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Ubicación -->
+            <div class="form-group mb-3">
+                <label for="id_location" class="form-label">Ubicación</label>
+                {{ form.location }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Fecha de cierre -->
+            <div class="form-group mb-3">
+                <label for="id_close_date" class="form-label">Fecha de Cierre</label>
+                {{ form.close_date }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Habilidades Técnicas Requeridas -->
+            <div class="form-group mb-3">
+                <div class="d-flex align-items-center">
+                    <label for="id_required_hard_skills" class="form-label me-3">Habilidades Técnicas Requeridas</label>
+                    {{ form.required_hard_skills }} <!-- Renderiza el campo de habilidades técnicas -->
+                </div>
+                <small class="form-text text-muted mt-1">Mantén presionado Ctrl (o Cmd en Mac) para seleccionar varias
+                    habilidades.</small>
+            </div>
+
+            <!-- Habilidades Blandas Requeridas -->
+            <div class="form-group mb-3">
+                <div class="d-flex align-items-center">
+                    <label for="id_required_soft_skills" class="form-label me-3">Habilidades Blandas Requeridas</label>
+                    {{ form.required_soft_skills }} <!-- Renderiza el campo de habilidades blandas -->
+                </div>
+                <small class="form-text text-muted mt-1">Mantén presionado Ctrl (o Cmd en Mac) para seleccionar varias
+                    habilidades.</small>
+            </div>
+
+            <!-- Experiencia requerida -->
+            <div class="form-group mb-3">
+                <label for="id_required_experience" class="form-label">Experiencia Requerida (en años)</label>
+                {{ form.required_experience }}  <!-- El formulario ya tiene los datos pre-cargados -->
+            </div>
+
+            <!-- Tests Relacionados -->
+            <div class="form-group mb-3">
+                <label for="id_job_offer_tests" class="form-label">Tests Relacionados</label>
+                {{ form.JobOfferTests }} <!-- Renderiza el campo de tests -->
+            </div>
+
+            <!-- Botón de envío -->
+            <div class="form-group text-center mt-4">
+                <button type="submit" class="btn btn-success btn-lg">Editar Oferta</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
