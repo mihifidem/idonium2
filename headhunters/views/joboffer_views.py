@@ -220,20 +220,24 @@ class WishListView(LoginRequiredMixin, ListView):
         # Filtra las ofertas guardadas del candidato actual
         candidate = get_object_or_404(Profile_CV, user=self.request.user)
         return JobOffersWishList.objects.filter(candidate=candidate)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['wishlist_count'] = self.get_queryset().count()
+        return context
 
 
 class AddToWishListView(LoginRequiredMixin, CreateView):
     model = JobOffersWishList
-    fields = []  # No necesitamos ningún formulario, solo capturamos el candidato y la oferta
-    template_name = "wishlist/jobofferswishlist_add.html"
-    success_url = reverse_lazy("wishlist")
+    fields = []
+    success_url = reverse_lazy('wishlist')  # Cambia esta URL si es necesario
 
     def form_valid(self, form):
-        # Obtiene el candidato actual
         candidate = get_object_or_404(Profile_CV, user=self.request.user)
-        form.instance.candidate = candidate
-        # Obtiene la oferta de trabajo desde la URL o el formulario
         job_offer = get_object_or_404(JobOffer, id=self.kwargs['job_offer_id'])
+        if JobOffersWishList.objects.filter(candidate=candidate, job_offer=job_offer).exists():
+            messages.warning(self.request, "Esta oferta ya está en tu Wishlist.")
+            return redirect(self.success_url)
+        form.instance.candidate = candidate
         form.instance.job_offer = job_offer
         return super().form_valid(form)
 

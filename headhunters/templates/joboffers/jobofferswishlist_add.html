@@ -1,0 +1,19 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Mensaje de Confirmación -->
+    <div class="alert alert-success text-center" role="alert">
+        <h4 class="alert-heading">¡Oferta añadida a tu Wishlist!</h4>
+        <p>La oferta de trabajo "<strong>{{ job_offer.title }}</strong>" se ha añadido correctamente a tu lista de deseos.</p>
+        <hr>
+        <p class="mb-0">Puedes gestionar tu wishlist desde tu perfil o seguir explorando más ofertas.</p>
+    </div>
+
+    <!-- Acciones -->
+    <div class="text-center mt-4">
+        <a href="{% url 'wishlist' %}" class="btn btn-primary">Ir a mi Wishlist</a>
+        <a href="{% url 'joboffer_list' %}" class="btn btn-secondary">Ver más Ofertas</a>
+    </div>
+</div>
+{% endblock %}
