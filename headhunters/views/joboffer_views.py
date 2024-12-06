@@ -18,11 +18,11 @@ class JobOfferListView(ListView):
     context_object_name = 'job_offers'
     def get_queryset(self):
         groups = list(self.request.user.groups.all())
-        if 'premium' in [group.name for group in groups] or 'freemium' in [group.name for group in groups]:
-            return JobOffer.objects.all()
         if 'headhunter' in [group.name for group in groups]:
             headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
             return JobOffer.objects.filter(headhunter=headhunter)
+        else:
+            return JobOffer.objects.all()
 
 class JobOfferDetailView(DetailView):
     model = JobOffer
