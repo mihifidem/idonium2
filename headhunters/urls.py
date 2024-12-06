@@ -8,7 +8,8 @@ from .views import (
     LandingHeadHuntersView,ManageCandidatesView,
     CreateOfferFromSelectedView,
     AddToExistingOfferView,
-    DeleteCandidateView
+    DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView
+    
     
 )
 
@@ -44,6 +45,11 @@ urlpatterns = [
       path('get-candidates/<int:joboffer_id>/', get_candidates, name='get_candidates'),
       #Eliminar Candidato de la oferta
       path('candidate/<int:pk>/delete/', DeleteCandidateView.as_view(), name='delete_candidate'),
+      path('wishlist/', WishListView.as_view(), name='wishlist'),
+      path('wishlist/add/<int:job_offer_id>/', AddToWishListView.as_view(), name='add_to_wishlist'),
+      path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),
      
    
 ]
+
+

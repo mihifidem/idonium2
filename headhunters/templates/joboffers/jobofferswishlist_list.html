@@ -1,0 +1,11 @@
+<h1>My Wish List</h1>
+<ul>
+    {% for item in wishlist %}
+        <li>
+            {{ item.job_offer.title }} - {{ item.job_offer.headhunter.company }}
+            <a href="{% url 'remove_from_wishlist' item.pk %}">Remove</a>
+        </li>
+    {% empty %}
+        <p>No job offers in your wishlist yet.</p>
+    {% endfor %}
+</ul>

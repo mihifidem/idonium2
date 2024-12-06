@@ -1,0 +1,7 @@
+<h1>Remove Job Offer</h1>
+<p>Are you sure you want to remove "{{ object.job_offer.title }}" from your wishlist?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, remove</button>
+    <a href="{% url 'wishlist' %}">Cancel</a>
+</form>

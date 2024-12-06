@@ -2,7 +2,7 @@
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
-from ..models import JobOffer, ManagementCandidates, HeadHunterUser
+from ..models import JobOffer, ManagementCandidates, HeadHunterUser,JobOffersWishList
 from ..forms import JobOfferForm
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
@@ -135,7 +135,7 @@ class CreateOfferFromSelectedView(View):
             return redirect('landing_headhunters')
         
         # Si el formulario no es válido, volver a mostrar el formulario con los errores
-        return render(request, 'joboffers/create_offer.html', {'form': form})
+        return render(request, 'joboffers/create_offer_from_selected.html', {'form': form})
     
     
 
@@ -209,4 +209,43 @@ class DeleteCandidateView(LoginRequiredMixin, DeleteView):
         context['candidate_name'] = self.object.candidate.user.username
         context['job_offer_title'] = self.object.job_offer.title
         return context
+    
+    
+class WishListView(LoginRequiredMixin, ListView):
+    model = JobOffersWishList
+    template_name = "wishlist/jobofferswishlist_list.html"
+    context_object_name = "wishlist"
+
+    def get_queryset(self):
+        # Filtra las ofertas guardadas del candidato actual
+        candidate = get_object_or_404(Profile_CV, user=self.request.user)
+        return JobOffersWishList.objects.filter(candidate=candidate)
+
+
+class AddToWishListView(LoginRequiredMixin, CreateView):
+    model = JobOffersWishList
+    fields = []  # No necesitamos ningún formulario, solo capturamos el candidato y la oferta
+    template_name = "wishlist/jobofferswishlist_add.html"
+    success_url = reverse_lazy("wishlist")
+
+    def form_valid(self, form):
+        # Obtiene el candidato actual
+        candidate = get_object_or_404(Profile_CV, user=self.request.user)
+        form.instance.candidate = candidate
+        # Obtiene la oferta de trabajo desde la URL o el formulario
+        job_offer = get_object_or_404(JobOffer, id=self.kwargs['job_offer_id'])
+        form.instance.job_offer = job_offer
+        return super().form_valid(form)
+
+
+class RemoveFromWishListView(LoginRequiredMixin, DeleteView):
+    model = JobOffersWishList
+    template_name = "wishlist/jobofferswishlist_confirm_delete.html"
+    success_url = reverse_lazy("wishlist")
+
+    def get_queryset(self):
+        # Asegurarse de que solo pueda eliminar elementos de su propia lista
+        candidate = get_object_or_404(Profile_CV, user=self.request.user)
+        return JobOffersWishList.objects.filter(candidate=candidate)
+
     
