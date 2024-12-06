@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     "django_summernote",
     "courses",
     "headhunters",
-    "test",
+    "test_management",
     "profile_cv",
     'test_management'
    
