@@ -50,20 +50,11 @@ class JobOfferDetailView(DetailView):
         return context
 
 
-class JobOfferCreateView(CreateView):
-    model = JobOffer
-    form_class = JobOfferForm
-    template_name = 'joboffers/joboffer_form.html'
-    success_url = reverse_lazy('joboffer_list')
-    def form_valid(self, form):
-        headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
-        form.instance.headhunter = headhunter
-        return super().form_valid(form)
 
 class JobOfferUpdateView(UpdateView):
     model = JobOffer
     form_class = JobOfferForm
-    template_name = 'joboffers/create_offer.html'
+    template_name = 'joboffers/update_offer.html'
     success_url = reverse_lazy('joboffer_list')
     def get_object(self, queryset=None):
         # Usamos el ID de la oferta de trabajo que se pasa a través de la URL

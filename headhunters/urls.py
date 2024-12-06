@@ -2,7 +2,7 @@
 
 from django.urls import path
 from .views import (
-    JobOfferListView, JobOfferDetailView, JobOfferCreateView, JobOfferUpdateView, JobOfferDeleteView,
+    JobOfferListView, JobOfferDetailView, JobOfferUpdateView, JobOfferDeleteView,
     HeadhunterListView, HeadhunterDetailView, HeadhunterCreateView, HeadhunterUpdateView, HeadhunterDeleteView,
     ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView, get_candidates,
     LandingHeadHuntersView,ManageCandidatesView,
