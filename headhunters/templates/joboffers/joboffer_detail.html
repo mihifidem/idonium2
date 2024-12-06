@@ -87,18 +87,59 @@
             {% endfor %}
         </ul>
     </div>
-
-    <!-- Botones de Acción -->
     {% if request.user == job_offer.headhunter.user %}
-    <div class="actions text-center mt-4">
-        {% csrf_token %}
-        <a href="{% url 'joboffer_update' job_offer.id %}" class="btn btn-warning btn-sm">Editar</a>
-        <a href="{% url 'joboffer_delete' job_offer.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+    <!-- Ver una lista de los candidatos relacionados a la oferta -->
+    <div class="candidates mb-4">
+        <h3 class="text-center mb-3">Candidatos Inscritos</h3>
+        
+        {% if related_candidates %}
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <th>Seleccionado por el Headhunter</th>
+                        <th>Aplicación Directa</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for management_candidate in related_candidates %}
+                    <tr>
+                        <td>{{ management_candidate.candidate.user.username }}</td>
+                        <td>{{ management_candidate.status.name }}</td>
+                        <td>{{ management_candidate.is_selected_by_headhunter|yesno:"Sí,No" }}</td>
+                        <td>{{ management_candidate.applied_directly|yesno:"Sí,No" }}</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <!-- Botón para Eliminar -->
+                                <a href="{% url 'delete_candidate' management_candidate.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                <!-- Botón para Agendar Cita -->
+                                <a href="#" 
+                                   class="btn btn-primary btn-sm mx-1">Agendar Cita</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center text-muted">No hay candidatos relacionados con esta oferta.</p>
+        {% endif %}
+        
+        <!-- Botones de Acción -->
+        <div class="actions text-center mt-4">
+            <a href="{% url 'joboffer_update' job_offer.id %}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{% url 'joboffer_delete' job_offer.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+        </div>
     </div>
     {% else %}
-    <div class="actions text-center mt-5 mb-5"> <!-- Agregado mt-5 y mb-5 -->
+    <div class="actions text-center mt-5 mb-5">
         <a href="{% url 'joboffer_list' %}" class="btn btn-secondary btn-sm">Volver a Ofertas</a>
     </div>
     {% endif %}
+    
 </div>
 {% endblock %}

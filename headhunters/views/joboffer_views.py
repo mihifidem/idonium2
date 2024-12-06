@@ -8,6 +8,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from profile_cv.models import Profile_CV
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -27,6 +28,17 @@ class JobOfferDetailView(DetailView):
     model = JobOffer
     template_name = 'joboffers/joboffer_detail.html'
     context_object_name = 'job_offer'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Obtener la oferta de trabajo actual
+        job_offer = self.get_object()
+
+        # Obtener los candidatos relacionados a través de ManagementCandidates
+        related_candidates = ManagementCandidates.objects.filter(job_offer=job_offer).select_related('candidate')
+        context['related_candidates'] = related_candidates
+
+        return context
 
 class JobOfferCreateView(CreateView):
     model = JobOffer
@@ -168,4 +180,20 @@ class AddToExistingOfferView(View):
 
         messages.success(request, 'Candidatos agregados a la oferta con éxito.')
         return redirect('landing_headhunters')  # Cambiar a la página deseada después del éxito
+    
+    
+class DeleteCandidateView(LoginRequiredMixin, DeleteView):
+    model = ManagementCandidates
+    template_name = 'joboffers/candidate_confirm_delete.html'
+    def get_success_url(self):
+        # Redirige al detalle de la oferta después de la eliminación
+        job_offer_id = self.object.job_offer.id
+        return reverse('joboffer_detail', kwargs={'pk': job_offer_id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Agregar información adicional para mostrar en la confirmación de eliminación
+        context['candidate_name'] = self.object.candidate.user.username
+        context['job_offer_title'] = self.object.job_offer.title
+        return context
     
