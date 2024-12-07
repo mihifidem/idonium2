@@ -82,7 +82,8 @@
                                         </p>
                                     </div>
                                     <div class="singel-description" style="display: flex; justify-content: flex-end;">
-                                        <a href="{% url 'courses:course-update' course.id%}" class="btn btn-primary">Edit Course</a>
+                                        <a href="{% url 'courses:course-update' course.id %}" class="btn btn-primary mr-3">Edit Course</a>
+                                        <a href="{% url 'courses:teacher-courses-list' %}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </div> <!-- overview description -->
                             </div>
@@ -92,6 +93,8 @@
                                     {% for module in course.modules.all %}
                                     <div class="title">
                                         <h6>{{ forloop.counter }}.{{ module.title }}</h6>
+                                        <a href="{% url 'courses:module-update' course.id module.id %}" class="btn btn-primary">Edit Module</a>
+                                        <a href="#" class="btn btn-danger">Delete Module</a>
                                     </div>
                                     <div class="accordion" id="accordionExample{{ forloop.counter }}">
                                         {% with forloop.counter as module_counter %}
@@ -114,6 +117,19 @@
                                         <div id="collapse{{ forloop.counter }}-module{{ module_counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}-module{{ module_counter }}" data-parent="#accordionExample{{ module_counter }}">
                                             <div class="card-body">
                                                 <p>{{ lesson.description }}</p>
+                                                <ul>
+                                                {% for resource in lesson.resources.all %}
+                                                    <li>
+                                                        <span class="mr-3 mb-3">- Resource: {{resource.name}}</span>
+                                                        <a href="#" class="btn btn-danger">Delete Resource</a>
+                                                    </li>
+                                                {% endfor %}
+                                                    <a href="#" class="btn btn-primary">Add Resource</a>
+                                                </ul>
+                                                <div class="container">
+                                                    <a href="#" class="btn btn-primary mt-3">Edit Lesson</a>
+                                                    <a href="#" class="btn btn-danger ml-3">Delete Lesson</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

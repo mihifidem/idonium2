@@ -5,7 +5,7 @@ from .models import *
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'image']
         widgets = {
             'description': forms.Textarea(attrs={'rows': 4}),
         }
@@ -23,7 +23,7 @@ class CertificateForm(forms.ModelForm):
 class ModuleForm(forms.ModelForm):
     class Meta:
         model = Module
-        fields = ['course', 'title', 'description']
+        fields = ['title', 'description']
 
 class LessonForm(forms.ModelForm):
     class Meta:
