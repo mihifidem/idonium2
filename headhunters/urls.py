@@ -6,13 +6,9 @@ from .views import (
     HeadhunterListView, HeadhunterDetailView, HeadhunterCreateView, HeadhunterUpdateView, HeadhunterDeleteView,
     ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView, get_candidates,
     LandingHeadHuntersView,ManageCandidatesView,
-    CreateOfferView,
+    CreateOfferFromSelectedView,
     AddToExistingOfferView,
-<<<<<<< HEAD
-=======
     DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView
-    
->>>>>>> 7b632499108b802b8a1840e4d17c5d6e20c7c34e
     
 )
 
@@ -20,7 +16,7 @@ from .views import (
 urlpatterns = [
     path('joboffers/', JobOfferListView.as_view(), name='joboffer_list'),
     path('joboffers/<int:pk>/', JobOfferDetailView.as_view(), name='joboffer_detail'),
-    path('joboffers/create/', CreateOfferView.as_view(), name='joboffer_create'),
+    path('joboffers/create/', JobOfferCreateView.as_view(), name='joboffer_create'),
     path('joboffers/<int:pk>/update/', JobOfferUpdateView.as_view(), name='joboffer_update'),
     path('joboffers/<int:pk>/delete/', JobOfferDeleteView.as_view(), name='joboffer_delete'),
 
@@ -43,18 +39,14 @@ urlpatterns = [
      #
       path('manage_candidates/', ManageCandidatesView.as_view(), name='manage_candidates'),
     #Ruta para crear oferta desde seleccionados
-      path('create_offer/<str:candidate_ids>/', CreateOfferView.as_view(), name='create_offer'),
+      path('create_offer/<str:candidate_ids>/', CreateOfferFromSelectedView.as_view(), name='create_offer'),
       path('add_to_existing_offer/<str:candidate_ids>/', AddToExistingOfferView.as_view(), name='add_to_existing_offer'),
       path('get-candidates/<int:joboffer_id>/', get_candidates, name='get_candidates'),
-<<<<<<< HEAD
-=======
       #Eliminar Candidato de la oferta
       path('candidate/<int:pk>/delete/', DeleteCandidateView.as_view(), name='delete_candidate'),
       path('wishlist/', WishListView.as_view(), name='wishlist'),
       path('wishlist/add/<int:job_offer_id>/', AddToWishListView.as_view(), name='add_to_wishlist'),
-      path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),
->>>>>>> 7b632499108b802b8a1840e4d17c5d6e20c7c34e
-     
+      path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),     
    
 ]
 

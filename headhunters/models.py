@@ -120,6 +120,21 @@ class Schedule(models.Model):
     def __str__(self):
         return f"{self.type_action.name} with {self.candidate.name} - {self.date}"
 
+class JobOffersWishList(models.Model):
+    job_offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, related_name="wishlisted_by")
+    candidate = models.ForeignKey(Profile_CV, on_delete=models.CASCADE, related_name="wishlist")
+    added_date = models.DateTimeField(auto_now_add=True, help_text="Date when the job offer was added to the wishlist")
+
+    class Meta:
+        unique_together = ('candidate', 'job_offer')  # Evita duplicados en la lista de deseos de un mismo candidato
+        verbose_name = "Job Offers Wish List"
+        verbose_name_plural = "Job Offers Wish Lists"
+
+    def __str__(self):
+        return f"{self.candidate.name} - {self.job_offer.title} (Wishlisted)"
+
+
+
 # Model for Job Offer Notification
 #JobOfferNotification: Registra notificaciones enviadas a los candidatos sobre una oferta de trabajo, incluyendo la fecha en que se envió y si el candidato ha leído la notificación o no. Esto es útil para mantener informados a los candidatos sobre el progreso de sus aplicaciones.
 class JobOfferNotification(models.Model):

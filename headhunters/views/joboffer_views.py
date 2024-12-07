@@ -77,7 +77,7 @@ class JobOfferDeleteView(DeleteView):
 class JobOfferCreateView(CreateView):
     model = JobOffer
     form_class = JobOfferForm
-    template_name = 'joboffers/joboffer_form.html'
+    template_name = 'joboffers/create_offer.html'
     success_url = reverse_lazy('joboffer_list')
     
     def form_valid(self, form):

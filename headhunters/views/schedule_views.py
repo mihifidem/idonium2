@@ -28,11 +28,39 @@ class ScheduleCreateView(CreateView):
     form_class = ScheduleForm
     template_name = 'schedule/schedule_form.html'
     success_url = reverse_lazy('schedule_list')
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        # Obtener los parámetros de la URL
+        joboffer_id = self.request.GET.get('joboffer_id')
+        candidate_id = self.request.GET.get('candidate_id')
+
+        # Si existen los parámetros, pre-cargar los campos
+        if joboffer_id:
+            joboffer = get_object_or_404(JobOffer, id=joboffer_id)
+            initial['joboffer'] = joboffer
+
+        if candidate_id:
+            candidate = get_object_or_404(Profile_CV, id=candidate_id)
+            initial['candidate'] = candidate
+
+        return initial
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
         form.fields['joboffer'].queryset = JobOffer.objects.filter(headhunter=headhunter)
+        # Obtener los parámetros de la URL
+        joboffer_id = self.request.GET.get('joboffer_id')
+        candidate_id = self.request.GET.get('candidate_id')
+
+        if joboffer_id:
+            joboffer = get_object_or_404(JobOffer, id=joboffer_id)
+            form.instance.joboffer = joboffer
+
+        if candidate_id:
+            candidate = get_object_or_404(Profile_CV, id=candidate_id)
+            form.instance.candidate = candidate
         return form
 
     def form_valid(self, form):
