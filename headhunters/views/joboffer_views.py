@@ -213,7 +213,7 @@ class DeleteCandidateView(LoginRequiredMixin, DeleteView):
     
 class WishListView(LoginRequiredMixin, ListView):
     model = JobOffersWishList
-    template_name = "wishlist/jobofferswishlist_list.html"
+    template_name = "joboffers/jobofferswishlist_list.html"
     context_object_name = "wishlist"
 
     def get_queryset(self):
@@ -244,7 +244,7 @@ class AddToWishListView(LoginRequiredMixin, CreateView):
 
 class RemoveFromWishListView(LoginRequiredMixin, DeleteView):
     model = JobOffersWishList
-    template_name = "wishlist/jobofferswishlist_confirm_delete.html"
+    template_name = "joboffers/jobofferswishlist_confirm_delete.html"
     success_url = reverse_lazy("wishlist")
 
     def get_queryset(self):
