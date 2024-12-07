@@ -3,17 +3,38 @@
 
 {% block content %}
   <div class="container mt-4">
-      <h1>Candidates</h1>
+      <h1>Candidatos</h1>
 
       <!-- Filtros -->
     <style>
-        .form-control,
-        .form-select {
-            height: calc(2.5rem); /* Asegura la misma altura para inputs y selects */
+        .headhuntersfiltersform {
+            background-color: #1d3557 !important; 
+            border-radius: 0.375rem;
+            color: rgb(0, 0, 0);
+            padding: 1rem;
+        }
+        /* Aseguramos que los inputs, selects, y etiquetas tengan el texto blanco */
+        .headhuntersfiltersform .form-control{
+            background-color: #ffffff !important; 
+        }
+        .headhuntersfiltersform .form-select{
+            background-color: #ffffff !important; /* Azul marino */
+        }
+        .headhuntersfiltersform .form-label {
+            color: white !important; /* Texto blanco */
+        }
+        .custom-yellow-btn {
+        background-color: #e4bc0c !important; /* Color amarillo específico */
+        color: rgb(0, 0, 0); /* Aseguramos que el texto sea blanco */
         }
 
-        /* Estilo para los checkboxes más modernos */
-        .candidate-checkbox {
+        .custom-yellow-btn:hover {
+        background-color: #b58d0a !important; /* Color ligeramente más oscuro para el hover */
+        color: rgb(0, 0, 0); /* Mantener el texto blanco en hover */
+        }
+
+         /* Estilo para los checkboxes más modernos */
+         .candidate-checkbox {
             width: 20px;
             height: 20px;
             margin-right: 10px;
@@ -81,54 +102,56 @@
         }
     </style>
 
-    <form method="get" class="mb-4 p-3 bg-light rounded shadow-sm headhuntersfiltersform">
-        <div class="row gy-3">
-            <div class="col-md-4 col-sm-12">
-                <label for="location" class="form-label text-primary fw-bold">Ubicación:</label>
-                <input type="text" name="location" id="location" class="form-control border-primary rounded-pill" placeholder="Ej. Barcelona" value="{{ request.GET.location }}">
-            </div>
-            <div class="col-md-4 col-sm-12 d-flex align-items-center">
-                <label for="open_to_work" class="form-label text-primary fw-bold">Disponibilidad para trabajar:</label>
-                <select name="open_to_work" id="open_to_work" class="form-select border-primary rounded-pill">
-                    <option value="" {% if request.GET.open_to_work == "" %}selected{% endif %}>Todos</option>
-                    <option value="true" {% if request.GET.open_to_work == "true" %}selected{% endif %}>Sí</option>
-                    <option value="false" {% if request.GET.open_to_work == "false" %}selected{% endif %}>No</option>
-                </select>
-            </div>
-            <div class="col-md-4 col-sm-12 d-flex align-items-center">
-                <label for="vehicle" class="form-label text-primary fw-bold">Vehículo disponible:</label>
-                <select name="vehicle" id="vehicle" class="form-select border-primary rounded-pill">
-                    <option value="" {% if request.GET.vehicle == "" %}selected{% endif %}>Todos</option>
-                    <option value="true" {% if request.GET.vehicle == "true" %}selected{% endif %}>Sí</option>
-                    <option value="false" {% if request.GET.vehicle == "false" %}selected{% endif %}>No</option>
-                </select>
+    <form method="get" class="mb-4 p-4 bg-light rounded-3 shadow-sm headhuntersfiltersform">
+    <div class="row gy-3">
+        <div class="col-md-4 col-sm-12">
+            <label for="location" class="form-label text-primary fw-bold">Ubicación:</label>
+            <input type="text" name="location" id="location" class="form-control border-primary rounded-3 shadow-sm" placeholder="Ej. Barcelona" value="{{ request.GET.location }}">
+        </div>
+        <div class="col-md-4 col-sm-12 d-flex align-items-center">
+            <label for="open_to_work" class="form-label text-primary fw-bold">Disponibilidad para trabajar:</label>
+            <select name="open_to_work" id="open_to_work" class="form-select border-primary rounded-3 shadow-sm">
+                <option value="" {% if request.GET.open_to_work == "" %}selected{% endif %}>Todos</option>
+                <option value="true" {% if request.GET.open_to_work == "true" %}selected{% endif %}>Sí</option>
+                <option value="false" {% if request.GET.open_to_work == "false" %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="col-md-4 col-sm-12 d-flex align-items-center">
+            <label for="vehicle" class="form-label text-primary fw-bold">Vehículo disponible:</label>
+            <select name="vehicle" id="vehicle" class="form-select border-primary rounded-3 shadow-sm">
+                <option value=""  {% if request.GET.vehicle == "" %}selected{% endif %}>Todos</option>
+                <option value="true"  {% if request.GET.vehicle == "true" %}selected{% endif %}>Sí</option>
+                <option value="false"  {% if request.GET.vehicle == "false" %}selected{% endif %}>No</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-4">
+        <div class="col-md-4 col-sm-12 d-flex align-items-center">
+            <label for="disability" class="form-label text-primary fw-bold">Discapacidad:</label>
+            <select name="disability" id="disability" class="form-select border-primary rounded-3 shadow-sm">
+                <option value="" {% if request.GET.disability == "" %}selected{% endif %}>Todos</option>
+                <option value="true" {% if request.GET.disability == "true" %}selected{% endif %}>Sí</option>
+                <option value="false" {% if request.GET.disability == "false" %}selected{% endif %}>No</option>
+            </select>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <label for="disability_percentage" class="form-label text-primary fw-bold">Porcentaje de discapacidad:</label>
+            <div class="input-group">
+                <input type="number" name="disability_percentage" id="disability_percentage"
+                       class="form-control border-primary rounded-3 shadow-sm"
+                       placeholder="Ej. 20" min="0" max="100" step="1"
+                       value="{{ request.GET.disability_percentage }}">
+                <span class="input-group-text">%</span>
             </div>
         </div>
-        <div class="row g-3 mt-3">
-            <div class="col-md-4 col-sm-12 d-flex align-items-center">
-                <label for="disability" class="form-label text-primary fw-bold">Discapacidad:</label>
-                <select name="disability" id="disability" class="form-select border-primary rounded-pill">
-                    <option value="" {% if request.GET.disability == "" %}selected{% endif %}>Todos</option>
-                    <option value="true" {% if request.GET.disability == "true" %}selected{% endif %}>Sí</option>
-                    <option value="false" {% if request.GET.disability == "false" %}selected{% endif %}>No</option>
-                </select>
-            </div>
-            
-            <div class="col-md-4 col-sm-12">
-                <label for="disability_percentage" class="form-label text-primary fw-bold">Porcentaje de discapacidad:</label>
-                <div class="input-group">
-                    <input type="number" name="disability_percentage" id="disability_percentage" 
-                           class="form-control border-primary rounded-pill" 
-                           placeholder="Ej. 20" min="0" max="100" step="-1"
-                           value="{{ request.GET.disability_percentage }}">
-                    <span class="input-group-text">%</span>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary rounded-pill w-100">Aplicar filtros</button>
-            </div>
+
+        <div class="col-md-4 col-sm-12 d-flex align-items-end">
+            <button type="submit" class="btn custom-yellow-btn rounded-3 w-100 shadow-sm">Aplicar filtros</button>
         </div>
-    </form>
+    </div>
+</form>
 
       <!-- Lista de candidatos con checkboxes -->
       <form method="post" action="{% url 'manage_candidates' %}">

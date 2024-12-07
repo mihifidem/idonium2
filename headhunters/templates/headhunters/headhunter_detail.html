@@ -1,57 +1,66 @@
 {% extends "users/base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-  <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white">
-      <h2>{{ headhunter.user.username }}</h2>
-      <h5>{{ headhunter.company }}</h5>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <!-- Foto de perfil -->
-        <div class="col-md-4 text-center">
-          {% if headhunter.profile_photo %}
-            <img src="{{ headhunter.profile_photo.url }}" alt="Profile Photo" class="img-fluid rounded-circle mb-3">
-          {% else %}
-            Imagen  no disponible
-          {% endif %}
-        </div>
+  <style>
+    /* Estilo para el texto amarillo en el encabezado */
+    .header-text-yellow {
+      color: rgb(223, 185, 15) !important;
+    }
+  </style>
 
-        <!-- Información -->
-        <div class="col-md-8">
-          <h2>Mis Datos</h2>
-          <p><strong>Teléfono:</strong> {{ headhunter.phone }}</p>
-          <p><strong>Rango:</strong> {{ headhunter.position }}</p>
-          <p><strong>Sitio Web:</strong> 
-            {% if headhunter.website %}
-              <a href="{{ headhunter.website }}" target="_blank">{{ headhunter.website }}</a>
+  <div class="container mt-5">
+    <div class="card shadow-lg">
+      <!-- Aplicamos el fondo azul marino y la clase personalizada para texto amarillo -->
+      <div class="card-header" style="background-color: #003366; text-align: center; padding: 20px;">
+        <h2 class="mb-0 header-text-yellow">{{ headhunter.user.username }}</h2>
+        <h5 class="font-italic header-text-yellow">{{ headhunter.company }}</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <!-- Foto de perfil -->
+          <div class="col-md-4 text-center">
+            {% if headhunter.profile_photo %}
+              <img src="{{ headhunter.profile_photo.url }}" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="max-width: 150px;">
             {% else %}
-              No disponible
+              <div class="alert alert-warning">Imagen no disponible</div>
             {% endif %}
-          </p>
-          <p><strong>LinkedIn:</strong> 
-            {% if headhunter.linkedin_profile %}
-              <a href="{{ headhunter.linkedin_profile }}" target="_blank">Perfil de LinkedIn</a>
-            {% else %}
-              No disponible
-            {% endif %}
-          </p>
-          <p><strong>Ubicación:</strong> {{ headhunter.city }}, {{ headhunter.country }}</p>
+          </div>
+
+          <!-- Información -->
+          <div class="col-md-8">
+            <h3 class="mb-3">Mis Datos</h3>
+            <ul class="list-unstyled">
+              <li><strong class="text-dark">Teléfono:</strong> <span class="text-dark">{{ headhunter.phone }}</span></li>
+              <li><strong class="text-dark">Rango:</strong> <span class="text-dark">{{ headhunter.position }}</span></li>
+              <li><strong class="text-dark">Sitio Web:</strong> 
+                {% if headhunter.website %}
+                  <a href="{{ headhunter.website }}" target="_blank" class="text-dark">{{ headhunter.website }}</a>
+                {% else %}
+                  <span class="text-muted">No disponible</span>
+                {% endif %}
+              </li>
+              <li><strong class="text-dark">LinkedIn:</strong> 
+                {% if headhunter.linkedin_profile %}
+                  <a href="{{ headhunter.linkedin_profile }}" target="_blank" class="text-dark">Perfil de LinkedIn</a>
+                {% else %}
+                  <span class="text-muted">No disponible</span>
+                {% endif %}
+              </li>
+              <li><strong class="text-dark">Ubicación:</strong> <span class="text-dark">{{ headhunter.city }}, {{ headhunter.country }}</span></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card-footer text-center">
-      <!-- Botones de acción -->
-      {% if request.user == headhunter.user %}
-      <a href="{% url 'headhunter_update' pk=headhunter.pk %}" class="btn btn-warning me-2">Editar</a>
-      <a href="{% url 'headhunter_delete' pk=headhunter.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
-      {% else %}
-      <!-- Botones Volver a oferta, que vaya hacia atras -->
-      <button onclick="window.history.back();" class="btn btn-secondary btn-sm">Volver a Oferta</button>
-      
-      {% endif %}
+      <div class="card-footer text-center">
+        <!-- Botones de acción -->
+        {% if request.user == headhunter.user %}
+          <a href="{% url 'headhunter_update' pk=headhunter.pk %}" class="btn btn-warning me-2 btn-lg">Editar</a>
+          <a href="{% url 'headhunter_delete' pk=headhunter.pk %}" class="btn btn-danger btn-lg">Eliminar</a>
+        {% else %}
+          <!-- Botón Volver a oferta -->
+          <button onclick="window.history.back();" class="btn btn-secondary btn-lg">Volver a Oferta</button>
+        {% endif %}
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}
