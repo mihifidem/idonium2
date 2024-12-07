@@ -1,7 +1,7 @@
-from django.db.models import Count, Avg
+from django.db.models import Avg
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Sum
 from django.core.paginator import Paginator
 from courses.models import *
@@ -216,9 +216,29 @@ def course_detail_view(request, pk):
 # Course: ---- Create/Update Views ----
 @login_required
 @group_required('teacher')
-def course_create_or_update_view(request, course_id):
-    course = get_object_or_404(Course, id=course_id)
-    return render(request, 'course_module_lesson_form.html', {'course': course,})
+def course_create_or_update_view(request, course_id=None):
+    # Si existe un course_id, intenta obtener el curso; de lo contrario, crea uno nuevo
+    course = None
+    if course_id:
+        course = get_object_or_404(Course, id=course_id)
+
+    # Usa el formulario de modelo (creación o actualización)
+    if request.method == "POST":
+        form = CourseForm(request.POST, instance=course)  # Si `course` es None, creará uno nuevo
+        if form.is_valid():
+            course = form.save(commit=False)
+            # Asociar el curso con el perfil del maestro si es creación
+            if not course.id:  
+                course.teacher = request.user.profile_teacher
+            course.save()
+            messages.success(request, "El curso se ha guardado correctamente.")
+            return redirect("courses:teacher-course-detail", course_id=course.id)  # Redirige a una página de detalles del curso
+        else:
+            messages.error(request, "Corrige los errores en el formulario.")
+    else:
+        form = CourseForm(instance=course)  # Pasa el curso al formulario
+
+    return render(request, "course_create_update.html", {"form": form, "course": course})
 
 # * |--------------------------------------------------------------------------
 # * | Teacher Views
@@ -229,6 +249,20 @@ def course_create_or_update_view(request, course_id):
 def teacher_courses_list_view(request):
     profile_teacher = request.user.profile_teacher
     return render(request, 'role_management/dashboard_teacher.html', {'profile_teacher': profile_teacher, 'teacher_courses': profile_teacher.courses.all(), 'user_role':'teacher'})
+
+@login_required
+@group_required("teacher")
+def teacher_course_detail_view(request, course_id):
+    profile_teacher = request.user.profile_teacher
+    course = get_object_or_404(
+        profile_teacher.courses.prefetch_related(
+            Prefetch("modules__lessons__resources"),
+            Prefetch("reviews")
+        ),
+        id=course_id
+    )
+
+    return render(request, "teacher/teacher_course_detail.html", {"course": course})
 
 # * |--------------------------------------------------------------------------
 # * | Module and Lesson Views

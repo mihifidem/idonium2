@@ -5,7 +5,10 @@ from .models import *
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['title', 'description', 'profile_teacher']
+        fields = ['title', 'description']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4}),
+        }
 
 class ResourceForm(forms.ModelForm):
     class Meta:
