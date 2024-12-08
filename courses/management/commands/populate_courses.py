@@ -5,6 +5,7 @@ from decimal import Decimal
 from faker import Faker
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.contrib.auth.models import Group
 from courses.models import (
     User, ProfileTeacher, Course, Module, Lesson, Resource, CourseUser, Status, WishListType, WishListUser, LessonCompletion
 )
@@ -18,6 +19,9 @@ class Command(BaseCommand):
     help = "Populate the database with fake data"
 
     def handle(self, *args, **kwargs):
+        Group.objects.create(name='teacher')
+        Group.objects.create(name='headhunter')
+        Group.objects.create(name='member1')
         Status.objects.create(name='completed', description='Completed')
         Status.objects.create(name='inprogress', description='In Progress')
         WishListType.objects.create(name="Course")

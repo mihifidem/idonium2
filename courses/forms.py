@@ -28,7 +28,7 @@ class CertificateForm(forms.ModelForm):
 class ModuleForm(forms.ModelForm):
     class Meta:
         model = Module
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'is_active']
 
 class LessonForm(forms.ModelForm):
     class Meta:

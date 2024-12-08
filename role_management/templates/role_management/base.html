@@ -5,9 +5,100 @@
 {% block content %}
 {% if user_role == 'teacher' %}
 
-    {% block content_teacher %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-sm-auto bg-light sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                <!-- User Profile Image -->
+                <div class="dropdown">
+                    <a class="d-flex align-items-center justify-content-center p-1 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if profile_teacher.image %}
+                            <img class="thum-red" src="{{ profile_teacher.image.url }}" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {%else %}
+                        <img class="thum-red" src="https://robohash.org/mail@ashallendesign.co.uk" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {%endif%}
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <li><a class="dropdown-item" href="#">Home</a></li>
+                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
 
-    {% endblock %}
+                <!-- Sidebar Icons -->
+                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                   
+                        
+                   
+                        <li class="nav-item">
+                            <a href="/role/teacher_dashboard" class="nav-link py-1 px-3 text-navy" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-lines-fill fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'courses:teacher-courses-list' %}" class="nav-link py-1 px-3 text-navy" title="Courses" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-journal-code fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_chat" class="nav-link py-1 px-3 text-navy" title="Chat" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-chat-dots fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_calendar" class="nav-link py-1 px-3 text-navy" title="Calendar" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-calendar3 fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_tasks" class="nav-link py-1 px-3 text-navy" title="Tasks" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-list-task fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_settings" class="nav-link py-1 px-3 text-navy" title="Settings" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-gear fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- START CENTRAL CONTENT -->
+        <div class="col-sm p-3 min-vh-100">
+            <h2 class="mb-4">MIS CURSOS</h2>
+            
+            <!-- Teacher Courses -->
+            <div class="container">
+                <div class="row g-3">
+                    {% for course in teacher_courses %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow-sm" style="max-width: 300px; height: auto;">
+                            <a href="{% url 'courses:teacher-course-detail' course.id %}"><img src="{{ course.image.url }}" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;"></a>
+                            <div class="card-body">
+                                <a href="{% url 'courses:teacher-course-detail' course.id %}"><h5 class="card-title">{{ course.title }}</h5></a>
+                                <p class="card-text">{{ course.description }}</p>
+                                <a href="#url_activar_desactivar" class="btn btn-primary">Activate</a>
+                                <a href="#url_delete" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- END CENTRAL CONTENT -->
+        <div class="col-md-4">
+            <!-- Este div col es porque sino no me alineaba bien el contenedor de los cursos. -->
+            <!-- Aunque igual se le puede dar uso en un futuro para poner algo PD: He tardado 3 horas para hacer este template -->
+            <div class="container mt-4">
+                <a href="{% url 'courses:course-create' %}" class="btn btn-primary">Add</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% elif user_role == 'headhunter' %}
 
