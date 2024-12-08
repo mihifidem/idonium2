@@ -10,10 +10,15 @@ class CourseForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'rows': 4}),
         }
 
+class ResourceCourseForm(forms.ModelForm):
+    class Meta:
+        model = Resource
+        fields = ['name', 'image', 'link', 'document']
+
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = ['name', 'lesson']
+        fields = ['name', 'image', 'link', 'document', 'price']
 
 class CertificateForm(forms.ModelForm):
     class Meta:
@@ -28,7 +33,7 @@ class ModuleForm(forms.ModelForm):
 class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
-        fields = ['module', 'name', 'description']
+        fields = ['name', 'description', 'duration']
 
 class ReviewForm(forms.ModelForm):
     class Meta:

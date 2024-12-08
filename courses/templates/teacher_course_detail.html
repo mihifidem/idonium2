@@ -93,9 +93,12 @@
                                     {% for module in course.modules.all %}
                                     <div class="title">
                                         <h6>{{ forloop.counter }}.{{ module.title }}</h6>
-                                        <a href="{% url 'courses:module-update' course.id module.id %}" class="btn btn-primary">Edit Module</a>
-                                        <a href="#" class="btn btn-danger">Delete Module</a>
+                                        
                                     </div>
+
+                                    <a href="{% url 'courses:module-update' course.id module.id %}" class="btn btn-primary">Edit Module</a>
+                                    <a href="#" class="btn btn-danger">Delete Module</a>
+
                                     <div class="accordion" id="accordionExample{{ forloop.counter }}">
                                         {% with forloop.counter as module_counter %}
                                         {% for lesson in module.lessons.all %}
@@ -108,7 +111,7 @@
                                                         <li><span class="head">{{ lesson.name }}</span></li>
                                                         {% if lesson.duration %}
                                                         <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
-                                                        {%else%}
+                                                        {% else %}
                                                         <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>0 min</span></span></li>
                                                         {% endif %}
                                                     </ul>
@@ -118,16 +121,17 @@
                                             <div class="card-body">
                                                 <p>{{ lesson.description }}</p>
                                                 <ul>
+                                                    <p class="font-weight-bold">Resources:</p>
                                                 {% for resource in lesson.resources.all %}
                                                     <li>
-                                                        <span class="mr-3 mb-3">- Resource: {{resource.name}}</span>
+                                                        <span class="mr-3 mb-3">- {{resource.name}}</span>
                                                         <a href="#" class="btn btn-danger">Delete Resource</a>
                                                     </li>
                                                 {% endfor %}
-                                                    <a href="#" class="btn btn-primary">Add Resource</a>
+                                                    <a href="{% url 'courses:resource-create' course.id module.id lesson.id %}" class="btn btn-primary">Add Resource</a>
                                                 </ul>
                                                 <div class="container">
-                                                    <a href="#" class="btn btn-primary mt-3">Edit Lesson</a>
+                                                    <a href="{% url 'courses:lesson-update' course.id module.id lesson.id %}" class="btn btn-primary mt-3">Edit Lesson</a>
                                                     <a href="#" class="btn btn-danger ml-3">Delete Lesson</a>
                                                 </div>
                                             </div>
@@ -135,6 +139,7 @@
                                     </div>
                                         {% endfor %}
                                         {% endwith %}
+                                        <a href="{% url 'courses:lesson-create' course.id module.id %}" class="btn btn-primary">Add Lesson</a>
                                     </div>
                                     <br>
                                 {% endfor %}

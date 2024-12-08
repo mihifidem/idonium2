@@ -299,8 +299,39 @@ def module_create_or_update_view(request, course_id=None, module_id=None):
 
     return render(request, 'module_create_update.html', {'form': form, 'course': course, 'module': module})
 
-def lesson_create_or_update_view(request, module_id=None, lesson_id=None):
-    pass
+@login_required
+@group_required('teacher')
+def lesson_create_or_update_view(request, course_id=None, module_id=None, lesson_id=None):
+    # Validar que el curso existe
+    course = get_object_or_404(Course, id=course_id)
+
+    # Validar que el módulo pertenece al curso
+    module = get_object_or_404(Module, id=module_id, course=course)
+
+    # Si se pasa un `lesson_id`, validar que la lección pertenece al módulo
+    lesson = None
+    if lesson_id:
+        lesson = get_object_or_404(Lesson, id=lesson_id, module=module)
+
+    # Procesamiento del formulario
+    if request.method == "POST":
+        form = LessonForm(request.POST, instance=lesson)
+        if form.is_valid():
+            # Si estamos creando, asociamos la lección al módulo
+            lesson = form.save(commit=False)
+            lesson.module = module
+            lesson.save()
+
+            # Mensaje de éxito
+            messages.success(request, "La lección se ha guardado correctamente.")
+            return redirect('courses:teacher-course-detail', course_id=course.id)
+        else:
+            messages.error(request, "Corrige los errores en el formulario.")
+    else:
+        # Si es GET, presentamos el formulario
+        form = LessonForm(instance=lesson)
+
+    return render(request, 'lesson_create_update.html', {'form': form, 'course': course, 'module': module, 'lesson': lesson})
 
 # * |--------------------------------------------------------------------------
 # * | Resource Views
@@ -333,27 +364,53 @@ def resources_list_view(request):
 # Resource: ---- Create/Update Views ----
 @login_required
 @group_required('teacher')
-def resource_create_or_update_view(request, lesson_id=None, resource_id=None):
-    pass
+def resource_course_create_or_update_view(request, course_id=None, module_id=None, lesson_id=None, resource_id=None):
+    # Validar que el curso existe
+    course = get_object_or_404(Course, id=course_id)
+
+    # Validar que el módulo pertenece al curso
+    module = get_object_or_404(Module, id=module_id, course=course)
+
+    # Validar que la lección pertenece al módulo
+    lesson = get_object_or_404(Lesson, id=lesson_id, module=module)
+
+    # Si se pasa un `resource_id`, validar que el recurso pertenece a la lección
+    resource = None
+    if resource_id:
+        resource = get_object_or_404(Resource, id=resource_id, lesson=lesson)
+
+    # Procesamiento del formulario
+    if request.method == "POST":
+        form = ResourceCourseForm(request.POST, request.FILES, instance=resource)
+        if form.is_valid():
+            # Si estamos creando, asociamos el recurso a la lección
+            resource = form.save(commit=False)
+            resource.lesson = lesson
+            resource.save()
+
+            # Mensaje de éxito
+            messages.success(request, "El recurso se ha guardado correctamente.")
+            return redirect('courses:teacher-course-detail', course_id=course.id)
+        else:
+            messages.error(request, "Corrige los errores en el formulario.")
+    else:
+        # Si es GET, presentamos el formulario
+        form = ResourceCourseForm(instance=resource)
+
+    return render(request, 'resource_create_update.html', {
+        'form': form, 
+        'course': course, 
+        'module': module, 
+        'lesson': lesson, 
+        'resource': resource
+    })
 
 # * |--------------------------------------------------------------------------
 # * | Certificate Views
 # * |--------------------------------------------------------------------------
 
 def certificate_create_or_update_view(request, pk=None):
-    if pk:
-        certificate = get_object_or_404(Certificate, pk=pk)
-    else:
-        pk = None
-
-    if request.method == 'POST':
-        form = CertificateForm(request.POST, instance=certificate)
-        if form.is_valid():
-            form.save()
-            return redirect('certificate-detail', pk=certificate.pk)
-        else:
-            form = CertificateForm(instance=certificate)
-            return render(request, 'certificate_form.html', {'form': form})
+    pass
 
 # * |--------------------------------------------------------------------------
 # * | Review Views
@@ -361,16 +418,4 @@ def certificate_create_or_update_view(request, pk=None):
 
 # Review: ---- Create/Update Views ----
 def review_create_or_update(request, pk=None):
-    if pk:
-        review = get_object_or_404(Review, pk=pk)
-    else:
-        pk = None
-
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, instance=review)
-        if form.is_valid():
-            form.save()
-            return redirect('review-detail', pk=review.pk)
-        else:
-            form = ReviewForm(instance=review)
-            return render(request, 'course_review_form.html', {'form': form})
+    pass
