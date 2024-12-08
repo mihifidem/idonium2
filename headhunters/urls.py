@@ -5,7 +5,7 @@ from .views import (
     JobOfferListView, JobOfferDetailView, JobOfferCreateView, JobOfferUpdateView, JobOfferDeleteView,
     HeadhunterListView, HeadhunterDetailView, HeadhunterCreateView, HeadhunterUpdateView, HeadhunterDeleteView,
     ScheduleListView, ScheduleDetailView, ScheduleCreateView, ScheduleUpdateView, ScheduleDeleteView, get_candidates,
-    LandingHeadHuntersView,ManageCandidatesView,
+    LandingHeadHuntersView,ManageCandidatesView, ApplyDirectToOffer,
     CreateOfferFromSelectedView,
     AddToExistingOfferView,
     DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView
@@ -47,7 +47,7 @@ urlpatterns = [
       path('wishlist/', WishListView.as_view(), name='wishlist'),
       path('wishlist/add/<int:job_offer_id>/', AddToWishListView.as_view(), name='add_to_wishlist'),
       path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),     
-   
+      path('apply_direct/',ApplyDirectToOffer.as_view(), name='apply_direct')
 ]
 
 

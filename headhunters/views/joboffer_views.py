@@ -1,5 +1,9 @@
 
 
+from django.http import JsonResponse
+from datetime import datetime
+import json
+from django.http import JsonResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from ..models import JobOffer, ManagementCandidates, HeadHunterUser,JobOffersWishList
@@ -7,7 +11,7 @@ from ..forms import JobOfferForm
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from profile_cv.models import Profile_CV
+from profile_cv.models import Category, HardSkill, Profile_CV, Sector, SoftSkill
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -16,13 +20,72 @@ class JobOfferListView(ListView):
     model = JobOffer
     template_name = 'joboffers/joboffer_list.html'
     context_object_name = 'job_offers'
+    
     def get_queryset(self):
-        groups = list(self.request.user.groups.all())
+        queryset = super().get_queryset()
+        groups = list(self.request.user.groups.all())        
+        
+        title = self.request.GET.get('title', None)
+        sector = self.request.GET.get('sector', None)
+        category = self.request.GET.get('category', None)
+        salary_min = self.request.GET.get('salary_min', None)
+        salary_max = self.request.GET.get('salary_max', None)
+        location = self.request.GET.get('location', None)
+        required_hard_skills = self.request.GET.getlist('required_hard_skills', [])
+        required_soft_skills = self.request.GET.getlist('required_soft_skills', [])
+        required_experience = self.request.GET.get('required_experience', None)
+        job_offer_tests = self.request.GET.getlist('job_offer_tests', [])
+
+        # Filtramos dinámicamente basado en los parámetros recibidos
+        if title:
+            queryset = queryset.filter(title__icontains=title)
+        
+        if sector:
+            queryset = queryset.filter(sector__id=sector)
+        
+        if category:
+            queryset = queryset.filter(category__id=category)
+        
+        if salary_min:
+            queryset = queryset.filter(salary__gte=salary_min)
+        
+        if salary_max:
+            queryset = queryset.filter(salary__lte=salary_max)
+        
+        if location:
+            queryset = queryset.filter(location__icontains=location)
+
+        if required_experience:
+            queryset = queryset.filter(required_experience__gte=required_experience)
+
+        if required_hard_skills:
+            queryset = queryset.filter(required_hard_skills__id__in=required_hard_skills)
+        
+        if required_soft_skills:
+            queryset = queryset.filter(required_soft_skills__id__in=required_soft_skills)
+
+        if job_offer_tests:
+            queryset = queryset.filter(JobOfferTests__id__in=job_offer_tests)
+
+        queryset = queryset.distinct()
+
         if 'headhunter' in [group.name for group in groups]:
             headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
-            return JobOffer.objects.filter(headhunter=headhunter)
+            return queryset.filter(headhunter=headhunter)
         else:
-            return JobOffer.objects.all()
+            return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Añadimos los filtros disponibles al contexto
+        context['sectors'] = Sector.objects.all()
+        context['categories'] = Category.objects.all()
+        context['hard_skills'] = HardSkill.objects.all()
+        context['soft_skills'] = SoftSkill.objects.all()
+        
+        return context
+
 
 class JobOfferDetailView(DetailView):
     model = JobOffer
@@ -252,4 +315,42 @@ class RemoveFromWishListView(LoginRequiredMixin, DeleteView):
         candidate = get_object_or_404(Profile_CV, user=self.request.user)
         return JobOffersWishList.objects.filter(candidate=candidate)
 
-    
+
+class ApplyDirectToOffer(View):
+    def __get_user_profile(self, id_candidato):
+        return Profile_CV.objects.get(user=id_candidato)
+
+    def __get_offer(self, id_oferta):
+        return JobOffer.objects.get(pk=id_oferta)
+
+    def post(self, request, *args, **kwargs):
+        id_candidato = self.__get_user_profile(self.request.user.id)
+        body = json.loads(request.body)
+        id_oferta = body.get('id_oferta')
+        offer = self.__get_offer(id_oferta)
+        
+        # Obtenemos la oferta en la tabla ManagementCandidates que tenga el mismo id del candidato y de oferta
+        current_offer_apply = ManagementCandidates.objects.filter(job_offer=id_oferta, candidate=id_candidato).first()
+        
+        if current_offer_apply:
+            # Si existe, actualizamos la bandera 'applied_directly'
+            current_offer_apply.applied_directly = True
+            current_offer_apply.save()
+        else:
+            # Si no existe, creamos un nuevo registro en ManagementCandidates
+            management_candidate = ManagementCandidates.objects.create(
+                job_offer=offer, 
+                candidate=id_candidato,
+                is_selected_by_headhunter=False,
+                applied_directly=True,
+                application_date=datetime.now()
+            )
+
+        # Devolvemos la respuesta con los datos actualizados o creados
+        return JsonResponse({
+            'job_offer': current_offer_apply.job_offer.title if current_offer_apply else management_candidate.job_offer.title,
+            'candidate': current_offer_apply.candidate.user.username if current_offer_apply else management_candidate.candidate.user.username,
+            'is_selected_by_headhunter': current_offer_apply.is_selected_by_headhunter if current_offer_apply else management_candidate.is_selected_by_headhunter,
+            'applied_directly': current_offer_apply.applied_directly if current_offer_apply else management_candidate.applied_directly,
+            'application_date': current_offer_apply.application_date if current_offer_apply else management_candidate.application_date,
+        })

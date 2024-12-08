@@ -23,11 +23,81 @@
     .my-5 {
         margin-bottom: 3rem !important; /* Incrementa el espacio hacia el footer */
     }
+
+    .filter-form {
+        margin-bottom: 20px;
+    }
 </style>
 
 <div class="container mt-5">
     <h1 class="mb-4">Lista de Ofertas de Trabajo</h1>
-    
+    <!--INICIO FILTROS-->
+    <form method="GET" action="{% url 'joboffer_list' %}" class="filter-form">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="title">Título del Trabajo:</label>
+                <input type="text" id="title" name="title" class="form-control" value="{{ request.GET.title }}">
+            </div>
+            <div class="col-md-3">
+                <label for="sector">Sector:</label>
+                <select id="sector" name="sector" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    {% for sector in sectors %}
+                        <option value="{{ sector.id }}" {% if sector.id == request.GET.sector %}selected{% endif %}>{{ sector.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="category">Categoría:</label>
+                <select id="category" name="category" class="form-control">
+                    <option value="">--Seleccione--</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id == request.GET.category %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="location">Ubicación:</label>
+                <input type="text" id="location" name="location" class="form-control" value="{{ request.GET.location }}">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <label for="salary_min">Salario Mínimo:</label>
+                <input type="number" id="salary_min" name="salary_min" class="form-control" value="{{ request.GET.salary_min }}">
+            </div>
+            <div class="col-md-3">
+                <label for="salary_max">Salario Máximo:</label>
+                <input type="number" id="salary_max" name="salary_max" class="form-control" value="{{ request.GET.salary_max }}">
+            </div>
+            <div class="col-md-3">
+                <label for="required_experience">Experiencia Requerida (Años):</label>
+                <input type="number" id="required_experience" name="required_experience" class="form-control" value="{{ request.GET.required_experience }}">
+            </div>
+            <div class="col-md-3">
+                <label for="required_hard_skills">Habilidades Técnicas Requeridas:</label>
+                <select id="required_hard_skills" name="required_hard_skills" class="form-control" multiple>
+                    {% for skill in hard_skills %}
+                        <option value="{{ skill.id }}" {% if skill.id in request.GET.required_hard_skills %}selected{% endif %}>{{ skill.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <label for="required_soft_skills">Habilidades Blandas Requeridas:</label>
+                <select id="required_soft_skills" name="required_soft_skills" class="form-control" multiple>
+                    {% for skill in soft_skills %}
+                        <option value="{{ skill.id }}" {% if skill.id in request.GET.required_soft_skills %}selected{% endif %}>{{ skill.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-12 mt-3">
+                <button type="submit" class="btn btn-primary btn-block">Aplicar Filtros</button>
+            </div>
+        </div>
+    </form>
+    <!--FIN FILTROS-->
     <div class="row">
         {% if job_offers %}
             <table class="table table-striped table-hover shadow-sm">

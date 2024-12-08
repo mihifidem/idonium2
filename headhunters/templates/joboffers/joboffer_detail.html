@@ -181,5 +181,62 @@
     </div>
     
     {% endif %}
+    <div class="actions text-center mt-5 mb-5">
+        <a onclick="add_me_to_offer()" class="btn btn-secondary btn-sm">Aplicar a oferta</a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Obtener una cookie específica (para CSRF)
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+    
+            // Obtener el token CSRF
+            const csrftoken = getCookie('csrftoken');
+    
+            // Definir la función para enviar la solicitud
+            function add_me_to_offer() {
+                fetch("{% url 'apply_direct' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken // Django CSRF
+                    },
+                    body: JSON.stringify({
+                        id_oferta: "{{ job_offer.id }}", // ID de la oferta pasada desde Django
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta recibida:', data);
+                    alert("Solicitud enviada exitosamente.");
+                })
+                .catch(error => {
+                    console.error('Error al enviar la solicitud:', error);
+                    alert("Ocurrió un error al enviar la solicitud.");
+                });
+            }
+    
+            // Hacer la función globalmente accesible
+            window.add_me_to_offer = add_me_to_offer;
+        });
+    </script>
+    
 </div>
-{% endblock %}
+{% endblock %}  
