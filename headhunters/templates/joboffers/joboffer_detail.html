@@ -169,14 +169,13 @@
         <div class="actions text-center mt-4">
             <a href="{% url 'joboffer_update' job_offer.id %}" class="btn btn-warning btn-sm">Editar</a>
             <a href="{% url 'joboffer_delete' job_offer.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-            <button class="btn btn-primary btn-sm">Añadir a Favoritos</button>
         </div>
     </div>
     {% else %}
     <div class="actions text-center mt-5 mb-5">
         <form method="post" action="{% url 'add_to_wishlist' job_offer.id %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-success btn-sm">Agregar a mi Wishlist</button>
+            <button type="submit" class="btn btn-primary btn-sm">Añadir a Favoritos</button>
         </form>
         <a href="{% url 'joboffer_list' %}" class="btn btn-secondary btn-sm">Volver a Ofertas</a>
     </div>
