@@ -445,6 +445,11 @@ p {
 	align-items: flex-start;
 	margin-top: 7px;
 }
+
+.icon-hover:hover {
+    color: rgb(221, 204, 14); /* Cambia este color según tus necesidades */
+}
+
 .support-button .support .icon{}
 .support-button .support .cont{
     margin-left: 15px;
@@ -767,7 +772,6 @@ p {
     cursor: pointer;
     font-size: 16px;
 }
-
 
 /*=====================================================
     3. SLIDER css 
@@ -1167,6 +1171,17 @@ p {
     border-radius: 5px;
     overflow: hidden;
 }
+
+.thum-hh{
+    width: 30px;
+    height: 30px;
+}
+
+.thum-red{
+    border-radius: 50%;
+}
+
+
 .singel-course > .thum{
     position: relative;
 }

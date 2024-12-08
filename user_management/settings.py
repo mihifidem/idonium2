@@ -62,7 +62,8 @@ INSTALLED_APPS = [
     "courses",
     "headhunters",
     "profile_cv",
-    'test_management'
+    'test_management',
+    "role_management",
    
 ]
 

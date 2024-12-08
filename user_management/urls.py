@@ -14,7 +14,7 @@ from users.forms import LoginForm
 import debug_toolbar
 from django.conf.urls import handler404
 from users.views import custom_404_view
-from courses.views import *
+
 handler404 = 'users.views.custom_404_view'
 
 urlpatterns = [
@@ -42,7 +42,7 @@ urlpatterns = [
 
     re_path(r'^oauth/', include('social_django.urls', namespace='social')),
 
-     
+
 
     path("blog/", include("blog.urls"), name="blog-urls"),
     path("summernote/", include("django_summernote.urls")),
@@ -53,5 +53,10 @@ urlpatterns = [
 
 
      path("p/", include('profile_cv.urls')),
+
+
+
+    path('role/', include('role_management.urls')),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -57,9 +57,25 @@ class User_cv(models.Model):
     has_publications = models.BooleanField(blank=True, null=True)
     has_recognitions_awards = models.BooleanField(blank=True, null=True)
     has_certifications_courses = models.BooleanField(blank=True, null=True)
+    relations = models.ManyToManyField("UserCvRelation", blank=True,  related_name="user_cvs")
 
     def __str__(self):
         return self.profile_user.user.username
+
+class UserCvRelation(models.Model):
+    user_cv = models.ForeignKey('User_cv', on_delete=models.CASCADE)
+    work_experience = models.ForeignKey('WorkExperience', on_delete=models.CASCADE, null=True, blank=True)
+    academic_education = models.ForeignKey('AcademicEducation', on_delete=models.CASCADE, null=True, blank=True)
+    hard_skill = models.ForeignKey('HardSkillUser', on_delete=models.CASCADE, null=True, blank=True)
+    soft_skill = models.ForeignKey('SoftSkillUser', on_delete=models.CASCADE, null=True, blank=True)
+    language = models.ForeignKey('LanguageUser', on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey('CategoryUser', on_delete=models.CASCADE, null=True, blank=True)
+    sector = models.ForeignKey('SectorUser', on_delete=models.CASCADE, null=True, blank=True)
+    incorporation = models.ForeignKey('IncorporationUser', on_delete=models.CASCADE, null=True, blank=True)
+    volunteering = models.ForeignKey('Volunteering', on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, null=True, blank=True)
+    publication = models.ForeignKey('Publication', on_delete=models.CASCADE, null=True, blank=True)
+    recognition_award = models.ForeignKey('RecognitionAward', on_delete=models.CASCADE, null=True, blank=True)
 
 # Model to represent a work experience
 class WorkExperience(models.Model):
