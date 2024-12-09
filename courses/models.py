@@ -18,7 +18,6 @@ class ProfileTeacher(models.Model):
     image = models.ImageField(upload_to='teachers_images/', null=True, blank=True)
     hardskills = models.ForeignKey(HardSkill, on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     sector = models.ForeignKey(Sector, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
@@ -35,9 +34,7 @@ class Course(models.Model):
     is_free = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'), null=True, blank=True)
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
-    sector = models.ForeignKey(Sector, blank=True, null=True, on_delete=models.CASCADE)
-    hardskills = models.ManyToManyField(HardSkill)
-
+    hardskills = models.ManyToManyField(HardSkill, blank=True)
 
     def __str__(self):
         return self.title
@@ -46,7 +43,8 @@ class Certificate(models.Model):
     name = models.CharField(max_length=50)
     code = models.CharField(max_length=10, unique=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="certificates") # para usar la query --> user.enrolled_courses.all()
-    ext_certificate = models.FileField(blank=True, null=True)
+    ext_certificate = models.FileField(upload_to='certificates/', blank=True, null=True)
+    # FK o ManyToMany a user?
 
     def __str__(self):
         return f'{self.name} - {self.code}'

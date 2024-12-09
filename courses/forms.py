@@ -23,7 +23,7 @@ class ResourceForm(forms.ModelForm):
 class CertificateForm(forms.ModelForm):
     class Meta:
         model = Certificate
-        fields = ['course', 'name', 'code']
+        fields = ['name', 'code', 'ext_certificate']
         
 class ModuleForm(forms.ModelForm):
     class Meta:

@@ -80,9 +80,20 @@
                                              <span>{{ hardskill.name_hard_skill }}</span>
                                             {% endfor %}
                                         </p>
+                                        <h6>Certificates</h6>
+                                        <ul>
+                                            {% for certificate in course.certificates.all %}
+                                            <li>
+                                                - {{ certificate.name }} ({{ certificate.code }}) 
+                                                <a href="{% url 'courses:certificate-delete' course.id certificate.id %}" class="btn btn-danger ms-3">Delete Certificates</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
                                     </div>
+                                    <br>
+                                    <a href="{% url 'courses:certificate-create' course.id %}" class="btn btn-primary mr-3">Add Certificate</a>
                                     <div class="singel-description" style="display: flex; justify-content: flex-end;">
-                                        <a href="{% url 'courses:course-update' course.id %}" class="btn btn-primary mr-3">Edit Course</a>
+                                        <a href="{% url 'courses:course-update' course.id %}" class="btn btn-primary me-3">Edit Course</a>
                                         <a href="{% url 'teacher_dashboard' %}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </div> <!-- overview description -->
@@ -97,7 +108,7 @@
                                     </div>
 
                                     <a href="{% url 'courses:module-update' course.id module.id %}" class="btn btn-primary">Edit Module</a>
-                                    <a href="#" class="btn btn-danger">Delete Module</a>
+                                    <a href="{% url 'courses:module-delete' course.id module.id %}" class="btn btn-danger">Delete Module</a>
 
                                     <div class="accordion" id="accordionExample{{ forloop.counter }}">
                                         {% with forloop.counter as module_counter %}
@@ -125,14 +136,14 @@
                                                 {% for resource in lesson.resources.all %}
                                                     <li>
                                                         <span class="mr-3 mb-3">- {{resource.name}}</span>
-                                                        <a href="#" class="btn btn-danger">Delete Resource</a>
+                                                        <a href="{% url 'courses:resource-course-delete' course.id module.id lesson.id resource.id %}" class="btn btn-danger">Delete Resource</a>
                                                     </li>
                                                 {% endfor %}
-                                                    <a href="{% url 'courses:resource-create' course.id module.id lesson.id %}" class="btn btn-primary">Add Resource</a>
+                                                    <a href="{% url 'courses:resource-course-create' course.id module.id lesson.id %}" class="btn btn-primary">Add Resource</a>
                                                 </ul>
                                                 <div class="container">
                                                     <a href="{% url 'courses:lesson-update' course.id module.id lesson.id %}" class="btn btn-primary mt-3">Edit Lesson</a>
-                                                    <a href="#" class="btn btn-danger ml-3">Delete Lesson</a>
+                                                    <a href="{% url 'courses:lesson-delete' course.id module.id lesson.id %}" class="btn btn-danger ml-3">Delete Lesson</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,7 +153,8 @@
                                         <a href="{% url 'courses:lesson-create' course.id module.id %}" class="btn btn-primary">Add Lesson</a>
                                     </div>
                                     <br>
-                                {% endfor %}
+                                    {% endfor %}
+                                    <a href="{% url 'courses:module-create' course.id %}" class="btn btn-primary">Add Module</a>
                                 </div> <!-- curriculam cont -->
                             </div>
 

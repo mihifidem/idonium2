@@ -222,7 +222,7 @@ def course_create_or_update_view(request, course_id=None):
     # Si existe un course_id, intenta obtener el curso; de lo contrario, crea uno nuevo
     course = None
     if course_id:
-        course = get_object_or_404(Course, id=course_id)
+        course = get_object_or_404(Course, id=course_id, profile_teacher=request.user.profile_teacher)
     
     # Usa el formulario de modelo (creación o actualización)
     if request.method == "POST":
@@ -246,7 +246,7 @@ def course_create_or_update_view(request, course_id=None):
 @login_required
 @group_required('teacher')
 def course_delete_view(request, course_id):
-    course = get_object_or_404(Course, id=course_id)
+    course = get_object_or_404(Course, id=course_id, profile_teacher=request.user.profile_teacher)
     course.delete()
     messages.success(request, "El curso se ha eliminado correctamente.")
     return redirect('teacher_dashboard')
@@ -261,6 +261,7 @@ def teacher_course_detail_view(request, course_id):
     course = get_object_or_404(
         profile_teacher.courses.prefetch_related(
             Prefetch("modules__lessons__resources"),
+            Prefetch("certificates"),
             Prefetch("reviews")
         ),
         id=course_id
@@ -269,14 +270,14 @@ def teacher_course_detail_view(request, course_id):
     return render(request, "teacher_course_detail.html", {"course": course})
 
 # * |--------------------------------------------------------------------------
-# * | Module and Lesson Views
+# * | Module - Lesson - Resource_Course Views
 # * |--------------------------------------------------------------------------
 
 @login_required
 @group_required('teacher')
 def module_create_or_update_view(request, course_id=None, module_id=None):
     # Obtener el curso relacionado al `course_id`
-    course = get_object_or_404(Course, id=course_id)
+    course = get_object_or_404(Course, id=course_id, profile_teacher=request.user.profile_teacher)
 
     # Si se pasa un `module_id`, buscamos el módulo para actualizarlo
     module = None
@@ -307,7 +308,7 @@ def module_create_or_update_view(request, course_id=None, module_id=None):
 @group_required('teacher')
 def lesson_create_or_update_view(request, course_id=None, module_id=None, lesson_id=None):
     # Validar que el curso existe
-    course = get_object_or_404(Course, id=course_id)
+    course = get_object_or_404(Course, id=course_id, profile_teacher=request.user.profile_teacher)
 
     # Validar que el módulo pertenece al curso
     module = get_object_or_404(Module, id=module_id, course=course)
@@ -337,40 +338,11 @@ def lesson_create_or_update_view(request, course_id=None, module_id=None, lesson
 
     return render(request, 'lesson_create_update.html', {'form': form, 'course': course, 'module': module, 'lesson': lesson})
 
-# * |--------------------------------------------------------------------------
-# * | Resource Views
-# * |--------------------------------------------------------------------------
-
-def resources_list_view(request):
-    resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
-    resource_type = WishListType.objects.get(name="Resource")
-
-    resources_list = []
-    for resource in resources:
-        resource_wishlist_count = WishListUser.objects.filter(type_wish=resource_type, id_wish=resource.pk).count()
-        resource_reviews_count = Review.objects.filter(resource=resource).count()
-
-        reviews = Review.objects.filter(resource=resource)
-        if reviews.exists():
-            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-        else:
-            average_rating = 0
-
-        resources_list.append({
-            "resource": resource,
-            "resource_wishlist_count": resource_wishlist_count,
-            "resource_reviews_count": resource_reviews_count,
-            "average_rating": round(average_rating, 1)
-        })
-
-    return render(request, 'resources_list.html', {'resources_list': resources_list})
-
-# Resource: ---- Create/Update Views ----
 @login_required
 @group_required('teacher')
 def resource_course_create_or_update_view(request, course_id=None, module_id=None, lesson_id=None, resource_id=None):
     # Validar que el curso existe
-    course = get_object_or_404(Course, id=course_id)
+    course = get_object_or_404(Course, id=course_id, profile_teacher=request.user.profile_teacher)
 
     # Validar que el módulo pertenece al curso
     module = get_object_or_404(Module, id=module_id, course=course)
@@ -409,12 +381,108 @@ def resource_course_create_or_update_view(request, course_id=None, module_id=Non
         'resource': resource
     })
 
+# * | Delete Views |
+@login_required
+@group_required('teacher')
+def module_delete_view(request, course_id, module_id):
+    module = get_object_or_404(Module, id=module_id, course=course_id)
+    module.delete()
+    messages.success(request, "El módulo se ha eliminado correctamente.")
+    return redirect('courses:teacher-course-detail', course_id=course_id)
+
+@login_required
+@group_required('teacher')
+def lesson_delete_view(request, course_id, module_id, lesson_id):
+    lesson = get_object_or_404(
+        Lesson, 
+        id=lesson_id, 
+        module__id=module_id, 
+        module__course__id=course_id
+    )
+
+    lesson.delete()
+    messages.success(request, "La lección se ha eliminado correctamente.")
+    return redirect('courses:teacher-course-detail', course_id=course_id)
+
+@login_required
+@group_required('teacher')
+def resource_course_delete_view(request, course_id, module_id, lesson_id, resource_id):
+    resource = get_object_or_404(
+        Resource, 
+        id=resource_id, 
+        lesson__id=lesson_id, 
+        lesson__module_id=module_id, 
+        lesson__module__course__id=course_id
+    )
+    
+    resource.delete()
+    messages.success(request, "El Recurso se ha eliminado correctamente.")
+    return redirect('courses:teacher-course-detail', course_id=course_id)
+
+# * |--------------------------------------------------------------------------
+# * | Resource Views
+# * |--------------------------------------------------------------------------
+
+def resources_list_view(request):
+    resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
+    resource_type = WishListType.objects.get(name="Resource")
+
+    resources_list = []
+    for resource in resources:
+        resource_wishlist_count = WishListUser.objects.filter(type_wish=resource_type, id_wish=resource.pk).count()
+        resource_reviews_count = Review.objects.filter(resource=resource).count()
+
+        reviews = Review.objects.filter(resource=resource)
+        if reviews.exists():
+            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+        else:
+            average_rating = 0
+
+        resources_list.append({
+            "resource": resource,
+            "resource_wishlist_count": resource_wishlist_count,
+            "resource_reviews_count": resource_reviews_count,
+            "average_rating": round(average_rating, 1)
+        })
+
+    return render(request, 'resources_list.html', {'resources_list': resources_list})
+
 # * |--------------------------------------------------------------------------
 # * | Certificate Views
 # * |--------------------------------------------------------------------------
 
-def certificate_create_or_update_view(request, pk=None):
-    pass
+@login_required
+@group_required("teacher")
+def certificate_create_or_update_view(request, course_id=None, certificate_id=None):
+    course = get_object_or_404(Course, id=course_id, profile_teacher=request.user.profile_teacher)
+
+    certificate = None
+    if certificate_id:
+        certificate = get_object_or_404(Certificate, id=certificate_id, course=course)
+
+    if request.method == 'POST':
+        form = CertificateForm(request.POST, request.FILES, instance=certificate)
+        if form.is_valid():
+            certificate = form.save(commit=False)
+            certificate.course = course
+            certificate.save()
+
+            messages.success(request, "El certificado ha sido guardado correctamente.")
+            return redirect('courses:teacher-course-detail', course_id=course.id)
+        else:
+            messages.error(request, "Corrige los errores en el formulario.")
+    else:
+        form = CertificateForm(instance=certificate)
+
+    return render(request, 'certificate_create_update.html', {'form': form, 'course': course, 'certificate': certificate})
+
+@login_required
+@group_required('teacher')
+def certificate_delete_view(request, course_id, certificate_id):
+    certificate = get_object_or_404(Certificate, id=certificate_id, course=course_id)
+    certificate.delete()
+    messages.success(request, "El Certificado se ha eliminado correctamente.")
+    return redirect('courses:teacher-course-detail', course_id=course_id)
 
 # * |--------------------------------------------------------------------------
 # * | Review Views
