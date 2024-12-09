@@ -48,8 +48,8 @@ urlpatterns = [
     path('hard_skills/delete/<int:hard_skill_id>/', hardskill_delete, name='hard_skill_delete'),
 
     # Soft skill URLs
-    path('soft_skills/', softskill_list, name='soft_skill_list'),
-    path('soft_skills/create/', softskill_create, name='soft_skill_create'),
+    path('soft_skills/<int:user_id>/', softskill_list, name='soft_skill_list'),
+    path('soft_skills/create/<int:user_id>/', softskill_create, name='soft_skill_create'),
     path('soft_skills/update/<int:soft_skill_id>/', softskill_update, name='soft_skill_update'),
     path('soft_skills/delete/<int:soft_skill_id>/', softskill_delete, name='soft_skill_delete'),
 
@@ -60,8 +60,8 @@ urlpatterns = [
     path('languages/delete/<int:language_id>/', language_delete, name='language_delete'),
 
     # Volunteering URLs
-    path('volunteerings/', volunteering_list, name='volunteering_list'),
-    path('volunteerings/create/', volunteering_create, name='volunteering_create'),
+    path('volunteerings/<int:user_id>/', volunteering_list, name='volunteering_list'),
+    path('volunteerings/create/<int:user_id>/', volunteering_create, name='volunteering_create'),
     path('volunteerings/update/<int:volunteering_id>/', volunteering_update, name='volunteering_update'),
     path('volunteerings/delete/<int:volunteering_id>/', volunteering_delete, name='volunteering_delete'),
 

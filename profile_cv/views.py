@@ -158,15 +158,21 @@ def academic_education_delete(request, academic_education_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar las SoftSkills
-def softskill_list(request):
-    softskills = SoftSkillUser.objects.all()
+def softskill_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    softskills = SoftSkillUser.objects.filter(profile_user=profile)
     return render(request, "softskill/softskill_list.html", {"softskills": softskills})
 
 #? Función para crear una SoftSkill
-def softskill_create(request):
+def softskill_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = SoftSkillForm(request.POST)
         if form.is_valid():
+            soft_skill = form.save(commit=False)
+            soft_skill.profile_user = profile
             form.save()
             return redirect("soft_skill_list")
     else:
@@ -278,15 +284,21 @@ def language_delete(request, language_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los voluntariados
-def volunteering_list(request):
-    volunteerings = Volunteering.objects.all()
+def volunteering_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    volunteerings = Volunteering.objects.filter(profile_user=profile)
     return render(request, "volunteering/volunteering_list.html", {"volunteerings": volunteerings})
 
 #? Función para crear un voluntariado
-def volunteering_create(request):
+def volunteering_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = VolunteeringForm(request.POST)
         if form.is_valid():
+            volunteering = form.save(commit=False)
+            volunteering.profile_user = profile
             form.save()
             return redirect("volunteering_list")
     else:

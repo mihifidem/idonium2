@@ -139,7 +139,7 @@ class HardSkillForm(forms.ModelForm):
 class SoftSkillForm(forms.ModelForm):
     class Meta:
         model = SoftSkillUser
-        fields = ["profile_user","soft_skill", "description"]
+        fields = ["soft_skill", "description"]
         widgets = {
             'soft_skill': forms.Select(attrs={
             'class': 'form-control',
@@ -176,7 +176,6 @@ class VolunteeringForm(forms.ModelForm):
     class Meta:
         model = Volunteering
         fields = [
-            "profile_user",
             "volunteering_position",
             "start_date",
             "end_date",
