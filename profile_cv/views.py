@@ -208,7 +208,7 @@ def hardskill_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile= get_object_or_404(Profile_CV,  user=user)
     hardskills = HardSkillUser.objects.filter(profile_user = profile)
-    return render(request, "hardskill/hardskill_list.html", {"hardskills": hardskills})
+    return render(request, "hardskill/hardskill_list.html", {"hardskills": hardskills, 'user': user})
 
 
 #? Función para crear una HardSkill
@@ -224,7 +224,7 @@ def hardskill_create(request, user_id):
             return redirect("hard_skill_list")
     else:
         form = HardSkillForm()
-    return render(request, "hardskill/hardskill_form.html", {"form": form})
+    return render(request, "hardskill/hardskill_form.html", {"form": form, 'user': user})
 
 # ? Función para actualizar una educación académica
 def academic_education_update(request, academic_education_id):
@@ -255,19 +255,22 @@ def language_list(request, user_id):
     user = get_object_or_404(User, id = user_id)
     profile = get_object_or_404(Profile_CV, user = user)
     languages = LanguageUser.objects.filter(profile_user = profile)
-    return render(request, "language/language_list.html", {"languages": languages})
+    return render(request, "language/language_list.html", {"languages": languages, 'user': user})
 
 #? Función para crear un idioma
-def language_create(request):
+def language_create(request, user_id):
+    user = get_object_or_404(User, id= user_id)
+    profile = get_object_or_404(Profile_CV, user= user)
     if request.method == "POST":
         form = LanguageForm(request.POST)
         if form.is_valid():
+            language = form.save(commit = False)
+            language.profile_user = profile
             form.save()
             return redirect("language_list")
     else:
         form = LanguageForm()
-    return render(request, "language/language_form.html", {"form": form})
-
+    return render(request, "language/language_form.html", {"form": form, 'user':user})
 
 #? Función para actualizar un idioma
 def language_update(request, language_id):
