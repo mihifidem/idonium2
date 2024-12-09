@@ -242,16 +242,18 @@ def course_create_or_update_view(request, course_id=None):
 
     return render(request, "course_create_update.html", {"form": form, "course": course})
 
-# * |--------------------------------------------------------------------------
-# * | Teacher Views
-# * |--------------------------------------------------------------------------
-
+# Course: ---- Delete View ----
 @login_required
-@group_required("teacher")
-def teacher_courses_list_view(request):
-    profile_teacher = request.user.profile_teacher
-    return render(request, 'teacher_course_list.html', {'profile_teacher': profile_teacher, 'teacher_courses': profile_teacher.courses.all(), 'user_role':'teacher'})
+@group_required('teacher')
+def course_delete_view(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    course.delete()
+    messages.success(request, "El curso se ha eliminado correctamente.")
+    return redirect('teacher_dashboard')
 
+# * |--------------------------------------------------------------------------
+# * | Teacher_Course Views
+# * |--------------------------------------------------------------------------
 @login_required
 @group_required("teacher")
 def teacher_course_detail_view(request, course_id):

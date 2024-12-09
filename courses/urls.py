@@ -5,11 +5,15 @@ app_name = "courses"
 
 urlpatterns = [
     # ----------- Course URL patterns --------------
-    # Courses URLs
+    # List Courses URLs
     path('courses/', courses_list_view, name='courses-list'),
     path('courses/<int:pk>/', course_detail_view, name='course-detail'),
+
+    # Create or Update Course URLs
     path('courses/add/', course_create_or_update_view, name='course-create'),
     path('courses/<int:course_id>/edit/', course_create_or_update_view, name='course-update'),
+    # Delete Course URL
+    path('courses/<int:course_id>/delete/', course_delete_view, name='course-delete'),
 
     # Module URLs
     path('courses/<int:course_id>/module/add/', module_create_or_update_view, name='module-create'),

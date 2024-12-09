@@ -10,5 +10,4 @@ urlpatterns = [
     
     path('register/', RegisterView.as_view(), name='users-register'),
     path('profile/', profile, name='users-profile'),
-    path('no-permission/', TemplateView.as_view(template_name='users/no_permission.html'), name='no_permission'),
 ]
