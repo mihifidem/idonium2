@@ -1,118 +1,59 @@
 {% extends "users/base.html" %}
-{% block title %} Home Page {% endblock title%}
+{% block title %} {{ post.title }} {% endblock title %}
 {% load static %}
 {% block content %}
 
-
-
-<!--====== BLOG PART START ======-->
-
+<!-- Blog Detail -->
 <section id="blog-singel" class="pt-90 pb-120 gray-bg">
     <div class="container">
         <div class="row">
+            <!-- Blog Content -->
             <div class="col-lg-8">
                 <div class="blog-details mt-30">
                     <div class="thum">
                         {% if post.image %}
-                        <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto;">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }} image" style="max-width: 100%; height: auto;">
                         {% endif %}
                     </div>
                     <div class="cont">
-                        <h3>{{post.title}}</h3>
+                        <h3>{{ post.title }}</h3>
                         <ul>
-                            <li><a href="#"><i class="fa fa-calendar"></i>{{ post.created_on}}</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i>{{ post.author }}</a></li>
-                            <li><a href="#"><i class="fa fa-tags"></i>{{ post.category_post.nameCategoryPost }}</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i>{{ post.likes}}</a></li>
+                            <li><i class="fa fa-calendar"></i> {{ post.created_on|date:"F j, Y" }}</li>
+                            <li><i class="fa fa-user"></i> {{ post.author }}</li>
+                            {% if post.category_post %}
+                            <li><i class="fa fa-tags"></i> {{ post.category_post.nameCategoryPost }}</li>
+                            {% endif %}
+                            <li><i class="fa fa-heart"></i> {{ post.likes }}</li>
                         </ul>
-                        <p>{{post.content|safe}}</p>
+                        <p>{{ post.content|safe }}</p>
                         <ul class="share">
                             <li class="title">Compartir :</li>
-                            <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                                    <i class="fa fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/shareArticle?url={{ request.build_absolute_uri }}">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div> <!-- cont -->
                 </div> <!-- blog details -->
             </div>
+
+            <!-- Sidebar -->
             <div class="col-lg-4">
-                <div class="saidbar">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-6">
-                            <div class="saidbar-search mt-30">
-                                <form action="#">
-                                    <input type="text" placeholder="Search">
-                                    <button type="button"><i class="fa fa-search"></i></button>
-                                </form>
-                            </div> <!-- saidbar search -->
-                            <div class="categories mt-30">
-                                <h4>Categories</h4>
-                                <ul>
-                                    <li><a href="#">Fronted</a></li>
-                                    <li><a href="#">Backend</a></li>
-                                    <li><a href="#">Photography</a></li>
-                                    <li><a href="#">Teachnology</a></li>
-                                    <li><a href="#">GMET</a></li>
-                                    <li><a href="#">Language</a></li>
-                                    <li><a href="#">Science</a></li>
-                                    <li><a href="#">Accounting</a></li>
-                                </ul>
-                            </div>
-                        </div> <!-- categories -->
-                        <div class="col-lg-12 col-md-6">
-                            <div class="saidbar-post mt-30">
-                                <h4>Popular Posts</h4>
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <div class="singel-post">
-                                                <div class="thum">
-                                                    <img src="images/blog/blog-post/bp-1.jpg" alt="Blog">
-                                                </div>
-                                                <div class="cont">
-                                                    <h6>Introduction to languages</h6>
-                                                    <span>20 Dec 2018</span>
-                                                </div>
-                                            </div> <!-- singel post -->
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="singel-post">
-                                                <div class="thum">
-                                                    <img src="images/blog/blog-post/bp-2.jpg" alt="Blog">
-                                                </div>
-                                                <div class="cont">
-                                                    <h6>How to build a game with java</h6>
-                                                    <span>10 Dec 2018</span>
-                                                </div>
-                                            </div> <!-- singel post -->
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="singel-post">
-                                                <div class="thum">
-                                                    <img src="images/blog/blog-post/bp-1.jpg" alt="Blog">
-                                                </div>
-                                                <div class="cont">
-                                                    <h6>Basic accounting from primary</h6>
-                                                    <span>07 Dec 2018</span>
-                                                </div>
-                                            </div> <!-- singel post -->
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> <!-- saidbar post -->
-                        </div>
-                    </div> <!-- row -->
-                </div> <!-- saidbar -->
+                {% include "blog/sidebar.html" %}
             </div>
         </div> <!-- row -->
     </div> <!-- container -->
 </section>
 
-<!--====== BLOG PART ENDS ======-->
 {% endblock %}
