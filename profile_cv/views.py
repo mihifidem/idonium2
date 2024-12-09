@@ -2,7 +2,7 @@ import random
 import string
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from weasyprint import HTML
+# from weasyprint import HTML
 from .models import *
 from .forms import *
 from django.template.loader import get_template
@@ -158,15 +158,21 @@ def academic_education_delete(request, academic_education_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar las SoftSkills
-def softskill_list(request):
-    softskills = SoftSkillUser.objects.all()
+def softskill_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    softskills = SoftSkillUser.objects.filter(profile_user=profile)
     return render(request, "softskill/softskill_list.html", {"softskills": softskills})
 
 #? Función para crear una SoftSkill
-def softskill_create(request):
+def softskill_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = SoftSkillForm(request.POST)
         if form.is_valid():
+            soft_skill = form.save(commit=False)
+            soft_skill.profile_user = profile
             form.save()
             return redirect("soft_skill_list")
     else:
@@ -288,15 +294,21 @@ def language_delete(request, language_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los voluntariados
-def volunteering_list(request):
-    volunteerings = Volunteering.objects.all()
+def volunteering_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    volunteerings = Volunteering.objects.filter(profile_user=profile)
     return render(request, "volunteering/volunteering_list.html", {"volunteerings": volunteerings})
 
 #? Función para crear un voluntariado
-def volunteering_create(request):
+def volunteering_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = VolunteeringForm(request.POST)
         if form.is_valid():
+            volunteering = form.save(commit=False)
+            volunteering.profile_user = profile
             form.save()
             return redirect("volunteering_list")
     else:
@@ -672,44 +684,45 @@ def user_cv_view_details(request, user_cv_id, profile_cv_id):
     return render(request, 'user_cv/user_cv_view_details.html', context)
 
 def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
-    user_cv = get_object_or_404(User_cv, id=user_cv_id)
-    profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
-    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
-    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
-    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
-    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
-    languages = LanguageUser.objects.filter(profile_user=profile_cv)
-    categories = CategoryUser.objects.filter(profile_user=profile_cv)
-    sectors = SectorUser.objects.filter(profile_user=profile_cv)
-    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
-    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
-    projects = Project.objects.filter(profile_user=profile_cv)
-    publications = Publication.objects.filter(profile_user=profile_cv)
-    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+    # user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    # profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+    # work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+    # academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+    # hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+    # soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+    # languages = LanguageUser.objects.filter(profile_user=profile_cv)
+    # categories = CategoryUser.objects.filter(profile_user=profile_cv)
+    # sectors = SectorUser.objects.filter(profile_user=profile_cv)
+    # incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+    # volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+    # projects = Project.objects.filter(profile_user=profile_cv)
+    # publications = Publication.objects.filter(profile_user=profile_cv)
+    # recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
 
-    context = {
-        'user_cv': user_cv,
-        'profile_cv': profile_cv,
-        'work_experiences': work_experiences,
-        'academic_educations': academic_educations,
-        'hard_skills': hard_skills,
-        'soft_skills': soft_skills,
-        'languages': languages,
-        'categories': categories,
-        'sectors': sectors,
-        'incorporations': incorporations,
-        'volunteerings': volunteerings,
-        'projects': projects,
-        'publications': publications,
-        'recognitions_awards': recognitions_awards,
-    }
+    # context = {
+    #     'user_cv': user_cv,
+    #     'profile_cv': profile_cv,
+    #     'work_experiences': work_experiences,
+    #     'academic_educations': academic_educations,
+    #     'hard_skills': hard_skills,
+    #     'soft_skills': soft_skills,
+    #     'languages': languages,
+    #     'categories': categories,
+    #     'sectors': sectors,
+    #     'incorporations': incorporations,
+    #     'volunteerings': volunteerings,
+    #     'projects': projects,
+    #     'publications': publications,
+    #     'recognitions_awards': recognitions_awards,
+    # }
 
-    template = get_template('user_cv/user_cv_view_details.html')
-    html_content = template.render(context)
+    # template = get_template('user_cv/user_cv_view_details.html')
+    # html_content = template.render(context)
 
-    pdf_file = HTML(string=html_content).write_pdf()
+    # pdf_file = HTML(string=html_content).write_pdf()
 
-    response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = "inline; filename='user_cv.pdf'"
+    # response = HttpResponse(pdf_file, content_type='application/pdf')
+    # response['Content-Disposition'] = "inline; filename='user_cv.pdf'"
 
-    return response
+    # return response
+    pass
