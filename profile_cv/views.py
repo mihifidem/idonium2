@@ -330,15 +330,21 @@ def volunteering_delete(request, volunteering_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los proyectos
-def project_list(request):
-    projects = Project.objects.all()
+def project_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    projects = Project.objects.filter(profile_user=profile)
     return render(request, "project/project_list.html", {"projects": projects})
 
 #? Función para crear un proyecto
-def project_create(request):
+def project_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = ProjectForm(request.POST)
         if form.is_valid():
+            project = form.save(commit=False)
+            project.profile_user = profile
             form.save()
             return redirect("project_list")
     else:
@@ -370,15 +376,21 @@ def project_delete(request, project_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los reconocimientos y premios
-def recognition_award_list(request):
-    recognitions_awards = RecognitionAward.objects.all()
+def recognition_award_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile)
     return render(request, "recognitionaward/recognitionaward_list.html", {"recognitions_awards": recognitions_awards})
 
 #? Función para crear un reconocimiento o premio
-def recognition_award_create(request):
+def recognition_award_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = RecognitionForm(request.POST)
         if form.is_valid():
+            recognitionaward = form.save(commit=False)
+            recognitionaward.profile_user = profile
             form.save()
             return redirect("recognition_award_list")
     else:
@@ -410,15 +422,21 @@ def recognition_award_delete(request, recognition_award_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar las publicaciones
-def publication_list(request):
-    publications = Publication.objects.all()
+def publication_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    publications = Publication.objects.filter(profile_user=profile)
     return render(request, "publication/publication_list.html", {"publications": publications})
 
 #? Función para crear una publicación
-def publication_create(request):
+def publication_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = PublicationForm(request.POST)
         if form.is_valid():
+            publication = form.save(commit=False)
+            publication.profile_user = profile
             form.save()
             return redirect("publication_list")
     else:
