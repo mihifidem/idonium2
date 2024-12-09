@@ -7,6 +7,7 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from blog.models import Post
 from courses.models import Course
+from gaming.models import DuckyCoin
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
 from django.contrib.auth import logout
@@ -32,19 +33,28 @@ def custom_404_view(request, exception=None):
     return render(request, '404.html', status=404)
 # def home(request):
 #     return render(request, 'users/home.html')
+
+
 def home(request):
     # Obtener el último post publicado
     latest_post = Post.objects.filter(status=1).order_by('-created_on').first()
     posts3MaxLike = Post.objects.filter(status=1).order_by('-likes')[:3]  # Limitar a los 3 primeros
     courses  = Course.objects.filter(is_active=True).order_by('-title') 
     courses  = Course.objects.all()
+    # Inicializa la variable para evitar el error
+    user_duckycoins = None
 
-    print(courses)
+    if request.user.is_authenticated:
+        try:
+            user_duckycoins = request.user.duckycoins.balance
+        except DuckyCoin.DoesNotExist:
+            user_duckycoins = 0  # Valor predeterminado si no tiene DuckyCoins
 
     return render(request, 'users/home.html', {
         'latest_post': latest_post,
         'posts3MaxLike': posts3MaxLike,
         'courses':courses,
+        'user_duckycoins': user_duckycoins,
     })
     
 

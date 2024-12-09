@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+
 SUMMERNOTE_CONFIG = {
     'iframe': True,  # Usa iframe para evitar conflictos con estilos de CSS del admin
     'width': '100%',  # Ajusta el ancho del editor
@@ -64,9 +65,24 @@ INSTALLED_APPS = [
     "test",
     "profile_cv",
     "role_management",
-    "test_management",
-   
+    "gaming",
+    "messaging",
+    'channels',
+    "forum",
+  
 ]
+
+ASGI_APPLICATION = 'chat_project.asgi.application'
+
+# Configuración de Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("127.0.0.1", 6379)],  # Asegúrate de que Redis esté corriendo
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -96,7 +112,8 @@ TEMPLATES = [
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-            ],
+                'gaming.context_processors.user_duckycoins',
+                'messaging.context_processors.unread_messages_count',           ],
         },
     },
 ]
@@ -165,7 +182,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/role'
 LOGIN_URL = 'login'
 
 
