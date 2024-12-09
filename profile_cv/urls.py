@@ -30,8 +30,8 @@ urlpatterns = [
     path('profiles/<int:profile_id>/', profile_view, name='profile_view'),
 
     # Work experience URLs
-    path('work_experiences/', work_experience_list, name='work_experience_list'),
-    path('work_experiences/create/', work_experience_create, name='work_experience_create'),
+    path('work_experiences/<int:profile_id>/', work_experience_list, name='work_experience_list'),
+    path('work_experiences/create/<int:profile_id>', work_experience_create, name='work_experience_create'),
     path('work_experiences/update/<int:work_experience_id>/', work_experience_update, name='work_experience_update'),
     path('work_experiences/delete/<int:work_experience_id>/', work_experience_delete, name='work_experience_delete'),
 

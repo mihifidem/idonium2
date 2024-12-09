@@ -66,10 +66,13 @@ def profile_view(request, profile_id):
 # * |--------------------------------------------------------------------------
 
 # ? Función para crear una experiencia laboral
-def work_experience_create(request):
+def work_experience_create(request, profile_id):
+    profile = get_object_or_404(Profile_CV, id=profile_id)
     if request.method == "POST":
         form = WorkExperienceForm(request.POST)
         if form.is_valid():
+            work_experience = form.save(commit=False)
+            work_experience.profile_user = profile
             form.save()
             return redirect("work_experience_list")
     else:
@@ -77,8 +80,9 @@ def work_experience_create(request):
     return render(request, "work_experience/work_experience_form.html", {"form": form})
 
 # ? Función para listar las experiencias laborales
-def work_experience_list(request):
-    work_experiences = WorkExperience.objects.all()
+def work_experience_list(request, profile_id):
+    profile = get_object_or_404(Profile_CV, id=profile_id)
+    work_experiences = WorkExperience.objects.filter(profile_user=profile)
     return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences})
 
 # ? Función para actualizar una experiencia laboral
