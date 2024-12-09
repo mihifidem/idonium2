@@ -86,7 +86,7 @@ class ManagementCandidates(models.Model):
 
     def __str__(self):
         selected_or_applied = "Selected" if self.is_selected_by_headhunter else "Applied Directly"
-        return f"{self.candidate.name} - {self.job_offer.title} ({selected_or_applied})"
+        return f"{self.candidate.user.username} - {self.job_offer.title} ({selected_or_applied})"
 
 # Model for Status Action (Auxiliary table for Action)
 #StatusAction: Define los posibles estados para las acciones realizadas por el headhunter en relación con un candidato (por ejemplo, "Enviado", "En proceso", "Finalizado"). Este modelo auxiliar proporciona opciones de estado para el modelo Action.
