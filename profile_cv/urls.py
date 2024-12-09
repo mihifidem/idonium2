@@ -44,7 +44,7 @@ urlpatterns = [
     # Hard skill URLs
     path('hard_skills/<int:profile_id>', hardskill_list, name='hard_skill_list'),
     path('hard_skills/create/<int:profile_id>', hardskill_create, name='hard_skill_create'),
-    path('hard_skills/update/<int:hard_skill_id>/', hardskill_update, name='hard_skill_update'),
+    #path('hard_skills/update/<int:hard_skill_id>/', hardskill_update, name='hard_skill_update'),
     path('hard_skills/delete/<int:hard_skill_id>/', hardskill_delete, name='hard_skill_delete'),
 
     # Soft skill URLs
