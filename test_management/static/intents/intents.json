@@ -1,270 +1,512 @@
 {
     "intents": [
-      {
-        "tag": "django_project_creation",
-        "category": "Django",
-        "patterns": [
-          "What is a correct syntax for creating a Django project?",
-          "How do I create a new Django project?",
-          "What command starts a Django project?",
-          "Syntax for starting a Django project?",
-          "Command to initialize a Django project?",
-          "How can I create a project using Django?",
-          "Which command is used to set up a Django project?",
-          "How to start a new Django project?",
-          "Steps to create a Django project?"
-        ],
-        "responses": [
-          "To start a new Django project, use the command: `django-admin startproject project_name`.",
-          "Ensure you have Django installed before creating a project using `django-admin`.",
-          "Use `django-admin startproject <project_name>` to initialize a Django project. Replace `<project_name>` with your desired project name."
-        ]
+          {
+            "tag": "django_project_creation",
+            "category": "Django",
+            "patterns": [
+                "What is a correct syntax for creating a Django project?",
+                "How do I create a new Django project?",
+                "What command starts a Django project?",
+                "Syntax for starting a Django project?",
+                "Command to initialize a Django project?",
+                "How can I create a project using Django?",
+                "Which command is used to set up a Django project?",
+                "How to start a new Django project?",
+                "Steps to create a Django project?",
+                "How to initiate a Django project?",
+                "Can you guide me to start a Django project?",
+                "What's the command for starting a project in Django?",
+                "What’s the right way to create a Django project?",
+                "Instructions to set up a Django project?",
+                "What steps are involved in creating a new Django project?",
+                "How do you start a Django project?",
+                "Can you show me how to create a Django project?",
+                "What is the first step to set up a Django project?",
+                "Starting a Django project: what command to use?",
+                "What are the steps to create a Django project from scratch?",
+                "How do I begin with a Django project?",
+                "Which command should I use to create a new Django project?",
+                "What command is needed to start a Django project?",
+                "What is the correct command for setting up a Django project?"
+            ],
+            "responses": [
+                "To start a new Django project, use the command: `django-admin startproject project_name`.",
+                "Ensure you have Django installed before creating a project using `django-admin`.",
+                "Use `django-admin startproject <project_name>` to initialize a Django project. Replace `<project_name>` with your desired project name."
+            ]
+        },
+        {
+            "tag": "django_runserver",
+            "category": "Django",
+            "patterns": [
+                "What is the syntax to start a Django development server?",
+                "How do I run a Django server?",
+                "What command is used to start the server in Django?",
+                "How can I start the Django server?",
+                "How do you initiate the development server in Django?",
+                "What do I type to run the server in Django?",
+                "What command activates the Django local server?",
+                "How to launch Django development server?",
+                "Django command for running a local server?",
+                "How do I start the Django runserver?",
+                "Command for launching a Django server?",
+                "How to start the development server in Django?",
+                "Steps to initiate a Django server?",
+                "What’s the way to run a server in Django?",
+                "How do I launch the Django server?",
+                "What's the command to run the Django development server?",
+                "How do I start the server in Django?",
+                "Can you tell me how to run a Django server?",
+                "Steps to start the Django server?",
+                "Which command starts the Django development server?",
+                "How to initiate the Django server?",
+                "What’s the command to start Django server?",
+                "How to run the development server in Django?",
+                "Can you explain how to start the Django server?",
+                "What's needed to start the Django server?",
+                "Instructions to start a server in Django?"
+            ],
+            "responses": [
+                "To start the server, use the command: `python manage.py runserver`. Access the server at `http://127.0.0.1:8000`.",
+                "Ensure you're in the project root directory and use the command `python manage.py runserver` to start the server.",
+                "You can stop the server by pressing `Ctrl+C` in the terminal."
+            ]
+        },
+        {
+            "tag": "django_folder_content",
+            "category": "Django",
+            "patterns": [
+                "Which file is not part of the Django project folder?",
+                "What files are included in a new Django project?",
+                "Which file is missing in a default Django project folder?",
+                "How do I know what files are part of a Django project?",
+                "Which file doesn't belong to a Django project's folder structure?",
+                "What files are created when initializing a Django project?",
+                "Is templates.py included in the default Django project?",
+                "What is the default content of a Django project folder?",
+                "Which files are typically found in a Django project?",
+                "What files make up a basic Django project?",
+                "What’s included in the default Django project structure?",
+                "List of files in a new Django project?",
+                "What’s the standard file structure in Django?",
+                "What are the core files in a Django project?",
+                "Which files are included in a default Django project?",
+                "What files should I expect in a Django project folder?",
+                "List the files in a new Django project.",
+                "What is the default file structure for a Django project?",
+                "What files are generated when creating a Django project?",
+                "Which files come with a new Django project?",
+                "What are the initial files in a Django project?",
+                "Can you list the default files in a Django project?",
+                "What are the standard files in a Django project?",
+                "What files are part of a new Django project?",
+                "What’s the default folder structure in Django?",
+                "Which files are essential in a Django project?",
+                "What are the basic files in a Django project?",
+                "What files are present in a new Django project?"
+            ],
+            "responses": [
+                "A Django project folder typically includes files like `manage.py`, `settings.py`, and `urls.py`. It does not include `templates.py` by default.",
+                "The `templates` directory is created manually for organizing template files, rather than being a Python file.",
+                "To explore the default files, navigate to the project folder after running `django-admin startproject`."
+            ]
+        },
+        {
+            "tag": "django_written_language",
+            "category": "Django",
+            "patterns": [
+                "Which language is Django written in?",
+                "What programming language does Django use?",
+                "Django is written in what language?",
+                "What language powers Django?",
+                "In what language is the Django framework built?",
+                "What is the base programming language for Django?",
+                "Django is implemented using which language?",
+                "What language is behind Django's framework?",
+                "What language is Django written in?",
+                "What programming language does Django use?",
+                "Django is written in which language?",
+                "What language is Django developed with?",
+                "In which language is Django coded?",
+                "Which programming language powers Django?",
+                "What language is used for Django?",
+                "Django is based on which language?",
+                "What language does Django employ?",
+                "Which programming language is Django built on?",
+                "Django is implemented in which language?",
+                "What language forms the basis of Django?",
+                "Which language is used to develop Django?",
+                "What coding language is Django written in?",
+                "What language underpins Django?"
+            ],
+            "responses": [
+                "Django is written in Python, a versatile language known for its readability and wide use in web development.",
+                "The framework is based on Python, a popular language for scripting and building scalable web applications.",
+                "Python powers Django, providing its clean syntax and rapid development capabilities."
+            ]
+        },
+        {
+            "tag": "django_handle_requests",
+            "category": "Django",
+            "patterns": [
+                "In Django, incoming requests are handled in which file?",
+                "What file manages requests in Django?",
+                "Where are URL routing and request handling configured in Django?",
+                "Which file handles HTTP requests in Django?",
+                "Where can I define how requests are processed in Django?",
+                "How does Django map requests to specific functions?",
+                "Where do I define routing rules in Django?",
+                "What file is used for request handling in Django?",
+                "Which file in Django is responsible for URL routing?",
+                "How are incoming requests managed in Django?",
+                "What’s the main file for handling requests in Django?",
+                "Where are request handlers configured in Django?",
+                "File responsible for handling requests in Django?",
+                "How does Django manage incoming HTTP requests?",
+                "Which file handles requests in Django?",
+                "Where are requests managed in Django?",
+                "How are requests routed in Django?",
+                "Which file is used to manage requests in Django?",
+                "Where do I configure request handling in Django?",
+                "How does Django process requests?",
+                "Which file manages URL routing in Django?",
+                "How are requests handled in Django?",
+                "Where are request routes configured in Django?",
+                "What file handles routing in Django?",
+                "How does Django handle HTTP requests?",
+                "In which file are requests handled in Django?"
+            ],
+            "responses": [
+                "Incoming requests in Django are typically routed using the `urls.py` file.",
+                "The `urls.py` file maps request paths to the corresponding views.",
+                "For handling requests, define URL patterns in the `urls.py` file and link them to views."
+            ]
+        },
+        {
+            "tag": "django_admin_interface",
+            "category": "Django",
+            "patterns": [
+                "How do I create a superuser in Django?",
+                "What is the command to create an admin user in Django?",
+                "How can I set up an admin account for Django's admin interface?",
+                "What is the syntax for creating a superuser in Django?",
+                "How do I access Django's admin panel as an admin?",
+                "How can I generate a superuser for the Django admin?",
+                "What command is used to make a superuser in Django?",
+                "Steps to create a Django admin user?",
+                "How to create an admin user in Django?",
+                "Command for creating a superuser in Django?",
+                "How do I set up a Django superuser?",
+                "What is the process for creating a superuser in Django?",
+                "Creating a superuser for Django: what command to use?",
+                "How to configure an admin user in Django?",
+                "What steps to follow to create a superuser in Django?",
+                "How to set up an admin account in Django?",
+                "Can you guide me to create a superuser in Django?",
+                "What’s the way to create an admin user in Django?",
+                "Procedure to generate a superuser in Django?",
+                "How to create a superuser for Django's admin?"
+            ],
+            "responses": [
+                "To create a superuser, run the command: `python manage.py createsuperuser`. Follow the prompts to set a username and password.",
+                "Before running the command, ensure your database migrations are up-to-date with `python manage.py migrate`.",
+                "Once the superuser is created, access the admin panel at `/admin` in your application."
+            ]
+        },
+        {
+            "tag": "general_django",
+            "category": "Django",
+            "patterns": [
+                "Tell me about Django.",
+                "What can I do with Django?",
+                "Explain Django in simple terms.",
+                "What is Django used for?",
+                "How does Django help in web development?",
+                "Why should I use Django?",
+                "What makes Django unique?",
+                "What are the benefits of using Django?",
+                "Overview of Django framework?",
+                "Django framework explained?",
+                "What’s the purpose of Django?",
+                "How can Django improve my web development?",
+                "Why is Django popular?",
+                "Django's key features?",
+                "Why should I choose Django?",
+                "What is Django good for?",
+                "How does Django stand out?",
+                "What can Django do for me?",
+                "How can I benefit from using Django?",
+                "What are the advantages of Django?",
+                "How does Django simplify web development?",
+                "What makes Django a good choice for web projects?",
+                "Why use Django for web development?",
+                "What are the key advantages of Django?",
+                "What are the main features of Django?",
+                "How can Django help me build web applications?",
+                "Why is Django considered a powerful framework?",
+                "What makes Django different from other frameworks?",
+                "What are Django’s strengths?",
+                "Why is Django preferred for web development?"
+            ],
+            "responses": [
+                "Django is a high-level Python framework for building robust and scalable web applications.",
+                "It simplifies web development by providing tools for database interaction, URL routing, and templating.",
+                "Django is designed to help developers build secure and efficient web applications rapidly."
+            ]
+        },
+        {
+          "tag": "help_1",
+          "category": "NumPy",
+          "patterns": [
+              "What is a correct syntax to create a NumPy array?",
+              "How do I create a NumPy array?",
+              "What function do I use to create a NumPy array?",
+              "Can you tell me how to create a NumPy array?",
+              "What’s the proper way to make a NumPy array?",
+              "How can I initialize an array in NumPy?",
+              "How to define a NumPy array?",
+              "How to generate an array using NumPy?",
+              "What's the command to create a NumPy array?",
+              "How to build an array in NumPy?",
+              "What's the way to set up a NumPy array?",
+              "How to construct an array in NumPy?",
+              "Steps to make a NumPy array?",
+              "Can you show me how to create an array with NumPy?",
+              "What's the process for creating a NumPy array?",
+              "How to form an array in NumPy?",
+              "What's the method to make an array using NumPy?",
+              "What’s the function for making a NumPy array?",
+              "How can I create a NumPy array from a list?",
+              "What's the syntax for initializing an array in NumPy?",
+              "What’s the correct function to create an array in NumPy?",
+              "How do you set up an array using NumPy?"
+          ],
+          "responses": [
+              "To create a NumPy array, you'll need to use a function that takes a list or an iterable. It usually starts with 'np.' and the argument is a list of values. Do you remember the function that does this?",
+              "Think about a function that starts with 'np.' and initializes an array. The syntax typically involves passing in a sequence of values. What could that function be?",
+              "What function does NumPy provide for creating arrays? It often uses the prefix 'np.' and takes a list as an argument.",
+              "Consider how arrays are typically created. The function you need might start with 'np' and require an iterable as input. What do you think?"
+          ]
       },
       {
-        "tag": "django_runserver",
-        "category": "Django",
-        "patterns": [
-          "What is the syntax to start a Django development server?",
-          "How do I run a Django server?",
-          "What command is used to start the server in Django?",
-          "How can I start the Django server?",
-          "How do you initiate the development server in Django?",
-          "What do I type to run the server in Django?",
-          "What command activates the Django local server?",
-          "How to launch Django development server?",
-          "Django command for running a local server?"
-        ],
-        "responses": [
-          "To start the server, use the command: `python manage.py runserver`. Access the server at `http://127.0.0.1:8000`.",
-          "Ensure you're in the project root directory and use the command `python manage.py runserver` to start the server.",
-          "You can stop the server by pressing `Ctrl+C` in the terminal."
-        ]
+          "tag": "help_2",
+          "category": "NumPy",
+          "patterns": [
+              "Which of the following arrays is a two dimensional (2-D) array?",
+              "How do I know which array is 2-D?",
+              "What does a 2-D array look like?",
+              "Can you show me what a 2-D array is?",
+              "How can I distinguish a 2-D array?",
+              "How do I identify a two-dimensional array?",
+              "How to recognize a 2-D array?",
+              "What's the characteristic of a 2-D array?",
+              "What identifies a 2-D array?",
+              "How can I tell if an array is 2-D?",
+              "What format does a 2-D array take?",
+              "How is a 2-D array different?",
+              "What's the structure of a 2-D array?",
+              "How do you know an array is two-dimensional?",
+              "What's an example of a 2-D array?",
+              "How does a 2-D array appear?",
+              "What's the layout of a 2-D array?",
+              "How can I see if an array is 2-D?",
+              "What are the traits of a 2-D array?",
+              "How do I differentiate a 2-D array?",
+              "How do I spot a 2-D array?",
+              "What defines a two-dimensional array?"
+          ],
+          "responses": [
+              "A 2-D array looks like a table, with rows and columns. Can you spot the array that has this format?",
+              "To identify a 2-D array, look for nested lists (arrays inside arrays). This structure gives it two dimensions. Does that help?",
+              "Think of a grid or a table—each entry is in a specific row and column. Does this help you recognize the right format?",
+              "A 2-D array will have two sets of data. It’s not just one row or column, but multiple. Can you find the one that fits this pattern?"
+          ]
       },
       {
-        "tag": "django_folder_content",
-        "category": "Django",
-        "patterns": [
-          "Which file is not part of the Django project folder?",
-          "What files are included in a new Django project?",
-          "Which file is missing in a default Django project folder?",
-          "How do I know what files are part of a Django project?",
-          "Which file doesn't belong to a Django project's folder structure?",
-          "What files are created when initializing a Django project?",
-          "Is templates.py included in the default Django project?",
-          "What is the default content of a Django project folder?"
-        ],
-        "responses": [
-          "A Django project folder typically includes files like `manage.py`, `settings.py`, and `urls.py`. It does not include `templates.py` by default.",
-          "The `templates` directory is created manually for organizing template files, rather than being a Python file.",
-          "To explore the default files, navigate to the project folder after running `django-admin startproject`."
-        ]
+          "tag": "help_3",
+          "category": "NumPy",
+          "patterns": [
+              "How can I check the number of dimensions in an array?",
+              "What is the syntax to check the number of dimensions in an array?",
+              "How to find the dimensions of an array?",
+              "Can you tell me how to find the shape of an array?",
+              "How do I check the dimensions of a NumPy array?",
+              "Which method is used to check the dimensions of an array?",
+              "How to determine the dimensions of an array?",
+              "What's the method to find out the number of dimensions?",
+              "How can I verify the dimensions of an array?",
+              "What's the command to check array dimensions?",
+              "How to see the dimensions of a NumPy array?",
+              "How do you identify the dimensions of an array?",
+              "What's the way to check the array's dimensions?",
+              "How can you tell the dimensions of an array?",
+              "How to get the dimensions of an array?",
+              "What's the method to see the shape of an array?",
+              "How can I discover the dimensions of a NumPy array?",
+              "How do I find out how many dimensions an array has?",
+              "What's the way to determine the dimensions of an array?",
+              "How do you get the number of dimensions in an array?",
+              "How can you check the dimensions of an array?",
+              "How do I see how many dimensions a NumPy array has?"
+          ],
+          "responses": [
+              "To check the number of dimensions, think about using an attribute of the array. It should give you a property related to the structure of the array. Can you recall that method?",
+              "The method you're looking for is part of NumPy, and it returns a property related to the number of axes in the array. What method would you try?",
+              "Consider what method you can use to access an attribute of an array that tells you how many axes or dimensions it has. Do you know the one?",
+              "Check if there's a way to access the shape or size information about the array. One of those should help you find the number of dimensions."
+          ]
       },
       {
-        "tag": "django_written_language",
-        "category": "Django",
-        "patterns": [
-          "Which language is Django written in?",
-          "What programming language does Django use?",
-          "Django is written in what language?",
-          "What language powers Django?",
-          "In what language is the Django framework built?",
-          "What is the base programming language for Django?",
-          "Django is implemented using which language?",
-          "What language is behind Django's framework?"
-        ],
-        "responses": [
-          "Django is written in Python, a versatile language known for its readability and wide use in web development.",
-          "The framework is based on Python, a popular language for scripting and building scalable web applications.",
-          "Python powers Django, providing its clean syntax and rapid development capabilities."
-        ]
+          "tag": "help_4",
+          "category": "NumPy",
+          "patterns": [
+              "How do I print the first item of an array?",
+              "What is the syntax to print the first element of an array?",
+              "How can I access the first item in an array?",
+              "What is the correct way to get the first item of an array?",
+              "How do I get the first value from an array?",
+              "What is the way to print the first element in Python?",
+              "How do I select the first item in an array?",
+              "What's the method to get the first element of an array?",
+              "How do you print the first value of an array?",
+              "What's the syntax to access the first item of an array?",
+              "How can you access the first element in an array?",
+              "What's the proper way to get the first item of an array?",
+              "How do you obtain the first value from an array?",
+              "What's the code to print the first element of an array?",
+              "How to find the first item in an array?",
+              "What's the process to get the first element in an array?",
+              "How can I access the first value in an array?",
+              "How to retrieve the first item in an array?",
+              "What's the way to get the first element in an array?",
+              "How to get the first value from an array?",
+              "What's the correct way to print the first item in an array?"
+          ],
+          "responses": [
+              "To access elements, remember that array indices start from 0 in Python. You can use this index to access the first element. Does that help?",
+              "You can access the first element using an index. Try using 0 as the index to access the first value. Does that work for you?",
+              "Remember that in Python, indexing starts at 0. If you're looking for the first item, what index do you think you should use?",
+              "Array indexing starts at zero. Can you figure out which index you need to access the first item?"
+          ]
       },
       {
-        "tag": "django_handle_requests",
-        "category": "Django",
-        "patterns": [
-          "In Django, incoming requests are handled in which file?",
-          "What file manages requests in Django?",
-          "Where are URL routing and request handling configured in Django?",
-          "Which file handles HTTP requests in Django?",
-          "Where can I define how requests are processed in Django?",
-          "How does Django map requests to specific functions?",
-          "Where do I define routing rules in Django?",
-          "What file is used for request handling in Django?"
-        ],
-        "responses": [
-          "Incoming requests in Django are typically routed using the `urls.py` file.",
-          "The `urls.py` file maps request paths to the corresponding views.",
-          "For handling requests, define URL patterns in the `urls.py` file and link them to views."
-        ]
+          "tag": "help_5",
+          "category": "NumPy",
+          "patterns": [
+              "How do I print the number 8 from the array arr = np.array([[1,2,3,4,5], [6,7,8,9,10]])?",
+              "What is the syntax to access the number 8 in the array arr?",
+              "How can I print the number 8 from the given array?",
+              "What is the way to access the value 8 in a NumPy array?",
+              "How do I extract the number 8 from this array?",
+              "How do I access the number 8 from a 2D array?",
+              "How to locate the number 8 in a 2D array?",
+              "What's the method to find 8 in the array?",
+              "What indices should I use to get the number 8 in a 2D array?",
+              "How can I access the number 8 in a multi-dimensional array?",
+              "Can you guide me to find the number 8 in the array?",
+              "What's the correct index to access the number 8?",
+              "What’s the best way to retrieve the number 8 in a 2D array?",
+              "How do I retrieve the number 8 in this multi-dimensional array?",
+              "How can I get the number 8 from this nested array?",
+              "What’s the indexing method to find 8 in a 2D array?",
+              "What’s the access method to extract 8 from a 2D array?",
+              "How to correctly locate the number 8 in a given array?",
+              "Can you show me how to access the number 8 in this array?",
+              "How can I find and print the number 8 in the provided array?"
+          ],
+          "responses": [
+              "Consider how you would access an element from a 2D array. You will need to provide two indices: one for the row and one for the column. What values do you think those should be?",
+              "In a 2D array, use two indices to access the element: one for the row and another for the column. Can you identify the right indices?",
+              "A two-dimensional array requires two indices. The first index refers to the row, and the second to the column. Which one do you think gives you the number 8?",
+              "Think about how you'd access the element from the second row and the third column in a 2D array. What index values could you try?"
+          ]
       },
       {
-        "tag": "django_admin_interface",
-        "category": "Django",
-        "patterns": [
-          "How do I create a superuser in Django?",
-          "What is the command to create an admin user in Django?",
-          "How can I set up an admin account for Django's admin interface?",
-          "What is the syntax for creating a superuser in Django?",
-          "How do I access Django's admin panel as an admin?",
-          "How can I generate a superuser for the Django admin?",
-          "What command is used to make a superuser in Django?",
-          "Steps to create a Django admin user?"
-        ],
-        "responses": [
-          "To create a superuser, run the command: `python manage.py createsuperuser`. Follow the prompts to set a username and password.",
-          "Before running the command, ensure your database migrations are up-to-date with `python manage.py migrate`.",
-          "Once the superuser is created, access the admin panel at `/admin` in your application."
-        ]
+          "tag": "help_6",
+          "category": "NumPy",
+          "patterns": [
+              "How do I print the numbers [3, 4, 5] from the array arr = np.array([1,2,3,4,5,6,7])?",
+              "What syntax is used to print the numbers 3, 4, 5 from the array?",
+              "How do I access specific elements from an array?",
+              "What’s the best way to select a range of values from an array?",
+              "How to extract the values [3, 4, 5] from a NumPy array?",
+              "What are the indices to access numbers 3, 4, 5 in an array?",
+              "How can I retrieve elements 3, 4, 5 from the array?",
+              "Can you show me the method to print 3, 4, 5 from a NumPy array?",
+              "What's the correct slicing technique to get 3, 4, 5 from an array?",
+              "How do I use slicing to get the values [3, 4, 5] from an array?",
+              "What is the proper syntax for slicing out 3, 4, 5 in an array?",
+              "How can I pick a range that includes 3, 4, 5 from an array?",
+              "Can you explain how to extract values 3, 4, 5 from a NumPy array?",
+              "What’s the right way to slice the array to get numbers 3, 4, 5?",
+              "What slice would you use to print 3, 4, 5 from the given array?",
+              "How do you use slicing to access the numbers 3, 4, 5?",
+              "What method will allow me to slice the array and print 3, 4, 5?",
+              "How can I access a specific range of values [3, 4, 5] in an array?",
+              "What's the slicing syntax to get elements 3, 4, 5?",
+              "How do you slice out 3, 4, 5 in a NumPy array?"
+          ],
+          "responses": [
+              "You can access a range of elements by specifying the start and end indices. In Python, this is often done with slicing. Do you recall how slicing works?",
+              "To print a specific range of values, you should slice the array. Try selecting the values between index 2 and 5, remembering that the upper limit is exclusive.",
+              "When you want a slice of an array, remember that the end index is not included in the selection. Can you think of the correct indices for this range?",
+              "Remember that when you slice an array, you use the format: start:end. What do you think would be the correct start and end values for this task?"
+          ]
       },
       {
-        "tag": "general_django",
-        "category": "Django",
-        "patterns": [
-          "Tell me about Django.",
-          "What can I do with Django?",
-          "Explain Django in simple terms.",
-          "What is Django used for?",
-          "How does Django help in web development?",
-          "Why should I use Django?",
-          "What makes Django unique?"
-        ],
-        "responses": [
-          "Django is a high-level Python framework for building robust and scalable web applications.",
-          "It simplifies web development by providing tools for database interaction, URL routing, and templating.",
-          "Django is designed to help developers build secure and efficient web applications rapidly."
-        ]
-      },
+          "tag": "help_7",
+          "category": "NumPy",
+          "patterns": [
+              "Which syntax would print the last 4 numbers from the array arr = np.array([1,2,3,4,5,6,7])?",
+              "What’s the correct way to access the last 4 elements in an array?",
+              "How can I get the last few values from an array?",
+              "What is the syntax to access the last 4 numbers in the array?",
+              "How do I retrieve the last 4 values in a NumPy array?",
+              "What's the command to get the last 4 elements from an array?",
+              "How can I print the last 4 numbers from the given array?",
+              "What’s the way to slice the last 4 values from an array?",
+              "How do I select the last 4 elements in a NumPy array?",
+              "What indices should I use to get the last 4 numbers from an array?",
+              "Can you explain how to get the last 4 elements in the array?",
+              "What's the best way to print the last 4 values from the array?",
+              "How do I extract the last 4 numbers from a NumPy array?",
+              "How to get the last 4 values from the array arr?",
+              "What slicing method should I use for the last 4 elements?",
+              "Can you show me how to access the last 4 elements in the array?",
+              "What's the process to get the last 4 numbers in an array?",
+              "How can I find the last 4 values in the given array?",
+              "What is the correct indexing to access the last 4 elements?"
+          ],
+          "responses": [
+              "To get the last few values, you can use slicing. Try specifying the start index as 3 and leave the end index blank. Do you remember how to do that?",
+              "Think about how negative indexing works in Python. This could be useful for getting the last elements of an array. What indices would you use?",
+              "For accessing the last few elements of an array, you might want to use negative indices. Can you try using them to select the last four numbers?",
+              "Slicing with negative indices is helpful when working with the end of the array. Can you figure out how to use this for the last 4 elements?"
+          ]
+      },    
       {
-        "category": "NumPy",
-        "tag": "help_1",
-        "patterns": [
-          "What is a correct syntax to create a NumPy array?",
-          "How do I create a NumPy array?",
-          "What function do I use to create a NumPy array?",
-          "Can you tell me how to create a NumPy array?",
-          "What’s the proper way to make a NumPy array?",
-          "How can I initialize an array in NumPy?",
-          "How to define a NumPy array?"
-        ],
-        "responses": [
-          "To create a NumPy array, you'll need to use a function that takes a list or an iterable. It usually starts with 'np.' and the argument is a list of values. Do you remember the function that does this?",
-          "Think about a function that starts with 'np.' and initializes an array. The syntax typically involves passing in a sequence of values. What could that function be?",
-          "What function does NumPy provide for creating arrays? It often uses the prefix 'np.' and takes a list as an argument.",
-          "Consider how arrays are typically created. The function you need might start with 'np' and require an iterable as input. What do you think?"
-        ]
-      },
-      {
-        "category": "NumPy",
-        "tag": "help_2",
-        "patterns": [
-          "Which of the following arrays is a two dimensional (2-D) array?",
-          "How do I know which array is 2-D?",
-          "What does a 2-D array look like?",
-          "Can you show me what a 2-D array is?",
-          "How can I distinguish a 2-D array?",
-          "How do I identify a two-dimensional array?"
-        ],
-        "responses": [
-          "A 2-D array looks like a table, with rows and columns. Can you spot the array that has this format?",
-          "To identify a 2-D array, look for nested lists (arrays inside arrays). This structure gives it two dimensions. Does that help?",
-          "Think of a grid or a table—each entry is in a specific row and column. Does this help you recognize the right format?",
-          "A 2-D array will have two sets of data. It’s not just one row or column, but multiple. Can you find the one that fits this pattern?"
-        ]
-      },
-      {
-        "category": "NumPy",
-        "tag": "help_3",
-        "patterns": [
-          "How can I check the number of dimensions in an array?",
-          "What is the syntax to check the number of dimensions in an array?",
-          "How to find the dimensions of an array?",
-          "Can you tell me how to find the shape of an array?",
-          "How do I check the dimensions of a NumPy array?",
-          "Which method is used to check the dimensions of an array?"
-        ],
-        "responses": [
-          "To check the number of dimensions, think about using an attribute of the array. It should give you a property related to the structure of the array. Can you recall that method?",
-          "The method you're looking for is part of NumPy, and it returns a property related to the number of axes in the array. What method would you try?",
-          "Consider what method you can use to access an attribute of an array that tells you how many axes or dimensions it has. Do you know the one?",
-          "Check if there's a way to access the shape or size information about the array. One of those should help you find the number of dimensions."
-        ]
-      },
-      {
-        "category": "NumPy",
-        "tag": "help_4",
-        "patterns": [
-          "How do I print the first item of an array?",
-          "What is the syntax to print the first element of an array?",
-          "How can I access the first item in an array?",
-          "What is the correct way to get the first item of an array?",
-          "How do I get the first value from an array?",
-          "What is the way to print the first element in Python?"
-        ],
-        "responses": [
-          "To access elements, remember that array indices start from 0 in Python. You can use this index to access the first element. Does that help?",
-          "You can access the first element using an index. Try using 0 as the index to access the first value. Does that work for you?",
-          "Remember that in Python, indexing starts at 0. If you're looking for the first item, what index do you think you should use?",
-          "Array indexing starts at zero. Can you figure out which index you need to access the first item?"
-        ]
-      },
-      {
-        "category": "NumPy",
-        "tag": "help_5",
-        "patterns": [
-          "How do I print the number 8 from the array arr = np.array([[1,2,3,4,5], [6,7,8,9,10]])?",
-          "What is the syntax to access the number 8 in the array arr?",
-          "How can I print the number 8 from the given array?",
-          "What is the way to access the value 8 in a NumPy array?",
-          "How do I extract the number 8 from this array?",
-          "How do I access the number 8 from a 2D array?"
-        ],
-        "responses": [
-          "Consider how you would access an element from a 2D array. You will need to provide two indices: one for the row and one for the column. What values do you think those should be?",
-          "In a 2D array, use two indices to access the element: one for the row and another for the column. Can you identify the right indices?",
-          "A two-dimensional array requires two indices. The first index refers to the row, and the second to the column. Which one do you think gives you the number 8?",
-          "Think about how you'd access the element from the second row and the third column in a 2D array. What index values could you try?"
-        ]
-      },
-      {
-        "category": "NumPy",
-        "tag": "help_6",
-        "patterns": [
-          "How do I print the numbers [3, 4, 5] from the array arr = np.array([1,2,3,4,5,6,7])?",
-          "What syntax is used to print the numbers 3, 4, 5 from the array?",
-          "How do I access specific elements from an array?",
-          "What’s the best way to select a range of values from an array?"
-        ],
-        "responses": [
-          "You can access a range of elements by specifying the start and end indices. In Python, this is often done with slicing. Do you recall how slicing works?",
-          "To print a specific range of values, you should slice the array. Try selecting the values between index 2 and 5, remembering that the upper limit is exclusive.",
-          "When you want a slice of an array, remember that the end index is not included in the selection. Can you think of the correct indices for this range?",
-          "Remember that when you slice an array, you use the format: start:end. What do you think would be the correct start and end values for this task?"
-        ]
-      },
-      {
-        "category": "NumPy",
-        "tag": "help_7",
-        "patterns": [
-          "Which syntax would print the last 4 numbers from the array arr = np.array([1,2,3,4,5,6,7])?",
-          "What’s the correct way to access the last 4 elements in an array?",
-          "How can I get the last few values from an array?",
-          "What is the syntax to access the last 4 numbers in the array?"
-        ],
-        "responses": [
-          "To get the last few values, you can use slicing. Try specifying the start index as 3 and leave the end index blank. Do you remember how to do that?",
-          "Think about how negative indexing works in Python. This could be useful for getting the last elements of an array. What indices would you use?",
-          "For accessing the last few elements of an array, you might want to use negative indices. Can you try using them to select the last four numbers?",
-          "Slicing with negative indices is helpful when working with the end of the array. Can you figure out how to use this for the last 4 elements?"
-        ]
-      },
-      {
-        "category": "NumPy",
         "tag": "help_8",
+        "category": "NumPy",
         "patterns": [
           "How can I check the data type of an array?",
           "What is the syntax to check an array’s data type?",
           "How do I find out the data type of a NumPy array?",
-          "What method is used to check the data type of an array?"
+          "What method is used to check the data type of an array?",
+          "What attribute should I use to check a NumPy array's data type?",
+          "How can I determine the type of elements in a NumPy array?",
+          "Which method reveals the data type of a NumPy array?",
+          "What is the best way to find the data type in NumPy?",
+          "How do I check the type of values in my array?",
+          "Can I use a property to see the data type of an array in NumPy?",
+          "What function or property shows the type of data in a NumPy array?",
+          "How can I confirm the data type of a NumPy array?",
+          "Is there a way to check the type of items in a NumPy array?",
+          "What attribute provides the data type of a NumPy array?",
+          "How can I verify the type of data in my NumPy array?",
+          "What do I use in NumPy to find an array's data type?",
+          "Which property of a NumPy array indicates its data type?",
+          "How do I know the kind of data stored in a NumPy array?",
+          "What property or attribute tells me the type of a NumPy array?"
         ],
         "responses": [
           "The method you're looking for is used to access the array’s attributes. It typically starts with 'dtype'. Do you recall the exact syntax?",
@@ -283,7 +525,22 @@
           "What is the full form of SQL?",
           "What does SQL represent?",
           "What is the acronym for SQL?",
-          "What is SQL short for in databases?"
+          "What is SQL short for in databases?",
+          "What is the meaning of SQL?",
+          "What does the acronym SQL mean?",
+          "Explain the full form of SQL.",
+          "What is SQL an abbreviation for?",
+          "What does SQL stand for in computer terms?",
+          "What does the term SQL mean?",
+          "What is the expansion of SQL?",
+          "Can you define SQL and its full form?",
+          "What does the acronym SQL represent?",
+          "SQL stands for what?",
+          "What does SQL mean in databases?",
+          "What is SQL's full name?",
+          "Explain what SQL represents.",
+          "Can you elaborate on what SQL stands for?",
+          "What is the definition of SQL?"
         ],
         "responses": [
           "SQL stands for Structured Query Language. It’s a language used for managing and manipulating databases.",
@@ -302,7 +559,22 @@
           "What is the query to get data from a database?",
           "How can I retrieve data from a table?",
           "What command do I use to pull data from a table?",
-          "How do I display information from a table?"
+          "How do I display information from a table?",
+          "Which SQL command retrieves data?",
+          "How do I fetch specific columns from a table?",
+          "What query is used to retrieve data?",
+          "What SQL statement is used to select rows from a table?",
+          "How do I query specific fields in SQL?",
+          "What SQL statement pulls data from a database?",
+          "How do I query multiple rows from a table?",
+          "What syntax is used to retrieve rows from a SQL table?",
+          "How do I run a query to fetch rows from a database?",
+          "Which SQL command fetches data from a table?",
+          "How do I use SQL to extract data from a table?",
+          "What SQL statement is used to query table rows?",
+          "What query retrieves all or some data from a table?",
+          "How do I create a query to fetch records in SQL?",
+          "What command retrieves table records in SQL?"
         ],
         "responses": [
           "To retrieve data from a table, you use the `SELECT` statement. You can specify which columns or rows you want to see.",
@@ -321,7 +593,22 @@
           "What is the query to modify a value in SQL?",
           "How can I update data in a table?",
           "What statement should I use to update a record in SQL?",
-          "How do I edit an entry in SQL?"
+          "How do I edit an entry in SQL?",
+          "How do I update values in a table?",
+          "What query do I use to change values in SQL?",
+          "How can I modify data in an SQL table?",
+          "What SQL statement updates table records?",
+          "How do I alter a record in SQL?",
+          "What query updates a specific column in SQL?",
+          "How do I apply changes to a table in SQL?",
+          "Which command is used for editing data in SQL?",
+          "How do I write a query to update values?",
+          "What SQL syntax updates records?",
+          "What is the correct way to change data in SQL?",
+          "How can I alter specific data in SQL?",
+          "What SQL statement edits existing rows?",
+          "Which SQL command modifies record values?",
+          "How do I use SQL to update a table's data?"
         ],
         "responses": [
           "To modify existing records, you can use the `UPDATE` statement. Don’t forget to specify the conditions with `WHERE` so you don’t update all rows.",
@@ -340,7 +627,22 @@
           "How do I delete data from a specific table?",
           "What is the command to delete records in SQL?",
           "How can I delete entries from a table in SQL?",
-          "How do I erase data from a database?"
+          "How do I erase data from a database?",
+          "How do I remove rows from a table?",
+          "What query deletes specific rows in SQL?",
+          "How do I write a delete command in SQL?",
+          "What is the SQL syntax for deleting data?",
+          "Which SQL statement removes rows from a database?",
+          "How do I delete entries based on conditions?",
+          "What query do I use to delete database records?",
+          "How can I remove all rows from a table?",
+          "What is the syntax for deleting records in SQL?",
+          "How do I use SQL to delete a row?",
+          "What SQL statement removes specific rows?",
+          "How do I execute a delete operation in SQL?",
+          "What SQL command erases data from a table?",
+          "How do I delete entries matching a condition?",
+          "What is the SQL query for deleting table data?"
         ],
         "responses": [
           "To delete records, you can use the `DELETE FROM` statement. Make sure to use a condition to avoid deleting all rows in the table.",
@@ -359,7 +661,22 @@
           "How can I insert a new row into a table in SQL?",
           "What command do I use to add new data to a table?",
           "How do I insert a record into SQL?",
-          "What is the statement to insert a new entry?"
+          "What is the statement to insert a new entry?",
+          "How do I add a new row to a database table?",
+          "What command is used to insert rows into SQL?",
+          "What is the syntax for inserting data in SQL?",
+          "How do I use SQL to insert a record?",
+          "Which query adds new data to an SQL table?",
+          "What SQL statement inserts records into a table?",
+          "How do I add multiple rows to a table?",
+          "What query syntax inserts values into columns?",
+          "How do I populate a table with new data?",
+          "What is the insert command in SQL?",
+          "How do I add entries into a database table?",
+          "What SQL query is used for inserting records?",
+          "How do I create a query to add a record?",
+          "What is the correct syntax for SQL inserts?",
+          "How can I insert rows into an existing table?"
         ],
         "responses": [
           "To insert new records, use the `INSERT INTO` statement. You'll need to specify the table and the values you want to add.",
@@ -376,7 +693,22 @@
           "Which command should I use to retrieve a specific column from a table?",
           "I only need the 'FirstName' from the table, how do I write the query?",
           "How do I pull the 'FirstName' from a table in SQL?",
-          "What is the query to get the 'FirstName' column?"
+          "What is the query to get the 'FirstName' column?",
+          "How can I fetch one column from a table?",
+          "What query retrieves a specific column in SQL?",
+          "How do I display only one column from a table?",
+          "What SQL statement selects individual columns?",
+          "How can I get a single column using SQL?",
+          "Which command selects a single column from a database?",
+          "How do I fetch the 'FirstName' column only?",
+          "What query retrieves just one column's values?",
+          "How do I use SQL to select specific columns?",
+          "What is the syntax for selecting one column?",
+          "How do I write a query to get specific columns?",
+          "How can I extract a column from a table?",
+          "What SQL command is used for selecting columns?",
+          "How do I fetch the 'FirstName' field in SQL?",
+          "What query returns only one column of data?"
         ],
         "responses": [
           "To select a specific column, write `SELECT` followed by the column name and the table name. For example, `SELECT FirstName FROM table_name`.",
@@ -393,7 +725,22 @@
           "What command should I use to retrieve everything from a table?",
           "How can I query all the data from a table without specifying columns?",
           "What is the query to select all columns from a table?",
-          "How do I fetch all the data in a table?"
+          "How do I fetch all the data in a table?",
+          "What query shows all data in a table?",
+          "How do I retrieve every column from a table?",
+          "What SQL statement fetches all table data?",
+          "Which command gets every column and row?",
+          "How do I extract the complete table in SQL?",
+          "What query fetches all records in SQL?",
+          "How can I get full details from a table?",
+          "What SQL statement lists all rows and columns?",
+          "How do I query a table for all data?",
+          "Which command retrieves full table contents?",
+          "How do I pull every field from a table?",
+          "What query fetches all data without filtering?",
+          "What SQL command retrieves everything from a table?",
+          "How do I select all available fields in SQL?",
+          "What is the syntax for querying all columns?"
         ],
         "responses": [
           "To retrieve all columns, use the `SELECT *` statement followed by the table name. For example, `SELECT * FROM table_name`.",
@@ -409,7 +756,22 @@
           "How do I find all records where 'FirstName' is 'Peter'?",
           "What is the SQL query to select 'Peter' from the 'FirstName' column?",
           "Can I filter results to only show 'Peter' in the 'FirstName' column?",
-          "What command do I use to get rows where 'FirstName' equals 'Peter'?"
+          "What command do I use to get rows where 'FirstName' equals 'Peter'?",
+          "How do I filter records where the name is Peter?",
+          "Which SQL command retrieves rows with 'Peter'?",
+          "How can I query all records with FirstName 'Peter'?",
+          "What query shows all 'Peter' entries?",
+          "How do I select rows matching 'FirstName = Peter'?",
+          "Which SQL query retrieves rows with 'Peter' as FirstName?",
+          "What is the syntax to get records for 'Peter'?",
+          "How do I filter rows for specific names in SQL?",
+          "What command selects records where FirstName is Peter?",
+          "How do I use SQL to fetch all Peters?",
+          "What is the query to find rows with Peter in SQL?",
+          "How can I display records for 'FirstName = Peter'?",
+          "What SQL command lists rows with 'Peter'?",
+          "How do I target rows where FirstName equals Peter?",
+          "What query extracts all rows for 'Peter'?"
         ],
         "responses": [
           "To filter rows, you can use the `WHERE` clause. For example: `SELECT * FROM table_name WHERE FirstName = 'Peter'`.",
@@ -425,7 +787,22 @@
           "How do I select records where 'FirstName' starts with 'a'?",
           "Which SQL query will get all rows where 'FirstName' starts with an 'a'?",
           "How can I filter records by names starting with 'a'?",
-          "How do I select 'FirstName' starting with 'A'?"
+          "How do I select 'FirstName' starting with 'A'?",
+          "What query selects names starting with 'A'?",
+          "How do I find records where names start with 'A'?",
+          "What SQL command filters rows by prefix?",
+          "How do I filter names beginning with 'A'?",
+          "Which SQL query gets names starting with 'A'?",
+          "How do I find entries where FirstName starts with A?",
+          "What query returns rows matching prefix 'A'?",
+          "How can I query names beginning with 'A'?",
+          "What is the syntax for filtering names by letter?",
+          "How do I select rows for names like 'A%'?",
+          "What SQL query filters names by initial letter?",
+          "How do I match rows where names begin with A?",
+          "What is the SQL query for names starting with 'A'?",
+          "How can I extract rows for names starting 'A'?",
+          "What command filters names with prefix A?"
         ],
         "responses": [
           "To filter by patterns, use the `LIKE` operator. For example: `SELECT * FROM table_name WHERE FirstName LIKE 'A%'`.",
