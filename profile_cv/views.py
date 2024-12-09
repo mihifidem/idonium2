@@ -66,10 +66,14 @@ def profile_view(request, profile_id):
 # * |--------------------------------------------------------------------------
 
 # ? Función para crear una experiencia laboral
-def work_experience_create(request):
+def work_experience_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = WorkExperienceForm(request.POST)
         if form.is_valid():
+            work_experience = form.save(commit=False)
+            work_experience.profile_user = profile
             form.save()
             return redirect("work_experience_list")
     else:
@@ -77,8 +81,10 @@ def work_experience_create(request):
     return render(request, "work_experience/work_experience_form.html", {"form": form})
 
 # ? Función para listar las experiencias laborales
-def work_experience_list(request):
-    work_experiences = WorkExperience.objects.all()
+def work_experience_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    work_experiences = WorkExperience.objects.filter(profile_user=profile)
     return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences})
 
 # ? Función para actualizar una experiencia laboral
@@ -106,10 +112,14 @@ def work_experience_delete(request, work_experience_id):
 # * |--------------------------------------------------------------------------
 
 # ? Función para crear una educación académica
-def academic_education_create(request):
+def academic_education_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = AcademicEducationForm(request.POST)
         if form.is_valid():
+            academic_education = form.save(commit=False)
+            academic_education.profile_user = profile
             form.save()
             return redirect("academic_education_list")
     else:
@@ -117,8 +127,10 @@ def academic_education_create(request):
     return render(request, "academic_education/academic_education_form.html", {"form": form})
 
 # ? Función para listar las educaciones académicas
-def academic_education_list(request):
-    academic_educations = AcademicEducation.objects.all()
+def academic_education_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    academic_educations = AcademicEducation.objects.filter(profile_user=profile)
     return render(request, "academic_education/academic_education_list.html", {"academic_educations": academic_educations})
 
 # ? Función para actualizar una educación académica

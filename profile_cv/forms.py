@@ -29,7 +29,6 @@ class WorkExperienceForm(forms.ModelForm):
     class Meta:
         model = WorkExperience
         fields = [
-            "profile_user",
             "job_title",
             "start_date",
             "end_date",
@@ -81,7 +80,6 @@ class AcademicEducationForm(forms.ModelForm):
     class Meta:
         model = AcademicEducation
         fields = [
-            "profile_user",
             "title",
             "academy_name",
             "start_date",
