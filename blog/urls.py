@@ -6,9 +6,7 @@ from .feeds import AtomSiteNewsFeed, LatestPostsFeed
 urlpatterns = [
     path("feed/rss", LatestPostsFeed(), name="post_feed"),
     path("feed/atom", AtomSiteNewsFeed()),
-    # path("", views.PostList.as_view(), name="home"),
-    path("", views.blog_list, name="home"),
-    # path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
-    path("<slug:pk>/", views.post_detail, name="post_detail"),
+    path("", views.blog_list, name="blog_list"),
+    path("post/<slug:slug>/", views.post_detail, name="post_detail"),
 ]
 # {% url 'post_detail' post.slug  %}

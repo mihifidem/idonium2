@@ -14,6 +14,8 @@ from users.forms import LoginForm
 import debug_toolbar
 from django.conf.urls import handler404
 from users.views import custom_404_view
+from django.urls import re_path
+
 
 handler404 = 'users.views.custom_404_view'
 
@@ -45,9 +47,9 @@ urlpatterns = [
 
 
     path("blog/", include("blog.urls"), name="blog-urls"),
-    path("summernote/", include("django_summernote.urls")),
+    re_path(r"^summernote/", include("django_summernote.urls")),
     path('__debug__/', include(debug_toolbar.urls)),
-    path('', include('courses.urls')),
+    path('courses/', include('courses.urls')),
 #     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 
 
@@ -56,6 +58,10 @@ urlpatterns = [
 
 
     path('role/', include('role_management.urls')),
+    path('gaming/', include('gaming.urls')),
+    path('messaging/', include('messaging.urls')),
+    path('forum/', include('forum.urls')),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
