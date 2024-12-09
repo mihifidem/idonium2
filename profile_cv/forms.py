@@ -29,7 +29,6 @@ class WorkExperienceForm(forms.ModelForm):
     class Meta:
         model = WorkExperience
         fields = [
-            "profile_user",
             "job_title",
             "start_date",
             "end_date",
@@ -81,7 +80,6 @@ class AcademicEducationForm(forms.ModelForm):
     class Meta:
         model = AcademicEducation
         fields = [
-            "profile_user",
             "title",
             "academy_name",
             "start_date",
@@ -141,7 +139,7 @@ class HardSkillForm(forms.ModelForm):
 class SoftSkillForm(forms.ModelForm):
     class Meta:
         model = SoftSkillUser
-        fields = ["profile_user","soft_skill", "description"]
+        fields = ["soft_skill", "description"]
         widgets = {
             'soft_skill': forms.Select(attrs={
             'class': 'form-control',
@@ -178,7 +176,6 @@ class VolunteeringForm(forms.ModelForm):
     class Meta:
         model = Volunteering
         fields = [
-            "profile_user",
             "volunteering_position",
             "start_date",
             "end_date",
@@ -203,7 +200,7 @@ class VolunteeringForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["profile_user","name", "description", "link"]
+        fields = ["name", "description", "link"]
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -224,7 +221,7 @@ class ProjectForm(forms.ModelForm):
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
-        fields = ["profile_user","doi", "url", "role", "name"]
+        fields = ["doi", "url", "role", "name"]
         widgets = {
             'doi': forms.TextInput(attrs={
                 'class': 'form-control',

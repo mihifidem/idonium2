@@ -119,6 +119,9 @@ p {
 }
 
 .bg_cover{
+    
+    
+
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -400,6 +403,7 @@ p {
     background-color: #07294d;
     padding-top: 10px;
     padding-bottom: 10px;
+    color: #FFC017;
 }
 .header-contact{}
 .header-contact ul{}
@@ -446,6 +450,7 @@ p {
 	margin-top: 7px;
 }
 
+
 .icon-hover:hover {
     color: rgb(221, 204, 14); /* Cambia este color según tus necesidades */
 }
@@ -472,6 +477,8 @@ p {
 }
 
 /*===== Header Menu =====*/
+
+
 
 .navigation{}
 

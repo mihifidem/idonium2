@@ -10,15 +10,14 @@ def dashboard(request):
     user_role = None
     if user_groups.exists():
         user_role = user_groups[0].name  # Obtén el nombre del primer grupo asociado al usuario
-    
     context = {}  # Inicializa el contexto
 
-    if user_role == 'member1':
+    if user_role == 'premium':
         context = {
             'user_role': user_role,
             'profile_user': getattr(request.user, 'profile_user', None),
         }
-        return render(request, 'role_management/dashboard_member.html', context)
+        return render(request, 'role_management/dashboard_premium.html', context)
 
     elif user_role == 'teacher':
         context = {
@@ -43,6 +42,60 @@ def dashboard(request):
         return render(request, 'role_management/dashboard_default.html', context)
 
 @login_required
+def teacher_chat(request):
+    # Verifica que el usuario tenga el rol de "teacher"
+    user_groups = request.user.groups.all()
+    if not user_groups.filter(name="teacher").exists():
+        # Si el usuario no es un "teacher", redirige o muestra un mensaje de error
+        return render(request, 'role_management/access_denied.html', {
+            'message': 'You do not have permission to access this page.',
+        })
+    
+    # Define el contexto para la vista
+    context = {
+        'user_role': 'teacher',
+        'teacher_profile': getattr(request.user, 'profile_teacher', None),
+        # Agrega aquí más datos relacionados con el rol de "teacher"
+    }
+    return render(request, 'role_management/teacher_chat.html', context)
+
+@login_required
+def headhunter_chat(request):
+    # Verifica que el usuario tenga el rol de "teacher"
+    user_groups = request.user.groups.all()
+    if not user_groups.filter(name="headhunter").exists():
+        # Si el usuario no es un "teacher", redirige o muestra un mensaje de error
+        return render(request, 'role_management/access_denied.html', {
+            'message': 'You do not have permission to access this page.',
+        })
+    
+    # Define el contexto para la vista
+    context = {
+        'user_role': 'headhunter',
+        'teacher_profile': getattr(request.user, 'headhunter', None),
+        # Agrega aquí más datos relacionados con el rol de "teacher"
+    }
+    return render(request, 'role_management/headhunter_chat.html', context)
+
+@login_required
+def premium_chat(request):
+    # Verifica que el usuario tenga el rol de "teacher"
+    user_groups = request.user.groups.all()
+    if not user_groups.filter(name="premium").exists():
+        # Si el usuario no es un "premium", redirige o muestra un mensaje de error
+        return render(request, 'role_management/access_denied.html', {
+            'message': 'You do not have permission to access this page.',
+        })
+    
+    # Define el contexto para la vista
+    context = {
+        'user_role': 'premium',
+        'teacher_profile': getattr(request.user, 'profile_user', None),
+        # Agrega aquí más datos relacionados con el rol de "teacher"
+    }
+    return render(request, 'role_management/premium_chat.html', context)
+
+@login_required
 def teacher_dashboard(request):
     # Verifica que el usuario tenga el rol de "teacher"
     user_groups = request.user.groups.all()
@@ -59,3 +112,58 @@ def teacher_dashboard(request):
         # Agrega aquí más datos relacionados con el rol de "teacher"
     }
     return render(request, 'role_management/dashboard_teacher.html', context)
+
+@login_required
+def headhunter_dashboard(request):
+    # Verifica que el usuario tenga el rol de "teacher"
+    user_groups = request.user.groups.all()
+    if not user_groups.filter(name="headhunter").exists():
+        # Si el usuario no es un "teacher", redirige o muestra un mensaje de error
+        return render(request, 'role_management/access_denied.html', {
+            'message': 'You do not have permission to access this page.',
+        })
+    
+    # Define el contexto para la vista
+    context = {
+        'user_role': 'headhunter',
+        'headhunter_profile': getattr(request.user, 'headhunter', None),
+        # Agrega aquí más datos relacionados con el rol de "teacher"
+    }
+    return render(request, 'role_management/dashboard_headhunter.html', context)
+
+
+@login_required
+def premium_dashboard(request):
+    # Verifica que el usuario tenga el rol de "teacher"
+    user_groups = request.user.groups.all()
+    if not user_groups.filter(name="premium").exists():
+        # Si el usuario no es un "premium", redirige o muestra un mensaje de error
+        return render(request, 'role_management/access_denied.html', {
+            'message': 'You do not have permission to access this page.',
+        })
+    
+    # Define el contexto para la vista
+    context = {
+        'user_role': 'premium',
+        'user_profile': getattr(request.user, 'profile_user', None),
+        # Agrega aquí más datos relacionados con el rol de "teacher"
+    }
+    return render(request, 'role_management/dashboard_premium.html', context)
+
+@login_required
+def premium_profile(request):
+    # Verifica que el usuario tenga el rol de "profile"
+    user_groups = request.user.groups.all()
+    if not user_groups.filter(name="premium").exists():
+        # Si el usuario no es un "premium", redirige o muestra un mensaje de error
+        return render(request, 'role_management/access_denied.html', {
+            'message': 'You do not have permission to access this page.',
+        })
+    
+    # Define el contexto para la vista
+    context = {
+        'user_role': 'premium',
+        'teacher_profile': getattr(request.user, 'profile_user', None),
+        # Agrega aquí más datos relacionados con el rol de "teacher"
+    }
+    return render(request, 'role_management/premium_profile.html', context)

@@ -2,7 +2,7 @@ import random
 import string
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-#from weasyprint import HTML
+# from weasyprint import HTML
 from .models import *
 from .forms import *
 from django.template.loader import get_template
@@ -66,20 +66,26 @@ def profile_view(request, profile_id):
 # * |--------------------------------------------------------------------------
 
 # ? Función para crear una experiencia laboral
-def work_experience_create(request):
+def work_experience_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = WorkExperienceForm(request.POST)
         if form.is_valid():
+            work_experience = form.save(commit=False)
+            work_experience.profile_user = profile
             form.save()
             return redirect("work_experience_list")
     else:
         form = WorkExperienceForm()
-    return render(request, "work_experience/work_experience_form.html", {"form": form})
+    return render(request, "work_experience/work_experience_form.html", {"form": form, "user": user})
 
 # ? Función para listar las experiencias laborales
-def work_experience_list(request):
-    work_experiences = WorkExperience.objects.all()
-    return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences})
+def work_experience_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    work_experiences = WorkExperience.objects.filter(profile_user=profile)
+    return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences, "user": user})
 
 # ? Función para actualizar una experiencia laboral
 def work_experience_update(request, work_experience_id):
@@ -106,20 +112,26 @@ def work_experience_delete(request, work_experience_id):
 # * |--------------------------------------------------------------------------
 
 # ? Función para crear una educación académica
-def academic_education_create(request):
+def academic_education_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = AcademicEducationForm(request.POST)
         if form.is_valid():
+            academic_education = form.save(commit=False)
+            academic_education.profile_user = profile
             form.save()
             return redirect("academic_education_list")
     else:
         form = AcademicEducationForm()
-    return render(request, "academic_education/academic_education_form.html", {"form": form})
+    return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
 
 # ? Función para listar las educaciones académicas
-def academic_education_list(request):
-    academic_educations = AcademicEducation.objects.all()
-    return render(request, "academic_education/academic_education_list.html", {"academic_educations": academic_educations})
+def academic_education_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    academic_educations = AcademicEducation.objects.filter(profile_user=profile)
+    return render(request, "academic_education/academic_education_list.html", {"academic_educations": academic_educations, "user": user})
 
 # ? Función para actualizar una educación académica
 def academic_education_update(request, academic_education_id):
@@ -146,20 +158,26 @@ def academic_education_delete(request, academic_education_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar las SoftSkills
-def softskill_list(request):
-    softskills = SoftSkillUser.objects.all()
-    return render(request, "softskill/softskill_list.html", {"softskills": softskills})
+def softskill_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    softskills = SoftSkillUser.objects.filter(profile_user=profile)
+    return render(request, "softskill/softskill_list.html", {"softskills": softskills, "user": user})
 
 #? Función para crear una SoftSkill
-def softskill_create(request):
+def softskill_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = SoftSkillForm(request.POST)
         if form.is_valid():
+            soft_skill = form.save(commit=False)
+            soft_skill.profile_user = profile
             form.save()
             return redirect("soft_skill_list")
     else:
         form = SoftSkillForm()
-    return render(request, "softskill/softskill_form.html", {"form": form})
+    return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
 
 #? Función para actualizar una SoftSkill
 def softskill_update(request, soft_skill_id):
@@ -266,20 +284,26 @@ def language_delete(request, language_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los voluntariados
-def volunteering_list(request):
-    volunteerings = Volunteering.objects.all()
-    return render(request, "volunteering/volunteering_list.html", {"volunteerings": volunteerings})
+def volunteering_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    volunteerings = Volunteering.objects.filter(profile_user=profile)
+    return render(request, "volunteering/volunteering_list.html", {"volunteerings": volunteerings, "user": user})
 
 #? Función para crear un voluntariado
-def volunteering_create(request):
+def volunteering_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = VolunteeringForm(request.POST)
         if form.is_valid():
+            volunteering = form.save(commit=False)
+            volunteering.profile_user = profile
             form.save()
             return redirect("volunteering_list")
     else:
         form = VolunteeringForm()
-    return render(request, "volunteering/volunteering_form.html", {"form": form})
+    return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un voluntariado
 def volunteering_update(request, volunteering_id):
@@ -306,20 +330,26 @@ def volunteering_delete(request, volunteering_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los proyectos
-def project_list(request):
-    projects = Project.objects.all()
-    return render(request, "project/project_list.html", {"projects": projects})
+def project_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    projects = Project.objects.filter(profile_user=profile)
+    return render(request, "project/project_list.html", {"projects": projects, "user": user})
 
 #? Función para crear un proyecto
-def project_create(request):
+def project_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = ProjectForm(request.POST)
         if form.is_valid():
+            project = form.save(commit=False)
+            project.profile_user = profile
             form.save()
             return redirect("project_list")
     else:
         form = ProjectForm()
-    return render(request, "project/project_form.html", {"form": form})
+    return render(request, "project/project_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un proyecto
 def project_update(request, project_id):
@@ -346,20 +376,26 @@ def project_delete(request, project_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los reconocimientos y premios
-def recognition_award_list(request):
-    recognitions_awards = RecognitionAward.objects.all()
-    return render(request, "recognitionaward/recognitionaward_list.html", {"recognitions_awards": recognitions_awards})
+def recognition_award_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile)
+    return render(request, "recognitionaward/recognitionaward_list.html", {"recognitions_awards": recognitions_awards, "user": user})
 
 #? Función para crear un reconocimiento o premio
-def recognition_award_create(request):
+def recognition_award_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = RecognitionForm(request.POST)
         if form.is_valid():
+            recognitionaward = form.save(commit=False)
+            recognitionaward.profile_user = profile
             form.save()
             return redirect("recognition_award_list")
     else:
         form = RecognitionForm()
-    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form})
+    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un reconocimiento o premio
 def recognition_award_update(request, recognition_award_id):
@@ -386,20 +422,26 @@ def recognition_award_delete(request, recognition_award_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar las publicaciones
-def publication_list(request):
-    publications = Publication.objects.all()
-    return render(request, "publication/publication_list.html", {"publications": publications})
+def publication_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
+    publications = Publication.objects.filter(profile_user=profile)
+    return render(request, "publication/publication_list.html", {"publications": publications, "user": user})
 
 #? Función para crear una publicación
-def publication_create(request):
+def publication_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     if request.method == "POST":
         form = PublicationForm(request.POST)
         if form.is_valid():
+            publication = form.save(commit=False)
+            publication.profile_user = profile
             form.save()
             return redirect("publication_list")
     else:
         form = PublicationForm()
-    return render(request, "publication/publication_form.html", {"form": form})
+    return render(request, "publication/publication_form.html", {"form": form, "user": user})
 
 #? Función para actualizar una publicación
 def publication_update(request, publication_id):
@@ -650,45 +692,45 @@ def user_cv_view_details(request, user_cv_id, profile_cv_id):
     return render(request, 'user_cv/user_cv_view_details.html', context)
 
 def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
-      pass
-#     user_cv = get_object_or_404(User_cv, id=user_cv_id)
-#     profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
-#     work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
-#     academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
-#     hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
-#     soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
-#     languages = LanguageUser.objects.filter(profile_user=profile_cv)
-#     categories = CategoryUser.objects.filter(profile_user=profile_cv)
-#     sectors = SectorUser.objects.filter(profile_user=profile_cv)
-#     incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
-#     volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
-#     projects = Project.objects.filter(profile_user=profile_cv)
-#     publications = Publication.objects.filter(profile_user=profile_cv)
-#     recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+    # user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    # profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
+    # work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+    # academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+    # hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+    # soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+    # languages = LanguageUser.objects.filter(profile_user=profile_cv)
+    # categories = CategoryUser.objects.filter(profile_user=profile_cv)
+    # sectors = SectorUser.objects.filter(profile_user=profile_cv)
+    # incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+    # volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+    # projects = Project.objects.filter(profile_user=profile_cv)
+    # publications = Publication.objects.filter(profile_user=profile_cv)
+    # recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
 
-#     context = {
-#         'user_cv': user_cv,
-#         'profile_cv': profile_cv,
-#         'work_experiences': work_experiences,
-#         'academic_educations': academic_educations,
-#         'hard_skills': hard_skills,
-#         'soft_skills': soft_skills,
-#         'languages': languages,
-#         'categories': categories,
-#         'sectors': sectors,
-#         'incorporations': incorporations,
-#         'volunteerings': volunteerings,
-#         'projects': projects,
-#         'publications': publications,
-#         'recognitions_awards': recognitions_awards,
-#     }
+    # context = {
+    #     'user_cv': user_cv,
+    #     'profile_cv': profile_cv,
+    #     'work_experiences': work_experiences,
+    #     'academic_educations': academic_educations,
+    #     'hard_skills': hard_skills,
+    #     'soft_skills': soft_skills,
+    #     'languages': languages,
+    #     'categories': categories,
+    #     'sectors': sectors,
+    #     'incorporations': incorporations,
+    #     'volunteerings': volunteerings,
+    #     'projects': projects,
+    #     'publications': publications,
+    #     'recognitions_awards': recognitions_awards,
+    # }
 
-#     template = get_template('user_cv/user_cv_view_details.html')
-#     html_content = template.render(context)
+    # template = get_template('user_cv/user_cv_view_details.html')
+    # html_content = template.render(context)
 
-#     pdf_file = HTML(string=html_content).write_pdf()
+    # pdf_file = HTML(string=html_content).write_pdf()
 
-#     response = HttpResponse(pdf_file, content_type='application/pdf')
-#     response['Content-Disposition'] = "inline; filename='user_cv.pdf'"
+    # response = HttpResponse(pdf_file, content_type='application/pdf')
+    # response['Content-Disposition'] = "inline; filename='user_cv.pdf'"
 
-#     return response
+    # return response
+    pass
