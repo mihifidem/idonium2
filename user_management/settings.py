@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     "role_management",
     "gaming",
     "messaging",
-    'channels',
     "forum",
   
 ]
