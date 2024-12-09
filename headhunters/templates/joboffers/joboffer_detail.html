@@ -177,13 +177,14 @@
             {% csrf_token %}
             <button type="submit" class="btn btn-primary btn-sm">Añadir a Favoritos</button>
         </form>
+    <div class="actions text-center mt-5 mb-5">
+        <a onclick="add_me_to_offer()" class="btn btn-secondary btn-sm">Aplicar a oferta</a>
+    </div>
         <a href="{% url 'joboffer_list' %}" class="btn btn-secondary btn-sm">Volver a Ofertas</a>
     </div>
     
     {% endif %}
-    <div class="actions text-center mt-5 mb-5">
-        <a onclick="add_me_to_offer()" class="btn btn-secondary btn-sm">Aplicar a oferta</a>
-    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Obtener una cookie específica (para CSRF)
