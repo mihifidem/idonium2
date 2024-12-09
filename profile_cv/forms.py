@@ -200,7 +200,7 @@ class VolunteeringForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["profile_user","name", "description", "link"]
+        fields = ["name", "description", "link"]
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -221,7 +221,7 @@ class ProjectForm(forms.ModelForm):
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
-        fields = ["profile_user","doi", "url", "role", "name"]
+        fields = ["doi", "url", "role", "name"]
         widgets = {
             'doi': forms.TextInput(attrs={
                 'class': 'form-control',

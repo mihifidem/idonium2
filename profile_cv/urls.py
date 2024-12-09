@@ -66,20 +66,20 @@ urlpatterns = [
     path('volunteerings/delete/<int:volunteering_id>/', volunteering_delete, name='volunteering_delete'),
 
     # Project URLs
-    path('projects/<int:profile_id>', project_list, name='project_list'),
-    path('projects/create/<int:profile_id>', project_create, name='project_create'),
+    path('projects/<int:user_id>/', project_list, name='project_list'),
+    path('projects/create/<int:user_id>/', project_create, name='project_create'),
     path('projects/update/<int:project_id>/', project_update, name='project_update'),
     path('projects/delete/<int:project_id>/', project_delete, name='project_delete'),
 
     # Publication URLs
-    path('publications/<int:profile_id>', publication_list, name='publication_list'),
-    path('publications/create/<int:profile_id>', publication_create, name='publication_create'),
+    path('publications/<int:user_id>/', publication_list, name='publication_list'),
+    path('publications/create/<int:user_id>/', publication_create, name='publication_create'),
     path('publications/update/<int:publication_id>/', publication_update, name='publication_update'),
     path('publications/delete/<int:publication_id>/', publication_delete, name='publication_delete'),
 
     # Recognition and award URLs
-    path('recognitions_awards/<int:profile_id>', recognition_award_list, name='recognition_award_list'),
-    path('recognitions_awards/create/<int:profile_id>', recognition_award_create, name='recognition_award_create'),
+    path('recognitions_awards/<int:user_id>/', recognition_award_list, name='recognition_award_list'),
+    path('recognitions_awards/create/<int:user_id>/', recognition_award_create, name='recognition_award_create'),
     path('recognitions_awards/update/<int:recognition_award_id>/', recognition_award_update, name='recognition_award_update'),
     path('recognitions_awards/delete/<int:recognition_award_id>/', recognition_award_delete, name='recognition_award_delete'),
 
