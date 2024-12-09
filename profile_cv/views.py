@@ -78,14 +78,14 @@ def work_experience_create(request, user_id):
             return redirect("work_experience_list")
     else:
         form = WorkExperienceForm()
-    return render(request, "work_experience/work_experience_form.html", {"form": form})
+    return render(request, "work_experience/work_experience_form.html", {"form": form, "user": user})
 
 # ? Función para listar las experiencias laborales
 def work_experience_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     work_experiences = WorkExperience.objects.filter(profile_user=profile)
-    return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences})
+    return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences, "user": user})
 
 # ? Función para actualizar una experiencia laboral
 def work_experience_update(request, work_experience_id):
@@ -124,14 +124,14 @@ def academic_education_create(request, user_id):
             return redirect("academic_education_list")
     else:
         form = AcademicEducationForm()
-    return render(request, "academic_education/academic_education_form.html", {"form": form})
+    return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
 
 # ? Función para listar las educaciones académicas
 def academic_education_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     academic_educations = AcademicEducation.objects.filter(profile_user=profile)
-    return render(request, "academic_education/academic_education_list.html", {"academic_educations": academic_educations})
+    return render(request, "academic_education/academic_education_list.html", {"academic_educations": academic_educations, "user": user})
 
 # ? Función para actualizar una educación académica
 def academic_education_update(request, academic_education_id):
@@ -162,7 +162,7 @@ def softskill_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     softskills = SoftSkillUser.objects.filter(profile_user=profile)
-    return render(request, "softskill/softskill_list.html", {"softskills": softskills})
+    return render(request, "softskill/softskill_list.html", {"softskills": softskills, "user": user})
 
 #? Función para crear una SoftSkill
 def softskill_create(request, user_id):
@@ -177,7 +177,7 @@ def softskill_create(request, user_id):
             return redirect("soft_skill_list")
     else:
         form = SoftSkillForm()
-    return render(request, "softskill/softskill_form.html", {"form": form})
+    return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
 
 #? Función para actualizar una SoftSkill
 def softskill_update(request, soft_skill_id):
@@ -288,7 +288,7 @@ def volunteering_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     volunteerings = Volunteering.objects.filter(profile_user=profile)
-    return render(request, "volunteering/volunteering_list.html", {"volunteerings": volunteerings})
+    return render(request, "volunteering/volunteering_list.html", {"volunteerings": volunteerings, "user": user})
 
 #? Función para crear un voluntariado
 def volunteering_create(request, user_id):
@@ -303,7 +303,7 @@ def volunteering_create(request, user_id):
             return redirect("volunteering_list")
     else:
         form = VolunteeringForm()
-    return render(request, "volunteering/volunteering_form.html", {"form": form})
+    return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un voluntariado
 def volunteering_update(request, volunteering_id):
@@ -334,7 +334,7 @@ def project_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     projects = Project.objects.filter(profile_user=profile)
-    return render(request, "project/project_list.html", {"projects": projects})
+    return render(request, "project/project_list.html", {"projects": projects, "user": user})
 
 #? Función para crear un proyecto
 def project_create(request, user_id):
@@ -349,7 +349,7 @@ def project_create(request, user_id):
             return redirect("project_list")
     else:
         form = ProjectForm()
-    return render(request, "project/project_form.html", {"form": form})
+    return render(request, "project/project_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un proyecto
 def project_update(request, project_id):
@@ -380,7 +380,7 @@ def recognition_award_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     recognitions_awards = RecognitionAward.objects.filter(profile_user=profile)
-    return render(request, "recognitionaward/recognitionaward_list.html", {"recognitions_awards": recognitions_awards})
+    return render(request, "recognitionaward/recognitionaward_list.html", {"recognitions_awards": recognitions_awards, "user": user})
 
 #? Función para crear un reconocimiento o premio
 def recognition_award_create(request, user_id):
@@ -395,7 +395,7 @@ def recognition_award_create(request, user_id):
             return redirect("recognition_award_list")
     else:
         form = RecognitionForm()
-    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form})
+    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un reconocimiento o premio
 def recognition_award_update(request, recognition_award_id):
@@ -426,7 +426,7 @@ def publication_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     publications = Publication.objects.filter(profile_user=profile)
-    return render(request, "publication/publication_list.html", {"publications": publications})
+    return render(request, "publication/publication_list.html", {"publications": publications, "user": user})
 
 #? Función para crear una publicación
 def publication_create(request, user_id):
@@ -441,7 +441,7 @@ def publication_create(request, user_id):
             return redirect("publication_list")
     else:
         form = PublicationForm()
-    return render(request, "publication/publication_form.html", {"form": form})
+    return render(request, "publication/publication_form.html", {"form": form, "user": user})
 
 #? Función para actualizar una publicación
 def publication_update(request, publication_id):
