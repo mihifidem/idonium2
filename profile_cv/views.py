@@ -198,32 +198,39 @@ def softskill_delete(request, soft_skill_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar las HardSkills
-def hardskill_list(request):
-    hardskills = HardSkillUser.objects.all()
+def hardskill_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile= get_object_or_404(Profile_CV,  user=user)
+    hardskills = HardSkillUser.objects.filter(profile_user = profile)
     return render(request, "hardskill/hardskill_list.html", {"hardskills": hardskills})
 
+
 #? Función para crear una HardSkill
-def hardskill_create(request):
+def hardskill_create(request, user_id):
+    user = get_object_or_404(User, id= user_id)
+    profile = get_object_or_404(Profile_CV, user = user)
     if request.method == "POST":
         form = HardSkillForm(request.POST)
         if form.is_valid():
+            hardskill = form.save(commit  = False)
+            hardskill.profile_user = profile
             form.save()
             return redirect("hard_skill_list")
     else:
         form = HardSkillForm()
     return render(request, "hardskill/hardskill_form.html", {"form": form})
 
-#? Función para actualizar una HardSkill
-def hardskill_update(request, hard_skill_id):
-    hardskill = get_object_or_404(HardSkillUser, id=hard_skill_id)
+# ? Función para actualizar una educación académica
+def academic_education_update(request, academic_education_id):
+    academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
     if request.method == "POST":
-        form = HardSkillForm(request.POST, instance=hardskill)
+        form = AcademicEducationForm(request.POST, instance=academic_education)
         if form.is_valid():
             form.save()
-            return redirect("hard_skill_list")
+            return redirect("academic_education_list")
     else:
-        form = HardSkillForm(instance=hardskill)
-    return render(request, "hardskill/hardskill_form.html", {"form": form})
+        form = AcademicEducationForm(instance=academic_education)
+    return render(request, "academic_education/academic_education_form.html", {"form": form})
 
 #? Función para eliminar una HardSkill
 def hardskill_delete(request, hard_skill_id):
@@ -238,8 +245,10 @@ def hardskill_delete(request, hard_skill_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los idiomas
-def language_list(request):
-    languages = LanguageUser.objects.all()
+def language_list(request, user_id):
+    user = get_object_or_404(User, id = user_id)
+    profile = get_object_or_404(Profile_CV, user = user)
+    languages = LanguageUser.objects.filter(profile_user = profile)
     return render(request, "language/language_list.html", {"languages": languages})
 
 #? Función para crear un idioma
@@ -252,6 +261,7 @@ def language_create(request):
     else:
         form = LanguageForm()
     return render(request, "language/language_form.html", {"form": form})
+
 
 #? Función para actualizar un idioma
 def language_update(request, language_id):
