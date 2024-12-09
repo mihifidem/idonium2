@@ -77,13 +77,13 @@ class JobOfferListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        groups = list(self.request.user.groups.all())
         # Añadimos los filtros disponibles al contexto
         context['sectors'] = Sector.objects.all()
         context['categories'] = Category.objects.all()
         context['hard_skills'] = HardSkill.objects.all()
         context['soft_skills'] = SoftSkill.objects.all()
-        
+        context['is_headhunter'] = groups[0].name == 'headhunter'
         return context
 
 
