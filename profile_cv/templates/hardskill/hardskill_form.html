@@ -11,11 +11,11 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        <div class="form-floating mb-4">
+                        <div class="mb-4">
                             <label for="{{ form.hard_skill.id_for_label }}">Hard Skill</label>
                             {{ form.hard_skill }}
                         </div>
-                        <div class="form-floating mb-4">
+                        <div class="mb-4">
                             <label for="{{ form.description.id_for_label }}">Description</label>
                             {{ form.description }}
                             <div class="form-text">Provide a brief description of your skill.</div>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
                             <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
-                            <a href="{% url 'hard_skill_list' %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                            <a href="{% url 'hard_skill_list' user.pk %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
                         </div>
                     </form>
                 </div>

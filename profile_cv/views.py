@@ -8,6 +8,8 @@ from .forms import *
 from django.template.loader import get_template
 from django.contrib.auth.models import User
 from courses.models import Course
+import openai
+from django.conf import settings
 
 # * |--------------------------------------------------------------------------
 # * | Home
@@ -75,7 +77,7 @@ def work_experience_create(request, user_id):
             work_experience = form.save(commit=False)
             work_experience.profile_user = profile
             form.save()
-            return redirect("work_experience_list")
+            return redirect("work_experience_list", user_id)
     else:
         form = WorkExperienceForm()
     return render(request, "work_experience/work_experience_form.html", {"form": form, "user": user})
@@ -90,22 +92,24 @@ def work_experience_list(request, user_id):
 # ? Función para actualizar una experiencia laboral
 def work_experience_update(request, work_experience_id):
     work_experience = get_object_or_404(WorkExperience, id=work_experience_id)
+    user = work_experience.profile_user.user
     if request.method == "POST":
         form = WorkExperienceForm(request.POST, instance=work_experience)
         if form.is_valid():
             form.save()
-            return redirect("work_experience_list")
+            return redirect("work_experience_list", user.id)
     else:
         form = WorkExperienceForm(instance=work_experience)
-    return render(request, "work_experience/work_experience_form.html", {"form": form})
+    return render(request, "work_experience/work_experience_form.html", {"form": form, "user": user})
 
 # ? Función para eliminar una experiencia laboral
 def work_experience_delete(request, work_experience_id):
     work_experience = get_object_or_404(WorkExperience, id=work_experience_id)
+    user = work_experience.profile_user.user  # Obtén el usuario directamente desde el perfil
     if request.method == "POST":
         work_experience.delete()
-        return redirect("work_experience_list")
-    return render(request, "work_experience/work_experience_confirm_delete.html", {"work_experience": work_experience})
+        return redirect("work_experience_list", user.id)
+    return render(request, "work_experience/work_experience_confirm_delete.html", {"work_experience": work_experience, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class AcademicEducation
@@ -121,7 +125,7 @@ def academic_education_create(request, user_id):
             academic_education = form.save(commit=False)
             academic_education.profile_user = profile
             form.save()
-            return redirect("academic_education_list")
+            return redirect("academic_education_list", user_id)
     else:
         form = AcademicEducationForm()
     return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
@@ -136,22 +140,24 @@ def academic_education_list(request, user_id):
 # ? Función para actualizar una educación académica
 def academic_education_update(request, academic_education_id):
     academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
+    user = academic_education.profile_user.user  # Obtén el usuario directamente desde el perfil
     if request.method == "POST":
         form = AcademicEducationForm(request.POST, instance=academic_education)
         if form.is_valid():
             form.save()
-            return redirect("academic_education_list")
+            return redirect("academic_education_list", user.id)
     else:
         form = AcademicEducationForm(instance=academic_education)
-    return render(request, "academic_education/academic_education_form.html", {"form": form})
+    return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
 
 # ? Función para eliminar una educación académica
 def academic_education_delete(request, academic_education_id):
     academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
+    user = academic_education.profile_user.user  # Obtén el usuario directamente desde el perfil
     if request.method == "POST":
         academic_education.delete()
-        return redirect("academic_education_list")
-    return render(request, "academic_education/academic_education_confirm_delete.html", {"academic_education": academic_education})
+        return redirect("academic_education_list", user.id)
+    return render(request, "academic_education/academic_education_confirm_delete.html", {"academic_education": academic_education, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class SoftSkill
@@ -174,7 +180,7 @@ def softskill_create(request, user_id):
             soft_skill = form.save(commit=False)
             soft_skill.profile_user = profile
             form.save()
-            return redirect("soft_skill_list")
+            return redirect("soft_skill_list", user_id)
     else:
         form = SoftSkillForm()
     return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
@@ -182,22 +188,24 @@ def softskill_create(request, user_id):
 #? Función para actualizar una SoftSkill
 def softskill_update(request, soft_skill_id):
     softskill = get_object_or_404(SoftSkillUser, id=soft_skill_id)
+    user = softskill.profile_user.user
     if request.method == "POST":
         form = SoftSkillForm(request.POST, instance=softskill)
         if form.is_valid():
             form.save()
-            return redirect("soft_skill_list")
+            return redirect("soft_skill_list", user.id)
     else:
         form = SoftSkillForm(instance=softskill)
-    return render(request, "softskill/softskill_form.html", {"form": form})
+    return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
 
 #? Función para eliminar una SoftSkill
 def softskill_delete(request, soft_skill_id):
     softskill = get_object_or_404(SoftSkillUser, id=soft_skill_id)
+    user = softskill.profile_user.user
     if request.method == "POST":
         softskill.delete()
-        return redirect("soft_skill_list")
-    return render(request, "softskill/softskill_confirm_delete.html", {"softskill": softskill})
+        return redirect("soft_skill_list", user.id)
+    return render(request, "softskill/softskill_confirm_delete.html", {"softskill": softskill, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class HardSkill
@@ -221,30 +229,32 @@ def hardskill_create(request, user_id):
             hardskill = form.save(commit  = False)
             hardskill.profile_user = profile
             form.save()
-            return redirect("hard_skill_list")
+            return redirect("hard_skill_list", user_id)
     else:
         form = HardSkillForm()
     return render(request, "hardskill/hardskill_form.html", {"form": form, 'user': user})
 
-# ? Función para actualizar una educación académica
-def academic_education_update(request, academic_education_id):
-    academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
-    if request.method == "POST":
-        form = AcademicEducationForm(request.POST, instance=academic_education)
-        if form.is_valid():
-            form.save()
-            return redirect("academic_education_list")
-    else:
-        form = AcademicEducationForm(instance=academic_education)
-    return render(request, "academic_education/academic_education_form.html", {"form": form})
-
 #? Función para eliminar una HardSkill
 def hardskill_delete(request, hard_skill_id):
     hardskill = get_object_or_404(HardSkillUser, id=hard_skill_id)
+    user = hardskill.profile_user.user
     if request.method == "POST":
         hardskill.delete()
-        return redirect("hard_skill_list")
-    return render(request, "hardskill/hardskill_confirm_delete.html", {"hardskill": hardskill})
+        return redirect("hard_skill_list", user.id)
+    return render(request, "hardskill/hardskill_confirm_delete.html", {"hardskill": hardskill, "user": user})
+
+#? Función para actualizar una HardSkill
+def hardskill_update(request, hard_skill_id):
+    hardskill = get_object_or_404(HardSkillUser, id=hard_skill_id)
+    user = hardskill.profile_user.user
+    if request.method == "POST":
+        form = HardSkillForm(request.POST, instance=hardskill)
+        if form.is_valid():
+            form.save()
+            return redirect("hard_skill_list", user.id)
+    else:
+        form = HardSkillForm(instance=hardskill)
+    return render(request, "hardskill/hardskill_form.html", {"form": form, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | language
@@ -267,7 +277,7 @@ def language_create(request, user_id):
             language = form.save(commit = False)
             language.profile_user = profile
             form.save()
-            return redirect("language_list")
+            return redirect("language_list", user_id)
     else:
         form = LanguageForm()
     return render(request, "language/language_form.html", {"form": form, 'user':user})
@@ -275,22 +285,24 @@ def language_create(request, user_id):
 #? Función para actualizar un idioma
 def language_update(request, language_id):
     language = get_object_or_404(LanguageUser, id=language_id)
+    user = language.profile_user.user
     if request.method == "POST":
         form = LanguageForm(request.POST, instance=language)
         if form.is_valid():
             form.save()
-            return redirect("language_list")
+            return redirect("language_list", user.id)
     else:
         form = LanguageForm(instance=language)
-    return render(request, "language/language_form.html", {"form": form})
+    return render(request, "language/language_form.html", {"form": form, "user": user})
 
 #? Función para eliminar un idioma
 def language_delete(request, language_id):
     language = get_object_or_404(LanguageUser, id=language_id)
+    user = language.profile_user.user
     if request.method == "POST":
         language.delete()
-        return redirect("language_list")
-    return render(request, "language/language_confirm_delete.html", {"language": language})
+        return redirect("language_list", user.id)
+    return render(request, "language/language_confirm_delete.html", {"language": language, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class Volunteering
@@ -313,7 +325,7 @@ def volunteering_create(request, user_id):
             volunteering = form.save(commit=False)
             volunteering.profile_user = profile
             form.save()
-            return redirect("volunteering_list")
+            return redirect("volunteering_list", user_id)
     else:
         form = VolunteeringForm()
     return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
@@ -321,22 +333,26 @@ def volunteering_create(request, user_id):
 #? Función para actualizar un voluntariado
 def volunteering_update(request, volunteering_id):
     volunteering = get_object_or_404(Volunteering, id=volunteering_id)
+    user = volunteering.profile_user.user
     if request.method == "POST":
         form = VolunteeringForm(request.POST, instance=volunteering)
         if form.is_valid():
             form.save()
-            return redirect("volunteering_list")
+            return redirect("volunteering_list", user.id)
     else:
         form = VolunteeringForm(instance=volunteering)
-    return render(request, "volunteering/volunteering_form.html", {"form": form})
+
+    print(user)
+    return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
 
 #? Función para eliminar un voluntariado
 def volunteering_delete(request, volunteering_id):
     volunteering = get_object_or_404(Volunteering, id=volunteering_id)
+    user = volunteering.profile_user.user
     if request.method == "POST":
         volunteering.delete()
-        return redirect("volunteering_list")
-    return render(request, "volunteering/volunteering_confirm_delete.html", {"volunteering": volunteering})
+        return redirect("volunteering_list", user.id)
+    return render(request, "volunteering/volunteering_confirm_delete.html", {"volunteering": volunteering, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class Project
@@ -359,7 +375,7 @@ def project_create(request, user_id):
             project = form.save(commit=False)
             project.profile_user = profile
             form.save()
-            return redirect("project_list")
+            return redirect("project_list", user_id)
     else:
         form = ProjectForm()
     return render(request, "project/project_form.html", {"form": form, "user": user})
@@ -367,22 +383,24 @@ def project_create(request, user_id):
 #? Función para actualizar un proyecto
 def project_update(request, project_id):
     project = get_object_or_404(Project, id=project_id)
+    user = project.profile_user.user
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
-            return redirect("project_list")
+            return redirect("project_list", user.id)
     else:
         form = ProjectForm(instance=project)
-    return render(request, "project/project_form.html", {"form": form})
+    return render(request, "project/project_form.html", {"form": form, "user": user})
 
 #? Función para eliminar un proyecto
 def project_delete(request, project_id):
     project = get_object_or_404(Project, id=project_id)
+    user = project.profile_user.user
     if request.method == "POST":
         project.delete()
-        return redirect("project_list")
-    return render(request, "project/project_confirm_delete.html", {"project": project})
+        return redirect("project_list", user.id)
+    return render(request, "project/project_confirm_delete.html", {"project": project, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class RecognitionAward
@@ -405,7 +423,7 @@ def recognition_award_create(request, user_id):
             recognitionaward = form.save(commit=False)
             recognitionaward.profile_user = profile
             form.save()
-            return redirect("recognition_award_list")
+            return redirect("recognition_award_list", user_id)
     else:
         form = RecognitionForm()
     return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
@@ -413,22 +431,24 @@ def recognition_award_create(request, user_id):
 #? Función para actualizar un reconocimiento o premio
 def recognition_award_update(request, recognition_award_id):
     recognitionaward = get_object_or_404(RecognitionAward, id=recognition_award_id)
+    user = recognitionaward.profile_user.user
     if request.method == "POST":
         form = RecognitionForm(request.POST, instance=recognitionaward)
         if form.is_valid():
             form.save()
-            return redirect("recognition_award_list")
+            return redirect("recognition_award_list", user.id)
     else:
         form = RecognitionForm(instance=recognitionaward)
-    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form})
+    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
 
 #? Función para eliminar un reconocimiento o premio
 def recognition_award_delete(request, recognition_award_id):
     recognitionaward = get_object_or_404(RecognitionAward, id=recognition_award_id)
+    user = recognitionaward.profile_user.user
     if request.method == "POST":
         recognitionaward.delete()
-        return redirect("recognition_award_list")
-    return render(request, "recognitionaward/recognitionaward_confirm_delete.html", {"recognitions_awards": recognitionaward})
+        return redirect("recognition_award_list", user.id)
+    return render(request, "recognitionaward/recognitionaward_confirm_delete.html", {"recognitions_awards": recognitionaward, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class Publication
@@ -451,7 +471,7 @@ def publication_create(request, user_id):
             publication = form.save(commit=False)
             publication.profile_user = profile
             form.save()
-            return redirect("publication_list")
+            return redirect("publication_list", user_id)
     else:
         form = PublicationForm()
     return render(request, "publication/publication_form.html", {"form": form, "user": user})
@@ -459,22 +479,24 @@ def publication_create(request, user_id):
 #? Función para actualizar una publicación
 def publication_update(request, publication_id):
     publication = get_object_or_404(Publication, id=publication_id)
+    user = publication.profile_user.user
     if request.method == "POST":
         form = PublicationForm(request.POST, instance=publication)
         if form.is_valid():
             form.save()
-            return redirect("publication_list")
+            return redirect("publication_list", user.id)
     else:
         form = PublicationForm(instance=publication)
-    return render(request, "publication/publication_form.html", {"form": form})
+    return render(request, "publication/publication_form.html", {"form": form, "user": user})
 
 #? Función para eliminar una publicación
 def publication_delete(request, publication_id):
     publication = get_object_or_404(Publication, id=publication_id)
+    user = publication.profile_user.user
     if request.method == "POST":
         publication.delete()
-        return redirect("publication_list")
-    return render(request, "publication/publication_confirm_delete.html", {"publication": publication})
+        return redirect("publication_list", user.id)
+    return render(request, "publication/publication_confirm_delete.html", {"publication": publication, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | User_CV
@@ -747,3 +769,130 @@ def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
 
     # return response
     pass
+
+def generate_cv_feedback(request, user_cv_id):
+    # Fetch the user's CV
+    user_cv = get_object_or_404(User_cv, id=user_cv_id)
+    profile_cv = get_object_or_404(Profile_CV, id=user_cv.profile_user.id)
+    
+    # Extract relevant data
+    cv_data = {
+        "name": f"{profile_cv.user.first_name} {profile_cv.user.last_name}",
+        "biography": user_cv.biography if user_cv.has_biography else profile_cv.biography,
+        "img_profile": profile_cv.img_profile.url if profile_cv.img_profile else None,
+        "img_1_profile": profile_cv.img_1_profile.url if profile_cv.img_1_profile else None,
+        "img_2_profile": profile_cv.img_2_profile.url if profile_cv.img_2_profile else None,
+        "img_3_profile": profile_cv.img_3_profile.url if profile_cv.img_3_profile else None,
+        "img_4_profile": profile_cv.img_4_profile.url if profile_cv.img_4_profile else None,
+        "address": profile_cv.address if user_cv.has_address else None,
+        "phone_1": profile_cv.phone_1 if user_cv.has_phone_1 else None,
+        "phone_2": profile_cv.phone_2 if user_cv.has_phone_2 else None,
+        "email_1": profile_cv.email_1 if user_cv.has_email_1 else None,
+        "email_2": profile_cv.email_2 if user_cv.has_email_2 else None,
+        "dni": profile_cv.dni if user_cv.has_dni else None,
+        "open_to_work": profile_cv.open_to_work if user_cv.has_open_to_work else None,
+        "vehicle": profile_cv.vehicle if user_cv.has_vehicle else None,
+        "disability": profile_cv.disability if user_cv.has_disability else None,
+        "disability_percentage": profile_cv.disability_percentage if user_cv.has_disability_percentage else None,
+        "work_experiences": [
+            {
+                "job_title": exp.job_title,
+                "start_date": exp.start_date,
+                "end_date": exp.end_date,
+                "current_job": exp.current_job,
+                "company_name": exp.company_name,
+                "description": exp.description,
+            }
+            for exp in profile_cv.workexperience_set.all()
+        ],
+        "academic_educations": [
+            {
+                "title": edu.title,
+                "academy_name": edu.academy_name,
+                "start_date": edu.start_date,
+                "end_date": edu.end_date,
+                "current_education": edu.current_education,
+                "references": edu.references,
+            }
+            for edu in profile_cv.academiceducation_set.all()
+        ],
+        "hard_skills": [
+            {
+                "hard_skill": skill.hard_skill.name_hard_skill,
+                "description": skill.description,
+                "level_skill": skill.level_skill,
+            }
+            for skill in profile_cv.hardskilluser_set.all()
+        ],
+        "soft_skills": [
+            {
+                "soft_skill": skill.soft_skill.name_soft_skill,
+                "description": skill.description,
+            }
+            for skill in profile_cv.softskilluser_set.all()
+        ],
+        "languages": [
+            {
+                "language": lang.language.name_language,
+                "level": lang.level.name_level,
+                "certifications": lang.certifications,
+            }
+            for lang in profile_cv.languageuser_set.all()
+        ],
+        "volunteerings": [
+            {
+                "volunteering_position": vol.volunteering_position,
+                "start_date": vol.start_date,
+                "end_date": vol.end_date,
+                "current_volunteering": vol.current_volunteering,
+                "entity_name": vol.entity_name,
+                "description": vol.description,
+                "achievements": vol.achievements,
+                "references": vol.references,
+            }
+            for vol in profile_cv.volunteering_set.all()
+        ],
+        "projects": [
+            {
+                "name": proj.name,
+                "description": proj.description,
+                "link": proj.link,
+            }
+            for proj in profile_cv.project_set.all()
+        ],
+        "publications": [
+            {
+                "doi": pub.doi,
+                "url": pub.url,
+                "role": pub.role,
+                "name": pub.name,
+            }
+            for pub in profile_cv.publication_set.all()
+        ],
+        "recognitions_awards": [
+            {
+                "name": rec.name,
+                "entity": rec.entity,
+                "description": rec.description,
+            }
+            for rec in profile_cv.recognitionaward_set.all()
+        ],
+    }
+
+    # Convert data into a prompt for the AI
+    prompt = f"Analyze the following CV and provide feedback:\n\n{cv_data}"
+    
+    # Call OpenAI API for feedback
+    openai.api_key = settings.OPENAI_API_KEY
+    response = openai.ChatCompletion.create(
+        model="o1-preview",
+        messages=[
+            {"role": "system", "content": "You're a virtual human resources assisstant. Analize cv and give tips on  how to improve it."},
+            {"role": "user", "content": prompt},
+        ],
+        temperature=0.7,
+    )
+    
+    feedback = response['choices'][0]['message']['content']
+    
+    return render(request, 'ai_feedback/ai_feedback.html', {'cv_data': cv_data, 'feedback': feedback})

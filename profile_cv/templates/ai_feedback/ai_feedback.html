@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV Feedback</title>
+</head>
+<body>
+    <h1>CV Analysis</h1>
+    <h2>CV Details</h2>
+    <p><strong>Name:</strong> {{ cv_data.name }}</p>
+    <p><strong>Biography:</strong> {{ cv_data.biography }}</p>
+    
+    <h3>Work Experiences:</h3>
+    <ul>
+        {% for exp in cv_data.work_experiences %}
+            <li>
+                <strong>Job Title:</strong> {{ exp.job_title }}<br>
+                <strong>Company:</strong> {{ exp.company_name }}<br>
+                <strong>Description:</strong> {{ exp.description }}
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Feedback:</h2>
+    <p>{{ feedback }}</p>
+</body>
+</html>

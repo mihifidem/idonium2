@@ -118,10 +118,32 @@
                             </div>
                         </div>
 
+                        <!-- Hard_skills -->
+                        <div class="mb-4">
+                            <div class="textarea-header">
+                                <label for="{{ form.hard_skills.id_for_label }}" class="form-label">Hard Skills</label>
+                                <div class="form-text">Select relevant hard skills</div>
+                            </div>
+                            <div class="textarea-field">
+                                <div class="row">
+                                    {% for checkbox in form.hard_skills %}
+                                    <div class="col-md-2">
+                                        <div class="form-check">
+                                            {{ checkbox.tag }}
+                                            <label class="form-check-label" for="{{ checkbox.id_for_label }}">
+                                                {{ checkbox.choice_label }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Form Buttons -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
                             <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
-                            <a href="{% url 'work_experience_list' %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                            <a href="{% url 'work_experience_list' user.pk %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -171,6 +193,15 @@
     .btn-outline-secondary {
         padding: 8px 24px;
         font-weight: 500;
+    }
+    
+    /* Checkbox styles */
+    .form-check {
+        margin-bottom: 10px;
+    }
+    
+    .form-check-label {
+        margin-left: 5px;
     }
 </style>
 

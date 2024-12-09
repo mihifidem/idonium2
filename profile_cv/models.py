@@ -88,7 +88,7 @@ class WorkExperience(models.Model):
     description = models.TextField(blank=True, null=True)  # Optional description
     achievements = models.TextField(blank=True, null=True)  # Optional achievements
     references = models.TextField(blank=True, null=True)  # Optional references
-    hard_skills = models.ForeignKey("HardSkillUser", on_delete=models.CASCADE)  # Hard skills
+    hard_skills = models.ManyToManyField("HardSkillUser", blank=True)  # Hard skills
 
     def __str__(self):
         return self.job_title

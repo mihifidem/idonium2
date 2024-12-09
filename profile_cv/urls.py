@@ -42,8 +42,8 @@ urlpatterns = [
     path('academic_educations/delete/<int:academic_education_id>/', academic_education_delete, name='academic_education_delete'),
 
     # Hard skill URLs
-    path('hard_skills/<int:profile_id>', hardskill_list, name='hard_skill_list'),
-    path('hard_skills/create/<int:profile_id>', hardskill_create, name='hard_skill_create'),
+    path('hard_skills/<int:user_id>', hardskill_list, name='hard_skill_list'),
+    path('hard_skills/create/<int:user_id>', hardskill_create, name='hard_skill_create'),
     path('hard_skills/update/<int:hard_skill_id>/', hardskill_update, name='hard_skill_update'),
     path('hard_skills/delete/<int:hard_skill_id>/', hardskill_delete, name='hard_skill_delete'),
 
@@ -54,8 +54,8 @@ urlpatterns = [
     path('soft_skills/delete/<int:soft_skill_id>/', softskill_delete, name='soft_skill_delete'),
 
     # Language URLs
-    path('languages/<int:profile_id>', language_list, name='language_list'),
-    path('languages/create/<int:profile_id>', language_create, name='language_create'),
+    path('languages/<int:user_id>', language_list, name='language_list'),
+    path('languages/create/<int:user_id>', language_create, name='language_create'),
     path('languages/update/<int:language_id>/', language_update, name='language_update'),
     path('languages/delete/<int:language_id>/', language_delete, name='language_delete'),
 
@@ -90,5 +90,6 @@ urlpatterns = [
     path('user_cvs/delete/<int:user_cv_id>/', user_cv_delete, name='user_cv_delete'),
     path('user_cvs/<int:user_cv_id>/<int:profile_cv_id>/', user_cv_view_details, name='user_cv_view_details'),
     path('user_cvs/pdf/<int:user_cv_id>/<int:profile_cv_id>', user_cv_pdf_view, name='user_cv_pdf_view'),
+    path('user_cvs/generate-feedback/<int:user_cv_id>/', generate_cv_feedback, name='generate_cv_feedback'),
 
 ]
