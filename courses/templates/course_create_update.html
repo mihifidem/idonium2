@@ -12,7 +12,7 @@
 {% if course %}
     <a href="{% url 'courses:teacher-course-detail' course.id %}" class="btn btn-secondary">Cancelar</a>
 {% else %}
-    <a href="{% url 'courses:teacher-courses-list' %}" class="btn btn-secondary">Cancelar</a>
+    <a href="{% url 'teacher_dashboard' %}" class="btn btn-secondary">Cancelar</a>
 {% endif %}
 
 {% endblock %}

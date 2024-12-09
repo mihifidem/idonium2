@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -20,11 +20,12 @@ def dashboard(request):
         return render(request, 'role_management/dashboard_premium.html', context)
 
     elif user_role == 'teacher':
-        context = {
-            'user_role': user_role,
-            'profile_teacher': getattr(request.user, 'profile_teacher', None),
-        }
-        return render(request, 'role_management/dashboard_teacher.html', context)
+        # context = {
+        #     'user_role': user_role,
+        #     'profile_teacher': getattr(request.user, 'profile_teacher', None),
+        # }
+        # return render(request, 'role_management/dashboard_teacher.html', context)
+        return redirect('teacher_dashboard')
 
     elif user_role == 'headhunter':
         context = {
@@ -104,12 +105,13 @@ def teacher_dashboard(request):
         return render(request, 'role_management/access_denied.html', {
             'message': 'You do not have permission to access this page.',
         })
-    
     # Define el contexto para la vista
+    profile_teacher = getattr(request.user, 'profile_teacher', None)
     context = {
         'user_role': 'teacher',
-        'teacher_profile': getattr(request.user, 'profile_teacher', None),
+        'teacher_profile': profile_teacher,
         # Agrega aquí más datos relacionados con el rol de "teacher"
+        'teacher_courses': profile_teacher.courses.all()
     }
     return render(request, 'role_management/dashboard_teacher.html', context)
 

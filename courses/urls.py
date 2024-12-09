@@ -24,7 +24,7 @@ urlpatterns = [
     path('courses/<int:course_id>/module/<int:module_id>/lesson/<int:lesson_id>/resource/<int:resource_id>/edit/', resource_course_create_or_update_view, name='resource-update'),
 
     # ----------- Teacher URL patterns --------------
-    path('teacher/courses/', teacher_courses_list_view, name='teacher-courses-list'),
+    #path('teacher/courses/', teacher_courses_list_view, name='teacher-course-list'),
     path('teacher/courses/<int:course_id>/', teacher_course_detail_view, name='teacher-course-detail'),
 
     # ----------- Resources URL patterns --------------

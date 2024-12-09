@@ -24,7 +24,9 @@ def group_required(group_name, redirect_url='/no-permission/'):
     def decorator(view_func):
         def wrapper(request, *args, **kwargs):
             if not request.user.groups.filter(name=group_name).exists():
-                return redirect(redirect_url)
+                return render(request, 'role_management/access_denied.html', {
+                'message': 'You do not have permission to access this page.',
+                })
             return view_func(request, *args, **kwargs)
         return wrapper
     return decorator
@@ -248,7 +250,7 @@ def course_create_or_update_view(request, course_id=None):
 @group_required("teacher")
 def teacher_courses_list_view(request):
     profile_teacher = request.user.profile_teacher
-    return render(request, 'role_management/dashboard_teacher.html', {'profile_teacher': profile_teacher, 'teacher_courses': profile_teacher.courses.all(), 'user_role':'teacher'})
+    return render(request, 'teacher_course_list.html', {'profile_teacher': profile_teacher, 'teacher_courses': profile_teacher.courses.all(), 'user_role':'teacher'})
 
 @login_required
 @group_required("teacher")

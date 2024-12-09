@@ -21,7 +21,7 @@
 
             <div class="col-lg-3">
                 <p class="text-warning">
-                    Welcome teacher, {{ user.first_name|default:"Guest" }} {{ user.first_name|default:" " }}
+                    Welcome teacher, {{ user.first_name|default:"Guest" }} {{ user.last_name|default:" " }}
 
                 </p>
             </div>
@@ -135,7 +135,7 @@
                                     </ul> -->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/courses/courses">My profile</a>
+                                    <a class="nav-link" href="{% url 'teacher_dashboard' %}">My profile</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Resources</a>
@@ -164,7 +164,7 @@
 
                             <li class="nav-item bg-warning p-3">
                                 <a class="nav-link active d-flex flex-column text-center" aria-current="page"
-                                    href="/register"><i class="bi bi-journal-text"></i><span
+                                    href="{% url 'courses:course-create' %}"><i class="bi bi-journal-text"></i><span
                                         class="small">Create Course</span></a>
                             </li>
                             {%if user.is_authenticated%}
@@ -183,6 +183,27 @@
             {%endblock role_menu %}
 
         </div> <!-- row -->
+            <!-- START CENTRAL CONTENT -->
+            <!-- Teacher Courses -->
+            <div class="container">
+                <div class="row g-3">
+                    {% for course in teacher_courses %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow-sm" style="max-width: 300px; height: auto;">
+                            <a href="{% url 'courses:teacher-course-detail' course.id %}"><img src="{{ course.image.url }}" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;"></a>
+                            <div class="card-body">
+                                <a href="{% url 'courses:teacher-course-detail' course.id %}"><h5 class="card-title">{{ course.title }}</h5></a>
+                                <p class="card-text">{{ course.description }}</p>
+                                <a href="#url_activar_desactivar" class="btn btn-primary">Activate</a>
+                                <a href="#url_delete" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- END CENTRAL CONTENT -->
     </div> <!-- container -->
 </div>
 {%endblock navbar  %}
