@@ -130,7 +130,7 @@
 
         <h3 class="text-center mb-3 mt-5">Candidatos por Aplicación Directa</h3>
 
-        {% if direct_applicants %}
+        {% if direct_application_candidates %}
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
@@ -141,7 +141,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for management_candidate in direct_applicants %}
+                    {% for management_candidate in direct_application_candidates %}
                     <tr>
                         <td>{{ management_candidate.candidate.user.username }}</td>
                         <td>{{ management_candidate.status.name }}</td>
