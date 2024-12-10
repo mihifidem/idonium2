@@ -141,7 +141,7 @@ class Resource(models.Model):
     downloadable = models.BooleanField(default=False)
     is_member = models.BooleanField(default=False)
     image = models.ImageField(blank=True, null=True, upload_to='resources_images/')
-    link = models.CharField(max_length=50, blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
     document = models.FileField(blank=True, null=True)
     is_active = models.BooleanField(default=False)
     is_free = models.BooleanField(default=False)

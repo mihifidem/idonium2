@@ -248,6 +248,40 @@ def module_create_or_update_view(request, course_id=None, module_id=None):
     return render(request, 'module_create_update.html', {'form': form, 'course': course, 'module': module})
 
 @login_required
+@group_required('freemium')
+def lesson_detail_view(request, course_id, module_id, lesson_id):
+    course = get_object_or_404(Course, id=course_id)
+    
+    # Comprobar que el módulo pertenece al curso
+    module = get_object_or_404(Module, id=module_id, course=course)
+    
+    # Comprobar que la lección pertenece al módulo
+    lesson = get_object_or_404(
+        Lesson.objects.select_related('module__course').prefetch_related('resources'),
+        id=lesson_id, 
+        module=module
+    )
+    
+    # Opcional: Verificar si el usuario está inscrito en el curso (CourseUser)
+    enrolled = CourseUser.objects.filter(user=request.user, course=course).exists()
+    if not enrolled:
+        messages.error(request, "Debes estar inscrito en este curso para acceder a sus lecciones.")
+        return redirect('courses:course-detail', course_id=course_id)
+    
+    # Obtener recursos relacionados con la lección
+    resources = lesson.resources.all()
+    
+    # Contexto para renderizar la plantilla
+    context = {
+        'course': course,
+        'module': module,
+        'lesson': lesson,
+        'resources': resources,
+    }
+    
+    return render(request, 'lesson_detail.html', context)
+
+@login_required
 @group_required('teacher')
 def lesson_create_or_update_view(request, course_id=None, module_id=None, lesson_id=None):
     # Validar que el curso existe
@@ -324,7 +358,6 @@ def resource_course_create_or_update_view(request, course_id=None, module_id=Non
         'resource': resource
     })
 
-# * | Delete Views |
 @login_required
 @group_required('teacher')
 def module_delete_view(request, course_id, module_id):
@@ -345,21 +378,6 @@ def lesson_delete_view(request, course_id, module_id, lesson_id):
 
     lesson.delete()
     messages.success(request, "La lección se ha eliminado correctamente.")
-    return redirect('courses:teacher-course-detail', course_id=course_id)
-
-@login_required
-@group_required('teacher')
-def resource_course_delete_view(request, course_id, module_id, lesson_id, resource_id):
-    resource = get_object_or_404(
-        Resource, 
-        id=resource_id, 
-        lesson__id=lesson_id, 
-        lesson__module_id=module_id, 
-        lesson__module__course__id=course_id
-    )
-    
-    resource.delete()
-    messages.success(request, "El Recurso se ha eliminado correctamente.")
     return redirect('courses:teacher-course-detail', course_id=course_id)
 
 # * |--------------------------------------------------------------------------
@@ -389,6 +407,21 @@ def resources_list_view(request):
         })
 
     return render(request, 'resources_list.html', {'resources_list': resources_list})
+
+@login_required
+@group_required('teacher')
+def resource_course_delete_view(request, course_id, module_id, lesson_id, resource_id):
+    resource = get_object_or_404(
+        Resource, 
+        id=resource_id, 
+        lesson__id=lesson_id, 
+        lesson__module_id=module_id, 
+        lesson__module__course__id=course_id
+    )
+    
+    resource.delete()
+    messages.success(request, "El Recurso se ha eliminado correctamente.")
+    return redirect('courses:teacher-course-detail', course_id=course_id)
 
 # * |--------------------------------------------------------------------------
 # * | Certificate Views

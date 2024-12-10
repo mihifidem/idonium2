@@ -22,6 +22,7 @@ urlpatterns = [
     path('courses/<int:course_id>/module/<int:module_id>/delete/', module_delete_view, name='module-delete'),       # Delete module
 
     # ----------- Lesson URL patterns --------------
+    path('courses/<int:course_id>/module/<int:module>/lesson/<int:lesson_id>/', lesson_detail_view, name='lesson-detail'),                     # Select/Read lesson
     path('courses/<int:course_id>/module/<int:module_id>/lesson/add/', lesson_create_or_update_view, name='lesson-create'),                    # Create lesson
     path('courses/<int:course_id>/module/<int:module_id>/lesson/<int:lesson_id>/edit/', lesson_create_or_update_view, name='lesson-update'),   # Update lesson
     path('courses/<int:course_id>/module/<int:module_id>/lesson/<int:lesson_id>/delete/', lesson_delete_view, name='lesson-delete'),           # Delete lesson

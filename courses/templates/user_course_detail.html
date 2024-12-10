@@ -113,7 +113,7 @@
                                                     <ul>
                                                         <li><i class="fa fa-file-o"></i></li>
                                                         <li><span class="lecture">Lecture {{ module_counter }}.{{ forloop.counter }}</span></li>
-                                                        <li><span class="head">{{ lesson.name }}</span></li>
+                                                        <li><span class="head"><a href="{% url 'courses:lesson-detail' course.id module.id lesson.id %}">{{ lesson.name }}</a></span></li>
                                                         {% if lesson.duration %}
                                                         <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
                                                         {% else %}
@@ -127,11 +127,11 @@
                                                 <p>{{ lesson.description }}</p>
                                                 <ul>
                                                     <p class="font-weight-bold">Resources:</p>
-                                                {% for resource in lesson.resources.all %}
+                                                    {% for resource in lesson.resources.all %}
                                                     <li>
                                                         <span class="mr-3 mb-3">- {{resource.name}}</span>
                                                     </li>
-                                                {% endfor %}
+                                                    {% endfor %}
                                                 </ul>
                                             </div>
                                         </div>
