@@ -99,7 +99,7 @@
                                         {% endif %}
                                     </ul>
                                     <span>({{course_info.course_reviews_count}} Reviews)</span>
-                                    <a href="{% url 'courses:course-detail' pk=course_info.course.pk %}"><h4>{{course_info.course.title}}</h4></a>
+                                    <a href="{% url 'courses:course-detail' course_info.course.id %}"><h4>{{course_info.course.title}}</h4></a>
                                     <div class="course-teacher">
                                         <div class="thum">
                                             <a href="#"><img src="{{course_info.course.profile_teacher.image.url}}" alt="teacher"></a>

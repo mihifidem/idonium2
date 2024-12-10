@@ -75,53 +75,58 @@ def courses_list_view(request):
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {'page_obj': page_obj, 'total_courses': courses.count()})
 
-def course_detail_view(request, pk, user_id=None):
+def course_detail_view(request, course_id):
     course = get_object_or_404(
         Course.objects.prefetch_related(
             Prefetch("modules__lessons__resources"),
             Prefetch("certificates"),
             Prefetch("reviews")
         ),
-        id=pk
+        id=course_id
     )
 
+    # Calcular estadísticas del curso
     total_lessons = course.modules.aggregate(lesson_count=Count('lessons'))['lesson_count'] or 0
     total_resources = course.modules.aggregate(
         resource_count=Count('lessons__resources')
     )['resource_count'] or 0
 
-    average_rating = course.reviews.all().aggregate(Avg('rating'))['rating__avg']
+    average_rating = course.reviews.aggregate(Avg('rating'))['rating__avg']
     total_duration_minutes = course.modules.aggregate(
         total_duration=Sum('lessons__duration')
     )['total_duration'] or 0
 
+    # Formatear duración
     hours = total_duration_minutes // 60
     minutes = total_duration_minutes % 60
     formatted_duration = f"{hours} hours {minutes} minutes"
 
-    enrolled_user = False
-    if user_id:
-        user = get_object_or_404(User, id=user_id)
-        if user.enrolled_courses.get(course=course) is not None:
-            enrolled_user = True
+    context = {
+        'course': course,
+        'total_lessons': total_lessons,
+        'total_resources': total_resources,
+        'average_rating': average_rating,
+        'formatted_duration': formatted_duration,
+    }
 
-    return render(
-        request,
-        'course_detail.html',
-        {
-            'course': course,
-            'total_lessons': total_lessons,
-            'total_resources': total_resources,
-            'average_rating': average_rating,
-            'formatted_duration': formatted_duration,
-            'enrolled_user': enrolled_user,
-        }
-    )
+    return render(request, 'course_detail.html', context)
 
 @login_required
 def course_user_list_view(request):
     user_courses = request.user.enrolled_courses.all()
     return render(request, 'user_course_list.html', {'user_courses': user_courses})
+
+@login_required
+def course_user_detail_view(request, course_id):
+    course = get_object_or_404(
+        Course.objects.prefetch_related(
+            Prefetch("modules__lessons__resources"),
+            Prefetch("certificates"),
+            Prefetch("reviews")
+        ),
+        id=course_id
+    )
+    return render(request, 'user_course_detail.html', {'course': course})
 
 @login_required
 @group_required('teacher')
@@ -137,7 +142,21 @@ def course_teacher_list_view(request):
 # Course: ---- Enroll User View ----
 @login_required
 def course_enroll_user_view(request, course_id):
-    pass
+    course = get_object_or_404(Course, id=course_id)
+
+    # Verificar si el usuario ya está inscrito
+    if CourseUser.objects.filter(user=request.user, course=course).exists():
+        messages.warning(request, "Ya estás inscrito en este curso.")
+        return redirect("courses:course-user-detail", course_id=course.id)
+
+    # Obtener el estado "inprogress" (asegúrate de que existe en la base de datos)
+    status = get_object_or_404(Status, name="inprogress")
+
+    # Crear la relación CourseUser
+    CourseUser.objects.create(user=request.user, course=course, status=status)
+
+    messages.success(request, "Te has inscrito exitosamente en el curso.")
+    return redirect("courses:course-user-detail", course_id=course.id)
 
 # Course: ---- Create/Update Views ----
 @login_required
