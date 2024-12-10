@@ -24,7 +24,11 @@
                                             <i class="fas fa-link"></i>
                                         </span>
                                     </div>
-                                    {{ form.urlCV }}
+                                    {% if full_urlCV %}
+                                    <input type="text" class="form-control" style="max-width: 300px;" value="{{ full_urlCV }}" readonly>
+                                    {% else %}
+                                    <input type="text" class="form-control" style="max-width: 300px;" value="{{ user_cv.urlCV }}" readonly>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -35,6 +39,7 @@
                         <form method="post" class="needs-validation" novalidate>
                             {% csrf_token %}
 
+                            <input type="hidden" name="initial_urlCV" value="{{ initial_urlCV }}">
                             <!-- Personal Information Section -->
                             <div class="card mb-4">
                                 <div class="card-header bg-light">

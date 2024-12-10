@@ -69,7 +69,7 @@ class Command(BaseCommand):
         for profile in profiles:
             User_cv.objects.create(
                 profile_user=profile,
-                urlCV=faker.unique.url(),
+                urlCV=f"{profile.user.username}{random.randint(1000, 9999)}",
                 template=faker.word(),
                 has_img_profile=faker.boolean(),
                 has_address=faker.boolean(),
@@ -104,7 +104,7 @@ class Command(BaseCommand):
         profiles = Profile_CV.objects.all()
         for profile in profiles:
             for _ in range(random.randint(1, 5)):
-                WorkExperience.objects.create(
+                work_experience = WorkExperience.objects.create(
                     profile_user=profile,
                     job_title=faker.job(),
                     start_date=faker.date(),
@@ -113,13 +113,7 @@ class Command(BaseCommand):
                     company_name=faker.company(),
                     description=faker.text(),
                     achievements=faker.text(),
-                    references=faker.text(),
-                    hard_skills=HardSkillUser.objects.create(
-                        profile_user=profile,
-                        hard_skill=HardSkill.objects.create(name_hard_skill=faker.word()),
-                        description=faker.text(),
-                        level_skill=random.randint(1, 5)
-                    )
+                    references=faker.text()
                 )
 
     def create_academic_educations(self):

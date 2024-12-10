@@ -7,11 +7,9 @@ from .models import *
 from .forms import *
 from django.template.loader import get_template
 from django.contrib.auth.models import User
-from courses.models import Course
-import openai
-from django.conf import settings
 import json
 from django.http import JsonResponse
+# from transformers import pipeline
 
 # * |--------------------------------------------------------------------------
 # * | Home
@@ -563,12 +561,11 @@ def publication_delete(request, publication_id):
 def user_cv_list(request, profile_id):
     profile = get_object_or_404(Profile_CV, id=profile_id)
     user_cv = User_cv.objects.filter(profile_user=profile)
-    return render(request, "user_cv/user_cv_list.html", {"user_cv": user_cv})
+    return render(request, "user_cv/user_cv_list.html", {"user_cv": user_cv, "profile": profile})
 
 #? Función para crear un CV
 def user_cv_create(request, profile_id):
     profile_cv = get_object_or_404(Profile_CV, id=profile_id)
-    user_cv = User_cv.objects.filter(profile_user=profile_cv)
     work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
     academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
     hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
@@ -582,14 +579,19 @@ def user_cv_create(request, profile_id):
     publications = Publication.objects.filter(profile_user=profile_cv)
     recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
 
+    random_numbers = ''.join(random.choices(string.digits, k=4))
+    initial_urlCV = f"{profile_cv.user.username}-{random_numbers}"
+
     if request.method == "POST":
+        print(request.POST)
         form = UserCvForm(request.POST)
         if form.is_valid():
             user_cv = form.save(commit=False)
-            user_cv.profile_user = profile_cv  # Asigna el perfil del usuario
+            user_cv.profile_user = profile_cv
+            user_cv.urlCV = request.POST.get('initial_urlCV')
             user_cv.save()
 
-            # Obtener las experiencias laborales seleccionadas
+            # Guardar relaciones
             selected_experiences = request.POST.getlist('work_experiences')
             for experience_id in selected_experiences:
                 UserCvRelation.objects.create(
@@ -597,7 +599,6 @@ def user_cv_create(request, profile_id):
                     work_experience_id=experience_id
                 )
 
-            # Obtener las educaciones académicas seleccionadas
             selected_academic_educations = request.POST.getlist('academic_educations')
             for education_id in selected_academic_educations:
                 UserCvRelation.objects.create(
@@ -605,7 +606,6 @@ def user_cv_create(request, profile_id):
                     academic_education_id=education_id
                 )
 
-            # Obtener las habilidades duras seleccionadas
             selected_hard_skills = request.POST.getlist('hard_skills')
             for skill_id in selected_hard_skills:
                 UserCvRelation.objects.create(
@@ -613,7 +613,6 @@ def user_cv_create(request, profile_id):
                     hard_skill_id=skill_id
                 )
 
-            # Obtener las habilidades blandas seleccionadas
             selected_soft_skills = request.POST.getlist('soft_skills')
             for skill_id in selected_soft_skills:
                 UserCvRelation.objects.create(
@@ -621,7 +620,6 @@ def user_cv_create(request, profile_id):
                     soft_skill_id=skill_id
                 )
 
-            # Obtener los idiomas seleccionados
             selected_languages = request.POST.getlist('languages')
             for language_id in selected_languages:
                 UserCvRelation.objects.create(
@@ -629,7 +627,6 @@ def user_cv_create(request, profile_id):
                     language_id=language_id
                 )
 
-            # Obtener las categorías seleccionadas
             selected_categories = request.POST.getlist('categories')
             for category_id in selected_categories:
                 UserCvRelation.objects.create(
@@ -637,7 +634,6 @@ def user_cv_create(request, profile_id):
                     category_id=category_id
                 )
 
-            # Obtener los sectores seleccionados
             selected_sectors = request.POST.getlist('sectors')
             for sector_id in selected_sectors:
                 UserCvRelation.objects.create(
@@ -645,7 +641,6 @@ def user_cv_create(request, profile_id):
                     sector_id=sector_id
                 )
 
-            # Obtener las incorporaciones seleccionadas
             selected_incorporations = request.POST.getlist('incorporations')
             for incorporation_id in selected_incorporations:
                 UserCvRelation.objects.create(
@@ -653,7 +648,6 @@ def user_cv_create(request, profile_id):
                     incorporation_id=incorporation_id
                 )
 
-            # Obtener los voluntariados seleccionados
             selected_volunteerings = request.POST.getlist('volunteerings')
             for volunteering_id in selected_volunteerings:
                 UserCvRelation.objects.create(
@@ -661,7 +655,6 @@ def user_cv_create(request, profile_id):
                     volunteering_id=volunteering_id
                 )
 
-            # Obtener los proyectos seleccionados
             selected_projects = request.POST.getlist('projects')
             for project_id in selected_projects:
                 UserCvRelation.objects.create(
@@ -669,7 +662,6 @@ def user_cv_create(request, profile_id):
                     project_id=project_id
                 )
 
-            # Obtener las publicaciones seleccionadas
             selected_publications = request.POST.getlist('publications')
             for publication_id in selected_publications:
                 UserCvRelation.objects.create(
@@ -677,26 +669,15 @@ def user_cv_create(request, profile_id):
                     publication_id=publication_id
                 )
 
-            # Obtener los reconocimientos y premios seleccionados
             selected_recognitions = request.POST.getlist('recognitions_awards')
             for recognition_id in selected_recognitions:
                 UserCvRelation.objects.create(
                     user_cv=user_cv,
                     recognition_award_id=recognition_id
                 )
-            
-            # Obtener cursos
-            # selected_course = request.POST.getlist('course')
-            # for course_id in selected_course:
-            #     UserCvRelation.objects.create(
-            #         user_cv=user_cv,
-            #         course_id=course_id
-            #     )
 
-            return redirect("user_cv_list", profile_id)  # Pasa el profile_id aquí
+            return redirect("user_cv_list", profile_id=profile_id)
     else:
-        random_numbers = ''.join(random.choices(string.digits, k=4))
-        initial_urlCV = f"https://{profile_cv.user.username}-{random_numbers}.com"
         form = UserCvForm(initial={'urlCV': initial_urlCV})
 
     context = {
@@ -715,6 +696,8 @@ def user_cv_create(request, profile_id):
         'publications': publications,
         "courses": profile_cv.user.enrolled_courses.filter(status__name='completed'),
         'recognitions_awards': recognitions_awards,
+        'full_urlCV': f"user_cvs/view/{initial_urlCV}",
+        "initial_urlCV": initial_urlCV
     }
 
     return render(request, "user_cv/user_cv_form.html", context)
@@ -783,6 +766,11 @@ def user_cv_view_details(request, user_cv_id, profile_cv_id):
 
     return render(request, 'user_cv/user_cv_view_details.html', context)
 
+def user_cv_view(request, url):
+    user_cv = get_object_or_404(User_cv, urlCV=url)
+    profile_cv_id = user_cv.profile_user.id
+    return redirect('user_cv_view_details', user_cv_id=user_cv.id, profile_cv_id=profile_cv_id)
+
 def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
     # user_cv = get_object_or_404(User_cv, id=user_cv_id)
     # profile_cv = get_object_or_404(Profile_CV, id=profile_cv_id)
@@ -828,128 +816,126 @@ def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
     pass
 
 def generate_cv_feedback(request, user_cv_id):
-    # Fetch the user's CV
-    user_cv = get_object_or_404(User_cv, id=user_cv_id)
-    profile_cv = get_object_or_404(Profile_CV, id=user_cv.profile_user.id)
+#     # Fetch the user's CV
+#     user_cv = get_object_or_404(User_cv, id=user_cv_id)
+#     profile_cv = get_object_or_404(Profile_CV, id=user_cv.profile_user.id)
     
-    # Extract relevant data
-    cv_data = {
-        "name": f"{profile_cv.user.first_name} {profile_cv.user.last_name}",
-        "biography": user_cv.biography if user_cv.has_biography else profile_cv.biography,
-        "img_profile": profile_cv.img_profile.url if profile_cv.img_profile else None,
-        "img_1_profile": profile_cv.img_1_profile.url if profile_cv.img_1_profile else None,
-        "img_2_profile": profile_cv.img_2_profile.url if profile_cv.img_2_profile else None,
-        "img_3_profile": profile_cv.img_3_profile.url if profile_cv.img_3_profile else None,
-        "img_4_profile": profile_cv.img_4_profile.url if profile_cv.img_4_profile else None,
-        "address": profile_cv.address if user_cv.has_address else None,
-        "phone_1": profile_cv.phone_1 if user_cv.has_phone_1 else None,
-        "phone_2": profile_cv.phone_2 if user_cv.has_phone_2 else None,
-        "email_1": profile_cv.email_1 if user_cv.has_email_1 else None,
-        "email_2": profile_cv.email_2 if user_cv.has_email_2 else None,
-        "dni": profile_cv.dni if user_cv.has_dni else None,
-        "open_to_work": profile_cv.open_to_work if user_cv.has_open_to_work else None,
-        "vehicle": profile_cv.vehicle if user_cv.has_vehicle else None,
-        "disability": profile_cv.disability if user_cv.has_disability else None,
-        "disability_percentage": profile_cv.disability_percentage if user_cv.has_disability_percentage else None,
-        "work_experiences": [
-            {
-                "job_title": exp.job_title,
-                "start_date": exp.start_date,
-                "end_date": exp.end_date,
-                "current_job": exp.current_job,
-                "company_name": exp.company_name,
-                "description": exp.description,
-            }
-            for exp in profile_cv.workexperience_set.all()
-        ],
-        "academic_educations": [
-            {
-                "title": edu.title,
-                "academy_name": edu.academy_name,
-                "start_date": edu.start_date,
-                "end_date": edu.end_date,
-                "current_education": edu.current_education,
-                "references": edu.references,
-            }
-            for edu in profile_cv.academiceducation_set.all()
-        ],
-        "hard_skills": [
-            {
-                "hard_skill": skill.hard_skill.name_hard_skill,
-                "description": skill.description,
-                "level_skill": skill.level_skill,
-            }
-            for skill in profile_cv.hardskilluser_set.all()
-        ],
-        "soft_skills": [
-            {
-                "soft_skill": skill.soft_skill.name_soft_skill,
-                "description": skill.description,
-            }
-            for skill in profile_cv.softskilluser_set.all()
-        ],
-        "languages": [
-            {
-                "language": lang.language.name_language,
-                "level": lang.level.name_level,
-                "certifications": lang.certifications,
-            }
-            for lang in profile_cv.languageuser_set.all()
-        ],
-        "volunteerings": [
-            {
-                "volunteering_position": vol.volunteering_position,
-                "start_date": vol.start_date,
-                "end_date": vol.end_date,
-                "current_volunteering": vol.current_volunteering,
-                "entity_name": vol.entity_name,
-                "description": vol.description,
-                "achievements": vol.achievements,
-                "references": vol.references,
-            }
-            for vol in profile_cv.volunteering_set.all()
-        ],
-        "projects": [
-            {
-                "name": proj.name,
-                "description": proj.description,
-                "link": proj.link,
-            }
-            for proj in profile_cv.project_set.all()
-        ],
-        "publications": [
-            {
-                "doi": pub.doi,
-                "url": pub.url,
-                "role": pub.role,
-                "name": pub.name,
-            }
-            for pub in profile_cv.publication_set.all()
-        ],
-        "recognitions_awards": [
-            {
-                "name": rec.name,
-                "entity": rec.entity,
-                "description": rec.description,
-            }
-            for rec in profile_cv.recognitionaward_set.all()
-        ],
-    }
+#     # Extract relevant data
+#     cv_data = {
+#         "name": f"{profile_cv.user.first_name} {profile_cv.user.last_name}",
+#         "biography": user_cv.biography if user_cv.has_biography else profile_cv.biography,
+#         "img_profile": profile_cv.img_profile.url if profile_cv.img_profile else None,
+#         "img_1_profile": profile_cv.img_1_profile.url if profile_cv.img_1_profile else None,
+#         "img_2_profile": profile_cv.img_2_profile.url if profile_cv.img_2_profile else None,
+#         "img_3_profile": profile_cv.img_3_profile.url if profile_cv.img_3_profile else None,
+#         "img_4_profile": profile_cv.img_4_profile.url if profile_cv.img_4_profile else None,
+#         "address": profile_cv.address if user_cv.has_address else None,
+#         "phone_1": profile_cv.phone_1 if user_cv.has_phone_1 else None,
+#         "phone_2": profile_cv.phone_2 if user_cv.has_phone_2 else None,
+#         "email_1": profile_cv.email_1 if user_cv.has_email_1 else None,
+#         "email_2": profile_cv.email_2 if user_cv.has_email_2 else None,
+#         "dni": profile_cv.dni if user_cv.has_dni else None,
+#         "open_to_work": profile_cv.open_to_work if user_cv.has_open_to_work else None,
+#         "vehicle": profile_cv.vehicle if user_cv.has_vehicle else None,
+#         "disability": profile_cv.disability if user_cv.has_disability else None,
+#         "disability_percentage": profile_cv.disability_percentage if user_cv.has_disability_percentage else None,
+#         "work_experiences": [
+#             {
+#                 "job_title": exp.job_title,
+#                 "start_date": exp.start_date,
+#                 "end_date": exp.end_date,
+#                 "current_job": exp.current_job,
+#                 "company_name": exp.company_name,
+#                 "description": exp.description,
+#             }
+#             for exp in profile_cv.workexperience_set.all()
+#         ],
+#         "academic_educations": [
+#             {
+#                 "title": edu.title,
+#                 "academy_name": edu.academy_name,
+#                 "start_date": edu.start_date,
+#                 "end_date": edu.end_date,
+#                 "current_education": edu.current_education,
+#                 "references": edu.references,
+#             }
+#             for edu in profile_cv.academiceducation_set.all()
+#         ],
+#         "hard_skills": [
+#             {
+#                 "hard_skill": skill.hard_skill.name_hard_skill,
+#                 "description": skill.description,
+#                 "level_skill": skill.level_skill,
+#             }
+#             for skill in profile_cv.hardskilluser_set.all()
+#         ],
+#         "soft_skills": [
+#             {
+#                 "soft_skill": skill.soft_skill.name_soft_skill,
+#                 "description": skill.description,
+#             }
+#             for skill in profile_cv.softskilluser_set.all()
+#         ],
+#         "languages": [
+#             {
+#                 "language": lang.language.name_language,
+#                 "level": lang.level.name_level,
+#                 "certifications": lang.certifications,
+#             }
+#             for lang in profile_cv.languageuser_set.all()
+#         ],
+#         "volunteerings": [
+#             {
+#                 "volunteering_position": vol.volunteering_position,
+#                 "start_date": vol.start_date,
+#                 "end_date": vol.end_date,
+#                 "current_volunteering": vol.current_volunteering,
+#                 "entity_name": vol.entity_name,
+#                 "description": vol.description,
+#                 "achievements": vol.achievements,
+#                 "references": vol.references,
+#             }
+#             for vol in profile_cv.volunteering_set.all()
+#         ],
+#         "projects": [
+#             {
+#                 "name": proj.name,
+#                 "description": proj.description,
+#                 "link": proj.link,
+#             }
+#             for proj in profile_cv.project_set.all()
+#         ],
+#         "publications": [
+#             {
+#                 "doi": pub.doi,
+#                 "url": pub.url,
+#                 "role": pub.role,
+#                 "name": pub.name,
+#             }
+#             for pub in profile_cv.publication_set.all()
+#         ],
+#         "recognitions_awards": [
+#             {
+#                 "name": rec.name,
+#                 "entity": rec.entity,
+#                 "description": rec.description,
+#             }
+#             for rec in profile_cv.recognitionaward_set.all()
+#         ],
+#     }
 
-    # Convert data into a prompt for the AI
-    prompt = f"Analyze the following CV and provide feedback:\n\n{cv_data}"
+#     # Convert data into a prompt for the AI
+#     prompt = f"Analyze the following CV and provide feedback:\n\n{cv_data}"
     
-    # Call OpenAI API for feedback
-    openai.api_key = settings.OPENAI_API_KEY
-    response = openai.ChatCompletion.create(
-        model="o1-preview",
-        messages=[
-            {"role": "system", "content": "You're a virtual human resources assisstant. Analize cv and give tips on  how to improve it."},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.7,
-    )
+#     # Use Hugging Face transformers for text generation
+#     generator = pipeline(
+#         "text-generation",
+#         model="EleutherAI/gpt-neo-1.3B",
+#         framework="pt"  # Force PyTorch framework
+#     )
     
-    feedback = response['choices'][0]['message']['content']
-    
-    return render(request, 'ai_feedback/ai_feedback.html', {'cv_data': cv_data, 'feedback': feedback})
+#     response = generator(prompt, max_length=500, num_return_sequences=1)
+
+#     feedback = response[0]["generated_text"]
+
+    return render(request, 'ai_feedback/ai_feedback.html', {'cv_data': "cv_data", 'feedback': "feedback"})

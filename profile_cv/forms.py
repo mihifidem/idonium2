@@ -279,7 +279,6 @@ class UserCvForm(forms.ModelForm):
     class Meta:
         model = User_cv
         fields = [
-            "urlCV",
             "template",
             "has_img_profile",
             "has_address",

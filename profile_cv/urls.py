@@ -91,5 +91,6 @@ urlpatterns = [
     path('user_cvs/<int:user_cv_id>/<int:profile_cv_id>/', user_cv_view_details, name='user_cv_view_details'),
     path('user_cvs/pdf/<int:user_cv_id>/<int:profile_cv_id>', user_cv_pdf_view, name='user_cv_pdf_view'),
     path('user_cvs/generate-feedback/<int:user_cv_id>/', generate_cv_feedback, name='generate_cv_feedback'),
+    path('user_cvs/view/<str:url>/', user_cv_view, name='user_cv_view'),
 
 ]

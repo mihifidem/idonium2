@@ -28,7 +28,7 @@ class Profile_CV(models.Model):
 # Model to represent a user's CV
 class User_cv(models.Model):
     profile_user = models.ForeignKey(Profile_CV, on_delete=models.CASCADE, blank=True, null=True)  # One-to-one relationship with the User model
-    urlCV = models.URLField(unique=True, blank=True, null=True)  # Optional URL of the user
+    urlCV = models.CharField(unique=True, max_length=255)  # Optional URL of the user
     template = models.CharField(max_length=255)  # Template of the CV
     has_img_profile = models.BooleanField(blank=True, null=True)  # Profile picture
     has_address =  models.BooleanField(blank=True, null=True)  # User's address
