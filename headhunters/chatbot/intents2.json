@@ -1,0 +1,865 @@
+{
+    "intents":[
+    {
+        "tag": "trends_programming_languages",
+        "patterns": [
+            "Cuáles son los lenguajes de programación más demandados",
+            "Dime las tendencias actuales en lenguajes de programación",
+            "Qué lenguajes están en auge",
+            "Háblame de los lenguajes más populares este año"
+        ],
+        "responses": [
+            "Los lenguajes de programación más demandados en 2024 incluyen Python, JavaScript, Java, Go y Rust. Python lidera en inteligencia artificial y análisis de datos, mientras que Rust y Go están creciendo en desarrollo backend. JavaScript sigue dominando el desarrollo web y móvil."
+        ]
+    },
+    {
+        "tag": "html_info",
+        "patterns": [
+            "Qué es HTML",
+            "Para qué sirve HTML",
+            "Es importante aprender HTML",
+            "Dime algo sobre HTML"
+        ],
+        "responses": [
+            "HTML, o HyperText Markup Language, es el lenguaje base para estructurar contenido en la web. Es esencial para crear sitios web y aplicaciones, formando la base junto con CSS y JavaScript."
+        ]
+    },
+    {
+        "tag": "fullstack_info",
+        "patterns": [
+            "Qué lenguajes son importantes para Fullstack",
+            "Cuáles son los lenguajes de programación Fullstack",
+            "Qué tecnologías debe conocer un Fullstack Developer",
+            "Qué hace un desarrollador Fullstack"
+        ],
+        "responses": [
+            "Un desarrollador Fullstack utiliza tecnologías tanto del frontend como del backend. Los lenguajes clave incluyen JavaScript (con frameworks como React y Node.js), Python (con Django o Flask), Ruby (con Ruby on Rails) y Java (con Spring). También es esencial conocer bases de datos como MySQL o MongoDB."
+        ]
+    },
+    {
+        "tag": "python_info",
+        "patterns": [
+            "Dime algo sobre Python",
+            "Por qué es importante Python",
+            "Qué se puede hacer con Python",
+            "Háblame de las ventajas de Python"
+        ],
+        "responses": [
+            "Python es un lenguaje versátil y fácil de aprender. Es ampliamente utilizado en desarrollo web, análisis de datos, aprendizaje automático y scripting. Su comunidad activa y vastas bibliotecas lo convierten en una herramienta clave para muchos proyectos."
+        ]
+    },
+    {
+        "tag": "javascript_info",
+        "patterns": [
+            "Háblame de JavaScript",
+            "Por qué JavaScript es importante",
+            "Qué usos tiene JavaScript",
+            "Cuáles son las ventajas de JavaScript"
+        ],
+        "responses": [
+            "JavaScript es el lenguaje principal para el desarrollo web. Se usa tanto en frontend, con frameworks como React y Angular, como en backend con Node.js. Su flexibilidad lo convierte en un lenguaje indispensable para cualquier desarrollador web."
+        ]
+    },
+    {
+        "tag": "java_info",
+        "patterns": [
+            "Qué es Java",
+            "Para qué sirve Java",
+            "Cuáles son las ventajas de Java",
+            "Dónde se usa Java"
+        ],
+        "responses": [
+            "Java es un lenguaje maduro y robusto utilizado principalmente en aplicaciones empresariales, desarrollo Android y sistemas críticos. Su estabilidad lo hace ideal para proyectos a gran escala en sectores como banca y telecomunicaciones."
+        ]
+    },
+    {
+        "tag": "csharp_info",
+        "patterns": [
+            "Qué es C#",
+            "Para qué se usa C#",
+            "Cuáles son los beneficios de C#",
+            "Dime algo sobre C#"
+        ],
+        "responses": [
+            "C# es un lenguaje desarrollado por Microsoft, muy popular en desarrollo de videojuegos con Unity, aplicaciones de escritorio y servicios web. Es una opción poderosa para crear aplicaciones en el ecosistema de Microsoft."
+        ]
+    },
+    {
+        "tag": "go_info",
+        "patterns": [
+            "Qué es Go",
+            "Por qué Go es popular",
+            "Cuáles son las ventajas de Go",
+            "Dónde se usa Go"
+        ],
+        "responses": [
+            "Go, también conocido como Golang, es un lenguaje eficiente y rápido diseñado para aplicaciones en la nube y sistemas backend. Es popular por su rendimiento y facilidad de uso, siendo adoptado por empresas como Google y Uber."
+        ]
+    },
+    {
+        "tag": "rust_info",
+        "patterns": [
+            "Qué es Rust",
+            "Para qué sirve Rust",
+            "Por qué Rust es importante",
+            "Cuáles son las ventajas de Rust"
+        ],
+        "responses": [
+            "Rust es un lenguaje centrado en la seguridad y el rendimiento. Es ideal para sistemas de bajo nivel, como desarrollo de sistemas operativos y aplicaciones de alta concurrencia. Su creciente adopción lo posiciona como una tecnología clave para el futuro."
+        ]
+    },
+    {
+        "tag": "typescript_info",
+        "patterns": [
+            "Qué es TypeScript",
+            "Por qué TypeScript es mejor que JavaScript",
+            "Cuáles son las ventajas de TypeScript",
+            "Dónde se usa TypeScript"
+        ],
+        "responses": [
+            "TypeScript es un superconjunto de JavaScript que añade tipado estático y herramientas para mejorar la escalabilidad de proyectos grandes. Es ampliamente usado en desarrollo frontend y backend moderno."
+        ]
+    },
+    {
+        "tag": "php_info",
+        "patterns": [
+            "Qué es PHP",
+            "Para qué sirve PHP",
+            "PHP sigue siendo relevante",
+            "Háblame de PHP"
+        ],
+        "responses": [
+            "PHP sigue siendo un lenguaje popular para el desarrollo web, especialmente en sistemas de gestión de contenido como WordPress. Aunque enfrenta competencia, es una opción sólida para proyectos web backend."
+        ]
+    },
+    {
+        "tag": "swift_info",
+        "patterns": [
+            "Qué es Swift",
+            "Para qué sirve Swift",
+            "Cuáles son los beneficios de Swift",
+            "Dónde se usa Swift"
+        ],
+        "responses": [
+            "Swift es el lenguaje principal para desarrollar aplicaciones iOS y macOS. Ofrece un rendimiento rápido y una sintaxis moderna, lo que lo convierte en una excelente opción para el desarrollo en el ecosistema de Apple."
+        ]
+    },
+    {
+        "tag": "kotlin_info",
+        "patterns": [
+            "Qué es Kotlin",
+            "Para qué sirve Kotlin",
+            "Kotlin es mejor que Java",
+            "Dónde se usa Kotlin"
+        ],
+        "responses": [
+            "Kotlin es un lenguaje moderno utilizado principalmente en el desarrollo de aplicaciones Android. Es compatible con Java y ofrece una sintaxis más simple y segura, lo que facilita el desarrollo móvil."
+        ]
+    },
+    {
+        "tag": "trends_skills",
+        "patterns": [
+            "Cuáles son las tendencias actuales en habilidades IT",
+            "Qué habilidades son más demandadas en tecnología",
+            "Qué buscan las empresas en habilidades blandas y técnicas",
+            "Cuáles son las habilidades clave en el sector tecnológico"
+        ],
+        "responses": [
+            "En 2024, las empresas tecnológicas buscan una combinación de habilidades técnicas como experiencia en DevOps, ciberseguridad y análisis de datos, junto con habilidades blandas como resolución de problemas, adaptabilidad y comunicación efectiva. La capacidad de aprendizaje continuo es clave."
+        ]
+    },
+    {
+        "tag": "softskills_info",
+        "patterns": [
+            "Qué son las habilidades blandas",
+            "Qué soft skills son importantes en IT",
+            "Por qué son importantes las habilidades blandas en tecnología",
+            "Dime algo sobre las soft skills en el sector tecnológico"
+        ],
+        "responses": [
+            "Las habilidades blandas son cualidades personales que afectan cómo interactúas y trabajas con otros. En IT, las más valoradas incluyen comunicación efectiva, pensamiento crítico, adaptabilidad, resolución de problemas y trabajo en equipo. Estas habilidades complementan los conocimientos técnicos."
+        ]
+    },
+    {
+        "tag": "hardskills_info",
+        "patterns": [
+            "Qué son las habilidades técnicas",
+            "Qué hard skills son esenciales en IT",
+            "Cuáles son las habilidades técnicas más buscadas",
+            "Dime algo sobre las hard skills en tecnología"
+        ],
+        "responses": [
+            "Las habilidades técnicas son conocimientos específicos y medibles que se adquieren mediante el aprendizaje y la práctica. En IT, incluyen dominio de lenguajes de programación como Python o JavaScript, experiencia con bases de datos, manejo de herramientas de DevOps y ciberseguridad."
+        ]
+    },
+    {
+        "tag": "softskills_trends",
+        "patterns": [
+            "Cuáles son las tendencias en soft skills",
+            "Qué habilidades blandas son más valoradas ahora",
+            "Qué habilidades no técnicas buscan las empresas IT",
+            "Qué soft skills están en auge en tecnología"
+        ],
+        "responses": [
+            "Las tendencias en soft skills para 2024 incluyen liderazgo inclusivo, habilidades de colaboración remota, empatía en la gestión de equipos distribuidos, y comunicación intercultural. La capacidad de trabajar en entornos dinámicos también es crucial."
+        ]
+    },
+    {
+        "tag": "hardskills_trends",
+        "patterns": [
+            "Cuáles son las tendencias en habilidades técnicas",
+            "Qué hard skills son populares ahora",
+            "Qué buscan las empresas en habilidades técnicas",
+            "Dime las hard skills más relevantes en IT"
+        ],
+        "responses": [
+            "Las habilidades técnicas más demandadas incluyen experiencia con inteligencia artificial y aprendizaje automático, dominio de plataformas cloud como AWS o Azure, desarrollo con frameworks modernos como React y Vue.js, y conocimientos avanzados en ciberseguridad."
+        ]
+    },
+    {
+        "tag": "problem_solving",
+        "patterns": [
+            "Qué es la resolución de problemas",
+            "Por qué es importante resolver problemas en IT",
+            "Qué habilidades necesita alguien para resolver problemas",
+            "Háblame de la resolución de problemas en tecnología"
+        ],
+        "responses": [
+            "La resolución de problemas es una habilidad esencial en IT que implica identificar, analizar y solucionar desafíos técnicos o de procesos. Es fundamental para desarrolladores, analistas de datos y roles de soporte técnico, donde se requiere un pensamiento lógico y proactivo."
+        ]
+    },
+    {
+        "tag": "adaptability",
+        "patterns": [
+            "Qué es la adaptabilidad",
+            "Por qué es importante ser adaptable en tecnología",
+            "Qué significa adaptabilidad en IT",
+            "Háblame de la adaptabilidad como soft skill"
+        ],
+        "responses": [
+            "La adaptabilidad es la capacidad de ajustarse rápidamente a cambios y nuevos desafíos. En tecnología, esto incluye aprender herramientas o lenguajes nuevos, manejar entornos dinámicos y trabajar eficientemente en situaciones imprevistas."
+        ]
+    },
+    {
+        "tag": "communication_skills",
+        "patterns": [
+            "Qué son las habilidades de comunicación",
+            "Por qué es importante comunicarse bien en IT",
+            "Cuáles son las habilidades de comunicación clave en tecnología",
+            "Dime algo sobre la comunicación en equipos técnicos"
+        ],
+        "responses": [
+            "Las habilidades de comunicación son esenciales para colaborar en equipos y transmitir ideas técnicas a audiencias no técnicas. Incluyen la capacidad de escuchar activamente, explicar conceptos complejos y redactar documentación clara."
+        ]
+    },
+    {
+        "tag": "collaboration",
+        "patterns": [
+            "Qué es la colaboración",
+            "Por qué es importante la colaboración en IT",
+            "Cuáles son las claves para colaborar efectivamente",
+            "Háblame de la colaboración en equipos de tecnología"
+        ],
+        "responses": [
+            "La colaboración es crucial en IT, especialmente en equipos ágiles o distribuidos. Implica trabajar en conjunto hacia un objetivo común, utilizando herramientas como Slack, Jira y Git para sincronizar esfuerzos."
+        ]
+    },
+    {
+        "tag": "team_leadership",
+        "patterns": [
+            "Qué es el liderazgo en equipos",
+            "Cuáles son las habilidades de liderazgo clave en IT",
+            "Qué habilidades necesita un buen líder técnico",
+            "Por qué es importante el liderazgo en tecnología"
+        ],
+        "responses": [
+            "El liderazgo en equipos de IT implica guiar a un grupo hacia metas técnicas y organizacionales. Las habilidades clave incluyen comunicación, toma de decisiones, mentoría, y la capacidad de inspirar y motivar a otros a superar desafíos técnicos."
+        ]
+    },
+    {
+        "tag": "self_learning",
+        "patterns": [
+            "Por qué es importante el aprendizaje autónomo",
+            "Qué es la autoformación",
+            "Qué habilidades necesitan los autodidactas en IT",
+            "Cuáles son los beneficios del aprendizaje continuo en tecnología"
+        ],
+        "responses": [
+            "El aprendizaje autónomo es esencial en IT debido al ritmo acelerado de la industria. La capacidad de aprender nuevas tecnologías y herramientas de forma independiente permite a los profesionales mantenerse competitivos y relevantes."
+        ]
+    },
+    {
+        "tag": "job_offer_structure",
+        "patterns": [
+            "Cómo estructurar una oferta de trabajo en IT",
+            "Cuál es el formato ideal para una oferta laboral",
+            "Qué secciones debe incluir una oferta de trabajo en tecnología",
+            "Cómo redactar una oferta de trabajo efectiva"
+        ],
+        "responses": [
+            "Una oferta de trabajo en IT debe incluir: 1. Título del puesto, 2. Breve introducción sobre la empresa, 3. Descripción del rol y responsabilidades, 4. Requisitos técnicos y habilidades deseadas, 5. Beneficios y condiciones laborales, y 6. Proceso de aplicación. Cada sección debe ser clara y directa."
+        ]
+    },
+    {
+        "tag": "job_offer_tone",
+        "patterns": [
+            "Qué tono usar en una oferta laboral",
+            "Cómo hacer una oferta de trabajo atractiva",
+            "Qué lenguaje usar al redactar una oferta laboral en IT",
+            "Cómo atraer candidatos con el texto de una oferta"
+        ],
+        "responses": [
+            "El tono de la oferta laboral debe ser profesional pero accesible. Utiliza un lenguaje inclusivo y enfócate en los beneficios para el candidato. Destaca aspectos como la cultura empresarial, el impacto del puesto, y evita jerga excesivamente técnica o corporativa."
+        ]
+    },
+    {
+        "tag": "job_title_tips",
+        "patterns": [
+            "Cómo escribir el título de una oferta laboral",
+            "Qué título poner en una oferta de trabajo",
+            "Cómo nombrar un puesto de trabajo en tecnología",
+            "Dame consejos para el título de un trabajo"
+        ],
+        "responses": [
+            "El título debe ser claro, conciso y descriptivo. Por ejemplo, en lugar de 'Ingeniero IT', usa 'Ingeniero de Software Backend - Python'. Evita abreviaciones confusas y asegúrate de que refleje las responsabilidades principales del rol."
+        ]
+    },
+    {
+        "tag": "job_offer_requirements",
+        "patterns": [
+            "Qué incluir en los requisitos de una oferta laboral",
+            "Cómo listar habilidades en una oferta de trabajo",
+            "Qué poner en la sección de requisitos",
+            "Cómo detallar las habilidades necesarias en un trabajo"
+        ],
+        "responses": [
+            "En la sección de requisitos, divide entre 'Requisitos esenciales' y 'Habilidades deseadas'. Incluye solo las competencias realmente necesarias para el rol. Evita listas extensas y poco realistas, y enfócate en habilidades clave como lenguajes de programación, herramientas específicas y experiencia relevante."
+        ]
+    },
+    {
+        "tag": "job_offer_responsibilities",
+        "patterns": [
+            "Cómo describir las responsabilidades en una oferta",
+            "Qué incluir en la sección de responsabilidades",
+            "Cómo detallar el trabajo en una oferta laboral",
+            "Qué poner en la descripción del puesto"
+        ],
+        "responses": [
+            "Las responsabilidades deben ser claras y específicas. Usa viñetas para facilitar la lectura y describe tareas diarias, proyectos típicos y el impacto esperado del rol. Por ejemplo: 'Desarrollar y mantener aplicaciones backend usando Python y Django.'"
+        ]
+    },
+    {
+        "tag": "job_offer_benefits",
+        "patterns": [
+            "Qué beneficios incluir en una oferta laboral",
+            "Cómo destacar los beneficios en un trabajo",
+            "Qué ventajas buscan los candidatos en IT",
+            "Qué poner en la sección de beneficios de una oferta"
+        ],
+        "responses": [
+            "Incluye beneficios como salario competitivo, flexibilidad laboral (remoto o híbrido), oportunidades de aprendizaje, días de vacaciones adicionales, y herramientas modernas. Resalta aspectos únicos de tu empresa, como una cultura inclusiva o proyectos innovadores."
+        ]
+    },
+    {
+        "tag": "job_offer_common_mistakes",
+        "patterns": [
+            "Errores comunes al redactar una oferta laboral",
+            "Qué evitar en una oferta de trabajo",
+            "Cuáles son los errores típicos en ofertas de IT",
+            "Dame consejos para evitar errores en ofertas laborales"
+        ],
+        "responses": [
+            "Errores comunes incluyen: 1. Listar demasiados requisitos irreales, 2. Usar lenguaje poco claro o jerga técnica excesiva, 3. No destacar beneficios atractivos, 4. Falta de información sobre la empresa, y 5. No mencionar detalles clave como el modelo de trabajo (remoto, híbrido o presencial)."
+        ]
+    },
+    {
+        "tag": "job_offer_inclusivity",
+        "patterns": [
+            "Cómo hacer una oferta laboral inclusiva",
+            "Qué es una oferta de trabajo inclusiva",
+            "Cómo redactar ofertas laborales sin sesgos",
+            "Dame consejos para crear ofertas inclusivas"
+        ],
+        "responses": [
+            "Para una oferta inclusiva: 1. Usa lenguaje neutral y evita términos de género, 2. Resalta el compromiso con la diversidad e inclusión, 3. Evita listas de requisitos irreales que puedan desanimar a ciertos grupos, y 4. Destaca políticas de apoyo como licencias parentales o días de salud mental."
+        ]
+    },
+    {
+        "tag": "job_offer_remote",
+        "patterns": [
+            "Cómo redactar una oferta para trabajo remoto",
+            "Qué poner en una oferta de trabajo remoto",
+            "Consejos para ofertas laborales remotas",
+            "Qué buscan los candidatos en trabajos remotos"
+        ],
+        "responses": [
+            "Para trabajos remotos, destaca la flexibilidad horaria, herramientas de colaboración utilizadas (como Slack, Zoom, Trello), apoyo para home office (equipos, internet), y políticas claras sobre comunicación y entregables. Especifica zonas horarias si aplica."
+        ]
+    },
+    {
+        "tag": "job_offer_trends",
+        "patterns": [
+            "Cuáles son las tendencias en ofertas de trabajo",
+            "Qué buscan los candidatos en 2024",
+            "Cómo atraer talento IT con ofertas laborales",
+            "Cuáles son las tendencias actuales en reclutamiento"
+        ],
+        "responses": [
+            "Las ofertas laborales en 2024 destacan flexibilidad (remoto/híbrido), cultura inclusiva, aprendizaje continuo, y proyectos con impacto. Los candidatos valoran la claridad en los roles, salarios competitivos, y beneficios modernos como días libres adicionales y soporte para salud mental."
+        ]
+    },
+    {
+        "tag": "backend_info",
+        "patterns": [
+            "Qué es el desarrollo backend",
+            "Cuáles son las tareas de un desarrollador backend",
+            "Qué hace un desarrollador backend",
+            "Dime algo sobre los roles de backend en tecnología"
+        ],
+        "responses": [
+            "El desarrollo backend se enfoca en la lógica del servidor, bases de datos, y la arquitectura que permite que las aplicaciones funcionen correctamente. Los desarrolladores backend trabajan con lenguajes como Python, Java, PHP y Node.js, y gestionan bases de datos como MySQL o MongoDB."
+        ]
+    },
+    {
+        "tag": "backend_trends",
+        "patterns": [
+            "Cuáles son las tendencias en backend",
+            "Qué está en auge en el desarrollo backend",
+            "Cuáles son las tecnologías más populares para backend",
+            "Qué buscan las empresas en desarrolladores backend"
+        ],
+        "responses": [
+            "En 2024, las tendencias en backend incluyen el uso de GraphQL para consultas eficientes, lenguajes como Go y Rust para sistemas de alto rendimiento, y arquitecturas serverless en plataformas como AWS Lambda. También hay una creciente demanda de microservicios y DevOps integrados."
+        ]
+    },
+    {
+        "tag": "frontend_info",
+        "patterns": [
+            "Qué es el desarrollo frontend",
+            "Cuáles son las tareas de un desarrollador frontend",
+            "Qué hace un desarrollador frontend",
+            "Dime algo sobre los roles de frontend en tecnología"
+        ],
+        "responses": [
+            "El desarrollo frontend se enfoca en la interfaz de usuario (UI) y la experiencia del usuario (UX). Los desarrolladores frontend trabajan con lenguajes como HTML, CSS y JavaScript, utilizando frameworks como React, Angular o Vue.js para crear interfaces atractivas y funcionales."
+        ]
+    },
+    {
+        "tag": "frontend_trends",
+        "patterns": [
+            "Cuáles son las tendencias en frontend",
+            "Qué está en auge en el desarrollo frontend",
+            "Cuáles son las tecnologías más populares para frontend",
+            "Qué buscan las empresas en desarrolladores frontend"
+        ],
+        "responses": [
+            "En frontend, las tendencias incluyen el uso de frameworks como Svelte, el diseño responsivo avanzado, y la optimización del rendimiento web mediante técnicas como lazy loading y edge computing. También hay un enfoque creciente en accesibilidad y desarrollo mobile-first."
+        ]
+    },
+    {
+        "tag": "fullstack_info",
+        "patterns": [
+            "Qué es un desarrollador fullstack",
+            "Cuáles son las tareas de un desarrollador fullstack",
+            "Qué habilidades tiene un desarrollador fullstack",
+            "Dime algo sobre los roles de fullstack en tecnología"
+        ],
+        "responses": [
+            "Un desarrollador fullstack es capaz de trabajar tanto en el frontend como en el backend de una aplicación. Domina tecnologías como HTML, CSS, y frameworks de JavaScript para el frontend, y lenguajes como Node.js, Python o Ruby para el backend, junto con bases de datos como PostgreSQL o MongoDB."
+        ]
+    },
+    {
+        "tag": "fullstack_trends",
+        "patterns": [
+            "Cuáles son las tendencias en desarrollo fullstack",
+            "Qué buscan las empresas en desarrolladores fullstack",
+            "Qué está en auge en desarrollo fullstack",
+            "Cuáles son las tecnologías más populares para fullstack"
+        ],
+        "responses": [
+            "En 2024, las tendencias en desarrollo fullstack incluyen el uso de stacks modernos como MERN (MongoDB, Express, React, Node.js) y JAMstack (JavaScript, APIs, Markup). También se valora la experiencia con GraphQL, TypeScript y frameworks para microservicios."
+        ]
+    },
+    {
+        "tag": "backend_skills",
+        "patterns": [
+            "Qué habilidades necesita un desarrollador backend",
+            "Qué debe saber un backend developer",
+            "Cuáles son las competencias clave para un desarrollador backend",
+            "Qué se espera de un desarrollador backend"
+        ],
+        "responses": [
+            "Un desarrollador backend debe dominar lenguajes como Python, Java o Node.js, tener experiencia con bases de datos relacionales y no relacionales, conocer APIs REST y GraphQL, y tener habilidades en gestión de servidores y herramientas como Docker y Kubernetes."
+        ]
+    },
+    {
+        "tag": "frontend_skills",
+        "patterns": [
+            "Qué habilidades necesita un desarrollador frontend",
+            "Qué debe saber un frontend developer",
+            "Cuáles son las competencias clave para un desarrollador frontend",
+            "Qué se espera de un desarrollador frontend"
+        ],
+        "responses": [
+            "Un desarrollador frontend debe manejar lenguajes como HTML, CSS, y JavaScript, tener experiencia con frameworks como React o Angular, entender principios de diseño UX/UI, y estar familiarizado con herramientas de control de versiones como Git."
+        ]
+    },
+    {
+        "tag": "fullstack_skills",
+        "patterns": [
+            "Qué habilidades necesita un desarrollador fullstack",
+            "Qué debe saber un fullstack developer",
+            "Cuáles son las competencias clave para un desarrollador fullstack",
+            "Qué se espera de un desarrollador fullstack"
+        ],
+        "responses": [
+            "Un desarrollador fullstack debe manejar tecnologías tanto de frontend como de backend. Esto incluye HTML, CSS, JavaScript, frameworks como React o Vue.js, lenguajes backend como Python o Node.js, y bases de datos como PostgreSQL o MongoDB. También se valora la experiencia con DevOps y herramientas de despliegue."
+        ]
+    },
+    {
+        "tag": "greeting_general",
+        "patterns": [
+            "Hola",
+            "Hola chatbot",
+            "Buenas",
+            "Qué tal",
+            "Hi",
+            "Hello",
+            "Hey",
+            "Buenos días",
+            "Buenas tardes",
+            "Buenas noches"
+        ],
+        "responses": [
+            "¡Hola! ¿En qué puedo ayudarte hoy?",
+            "¡Buenas! ¿Cómo puedo asistirte?",
+            "Hola, espero que estés teniendo un buen día. ¿En qué te puedo ayudar?",
+            "¡Saludos! Estoy aquí para resolver tus dudas. ¿Qué necesitas?"
+        ]
+    },
+    {
+        "tag": "greeting_followup",
+        "patterns": [
+            "Cómo estás",
+            "Qué tal estás",
+            "Cómo va",
+            "Cómo te encuentras",
+            "Qué tal todo"
+        ],
+        "responses": [
+            "¡Estoy genial! Siempre listo para ayudarte. ¿Qué necesitas?",
+            "¡Todo en orden! Gracias por preguntar. ¿En qué puedo asistirte?",
+            "Estoy aquí para ayudarte con cualquier duda que tengas. ¿Cómo puedo empezar?"
+        ]
+    },
+    {
+        "tag": "farewell_general",
+        "patterns": [
+            "Adiós",
+            "Hasta luego",
+            "Nos vemos",
+            "Bye",
+            "Chao",
+            "Gracias, eso es todo",
+            "Me voy",
+            "Eso sería todo"
+        ],
+        "responses": [
+            "¡Adiós! No dudes en volver si tienes más preguntas.",
+            "¡Hasta luego! Que tengas un excelente día.",
+            "¡Nos vemos pronto! Estoy aquí para ayudarte siempre que lo necesites.",
+            "Gracias por visitarme. ¡Buena suerte con todo!"
+        ]
+    },
+    {
+        "tag": "farewell_night",
+        "patterns": [
+            "Buenas noches",
+            "Hasta mañana",
+            "Me voy a dormir",
+            "Nos vemos mañana",
+            "Es todo por hoy"
+        ],
+        "responses": [
+            "¡Buenas noches! Descansa y vuelve cuando necesites ayuda.",
+            "Hasta mañana. Espero que tengas un buen descanso.",
+            "¡Que tengas una excelente noche! Nos vemos pronto."
+        ]
+    },
+    {
+        "tag": "thanks",
+        "patterns": [
+            "Gracias",
+            "Muchas gracias",
+            "Te lo agradezco",
+            "Eres muy útil",
+            "Muy amable, gracias"
+        ],
+        "responses": [
+            "¡De nada! Estoy aquí para ayudarte siempre.",
+            "Es un placer ayudarte. Si necesitas algo más, no dudes en decírmelo.",
+            "Gracias a ti por usarme. ¡Buena suerte con todo!"
+        ]
+    },
+    {
+        "tag": "greeting_with_intent",
+        "patterns": [
+            "Hola, tengo una pregunta",
+            "Buenas, necesito ayuda",
+            "Hola chatbot, ¿puedes ayudarme?",
+            "Buenas tardes, tengo una duda",
+            "Hola, estoy buscando información"
+        ],
+        "responses": [
+            "¡Hola! Claro, dime tu pregunta y haré lo posible por ayudarte.",
+            "¡Buenas! Estoy aquí para resolver tus dudas. ¿Qué necesitas?",
+            "Hola, cuéntame cómo puedo asistirte.",
+            "¡Saludos! Estoy listo para ayudarte. ¿En qué puedo ser útil?"
+        ]
+    },
+    {
+        "tag": "farewell_with_thanks",
+        "patterns": [
+            "Gracias por tu ayuda, adiós",
+            "Muchas gracias, hasta luego",
+            "Eso es todo, gracias",
+            "Gracias, nos vemos"
+        ],
+        "responses": [
+            "¡De nada! Hasta luego, vuelve cuando necesites más ayuda.",
+            "Es un placer ayudarte. ¡Nos vemos pronto!",
+            "Gracias a ti. ¡Que tengas un excelente día!",
+            "¡Hasta luego! No dudes en regresar si tienes más preguntas."
+        ]
+    },{
+        "tag": "preparation_tips",
+        "patterns": [
+            "Cómo prepararme para una entrevista",
+            "Qué debo hacer antes de una entrevista",
+            "Consejos para preparar una entrevista",
+            "Cómo organizarme antes de entrevistar a un candidato"
+        ],
+        "responses": [
+            "Antes de una entrevista, revisa el currículum del candidato y anota preguntas específicas sobre su experiencia. Asegúrate de tener claras las competencias necesarias para el puesto y prepara una lista de preguntas técnicas y de comportamiento relevantes. También considera coordinarte con otros miembros del equipo para cubrir diferentes áreas."
+        ]
+    },
+    {
+        "tag": "technical_interview",
+        "patterns": [
+            "Cómo hacer preguntas técnicas",
+            "Qué preguntar en una entrevista técnica",
+            "Consejos para entrevistas técnicas",
+            "Cómo evaluar habilidades técnicas en una entrevista"
+        ],
+        "responses": [
+            "Para una entrevista técnica, utiliza problemas prácticos que reflejen tareas reales del puesto, como escribir o analizar código. Pregunta sobre cómo resolvieron problemas en el pasado y evalúa su proceso de pensamiento. Usa plataformas como HackerRank o Codility para pruebas técnicas en línea si es necesario."
+        ]
+    },
+    {
+        "tag": "behavioral_interview",
+        "patterns": [
+            "Qué preguntar en una entrevista de comportamiento",
+            "Cómo evaluar habilidades blandas",
+            "Qué son las preguntas STAR",
+            "Consejos para preguntas de comportamiento"
+        ],
+        "responses": [
+            "En entrevistas de comportamiento, usa el método STAR (Situación, Tarea, Acción, Resultado) para que el candidato explique ejemplos concretos de su experiencia. Pregunta sobre cómo manejaron desafíos, trabajaron en equipo o resolvieron conflictos en el pasado."
+        ]
+    },
+    {
+        "tag": "remote_interview_tips",
+        "patterns": [
+            "Consejos para entrevistas remotas",
+            "Cómo hacer entrevistas por videollamada",
+            "Qué tener en cuenta en entrevistas online",
+            "Cómo entrevistar a distancia"
+        ],
+        "responses": [
+            "En entrevistas remotas, asegúrate de tener una conexión estable y utiliza una plataforma confiable como Zoom o Teams. Comparte el enlace con antelación y confirma horarios según la zona horaria del candidato. Sé claro con las expectativas y mantén la conversación profesional pero amigable."
+        ]
+    },
+    {
+        "tag": "avoiding_bias",
+        "patterns": [
+            "Cómo evitar prejuicios en entrevistas",
+            "Consejos para entrevistas imparciales",
+            "Cómo ser objetivo en una entrevista",
+            "Qué hacer para reducir sesgos en entrevistas"
+        ],
+        "responses": [
+            "Para evitar prejuicios, utiliza una lista estándar de preguntas para todos los candidatos y evalúa las respuestas según criterios predefinidos. Concéntrate en las habilidades y experiencia demostrables, y evita preguntas irrelevantes que puedan llevar a juicios subjetivos."
+        ]
+    },
+    {
+        "tag": "red_flags",
+        "patterns": [
+            "Cómo identificar banderas rojas en una entrevista",
+            "Qué señales negativas buscar en una entrevista",
+            "Cómo saber si un candidato no es adecuado",
+            "Qué cosas indican problemas con un candidato"
+        ],
+        "responses": [
+            "Presta atención a señales como falta de preparación, respuestas evasivas o inconsistentes, y dificultad para explicar experiencias pasadas. También observa la actitud: una falta de interés o negatividad hacia roles anteriores puede ser una bandera roja."
+        ]
+    },
+    {
+        "tag": "cultural_fit",
+        "patterns": [
+            "Cómo evaluar el encaje cultural",
+            "Qué preguntar sobre valores en una entrevista",
+            "Cómo saber si un candidato encaja en la empresa",
+            "Consejos para evaluar encaje cultural"
+        ],
+        "responses": [
+            "Para evaluar el encaje cultural, pregunta sobre los valores del candidato y cómo se alinean con los de la empresa. Usa preguntas como: '¿Qué tipo de ambiente de trabajo prefieres?' o '¿Qué te motiva en tu día a día?'. Observa si sus respuestas reflejan compatibilidad con la cultura de tu organización."
+        ]
+    },
+    {
+        "tag": "follow_up",
+        "patterns": [
+            "Qué hacer después de una entrevista",
+            "Cómo hacer un seguimiento tras una entrevista",
+            "Consejos para el post-entrevista",
+            "Cómo cerrar el proceso de entrevista"
+        ],
+        "responses": [
+            "Después de la entrevista, toma notas detalladas de las respuestas del candidato y compártelas con el equipo de selección. Agradece al candidato por su tiempo y comunica los próximos pasos del proceso. Si el candidato no es seleccionado, ofrece feedback constructivo cuando sea posible."
+        ]
+    },
+    {
+        "tag": "common_mistakes",
+        "patterns": [
+            "Errores comunes en entrevistas",
+            "Qué evitar al entrevistar",
+            "Consejos para no cometer errores en entrevistas",
+            "Cuáles son los errores más comunes en entrevistas"
+        ],
+        "responses": [
+            "Errores comunes incluyen no prepararse adecuadamente, hacer preguntas poco relevantes, interrumpir al candidato, o permitir que los prejuicios influyan en la evaluación. Siempre sé profesional, objetivo y asegúrate de que el candidato tenga una experiencia positiva."
+        ]
+    },
+    {
+        "tag": "creative_questions",
+        "patterns": [
+            "Qué preguntas creativas hacer en una entrevista",
+            "Cómo hacer preguntas diferentes en entrevistas",
+            "Ideas para preguntas originales en entrevistas",
+            "Ejemplos de preguntas fuera de lo común"
+        ],
+        "responses": [
+            "Puedes usar preguntas como 'Si tuvieras que explicar tu trabajo a un niño, ¿cómo lo harías?' o '¿Qué proyecto personal te enorgullece más y por qué?'. Estas preguntas ayudan a evaluar creatividad, comunicación y pasión del candidato."
+        ]
+    },
+    {
+        "tag": "salary_ranges",
+        "patterns": [
+            "Cuál es el salario promedio para un desarrollador de software",
+            "Cuánto gana un ingeniero de software",
+            "Salarios para roles de backend en tecnología",
+            "Cuál es el rango salarial para un fullstack developer",
+            "Qué salario tiene un ingeniero de ciberseguridad",
+            "Cuál es el salario medio en TI",
+            "Cuánto cobra un programador junior",
+            "Qué salario puedo ofrecer a un desarrollador",
+            "Cuál es el salario de un arquitecto de soluciones"
+        ],
+        "responses": [
+            "El salario promedio de un desarrollador de software varía según la experiencia y la ubicación. En general, en Europa el rango va de los 30,000 a los 80,000 EUR anuales. En EE. UU., puede oscilar entre los 60,000 y 120,000 USD al año, dependiendo del nivel de experiencia y el tipo de empresa.",
+            "Los ingenieros de software suelen ganar entre 50,000 y 120,000 USD al año en los EE. UU., dependiendo de su experiencia. En Europa, los salarios varían entre 40,000 y 85,000 EUR anuales.",
+            "El salario de un backend developer puede variar entre 40,000 y 100,000 EUR anuales en Europa, y entre 70,000 y 150,000 USD en EE. UU., dependiendo de la experiencia y la empresa.",
+            "Los desarrolladores fullstack en Europa tienen un salario medio de entre 45,000 y 90,000 EUR, mientras que en EE. UU., este rango puede estar entre 70,000 y 130,000 USD.",
+            "El salario de un ingeniero de ciberseguridad está entre 60,000 y 120,000 USD en EE. UU. y entre 50,000 y 95,000 EUR en Europa.",
+            "En el sector TI, los salarios varían considerablemente según el rol, la región y el nivel de experiencia, pero los rangos suelen estar entre 40,000 EUR y 100,000 EUR en Europa y entre 60,000 USD y 120,000 USD en EE. UU.",
+            "Un programador junior puede ganar entre 30,000 y 50,000 USD anuales en EE. UU. y entre 25,000 y 40,000 EUR en Europa, dependiendo de la región y el mercado.",
+            "El salario para un desarrollador puede variar según la especialización y la experiencia, pero en general, el salario de un desarrollador junior oscila entre 25,000 y 45,000 EUR anuales en Europa.",
+            "Un arquitecto de soluciones puede tener un salario de entre 75,000 y 140,000 USD en EE. UU. y entre 60,000 y 120,000 EUR en Europa."
+        ]
+    },
+    {
+        "tag": "benefits",
+        "patterns": [
+            "Qué beneficios ofrecer a un desarrollador",
+            "Qué beneficios son comunes en una empresa de tecnología",
+            "Beneficios laborales para profesionales de TI",
+            "Qué beneficios incluyen las empresas de software",
+            "Cuáles son los beneficios más comunes en el sector tecnológico"
+        ],
+        "responses": [
+            "Los beneficios comunes en las empresas tecnológicas incluyen seguro de salud, opciones de trabajo remoto, programas de bienestar, bonos de desempeño, tiempo libre remunerado y oportunidades de formación continua. Algunas empresas también ofrecen opciones sobre acciones o stock options.",
+            "Las empresas de tecnología suelen ofrecer beneficios como seguros de salud, acceso a gimnasios o programas de bienestar, formación profesional, días libres adicionales, y la posibilidad de trabajar de forma remota o flexible.",
+            "Los beneficios más comunes para profesionales de TI incluyen seguro médico, plan de pensiones, vacaciones pagadas, reembolsos por cursos de formación, y programas de desarrollo profesional.",
+            "Las empresas de software también pueden ofrecer beneficios como stock options, bonos de rendimiento, programas de mentoring o coaching, y un ambiente de trabajo relajado o flexible."
+        ]
+    },
+    {
+        "tag": "work_conditions",
+        "patterns": [
+            "Cómo debería ser un buen ambiente de trabajo",
+            "Qué condiciones laborales son importantes para los programadores",
+            "Qué buscar en las condiciones de trabajo de una empresa de TI",
+            "Qué factores son importantes en un entorno de trabajo para desarrolladores",
+            "Qué es importante a la hora de contratar en el sector tecnológico"
+        ],
+        "responses": [
+            "Un buen ambiente de trabajo debe incluir una cultura inclusiva, la posibilidad de trabajar en equipo, y el equilibrio entre la vida personal y profesional. Además, las empresas deben ofrecer herramientas adecuadas, espacios de trabajo cómodos y oportunidades de desarrollo profesional.",
+            "Las condiciones laborales importantes para los programadores incluyen un ambiente colaborativo, flexibilidad horaria, la opción de trabajo remoto, y la posibilidad de seguir aprendiendo a través de cursos, workshops o conferencias.",
+            "Es fundamental que las empresas de TI ofrezcan un entorno que fomente la innovación, la colaboración, la autonomía y el bienestar del empleado. Un salario competitivo, el acceso a recursos tecnológicos y oportunidades de crecimiento son factores clave.",
+            "En un entorno de trabajo para desarrolladores, es importante contar con recursos tecnológicos adecuados, herramientas de colaboración efectivas y una política de desarrollo profesional continua. Además, las empresas deben fomentar la diversidad y la inclusión."
+        ]
+    },
+    {
+        "tag": "contract_types",
+        "patterns": [
+            "Qué tipo de contratos se ofrecen a los desarrolladores",
+            "Qué tipos de contrato son comunes en el sector tecnológico",
+            "Cuáles son los diferentes tipos de contratos laborales en tecnología",
+            "Contrato temporal o indefinido, cuál es mejor para un programador",
+            "Qué contrato debe tener un desarrollador de software"
+        ],
+        "responses": [
+            "En el sector tecnológico, los contratos más comunes son el contrato indefinido, temporal, de autónomo o freelance. El contrato indefinido suele ser preferido por los empleados, ya que ofrece estabilidad laboral, mientras que los contratos temporales son más flexibles.",
+            "Los contratos más comunes en tecnología son el contrato indefinido, que otorga seguridad y beneficios a largo plazo, y el contrato freelance o autónomo, que ofrece más flexibilidad pero sin los beneficios adicionales.",
+            "El contrato temporal es común para roles a corto plazo o proyectos específicos, mientras que el contrato indefinido es el estándar para la mayoría de los roles permanentes. Los contratos freelance permiten a los desarrolladores trabajar de forma independiente, pero a menudo carecen de beneficios.",
+            "La decisión entre contrato temporal o indefinido depende de la estabilidad que busque el candidato. Los contratos indefinidos ofrecen beneficios a largo plazo, mientras que los contratos temporales o freelance ofrecen mayor flexibilidad."
+        ]
+    },
+    {
+        "tag": "salary_negotiation",
+        "patterns": [
+            "Cómo negociar el salario con un candidato",
+            "Consejos para negociar el salario con un programador",
+            "Qué hacer cuando el salario no es suficiente para el candidato",
+            "Cómo presentar una oferta salarial atractiva",
+            "Qué factores considerar al negociar un salario"
+        ],
+        "responses": [
+            "Al negociar el salario, asegúrate de conocer el mercado y los rangos salariales comunes para el puesto. También es importante destacar los beneficios adicionales como seguro médico, vacaciones, y oportunidades de formación. Escucha las expectativas del candidato y ofrece un paquete que sea atractivo tanto en salario como en beneficios.",
+            "Para negociar el salario, empieza presentando una oferta competitiva basada en el mercado y la experiencia del candidato. Asegúrate de comunicar claramente los beneficios adicionales que ofrece la empresa, como trabajo remoto o flexibilidad horaria, que pueden ser atractivos.",
+            "Cuando el salario no es suficiente, explora otros beneficios como bonos, oportunidades de crecimiento profesional, o mejoras en las condiciones laborales. Es importante mostrar al candidato que valoras su experiencia y habilidades.",
+            "Al presentar una oferta salarial, ten en cuenta no solo el salario base, sino también otros aspectos como el lugar de trabajo, la cultura empresarial, y las oportunidades de crecimiento. Una oferta bien equilibrada puede ser más atractiva que un salario alto solo."
+        ]
+    },
+    {
+        "tag": "salary_expectations",
+        "patterns": [
+            "Qué salario debería esperar un candidato a un puesto de software",
+            "Cómo saber si el salario que ofrezco es adecuado",
+            "Cómo preguntar sobre expectativas salariales en una entrevista",
+            "Qué preguntar sobre salario a un candidato",
+            "Cuánto debería pagar por un programador junior"
+        ],
+        "responses": [
+            "Las expectativas salariales de un candidato pueden variar dependiendo de su experiencia, habilidades y ubicación. Asegúrate de preguntar sobre sus expectativas salariales durante la entrevista y compáralas con los rangos del mercado para determinar si es adecuado.",
+            "El salario que ofrezcas debe basarse en el nivel de experiencia del candidato y el mercado. Haz una investigación previa sobre los salarios promedio para el puesto y ajusta la oferta según las habilidades y la ubicación del candidato.",
+            "Para conocer las expectativas salariales de un candidato, es mejor hacer preguntas abiertas como '¿Qué rango salarial esperas para este rol?' o '¿Qué salario consideras justo para tus habilidades y experiencia?'",
+            "Un programador junior en tecnología suele esperar entre 25,000 y 45,000 EUR o USD anuales, dependiendo de la ubicación. Si estás ofreciendo menos, asegúrate de compensarlo con beneficios atractivos como la flexibilidad o la formación."
+        ]
+    }
+    
+
+
+]
+
+
+}

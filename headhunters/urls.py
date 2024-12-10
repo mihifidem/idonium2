@@ -8,12 +8,13 @@ from .views import (
     LandingHeadHuntersView,ManageCandidatesView,
     CreateOfferFromSelectedView,
     AddToExistingOfferView,
-    DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView
-    
-)
+    DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView,)
+from .views.chatbot_views import ChatbotView
 
 
 urlpatterns = [
+    
+    
     path('joboffers/', JobOfferListView.as_view(), name='joboffer_list'),
     path('joboffers/<int:pk>/', JobOfferDetailView.as_view(), name='joboffer_detail'),
     path('joboffers/create/', JobOfferCreateView.as_view(), name='joboffer_create'),
@@ -46,7 +47,9 @@ urlpatterns = [
       path('candidate/<int:pk>/delete/', DeleteCandidateView.as_view(), name='delete_candidate'),
       path('wishlist/', WishListView.as_view(), name='wishlist'),
       path('wishlist/add/<int:job_offer_id>/', AddToWishListView.as_view(), name='add_to_wishlist'),
-      path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),     
+      path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),  
+
+      path('chatbot/', ChatbotView.as_view(), name='chatbot_view'),   
    
 ]
 
