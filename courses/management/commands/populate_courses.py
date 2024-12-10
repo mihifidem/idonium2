@@ -21,7 +21,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         Group.objects.create(name='teacher')
         Group.objects.create(name='headhunter')
-        Group.objects.create(name='member1')
+        Group.objects.create(name='freemium')
         Status.objects.create(name='completed', description='Completed')
         Status.objects.create(name='inprogress', description='In Progress')
         WishListType.objects.create(name="Course")

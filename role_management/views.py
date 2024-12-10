@@ -99,17 +99,7 @@ def premium_chat(request):
 
 @login_required
 def teacher_dashboard(request):
-    # Verifica que el usuario tenga el rol de "teacher"
-    if not request.user.groups.filter(name="teacher").exists():
-        # Si el usuario no es un "teacher", redirige o muestra un mensaje de error
-        return render(request, 'role_management/access_denied.html', {
-            'message': 'You do not have permission to access this page.',
-        })
-
-    context = {
-        'user_role': 'teacher',
-    }
-    return redirect(request, 'role_management/dashboard_teacher.html', context)
+    return redirect('courses:teacher-course-list')
 
 @login_required
 def headhunter_dashboard(request):

@@ -76,7 +76,6 @@ def courses_list_view(request):
     return render(request, 'courses_list.html', {'page_obj': page_obj, 'total_courses': courses.count()})
 
 def course_detail_view(request, pk, user_id=None):
-    # Obtener el curso
     course = get_object_or_404(
         Course.objects.prefetch_related(
             Prefetch("modules__lessons__resources"),
@@ -91,13 +90,11 @@ def course_detail_view(request, pk, user_id=None):
         resource_count=Count('lessons__resources')
     )['resource_count'] or 0
 
-    # Contar las reseñas y calcular la puntuación promedio
     average_rating = course.reviews.all().aggregate(Avg('rating'))['rating__avg']
     total_duration_minutes = course.modules.aggregate(
         total_duration=Sum('lessons__duration')
     )['total_duration'] or 0
 
-    # Convertir la duración total a horas y minutos
     hours = total_duration_minutes // 60
     minutes = total_duration_minutes % 60
     formatted_duration = f"{hours} hours {minutes} minutes"
@@ -129,8 +126,13 @@ def course_user_list_view(request):
 @login_required
 @group_required('teacher')
 def course_teacher_list_view(request):
-    teacher_courses = request.user.profile_teacher.courses.all()
-    return render(request, 'teacher_course_list.html', {'teacher_courses': teacher_courses})
+    profile_teacher = getattr(request.user, 'profile_teacher', None)
+    context = {
+        'user_role': 'teacher',
+        'profile_teacher': profile_teacher,
+        'teacher_courses': profile_teacher.courses.all()
+    }
+    return render(request, 'teacher_course_list.html', context)
 
 # Course: ---- Enroll User View ----
 @login_required
