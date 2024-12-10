@@ -368,53 +368,53 @@
 <!-- Chatbot -->
 <button id="chat-button" class="chat-button" title="CV Assistant">
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
-      width="30"
-      height="30"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="5 5 90 70"
+    width="60"
+    height="60"
     >
-      <!-- Robot head -->
-      <rect x="25" y="20" width="50" height="45" rx="5" fill="#0d6efd" />
-      <!-- Eyes -->
-      <circle cx="40" cy="40" r="5" fill="white" />
-      <circle cx="60" cy="40" r="5" fill="white" />
-      <circle cx="40" cy="40" r="2" fill="#333" />
-      <circle cx="60" cy="40" r="2" fill="#333" />
-      <!-- Smile -->
-      <path
-        d="M 40 50 Q 50 60 60 50"
-        stroke="white"
-        fill="none"
-        stroke-width="2"
-      />
-      <!-- Antenna -->
-      <line x1="50" y1="20" x2="50" y2="10" stroke="#0d6efd" stroke-width="3" />
-      <circle cx="50" cy="8" r="3" fill="#0d6efd" />
+    <!-- Robot head -->
+    <rect x="25" y="20" width="50" height="45" rx="5" fill="#FFC600" />
+    <!-- Eyes -->
+    <circle cx="40" cy="40" r="5" fill="white" />
+    <circle cx="60" cy="40" r="5" fill="white" />
+    <circle cx="40" cy="40" r="2" fill="#333" />
+    <circle cx="60" cy="40" r="2" fill="#333" />
+    <!-- Smile -->
+    <path
+    d="M 40 50 Q 50 60 60 50"
+    stroke="white"
+    fill="none"
+    stroke-width="2"
+    />
+    <!-- Antenna -->
+    <line x1="50" y1="20" x2="50" y2="10" stroke="#FFC600" stroke-width="3" />
+    <circle cx="50" cy="8" r="3" fill="#FFC600" />
     </svg>
-  </button>
-  
-  <div id="chat-window" class="chat-window">
+    </button>
+    
+    <div id="chat-window" class="chat-window">
     <div class="chat-header">
-      <span><i class="fas fa-robot mr-2"></i>CV Assistant</span>
-      <button
-        id="close-chat"
-        class="btn btn-close btn-close-white"
-        aria-label="Close"
-      ></button>
+    <span><i class="fas fa-robot mr-2"></i> CV Assistant</span>
+    <button
+    id="close-chat"
+    class="btn btn-close btn-close-white"
+    aria-label="Close"
+    ></button>
     </div>
     <div id="chat-messages" class="chat-messages"></div>
     <div class="chat-input">
-      <form id="chat-form" class="d-flex gap-2">
-        <input
-          type="text"
-          id="chat-input"
-          class="form-control"
-          placeholder="Escribe tu mensaje..."
-        />
-        <button type="submit" class="btn btn-primary">
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </form>
+    <form id="chat-form" class="d-flex gap-2">
+    <input
+    type="text"
+    id="chat-input"
+    class="form-control"
+    placeholder="Write your message..."
+     />
+    <button type="submit" class="btn btn-primary">
+    <i class="fas fa-paper-plane"></i>
+    </button>
+    </form>
     </div>
-  </div>
+    </div>
 {% endblock %}

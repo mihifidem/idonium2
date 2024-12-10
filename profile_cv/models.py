@@ -36,7 +36,6 @@ class User_cv(models.Model):
     has_phone_2 = models.BooleanField(blank=True, null=True)# User's phone number
     has_email_1 = models.BooleanField(blank=True, null=True) # User's primary email
     has_email_2 = models.BooleanField(blank=True, null=True) # Optional secondary email
-    has_dni = models.BooleanField(blank=True, null=True)  # Unique DNI of the user
     has_url = models.BooleanField(blank=True, null=True)  # Optional URL of the user
     has_biography = models.BooleanField(blank=True, null=True)  # Optional biography of the user
     biography = models.TextField(blank=True, null=True)  # Optional biography of the user
@@ -213,6 +212,7 @@ class FAQResponse(models.Model):
 
     def __str__(self):
         return self.question_key
+
 
 # Models to represent Enums
 class HardSkill (models.Model):

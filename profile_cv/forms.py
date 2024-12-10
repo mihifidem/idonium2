@@ -286,7 +286,6 @@ class UserCvForm(forms.ModelForm):
             "has_phone_2",
             "has_email_1",
             "has_email_2",
-            "has_dni",
             "has_url",
             "has_biography",
             "has_open_to_work",
