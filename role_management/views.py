@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -99,19 +99,19 @@ def premium_chat(request):
 @login_required
 def teacher_dashboard(request):
     # Verifica que el usuario tenga el rol de "teacher"
-    user_groups = request.user.groups.all()
-    if not user_groups.filter(name="teacher").exists():
+    if not request.user.groups.filter(name="teacher").exists():
         # Si el usuario no es un "teacher", redirige o muestra un mensaje de error
         return render(request, 'role_management/access_denied.html', {
             'message': 'You do not have permission to access this page.',
         })
     # Define el contexto para la vista
     profile_teacher = getattr(request.user, 'profile_teacher', None)
+    profile_teacher_courses = getattr(request.user.profile_teacher, 'courses', None)
     context = {
         'user_role': 'teacher',
         'teacher_profile': profile_teacher,
         # Agrega aquí más datos relacionados con el rol de "teacher"
-        'teacher_courses': profile_teacher.courses.all()
+        'teacher_courses': profile_teacher_courses.all()
     }
     return render(request, 'role_management/dashboard_teacher.html', context)
 

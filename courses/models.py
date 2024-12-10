@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.db import models
+from django.forms import ValidationError
 from profile_cv.models import HardSkill, Sector, Category
 
 from django.contrib.auth.models import User
@@ -43,8 +44,18 @@ class Certificate(models.Model):
     name = models.CharField(max_length=50)
     code = models.CharField(max_length=10, unique=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="certificates") # para usar la query --> user.enrolled_courses.all()
+    # is_course_cert = models.BooleanField(default=True)
     ext_certificate = models.FileField(upload_to='certificates/', blank=True, null=True)
-    # FK o ManyToMany a user?
+    #user = models.ManyToManyField(User, blank=True, related_name="certificates") # para usar la query --> user.certificates.all()
+
+    # def clean(self):
+    #     # Si es un certificado externo (course_cert=False), asegurarse que solo tenga un usuario asignado
+    #     if not self.course_cert and self.user.count() > 1:
+    #         raise ValidationError("An external certificate can only belong to one user.")
+
+    # def save(self, *args, **kwargs):
+    #     self.clean()  # Validar antes de guardar
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.name} - {self.code}'
@@ -135,6 +146,7 @@ class Resource(models.Model):
     is_active = models.BooleanField(default=False)
     is_free = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'), null=True, blank=True)
+    hardskill = models.ManyToManyField(HardSkill, blank=True, related_name='hardskills')
 
     def __str__(self):
         return f"{self.name}"

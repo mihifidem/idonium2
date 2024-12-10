@@ -1,4 +1,4 @@
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -19,7 +19,7 @@ def landing_page(request):
 # * | Funciones Auxiliares
 # * |--------------------------------------------------------------------------
 
-def group_required(group_name, redirect_url='/no-permission/'):
+def group_required(group_name):
     """Decorator to check if a user belongs to a specific group."""
     def decorator(view_func):
         def wrapper(request, *args, **kwargs):
@@ -76,142 +76,49 @@ def courses_list_view(request):
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {'page_obj': page_obj, 'total_courses': courses.count()})
 
-def course_detail_view(request, pk):
+def course_detail_view(request, course_id, user_id=None):
     # Obtener el curso
-    course = get_object_or_404(Course, pk=pk)
+    course = get_object_or_404(
+        Course.objects.prefetch_related(
+            Prefetch("modules__lessons__resources"),
+            Prefetch("certificates"),
+            Prefetch("reviews")
+        ),
+        id=course_id
+    )
 
-    # Obtener las reseñas del curso
-    reviews = Review.objects.filter(course=course)
+    total_lessons = course.modules.aggregate(lesson_count=Count('lessons'))['lesson_count'] or 0
+    total_resources = course.modules.aggregate(
+        resource_count=Count('lessons__resources')
+    )['resource_count'] or 0
 
     # Contar las reseñas y calcular la puntuación promedio
-    course_reviews_count = reviews.count()
-    average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-
-    # Obtener los módulos del curso y prefetch lecciones
-    modules = Module.objects.filter(course=course).prefetch_related(
-        Prefetch('lessons', queryset=Lesson.objects.all()))
-
-    total_lessons_count = Lesson.objects.filter(module__course=course).count()
-
-    total_duration_minutes = Lesson.objects.filter(module__course=course).aggregate(Sum('duration'))['duration__sum'] or 0
+    average_rating = course.reviews.all().aggregate(Avg('rating'))['rating__avg']
+    total_duration_minutes = course.modules.aggregate(
+        total_duration=Sum('lessons__duration')
+    )['total_duration'] or 0
 
     # Convertir la duración total a horas y minutos
     hours = total_duration_minutes // 60
     minutes = total_duration_minutes % 60
     formatted_duration = f"{hours} hours {minutes} minutes"
 
-    total_resources_count = Resource.objects.filter(lesson__module__course=course).count()
-    total_users_count = CourseUser.objects.filter(course=course, status__name="active").count()
-
-
-#     completed_courses = CourseUser.objects.filter(status__name='completed').values('course') \
-#     .annotate(num_completions=Count('course')) \
-#     .order_by('-num_completions')
-
-# # Verificar si hay resultados
-#     if completed_courses.exists():
-#         # Obtener el primer curso más completado
-#         most_completed_course = completed_courses[0]
-#         course_id = most_completed_course['course']
-#         completions = most_completed_course['num_completions']
-#         # Obtener el curso correspondiente usando el ID del curso
-#         course_most_completed = Course.objects.get(pk=course_id)
-#     else:
-#         # Si no hay cursos completados, asignar valores predeterminados
-#         course_most_completed = None
-#         completions = 0
-
-#     # Si se ha encontrado un curso más completado, obtener las estadísticas correspondientes
-#     if course_most_completed:
-#         total_reviews_most_completed = Review.objects.filter(course=course_most_completed).count()
-#         average_rating_most_completed = Review.objects.filter(course=course_most_completed).aggregate(Avg('rating'))['rating__avg'] or 0
-#         total_wished_most_completed = WishListUser.objects.filter(id_wish=course_most_completed.pk).count()
-#     else:
-#         total_reviews_most_completed = 0
-#         average_rating_most_completed = 0
-#         total_wished_most_completed = 0
-
-
-#     wishlist_courses = WishListUser.objects.filter(type_wish__name="Course") \
-#         .values('id_wish') \
-#         .annotate(num_wishlist=Count('id_wish')) \
-#         .order_by('-num_wishlist')
-
-#     if wishlist_courses.exists():  # Verificar si hay resultados
-#         # Obtener el id_wish (id del curso más deseado)
-#         most_wished_course = wishlist_courses.first()  # El curso con más wishlist
-#         course_id_wishlist = most_wished_course['id_wish']  # El curso con más wishlist
-#         wishlist_count = most_wished_course['num_wishlist']  # Cuántos usuarios lo tienen en wishlist
-
-#         # Obtener el objeto de curso más deseado
-#         course_most_wished = Course.objects.get(pk=course_id_wishlist)
-#     else:
-#         course_most_wished = None
-#         wishlist_count = 0
-
-#     # Obtener el número total de reseñas, puntuación promedio y elementos en la wishlist para el curso más añadido a wishlist
-#     if course_most_wished:
-#         total_reviews_most_wished = Review.objects.filter(course=course_most_wished).count()
-#         average_rating_most_wished = Review.objects.filter(course=course_most_wished).aggregate(Avg('rating'))['rating__avg'] or 0
-#         total_wishlist_most_wished = WishListUser.objects.filter(id_wish=course_most_wished.pk).count()
-#     else:
-#         total_reviews_most_wished = 0
-#         average_rating_most_wished = 0
-#         total_wishlist_most_wished = 0
-
-    modules_with_index = []
-    for module_index, module in enumerate(modules, start=1):  # Índice de módulo comienza en 1
-        # Agregamos un atributo "module_index" al módulo
-        module.module_index = module_index
-
-        # Añadimos índices para las lecciones del módulo
-        lessons_with_indices = []
-        for lesson_index, lesson in enumerate(module.lessons.all(), start=1):  # Índice de lección comienza en 1
-            # Agregamos un atributo "lesson_index" a cada lección
-            lesson.lesson_index = lesson_index
-            lessons_with_indices.append(lesson)
-
-        # Reemplazamos la relación con la lista de lecciones indexadas
-        module.lesson_set_indexed = lessons_with_indices
-        modules_with_index.append(module)
-
-    reviews_with_profiles = []
-    for review in reviews:
-        try:
-            profile = review.user.profile_cv  # Intentamos acceder al Profile_CV del usuario
-            user_image = profile.image.url if profile.image else None  # Verificamos si tiene imagen
-        except Profile_CV.DoesNotExist:  # Si no tiene un Profile_CV asociado
-            user_image = None  # Establecemos la imagen en None o en una imagen por defecto
-
-        reviews_with_profiles.append({
-            'review': review,
-            'user_image': user_image
-        })
+    enrolled_user = False
+    if user_id:
+        user = get_object_or_404(User, id=user_id)
+        if user.enrolled_courses.get(course=course) is not None:
+            enrolled_user = True
 
     return render(
         request,
         'course_detail.html',
         {
-            'course_info': course,
-            'course_reviews_count': course_reviews_count,
+            'course': course,
+            'total_lessons': total_lessons,
+            'total_resources': total_resources,
             'average_rating': average_rating,
-            'reviews_with_profiles': reviews_with_profiles,  # Pasamos las reseñas con imágenes a la plantilla
-            'modules_with_index': modules_with_index,
-            'total_lessons_count': total_lessons_count,
             'formatted_duration': formatted_duration,
-            'total_resources_count': total_resources_count,
-            'total_users_count': total_users_count,
-            # 'course_most_completed': course_most_completed,
-            # 'completions': completions,
-            # 'total_reviews_most_completed': total_reviews_most_completed,
-            # 'average_rating_most_completed': average_rating_most_completed,
-            # 'total_wished_most_completed': total_wished_most_completed,
-            # 'course_most_wished': course_most_wished,
-            # 'total_reviews_most_wished': total_reviews_most_wished,
-            # 'average_rating_most_wished': average_rating_most_wished,
-            # 'total_wished_most_completed': total_wishlist_most_wished,
-            # 'wishlist_count': wishlist_count
-
+            'enrolled_user': enrolled_user,
         }
     )
 
