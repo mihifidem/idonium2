@@ -204,6 +204,15 @@ class RecognitionAward(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class FAQResponse(models.Model):
+    question_key = models.CharField(max_length=100)
+    response = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.question_key
 
 # Models to represent Enums
 class HardSkill (models.Model):

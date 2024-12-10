@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from courses.models import Course
 import openai
 from django.conf import settings
+import json
+from django.http import JsonResponse
 
 # * |--------------------------------------------------------------------------
 # * | Home
@@ -18,6 +20,61 @@ from django.conf import settings
 #? Función para la página de inicio
 def home(request):
     return render(request, "base.html")
+
+# * |--------------------------------------------------------------------------
+# * | Chatbot
+# * |--------------------------------------------------------------------------
+
+def get_chatbot_response(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user_message = data.get('message', '').lower()
+        
+        # Respuestas predefinidas
+        responses = {
+            'cv tips': """
+                Aquí tienes algunos consejos clave para tu CV:
+                1. Mantenlo conciso - máximo 2 páginas
+                2. Usa viñetas para los logros
+                3. Personalízalo para cada trabajo
+                4. Incluye resultados medibles
+                5. Revisa la ortografía cuidadosamente
+            """,
+            'carta presentacion': """
+                La carta de presentación debe:
+                • Complementar tu CV
+                • Destacar experiencias relevantes
+                • Explicar tu interés en el puesto
+                • Ser personalizada para cada empresa
+            """,
+            'habilidades': """
+                La sección de habilidades debe incluir:
+                • Habilidades técnicas específicas
+                • Habilidades blandas relevantes
+                • Competencias clave del sector
+                • Niveles de idiomas
+            """,
+            'ayuda': """
+                Puedo ayudarte con:
+                • Consejos para CV
+                • Carta de presentación
+                • Sección de habilidades
+                • Recomendaciones de formato
+                Pregúntame sobre cualquiera de estos temas!
+            """
+        }
+        
+        # Busca la mejor coincidencia
+        response = "No estoy seguro de cómo ayudarte con esa consulta. Prueba preguntando sobre 'cv tips', 'carta presentacion', o 'habilidades', o escribe 'ayuda' para ver qué puedo hacer!"
+        
+        for key, value in responses.items():
+            if key in user_message:
+                response = value
+                break
+        
+        return JsonResponse({'response': response})
+    
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 # * |--------------------------------------------------------------------------
 # * | Class Profile
