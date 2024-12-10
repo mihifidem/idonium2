@@ -195,7 +195,7 @@
     </section>
 
     <!--====== Generate Feedback Button ======-->
-<form method="post" action="{% url 'generate_cv_feedback' user_cv.pk %}">
+<form method="post" action="{% url 'generate_cv_feedback' user_cv.pk %} " style="display: none;">
     {% csrf_token %}
     <button type="submit" class="btn btn-warning text-dark fw-bold">
         <i class="fas fa-comment-dots me-2"></i> Generate Feedback
