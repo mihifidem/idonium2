@@ -6,13 +6,15 @@ app_name = "courses"
 urlpatterns = [
     # ----------- Course URL patterns --------------
     path('courses/', courses_list_view, name='courses-list'),                                    # List
-    path('courses/<int:course_id>/', course_detail_view, name='course-detail'),                  # Select/Read
+    path('courses/<int:pk>/', course_detail_view, name='course-detail'),                         # Select/Read
     path('courses/add/', course_create_or_update_view, name='course-create'),                    # Create
     path('courses/<int:course_id>/edit/', course_create_or_update_view, name='course-update'),   # Update
     path('courses/<int:course_id>/delete/', course_delete_view, name='course-delete'),           # Delete
 
     # ----------- Course_User URL patterns --------------
-    path('/courses/<int:course_id>/user/<int:user_id>', course_detail_view, name='course-user-detail'), # Select/Read
+    path('courses/user/', course_user_list_view, name='course-user-list'),                        # List
+    path('courses/<int:pk>/user/<int:user_id>/', course_detail_view, name='course-user-detail'),  # Select/Read
+
     # ----------- Module URL patterns --------------
     path('courses/<int:course_id>/module/add/', module_create_or_update_view, name='module-create'),                # Create
     path('courses/<int:course_id>/module/<int:module_id>/', module_create_or_update_view, name='module-update'),    # Update
@@ -44,6 +46,7 @@ urlpatterns = [
 
     # ----------- Teacher URL patterns --------------
     path('teacher/courses/<int:course_id>/', teacher_course_detail_view, name='teacher-course-detail'),
+    path('teacher/courses/', course_teacher_list_view, name='teacher-course-list'),
 
     # ----------- Resources URL patterns --------------
     path('resources/', resources_list_view, name = 'resources-list'),

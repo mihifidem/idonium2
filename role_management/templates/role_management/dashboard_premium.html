@@ -131,7 +131,7 @@
                                     <a class="nav-link" href="#">Job Offers</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Courses</a>
+                                    <a class="nav-link" href="{% url 'courses:course-user-list' %}">Courses</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Tests</a>
@@ -179,6 +179,9 @@
             {%endblock role_menu %}
 
         </div> <!-- row -->
+        {% block user_course %}
+
+        {% endblock %}
     </div> <!-- container -->
 </div>
 {%endblock navbar  %}

@@ -183,27 +183,9 @@
             {%endblock role_menu %}
 
         </div> <!-- row -->
-            <!-- START CENTRAL CONTENT -->
-            <!-- Teacher Courses -->
-            <div class="container">
-                <div class="row g-3">
-                    {% for course in teacher_courses %}
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card shadow-sm" style="max-width: 300px; height: auto;">
-                            <a href="{% url 'courses:teacher-course-detail' course.id %}"><img src="{{ course.image.url }}" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;"></a>
-                            <div class="card-body">
-                                <a href="{% url 'courses:teacher-course-detail' course.id %}"><h5 class="card-title">{{ course.title }}</h5></a>
-                                <p class="card-text">{{ course.description }}</p>
-                                <a href="#url_activar_desactivar" class="btn btn-primary">Activate</a>
-                                <a href="{% url 'courses:course-delete' course.id %}" class="btn btn-danger">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <!-- END CENTRAL CONTENT -->
+            {% block teacher_course %}
+
+            {% endblock %}
     </div> <!-- container -->
 </div>
 {%endblock navbar  %}

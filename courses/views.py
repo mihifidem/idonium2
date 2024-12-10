@@ -6,7 +6,6 @@ from django.db.models import Prefetch, Sum
 from django.core.paginator import Paginator
 from courses.models import *
 from courses.forms import *
-from profile_cv.models import Profile_CV
 
 # * |--------------------------------------------------------------------------
 # * | Landing Page
@@ -76,7 +75,7 @@ def courses_list_view(request):
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {'page_obj': page_obj, 'total_courses': courses.count()})
 
-def course_detail_view(request, course_id, user_id=None):
+def course_detail_view(request, pk, user_id=None):
     # Obtener el curso
     course = get_object_or_404(
         Course.objects.prefetch_related(
@@ -84,7 +83,7 @@ def course_detail_view(request, course_id, user_id=None):
             Prefetch("certificates"),
             Prefetch("reviews")
         ),
-        id=course_id
+        id=pk
     )
 
     total_lessons = course.modules.aggregate(lesson_count=Count('lessons'))['lesson_count'] or 0
@@ -121,6 +120,22 @@ def course_detail_view(request, course_id, user_id=None):
             'enrolled_user': enrolled_user,
         }
     )
+
+@login_required
+def course_user_list_view(request):
+    user_courses = request.user.enrolled_courses.all()
+    return render(request, 'user_course_list.html', {'user_courses': user_courses})
+
+@login_required
+@group_required('teacher')
+def course_teacher_list_view(request):
+    teacher_courses = request.user.profile_teacher.courses.all()
+    return render(request, 'teacher_course_list.html', {'teacher_courses': teacher_courses})
+
+# Course: ---- Enroll User View ----
+@login_required
+def course_enroll_user_view(request, course_id):
+    pass
 
 # Course: ---- Create/Update Views ----
 @login_required

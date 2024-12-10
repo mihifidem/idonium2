@@ -12,12 +12,13 @@ def dashboard(request):
         user_role = user_groups[0].name  # Obtén el nombre del primer grupo asociado al usuario
     context = {}  # Inicializa el contexto
 
-    if user_role == 'premium':
-        context = {
-            'user_role': user_role,
-            'profile_user': getattr(request.user, 'profile_user', None),
-        }
-        return render(request, 'role_management/dashboard_premium.html', context)
+    if user_role == 'premium' or user_role == 'freemium':
+        # context = {
+        #     'user_role': user_role,
+        #     'profile_user': getattr(request.user, 'profile_user', None),
+        # }
+        # return render(request, 'role_management/dashboard_premium.html', context)
+        return redirect('premium_dashboard')
 
     elif user_role == 'teacher':
         # context = {
@@ -104,16 +105,11 @@ def teacher_dashboard(request):
         return render(request, 'role_management/access_denied.html', {
             'message': 'You do not have permission to access this page.',
         })
-    # Define el contexto para la vista
-    profile_teacher = getattr(request.user, 'profile_teacher', None)
-    profile_teacher_courses = getattr(request.user.profile_teacher, 'courses', None)
+
     context = {
         'user_role': 'teacher',
-        'teacher_profile': profile_teacher,
-        # Agrega aquí más datos relacionados con el rol de "teacher"
-        'teacher_courses': profile_teacher_courses.all()
     }
-    return render(request, 'role_management/dashboard_teacher.html', context)
+    return redirect(request, 'role_management/dashboard_teacher.html', context)
 
 @login_required
 def headhunter_dashboard(request):
@@ -137,18 +133,16 @@ def headhunter_dashboard(request):
 @login_required
 def premium_dashboard(request):
     # Verifica que el usuario tenga el rol de "teacher"
-    user_groups = request.user.groups.all()
-    if not user_groups.filter(name="premium").exists():
+    user_freemium = request.user.groups.filter(name="freemium").exists()
+    user_premium = request.user.groups.filter(name="premium").exists()
+    if not user_freemium and not user_premium:
         # Si el usuario no es un "premium", redirige o muestra un mensaje de error
         return render(request, 'role_management/access_denied.html', {
             'message': 'You do not have permission to access this page.',
         })
-    
     # Define el contexto para la vista
     context = {
-        'user_role': 'premium',
-        'user_profile': getattr(request.user, 'profile_user', None),
-        # Agrega aquí más datos relacionados con el rol de "teacher"
+        'user_role': 'freemium' if user_freemium else 'premium',
     }
     return render(request, 'role_management/dashboard_premium.html', context)
 
