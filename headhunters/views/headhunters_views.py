@@ -5,8 +5,11 @@ from django.urls import reverse_lazy
 from ..models import HeadHunterUser,JobOffer,ManagementCandidates
 from ..forms import HeadHunterForm
 from django.shortcuts import render,redirect,get_object_or_404
-from profile_cv.models import Profile_CV
+from profile_cv.models import Profile_CV,HardSkill, SoftSkill
 from django.views import View
+from django.http import JsonResponse
+from django.db.models import Q
+
 
 
 
@@ -108,6 +111,55 @@ class ManageCandidatesView(View):
             return redirect("add_to_existing_offer", candidate_ids=",".join(selected_candidates_ids))
 
         return redirect("landing_headhunters")
+    
+    
 
+from django.db.models import Q
+from django.http import JsonResponse
+from django.views import View
 
+class CandidateSearchView(View):
+    """
+    View to search candidates based on specific criteria.
+    """
+    def get(self, request):
+        query = request.GET.get('query', '').lower()
 
+        # Separar palabras de la consulta
+        search_keywords = query.split()
+
+        # Inicializar queryset base
+        candidates = Profile_CV.objects.all()
+
+        # Crear un objeto Q vacío para combinar los filtros
+        filter_conditions = Q()
+
+        # Filtrar por cada palabra clave
+        for keyword in search_keywords:
+            # Filtrar por habilidades técnicas
+            filter_conditions |= Q(
+                hardskilluser__hard_skill__name_hard_skill__icontains=keyword
+            )
+            # Filtrar por habilidades blandas
+            filter_conditions |= Q(
+                softskilluser__soft_skill__name_soft_skill__icontains=keyword
+            )
+
+        # Aplicar el filtro compuesto al queryset
+        candidates = candidates.filter(filter_conditions)
+
+        # Quitar duplicados en caso de filtros múltiples
+        candidates = candidates.distinct()
+
+        # Serializar resultados
+        results = [
+            {
+                "id": candidate.id,
+                "username": candidate.user.username,
+                "email": candidate.email_1,
+                "phone": candidate.phone_1,
+            }
+            for candidate in candidates
+        ]
+
+        return JsonResponse({"candidates": results})
