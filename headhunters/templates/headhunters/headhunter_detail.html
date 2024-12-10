@@ -34,14 +34,14 @@
               <li><strong class="text-dark">Rango:</strong> <span class="text-dark">{{ headhunter.position }}</span></li>
               <li><strong class="text-dark">Sitio Web:</strong> 
                 {% if headhunter.website %}
-                  <a href="{{ headhunter.website }}" target="_blank" class="text-dark">{{ headhunter.website }}</a>
+                  <span class="text-dark">{{ headhunter.website }}</span>
                 {% else %}
                   <span class="text-muted">No disponible</span>
                 {% endif %}
               </li>
               <li><strong class="text-dark">LinkedIn:</strong> 
                 {% if headhunter.linkedin_profile %}
-                  <a href="{{ headhunter.linkedin_profile }}" target="_blank" class="text-dark">Perfil de LinkedIn</a>
+                  <span class="text-dark">Perfil de LinkedIn</span>
                 {% else %}
                   <span class="text-muted">No disponible</span>
                 {% endif %}
