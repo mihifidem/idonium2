@@ -84,6 +84,7 @@ class JobOfferListView(ListView):
         context['hard_skills'] = HardSkill.objects.all()
         context['soft_skills'] = SoftSkill.objects.all()
         context['is_headhunter'] = groups[0].name == 'headhunter'
+        context['active_filter'] = True
         return context
 
 
@@ -354,3 +355,19 @@ class ApplyDirectToOffer(View):
             'applied_directly': current_offer_apply.applied_directly if current_offer_apply else management_candidate.applied_directly,
             'application_date': current_offer_apply.application_date if current_offer_apply else management_candidate.application_date,
         })
+    
+class MyOffers(ListView):
+    model = JobOffer
+    template_name = 'joboffers/joboffer_list.html'
+    context_object_name = 'job_offers'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_filter'] = False
+        return context
+    
+    def get_queryset(self):
+        super().get_queryset()
+        management_candidates = ManagementCandidates.objects.filter(candidate__user=self.request.user)
+        print(JobOffer.objects.filter(id__in=management_candidates.values('job_offer')))
+        return JobOffer.objects.filter(id__in=management_candidates.values('job_offer'))
