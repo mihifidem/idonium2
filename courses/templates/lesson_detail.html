@@ -1,24 +1,33 @@
 {% extends "users/base.html" %}
-{% block title %} Home Page {% endblock title%}
+{% block title %} {{ lesson.title }} {% endblock title%}
 {% block content %}
-<h1>{{ lesson.title }}</h1>
+<h1>{{ lesson.name }}</h1>
 <p>{{ lesson.description }}</p>
 
 <h2>Recursos</h2>
 <ul>
     {% for resource in resources %}
+
+        {% if resource.url %}
         <li>
-            <a href="{{ resource.file.url }}">{{ resource.name }}</a>
-            {% if resource.video_url %}
-                <div>
-                    <h4>Video:</h4>
-                    <iframe width="560" height="315" src="{{ resource.video_url }}" frameborder="0" allowfullscreen></iframe>
-                </div>
-            {% endif %}
+            <div>
+                <h4>Video:</h4>
+                <iframe width="560" height="315" src="{{ resource.url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
         </li>
+        {% endif %}
+        
+        <li><a href="{{ resource.document.url }}">{{ resource.name }}</a></li>
     {% endfor %}
 </ul>
 
-<a href="{% url 'course-user-detail' course.id %}" class="btn btn-secondary">Volver</a>
-<!-- <a href="{% url 'lesson-detail' course.id module.id next_lesson_id %}" class="btn btn-primary">Siguiente Lección</a> -->
+<a href="{% url 'courses:course-user-detail' course.id %}" class="btn btn-secondary">Volver</a>
+{% if is_last_lesson %}
+    <form method="post" action="{% url 'courses:course-complete' course.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Finalizar Curso</button>
+    </form>
+{% elif next_lesson %}
+    <a href="{% url 'courses:lesson-detail' course.id next_lesson.module.id next_lesson.id %}" class="btn btn-primary">Siguiente Lección</a>
+{% endif %}
 {% endblock %}

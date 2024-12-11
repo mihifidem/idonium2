@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db.models import Avg, Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
@@ -194,12 +195,35 @@ def course_delete_view(request, course_id):
     messages.success(request, "El curso se ha eliminado correctamente.")
     return redirect('teacher_dashboard')
 
+@login_required
+@group_required('freemium')
+def course_complete_view(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    course_user = CourseUser.objects.filter(user=request.user, course=course).first()
+
+    if not course_user:
+        messages.error(request, "No estás inscrito en este curso.")
+        return redirect('courses:course-detail', course_id=course_id)
+
+    total_lessons = Lesson.objects.filter(module__course=course).count()
+    completed_lessons = LessonCompletion.objects.filter(user=request.user, lesson__module__course=course, finished_at__isnull=False).count()
+
+    if total_lessons == completed_lessons:
+        course_user.status = Status.objects.get(name="completed")
+        course_user.save()
+        messages.success(request, "¡Has finalizado el curso!")
+    else:
+        messages.error(request, "Aún no has completado todas las lecciones de este curso.")
+
+    return redirect('courses:course-user-detail', course_id=course_id)
+
 # * |--------------------------------------------------------------------------
 # * | Teacher_Course Views
 # * |--------------------------------------------------------------------------
+
 @login_required
 @group_required("teacher")
-def teacher_course_detail_view(request, course_id):
+def course_teacher_detail_view(request, course_id):
     profile_teacher = request.user.profile_teacher
     course = get_object_or_404(
         profile_teacher.courses.prefetch_related(
@@ -251,34 +275,51 @@ def module_create_or_update_view(request, course_id=None, module_id=None):
 @group_required('freemium')
 def lesson_detail_view(request, course_id, module_id, lesson_id):
     course = get_object_or_404(Course, id=course_id)
-    
-    # Comprobar que el módulo pertenece al curso
     module = get_object_or_404(Module, id=module_id, course=course)
-    
-    # Comprobar que la lección pertenece al módulo
     lesson = get_object_or_404(
         Lesson.objects.select_related('module__course').prefetch_related('resources'),
         id=lesson_id, 
         module=module
     )
-    
-    # Opcional: Verificar si el usuario está inscrito en el curso (CourseUser)
+
     enrolled = CourseUser.objects.filter(user=request.user, course=course).exists()
     if not enrolled:
         messages.error(request, "Debes estar inscrito en este curso para acceder a sus lecciones.")
         return redirect('courses:course-detail', course_id=course_id)
-    
-    # Obtener recursos relacionados con la lección
+
     resources = lesson.resources.all()
-    
-    # Contexto para renderizar la plantilla
+
+    # Registrar la lección como iniciada
+    lesson_completion, created = LessonCompletion.objects.get_or_create(user=request.user, lesson=lesson)
+    if created:
+        lesson_completion.finished_at = timezone.now()
+        lesson_completion.save()
+
+    # Total de lecciones del curso y lecciones completadas
+    total_lessons = Lesson.objects.filter(module__course=course).count()
+    completed_lessons = LessonCompletion.objects.filter(
+        user=request.user, lesson__module__course=course, finished_at__isnull=False
+    ).count()
+
+    # Determinar la siguiente lección no completada
+    next_lesson = (
+        Lesson.objects.filter(module__course=course)
+        .exclude(id__in=LessonCompletion.objects.filter(user=request.user, finished_at__isnull=False).values_list('lesson__id', flat=True))
+        .order_by('id')
+        .first()
+    )
+
+    is_last_lesson = next_lesson is None and total_lessons == completed_lessons
+
     context = {
         'course': course,
         'module': module,
         'lesson': lesson,
         'resources': resources,
+        'is_last_lesson': is_last_lesson,  
+        'next_lesson': next_lesson,        
     }
-    
+
     return render(request, 'lesson_detail.html', context)
 
 @login_required
