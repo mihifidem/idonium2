@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}HeadhunterApp{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'headhunter_list' %}">Headhunters</a></li>
+        <li><a href="{% url 'headhunter_create' %}">Create Headhunter</a></li>
+        <li><a href="{% url 'schedule_list' %}">My Agenda</a></li>
+        <li><a href="{% url 'candidate_list' %}">Candidates</a></li>
+        <li><a href="{% url 'joboffer_list' %}">Job Offers</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2024 My Django Application</p>
+  </footer>
+</body>
+</html>

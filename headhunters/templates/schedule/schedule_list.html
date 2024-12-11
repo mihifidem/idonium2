@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>List of Schedule</h2>
+  <ul>
+    {% for schedule in schedules %}
+      <li>
+        <a href="{% url 'schedule_detail' pk=schedule.pk %}">{{ action.name }}</a>
+      </li>
+    {% empty %}
+      <p>No schedules found.</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'schedule_create' %}">Create New tAction</a>
+{% endblock %}

@@ -4,18 +4,22 @@ from django.urls import path, include, re_path
 
 from django.conf import settings
 from django.conf.urls.static import static
-
 from django.contrib.auth import views as auth_views
 from users.views import custom_logout,CustomLoginView, ResetPasswordView, ChangePasswordView
 
 from users.forms import LoginForm
+from test_management.views import chatbot_response
 
 # from django.contrib.sitemaps.views import sitemap
 import debug_toolbar
+from django.conf.urls import handler404
+#from users.views import custom_404_view
 
+#handler404 = 'users.views.custom_404_view'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('chatbot/', include('test_management.urls')),
 
     path('', include('users.urls')),
 
@@ -38,13 +42,14 @@ urlpatterns = [
     path('password-change/', ChangePasswordView.as_view(), name='password_change'),
 
     re_path(r'^oauth/', include('social_django.urls', namespace='social')),
-
+    path('quiz/', include('test_management.urls')),
 
 
     path("blog/", include("blog.urls"), name="blog-urls"),
     path("summernote/", include("django_summernote.urls")),
     path('__debug__/', include(debug_toolbar.urls)),
 #     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
+    
 
 
 

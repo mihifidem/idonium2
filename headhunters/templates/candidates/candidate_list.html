@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>List of Candidates</h2>
+  <ul>
+    {% for candidate in candidates %}
+      <li>
+        <a href="{% url 'candidate_detail' pk=candidate.pk %}">{{ candidate.name }}</a>
+      </li>
+    {% empty %}
+      <p>No candidates found.</p>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'candidate_create' %}">Create New Candidate Profile</a>
+{% endblock %}

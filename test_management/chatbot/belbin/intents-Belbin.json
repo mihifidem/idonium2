@@ -1,0 +1,268 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hello",
+        "Hey",
+        "Hi there!",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "How are you?",
+        "Is anyone there?",
+        "Hey! How's it going?",
+        "Hi! How can I help you today?"
+      ],
+      "responses": [
+        "Hello! How can I assist you today?",
+        "Hey there! How are you doing?",
+        "Hi! How can I help you today?",
+        "Good morning! How can I assist you?",
+        "Hello! It's great to see you!"
+      ]
+    },
+    {
+      "tag": "farewell",
+      "patterns": [
+        "Goodbye",
+        "See you later",
+        "Take care",
+        "See you soon",
+        "Bye!",
+        "Bye for now",
+        "Have a nice day",
+        "Catch you later",
+        "Take it easy",
+        "I'm off now, goodbye"
+      ],
+      "responses": [
+        "Goodbye! Have a great day!",
+        "See you later! Take care!",
+        "Bye! It was nice talking to you.",
+        "Take care! Come back soon!",
+        "Goodbye! Stay safe and well."
+      ]
+    },
+    {
+      "tag": "Thank you",
+      "patterns": [
+        "Thank you very much",
+        "I appreciate it",
+        "Thanks a lot",
+        "You're so kind, thank you",
+        "Thanks for your help",
+        "I’m grateful, thank you",
+        "Thank you for everything",
+        "Thank you so much",
+        "Thanks for your time",
+        "I really appreciate your help"
+      ],
+      "responses": [
+        "You're welcome!",
+        "Happy to help you!",
+        "Anything, I'm here to assist!",
+        "It's a pleasure to help you!",
+        "Gladly! Let me know if you need anything else."
+      ]
+    },
+    {
+      "tag": "The Plant",
+      "patterns": [
+        "What is the role of a Plant in a team?",
+        "How does a Plant contribute to a team?",
+        "What traits define a Plant?",
+        "Can you explain the role of the Plant?",
+        "What does a Plant do in a team environment?",
+        "What skills does a Plant bring to a team?",
+        "How does a Plant help generate ideas?",
+        "Why is the Plant important in teamwork?",
+        "How do Plants contribute to creativity in teams?",
+        "What role does a Plant play in brainstorming?"
+      ],
+      "responses": [
+        "A Plant generates creative ideas and solves complex problems.",
+        "The Plant role is all about innovation and thinking outside the box.",
+        "Plants are great at coming up with original solutions and concepts.",
+        "A Plant is essential for creative problem-solving and generating new ideas.",
+        "Plants contribute to the team by offering fresh perspectives and innovative ideas."
+      ]
+    },
+    {
+      "tag": "Monitor-Evaluator",
+      "patterns": [
+        "What does a Monitor-Evaluator do in a team?",
+        "How does a Monitor-Evaluator contribute?",
+        "Can you explain the role of a Monitor-Evaluator?",
+        "What qualities define a Monitor-Evaluator?",
+        "Why is a Monitor-Evaluator important?",
+        "How does a Monitor-Evaluator help with decision-making?",
+        "What role does a Monitor-Evaluator play in analyzing ideas?",
+        "How does a Monitor-Evaluator assess team plans?",
+        "What makes someone a good Monitor-Evaluator?",
+        "What skills does a Monitor-Evaluator bring to the team?"
+      ],
+      "responses": [
+        "A Monitor-Evaluator carefully analyzes ideas and options before decisions are made.",
+        "Monitor-Evaluators are logical thinkers who help assess risks and benefits.",
+        "The Monitor-Evaluator helps provide objective feedback and weighs the pros and cons.",
+        "They bring critical thinking and an analytical mindset to the team.",
+        "Monitor-Evaluators make sure decisions are well thought out and backed by data."
+      ]
+    },
+    {
+      "tag": "Specialist",
+      "patterns": [
+        "What does a Specialist do in a team?",
+        "How does a Specialist contribute?",
+        "Can you explain the role of a Specialist?",
+        "What qualities define a Specialist?",
+        "Why is a Specialist important in a team?",
+        "What role does a Specialist play in a team?",
+        "How does a Specialist bring expertise to a team?",
+        "What makes a good Specialist?",
+        "What skills does a Specialist contribute to the team?",
+        "What makes someone a valuable Specialist?"
+      ],
+      "responses": [
+        "A Specialist brings in-depth knowledge and expertise to a specific area.",
+        "Specialists are experts in their field and help the team with specific technical knowledge.",
+        "The Specialist ensures that highly specialized tasks are completed with precision.",
+        "Specialists provide valuable insights and technical skills that others may not have.",
+        "Specialists are crucial for complex problems that require expert-level solutions."
+      ]
+    },
+    {
+      "tag": "Resource Investigator",
+      "patterns": [
+        "What does a Resource Investigator do?",
+        "How does a Resource Investigator contribute to a team?",
+        "Can you explain the role of a Resource Investigator?",
+        "What qualities define a Resource Investigator?",
+        "Why is a Resource Investigator important?",
+        "How does a Resource Investigator help the team?",
+        "What role does a Resource Investigator play in gathering information?",
+        "How does a Resource Investigator expand the team's network?",
+        "What skills does a Resource Investigator bring to the team?",
+        "What makes someone a good Resource Investigator?"
+      ],
+      "responses": [
+        "A Resource Investigator explores new opportunities and gathers valuable information.",
+        "Resource Investigators help the team by bringing in new contacts, resources, and ideas.",
+        "They are skilled networkers who bring external insights to help the team succeed.",
+        "Resource Investigators are proactive in exploring external opportunities for the team.",
+        "The Resource Investigator helps the team stay connected and informed about external developments."
+      ]
+    },
+    {
+      "tag": "Team Worker",
+      "patterns": [
+        "What does a Team Worker do?",
+        "How does a Team Worker contribute to a team?",
+        "Can you explain the role of a Team Worker?",
+        "What qualities define a Team Worker?",
+        "Why is a Team Worker important?",
+        "How does a Team Worker help maintain team harmony?",
+        "What role does a Team Worker play in team dynamics?",
+        "How does a Team Worker support others?",
+        "What skills does a Team Worker bring to the team?",
+        "What makes someone a good Team Worker?"
+      ],
+      "responses": [
+        "A Team Worker supports team members, promotes collaboration, and helps maintain harmony.",
+        "Team Workers ensure that everyone is working together smoothly and effectively.",
+        "A Team Worker is empathetic, supportive, and helps resolve conflicts.",
+        "Team Workers help maintain positive relationships and ensure the team stays united.",
+        "The Team Worker is the glue that holds the team together and fosters a collaborative environment."
+      ]
+    },
+    {
+      "tag": "Coordinator",
+      "patterns": [
+        "What does a Coordinator do in a team?",
+        "How does a Coordinator contribute?",
+        "Can you explain the role of a Coordinator?",
+        "What qualities define a Coordinator?",
+        "Why is a Coordinator important?",
+        "How does a Coordinator manage team activities?",
+        "What role does a Coordinator play in delegating tasks?",
+        "How does a Coordinator keep the team focused?",
+        "What skills does a Coordinator bring to the team?",
+        "What makes someone a good Coordinator?"
+      ],
+      "responses": [
+        "A Coordinator ensures the team is focused on its goals and helps delegate tasks.",
+        "Coordinators organize the team, ensuring everyone is working toward the same objective.",
+        "They are natural leaders who manage logistics and ensure tasks are assigned effectively.",
+        "The Coordinator keeps track of progress and ensures team members are aligned.",
+        "Coordinators are excellent at organizing and delegating to ensure tasks are completed efficiently."
+      ]
+    },
+    {
+      "tag": "Shaper",
+      "patterns": [
+        "What does a Shaper do in a team?",
+        "How does a Shaper contribute?",
+        "Can you explain the role of a Shaper?",
+        "What qualities define a Shaper?",
+        "Why is a Shaper important?",
+        "How does a Shaper drive the team forward?",
+        "What role does a Shaper play in motivating the team?",
+        "How does a Shaper challenge the team?",
+        "What skills does a Shaper bring to the team?",
+        "What makes someone a good Shaper?"
+      ],
+      "responses": [
+        "A Shaper is dynamic and thrives on challenging the team to meet high standards.",
+        "Shapers push the team to achieve goals and overcome obstacles.",
+        "They are highly motivated and drive action within the team.",
+        "Shapers help keep the team focused on results and are not afraid to challenge others.",
+        "A Shaper brings energy, motivation, and determination to achieve the team’s goals."
+      ]
+    },
+    {
+      "tag": "Implementer",
+      "patterns": [
+        "What does an Implementer do in a team?",
+        "How does an Implementer contribute?",
+        "Can you explain the role of an Implementer?",
+        "What qualities define an Implementer?",
+        "Why is an Implementer important?",
+        "How does an Implementer ensure plans are executed?",
+        "What role does an Implementer play in team productivity?",
+        "How does an Implementer bring plans to life?",
+        "What skills does an Implementer bring to the team?",
+        "What makes someone a good Implementer?"
+      ],
+      "responses": [
+        "An Implementer turns ideas and plans into action by organizing tasks and processes.",
+        "Implementers are practical and focused on getting things done efficiently.",
+        "They are great at turning abstract ideas into tangible outcomes.",
+        "The Implementer ensures that projects run smoothly and are executed effectively.",
+        "Implementers are reliable and dependable in carrying out tasks and achieving goals."
+      ]
+    },
+    {
+      "tag": "Finisher",
+      "patterns": [
+        "What does a Finisher do?",
+        "How does a Finisher contribute?",
+        "Can you explain the role of a Finisher?",
+        "What qualities define a Finisher?",
+        "Why is a Finisher important?",
+        "How does a Finisher ensure tasks are completed?",
+        "What role does a Finisher play in maintaining quality?",
+        "How does a Finisher check for errors?",
+        "What skills does a Finisher bring to the team?",
+        "What makes someone a good Finisher?"
+      ],
+      "responses": [
+        "A Finisher ensures tasks are finished with high standards and minimal errors.",
+        "Finishers focus on attention to detail and perfecting the final product.",
+        "They help ensure that deadlines are met and that work is completed thoroughly.",
+        "Finishers are great at spotting errors and ensuring high quality.",
+        "They take pride in delivering well-executed work and finishing tasks to completion."
+      ]
+    }
+  ]
+}
