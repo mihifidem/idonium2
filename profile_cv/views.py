@@ -79,20 +79,18 @@ def get_chatbot_response(request):
 # * |--------------------------------------------------------------------------
 
 # ? Función para crear un perfil
-def profile_create(request):
+def profile_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
     if request.method == "POST":
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = user
             form.save()
-            return redirect("profile_list")
+            return redirect("profile_view", user_id)
     else:
         form = ProfileForm()
-    return render(request, "profile/profile_form.html", {"form": form})
-
-# ? Función para listar los perfiles
-def profile_list(request):
-    profiles = Profile_CV.objects.all()
-    return render(request, "profile/profile_list.html", {"profiles": profiles})
+    return render(request, "profile/profile_form.html", {"form": form, "user": user})
 
 # ? Función para actualizar un perfil
 def profile_update(request, profile_id):
@@ -101,22 +99,19 @@ def profile_update(request, profile_id):
         form = ProfileForm(request.POST,  request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect("profile_list")
+            return redirect("profile_view", profile.user.id)
     else:
         form = ProfileForm(instance=profile)
-    return render(request, "profile/profile_form.html", {"form": form})
+    return render(request, "profile/profile_form.html", {"form": form, "user": profile.user})
 
-# ? Función para eliminar un perfil
-def profile_delete(request, profile_id):
-    profile = get_object_or_404(Profile_CV, id=profile_id)
-    if request.method == "POST":
-        profile.delete()
-        return redirect("profile_list")
-    return render(request, "profile/profile_confirm_delete.html", {"profile": profile})
-
-def profile_view(request, profile_id):
-    profile = get_object_or_404(Profile_CV, id=profile_id)
-    return render(request, 'profile/profile_view_details.html', {'profile': profile})
+def profile_view(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    try:
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', user_id)
+    
+    return render(request, 'profile/profile_view_details.html', {'profile': profile, user: user})
 
 # * |--------------------------------------------------------------------------
 # * | Class WorkExperience
@@ -142,6 +137,7 @@ def work_experience_list(request, user_id):
     user = get_object_or_404(User, id=user_id)
     profile = get_object_or_404(Profile_CV, user=user)
     work_experiences = WorkExperience.objects.filter(profile_user=profile)
+
     return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences, "user": user})
 
 # ? Función para actualizar una experiencia laboral
@@ -558,14 +554,16 @@ def publication_delete(request, publication_id):
 # * |--------------------------------------------------------------------------
 
 #? Función para listar los CV
-def user_cv_list(request, profile_id):
-    profile = get_object_or_404(Profile_CV, id=profile_id)
+def user_cv_list(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = get_object_or_404(Profile_CV, user=user)
     user_cv = User_cv.objects.filter(profile_user=profile)
-    return render(request, "user_cv/user_cv_list.html", {"user_cv": user_cv, "profile": profile})
+    return render(request, "user_cv/user_cv_list.html", {"user_cv": user_cv, "profile": profile, "user": user})
 
 #? Función para crear un CV
-def user_cv_create(request, profile_id):
-    profile_cv = get_object_or_404(Profile_CV, id=profile_id)
+def user_cv_create(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile_cv = get_object_or_404(Profile_CV, user=user)
     work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
     academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
     hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
@@ -676,11 +674,12 @@ def user_cv_create(request, profile_id):
                     recognition_award_id=recognition_id
                 )
 
-            return redirect("user_cv_list", profile_id=profile_id)
+            return redirect("user_cv_list", user.id)
     else:
         form = UserCvForm(initial={'urlCV': initial_urlCV})
 
     context = {
+        "user": user,
         'form': form,
         'profile_cv': profile_cv,
         'work_experiences': work_experiences,
@@ -705,26 +704,25 @@ def user_cv_create(request, profile_id):
 #? Función para actualizar un CV
 def user_cv_update(request, user_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
-    profile_id = user_cv.profile_user.id  # Obtén el profile_id del user_cv
-    profile_cv = get_object_or_404(Profile_CV, id=profile_id)
+    profile_cv = get_object_or_404(Profile_CV, id= user_cv.profile_user.id)
+    user = profile_cv.user
     if request.method == "POST":
         form = UserCvForm(request.POST, instance=user_cv)
         if form.is_valid():
             form.save()
-            return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
+            return redirect("user_cv_list", user.id)  # Pasa el profile_id aquí
     else:
         form = UserCvForm(instance=user_cv)
-    return render(request, "user_cv/user_cv_form.html", {"form": form, "user_cv": user_cv, "profile_cv": profile_cv})
+    return render(request, "user_cv/user_cv_form.html", {"form": form, "user_cv": user_cv, "profile_cv": profile_cv, "user": user})
 
 #? Función para eliminar un CV
 def user_cv_delete(request, user_cv_id):
     user_cv = get_object_or_404(User_cv, id=user_cv_id)
-    profile_id = user_cv.profile_user.id  # Obtén el profile_id del user_cv
-
+    user = user_cv.profile_user.user
     if request.method == "POST":
         user_cv.delete()
-        return redirect("user_cv_list", profile_id=profile_id)  # Pasa el profile_id aquí
-    return render(request, "user_cv/user_cv_confirm_delete.html", {"user_cv": user_cv})
+        return redirect("user_cv_list", user.pk)  # Pasa el profile_id aquí
+    return render(request, "user_cv/user_cv_confirm_delete.html", {"user_cv": user_cv, "user": user})
 
 #? Función para ver los detalles de un CV
 def user_cv_view_details(request, user_cv_id, profile_cv_id):
@@ -815,127 +813,274 @@ def user_cv_pdf_view(request, user_cv_id, profile_cv_id):
     # return response
     pass
 
-def generate_cv_feedback(request, user_cv_id):
-#     # Fetch the user's CV
-#     user_cv = get_object_or_404(User_cv, id=user_cv_id)
-#     profile_cv = get_object_or_404(Profile_CV, id=user_cv.profile_user.id)
-    
-#     # Extract relevant data
-#     cv_data = {
-#         "name": f"{profile_cv.user.first_name} {profile_cv.user.last_name}",
-#         "biography": user_cv.biography if user_cv.has_biography else profile_cv.biography,
-#         "img_profile": profile_cv.img_profile.url if profile_cv.img_profile else None,
-#         "img_1_profile": profile_cv.img_1_profile.url if profile_cv.img_1_profile else None,
-#         "img_2_profile": profile_cv.img_2_profile.url if profile_cv.img_2_profile else None,
-#         "img_3_profile": profile_cv.img_3_profile.url if profile_cv.img_3_profile else None,
-#         "img_4_profile": profile_cv.img_4_profile.url if profile_cv.img_4_profile else None,
-#         "address": profile_cv.address if user_cv.has_address else None,
-#         "phone_1": profile_cv.phone_1 if user_cv.has_phone_1 else None,
-#         "phone_2": profile_cv.phone_2 if user_cv.has_phone_2 else None,
-#         "email_1": profile_cv.email_1 if user_cv.has_email_1 else None,
-#         "email_2": profile_cv.email_2 if user_cv.has_email_2 else None,
-#         "dni": profile_cv.dni if user_cv.has_dni else None,
-#         "open_to_work": profile_cv.open_to_work if user_cv.has_open_to_work else None,
-#         "vehicle": profile_cv.vehicle if user_cv.has_vehicle else None,
-#         "disability": profile_cv.disability if user_cv.has_disability else None,
-#         "disability_percentage": profile_cv.disability_percentage if user_cv.has_disability_percentage else None,
-#         "work_experiences": [
-#             {
-#                 "job_title": exp.job_title,
-#                 "start_date": exp.start_date,
-#                 "end_date": exp.end_date,
-#                 "current_job": exp.current_job,
-#                 "company_name": exp.company_name,
-#                 "description": exp.description,
-#             }
-#             for exp in profile_cv.workexperience_set.all()
-#         ],
-#         "academic_educations": [
-#             {
-#                 "title": edu.title,
-#                 "academy_name": edu.academy_name,
-#                 "start_date": edu.start_date,
-#                 "end_date": edu.end_date,
-#                 "current_education": edu.current_education,
-#                 "references": edu.references,
-#             }
-#             for edu in profile_cv.academiceducation_set.all()
-#         ],
-#         "hard_skills": [
-#             {
-#                 "hard_skill": skill.hard_skill.name_hard_skill,
-#                 "description": skill.description,
-#                 "level_skill": skill.level_skill,
-#             }
-#             for skill in profile_cv.hardskilluser_set.all()
-#         ],
-#         "soft_skills": [
-#             {
-#                 "soft_skill": skill.soft_skill.name_soft_skill,
-#                 "description": skill.description,
-#             }
-#             for skill in profile_cv.softskilluser_set.all()
-#         ],
-#         "languages": [
-#             {
-#                 "language": lang.language.name_language,
-#                 "level": lang.level.name_level,
-#                 "certifications": lang.certifications,
-#             }
-#             for lang in profile_cv.languageuser_set.all()
-#         ],
-#         "volunteerings": [
-#             {
-#                 "volunteering_position": vol.volunteering_position,
-#                 "start_date": vol.start_date,
-#                 "end_date": vol.end_date,
-#                 "current_volunteering": vol.current_volunteering,
-#                 "entity_name": vol.entity_name,
-#                 "description": vol.description,
-#                 "achievements": vol.achievements,
-#                 "references": vol.references,
-#             }
-#             for vol in profile_cv.volunteering_set.all()
-#         ],
-#         "projects": [
-#             {
-#                 "name": proj.name,
-#                 "description": proj.description,
-#                 "link": proj.link,
-#             }
-#             for proj in profile_cv.project_set.all()
-#         ],
-#         "publications": [
-#             {
-#                 "doi": pub.doi,
-#                 "url": pub.url,
-#                 "role": pub.role,
-#                 "name": pub.name,
-#             }
-#             for pub in profile_cv.publication_set.all()
-#         ],
-#         "recognitions_awards": [
-#             {
-#                 "name": rec.name,
-#                 "entity": rec.entity,
-#                 "description": rec.description,
-#             }
-#             for rec in profile_cv.recognitionaward_set.all()
-#         ],
-#     }
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+class CVChatbot:
+    def __init__(self):
+        self.context = {
+            'last_topic': None,
+            'conversation_history': [],
+            'follow_up_questions': {}
+        }
 
-#     # Convert data into a prompt for the AI
-#     prompt = f"Analyze the following CV and provide feedback:\n\n{cv_data}"
-    
-#     # Use Hugging Face transformers for text generation
-#     generator = pipeline(
-#         "text-generation",
-#         model="EleutherAI/gpt-neo-1.3B",
-#         framework="pt"  # Force PyTorch framework
-#     )
-    
-#     response = generator(prompt, max_length=500, num_return_sequences=1)
+        self.responses = {
+            'greeting': "👋 Hello! I am your CV assistant. How can I help you today?",
+            'help': {
+                'main': """I can assist you with the following topics:
+                • CV/Resume Creation and Formatting
+                • Cover Letter Writing
+                • Skills Assessment and Optimization
+                • Work Experience Documentation
+                • Education and Qualifications
+                • Personal Information Management
+                • Job Search Strategy
+                • Interview Preparation
+                
+                Just ask me about any of these topics for more details.""",
+                'follow_up': [
+                    'Which topic interests you the most?',
+                    'Would you like specific examples for any of these areas?'
+                ]
+            },
+            'greetings': {
+                'english': [
+                    "Hi there! How can I assist you with your CV today?",
+                    "Welcome! Ready to work on your CV?",
+                    "Hello! Let's make your CV stand out!",
+                    "Greetings! How may I help you with your resume?"
+                ]
+            },
+            'farewells': {
+                'english': [
+                    "Goodbye! Good luck with your CV!",
+                    "Take care! Feel free to return if you need more CV help!",
+                    "Farewell! Wishing you success with your job search!",
+                    "Bye! Come back anytime for more CV assistance!"
+                ]
+            },
+            'cv': {
+                'main': """Here are key strategies for an effective CV:
 
-#     feedback = response[0]["generated_text"]
+                1. Strategic Customization:
+                • Tailor your CV for each specific position
+                • Mirror the language from the job description
+                • Prioritize relevant achievements
 
-    return render(request, 'ai_feedback/ai_feedback.html', {'cv_data': "cv_data", 'feedback': "feedback"})
+                2. Professional Presentation:
+                • Maintain consistent formatting
+                • Use clear, readable fonts (Arial, Calibri)
+                • Include white space for readability
+
+                3. Content Organization:
+                • Place most important information first
+                • Use bullet points for clarity
+                • Keep to 1-2 pages maximum
+
+                4. Achievement Focus:
+                • Quantify results where possible
+                • Use action verbs
+                • Highlight specific contributions
+
+                5. Technical Optimization:
+                • Include industry-relevant keywords
+                • Use ATS-friendly formatting
+                • Save in requested file format""",
+                'follow_up': [
+                    'Would you like specific examples of action verbs?',
+                    'Do you need help with any particular section?'
+                ]
+            },
+            'experience': {
+                'main': """Optimize your work experience section with these strategies:
+
+                1. Structure and Format:
+                • Use consistent format: [Job Title] - [Company] - [Dates]
+                • List positions in reverse chronological order
+                • Include location when relevant
+
+                2. Achievement Description:
+                • Lead with strong action verbs
+                • Focus on measurable results
+                • Use format: Action → Task → Result
+
+                3. Quantification:
+                • Include specific metrics
+                • Add percentages of improvement
+                • Mention team sizes managed
+
+                4. Relevancy:
+                • Highlight transferable skills
+                • Focus on achievements relevant to target role
+                • Adjust description length based on relevance""",
+                'follow_up': [
+                    'Would you like examples of quantified achievements?',
+                    'Need help describing a specific role?'
+                ]
+            },
+            'skills': {
+                'main': """Create an impactful skills section with these guidelines:
+
+                1. Technical Skills:
+                • List relevant software and tools
+                • Include proficiency levels
+                • Group by category
+
+                2. Soft Skills:
+                • Focus on leadership and communication
+                • Include problem-solving abilities
+                • Highlight team collaboration
+
+                3. Industry-Specific:
+                • Add relevant certifications
+                • Include specialized training
+                • List industry tools mastery
+
+                4. Organization:
+                • Prioritize most relevant skills
+                • Use clear categorization
+                • Update regularly""",
+                'follow_up': [
+                    'Would you like examples of how to rate your proficiency?',
+                    'Need help organizing your skills by category?'
+                ]
+            },
+            'default': {
+                'main': """I'm not sure how to help with that query. Try asking about:
+                • CV
+                • Work experience
+                • Skills
+                • Education
+                • Personal information
+
+                Or type 'help' to see the available topics.""",
+                'follow_up': [
+                    'Would you like to see the list of topics I can help with?',
+                    'Can you rephrase your question?'
+                ]
+            },
+            'farewell': "It was great chatting with you! Feel free to reach out anytime if you have more questions. Have a wonderful day!"
+        }
+
+        self.keywords = {
+            'cv': ['cv', 'resumé', 'curriculum', 'vitae', 'resume', 'document', 'format', 'layout'],
+            'experience': ['experience', 'work', 'job', 'employment', 'position', 'career', 'history'],
+            'education': ['education', 'studies', 'degrees', 'training', 'qualifications', 'academic'],
+            'skills': ['skills', 'competencies', 'abilities', 'expertise', 'proficiencies', 'capabilities'],
+            'personal information': ['personal', 'information', 'details', 'contact', 'data', 'profile'],
+        }
+
+    def analyze_intent(self, message):
+        message = message.lower().strip()
+
+        if message == 'help':
+            return 'help'
+
+        if self.context['last_topic'] and self.is_follow_up_question(message):
+            return f"{self.context['last_topic']}_followup"
+
+        # Check for greetings
+        if message in ['hello', 'hi', 'hey', 'greetings']:
+            return 'greeting'
+
+        # Check for farewells
+        if message in ['bye', 'goodbye', 'farewell', 'see you']:
+            return 'farewell'
+
+        for key, synonyms in self.keywords.items():
+            for synonym in synonyms:
+                if synonym in message:
+                    return key
+
+        return 'default'
+
+    def is_follow_up_question(self, message):
+        follow_up_patterns = [
+            'how', 'what', 'can you', 'could you', 'would', 'example',
+            'more', 'specific', 'tell me', 'explain'
+        ]
+        return any(pattern in message for pattern in follow_up_patterns)
+
+    def get_random_response(self, responses):
+        import random
+        return random.choice(responses)
+
+    def get_follow_up_response(self, topic):
+        topic_base = topic.replace('_followup', '')
+        follow_ups = self.responses.get(topic_base, {}).get('follow_up', [])
+        return self.get_random_response(follow_ups) if follow_ups else None
+
+    def get_bot_response(self, message):
+        from datetime import datetime
+
+        self.context['conversation_history'].append({
+            'type': 'user',
+            'message': message,
+            'timestamp': datetime.now()
+        })
+
+        intent = self.analyze_intent(message)
+        
+        if intent == 'greeting':
+            response = self.get_random_response(self.responses['greetings']['english'])
+        elif intent == 'farewell':
+            response = self.get_random_response(self.responses['farewells']['english'])
+        elif intent.endswith('_followup'):
+            response = self.get_follow_up_response(intent)
+        else:
+            response = self.responses.get(intent, {}).get('main', self.responses['default']['main'])
+            self.context['last_topic'] = intent
+
+        self.context['conversation_history'].append({
+            'type': 'bot',
+            'message': response,
+            'timestamp': datetime.now()
+        })
+
+        return response
+
+# Initialize chatbot
+chatbot = CVChatbot()
+
+def index(request):
+    """Render the chat interface."""
+    return render(request, '../../../../../profile_cv/templates/user_cv/user_cv_form.html')
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def chat(request):
+    """Handle chat messages and return bot responses."""
+    try:
+        data = json.loads(request.body)
+        message = data.get('message', '').strip()
+        
+        if not message:
+            return JsonResponse({'error': 'Message is required'}, status=400)
+
+        response = chatbot.get_bot_response(message)
+        
+        return JsonResponse({
+            'response': response,
+            'timestamp': str(datetime.now())
+        })
+
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def reset_conversation(request):
+    """Reset the chatbot's conversation history."""
+    try:
+        chatbot.context['last_topic'] = None
+        chatbot.context['conversation_history'] = []
+        chatbot.context['follow_up_questions'] = {}
+        
+        return JsonResponse({
+            'message': 'Conversation reset successfully',
+            'timestamp': str(datetime.now())
+        })
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

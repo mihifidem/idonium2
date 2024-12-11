@@ -6,10 +6,6 @@ from courses.models import *
 class Profile_CV(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,  related_name='profile_user')  # One-to-one relationship with the User model
     img_profile = models.ImageField(upload_to='profile_images/', blank=True)  # Profile picture
-    img_1_profile = models.ImageField(upload_to='profile_images/', blank=True)  # Profile picture
-    img_2_profile = models.ImageField(upload_to='profile_images/', blank=True)  # Profile picture
-    img_3_profile = models.ImageField(upload_to='profile_images/', blank=True)  # Profile picture
-    img_4_profile = models.ImageField(upload_to='profile_images/', blank=True)  # Profile picture
     address = models.CharField(max_length=255)  # User's address
     phone_1 = models.CharField(max_length=20)  # User's phone number
     phone_2 = models.CharField(max_length=20)  # User's phone number
@@ -20,16 +16,16 @@ class Profile_CV(models.Model):
     open_to_work = models.BooleanField(blank=True, null=True)
     vehicle = models.BooleanField(blank=False, null=True)
     disability = models.BooleanField(blank=True, null=True)
-    disability_percentage = models.IntegerField(blank=True, null=True)
+    disability_percentage = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
 
 # Model to represent a user's CV
 class User_cv(models.Model):
-    profile_user = models.ForeignKey(Profile_CV, on_delete=models.CASCADE, blank=True, null=True)  # One-to-one relationship with the User model
+    profile_user = models.ForeignKey("Profile_CV", on_delete=models.CASCADE, blank=True, null=True)  # One-to-one relationship with the User model
     urlCV = models.CharField(unique=True, max_length=255)  # Optional URL of the user
-    template = models.CharField(max_length=255)  # Template of the CV
+    template = models.ForeignKey("Template", on_delete=models.CASCADE)  # Template of the CV
     has_img_profile = models.BooleanField(blank=True, null=True)  # Profile picture
     has_address =  models.BooleanField(blank=True, null=True)  # User's address
     has_phone_1 = models.BooleanField(blank=True, null=True)# User's phone number
@@ -60,6 +56,12 @@ class User_cv(models.Model):
 
     def __str__(self):
         return self.profile_user.user.username
+
+class Template(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 class UserCvRelation(models.Model):
     user_cv = models.ForeignKey('User_cv', on_delete=models.CASCADE)

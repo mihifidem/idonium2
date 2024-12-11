@@ -23,11 +23,9 @@ urlpatterns = [
     path('', home, name='home'),
 
     # Profile URLs
-    path('profiles/', profile_list, name='profile_list'),
-    path('profiles/create/', profile_create, name='profile_create'),
+    path('profiles/<int:user_id>/', profile_view, name='profile_view'),
+    path('profiles/create/<int:user_id>/', profile_create, name='profile_create'),
     path('profiles/update/<int:profile_id>/', profile_update, name='profile_update'),
-    path('profiles/delete/<int:profile_id>/', profile_delete, name='profile_delete'),
-    path('profiles/<int:profile_id>/', profile_view, name='profile_view'),
 
     # Work experience URLs
     path('work_experiences/<int:user_id>/', work_experience_list, name='work_experience_list'),
@@ -84,13 +82,12 @@ urlpatterns = [
     path('recognitions_awards/delete/<int:recognition_award_id>/', recognition_award_delete, name='recognition_award_delete'),
 
     # User cv URLs
-    path('user_cvs/<int:profile_id>', user_cv_list, name='user_cv_list'),
-    path('user_cvs/create/<int:profile_id>/', user_cv_create, name='user_cv_create'),
+    path('user_cvs/<int:user_id>', user_cv_list, name='user_cv_list'),
+    path('user_cvs/create/<int:user_id>/', user_cv_create, name='user_cv_create'),
     path('user_cvs/update/<int:user_cv_id>/', user_cv_update, name='user_cv_update'),
     path('user_cvs/delete/<int:user_cv_id>/', user_cv_delete, name='user_cv_delete'),
     path('user_cvs/<int:user_cv_id>/<int:profile_cv_id>/', user_cv_view_details, name='user_cv_view_details'),
     path('user_cvs/pdf/<int:user_cv_id>/<int:profile_cv_id>', user_cv_pdf_view, name='user_cv_pdf_view'),
-    path('user_cvs/generate-feedback/<int:user_cv_id>/', generate_cv_feedback, name='generate_cv_feedback'),
     path('user_cvs/view/<str:url>/', user_cv_view, name='user_cv_view'),
 
 ]

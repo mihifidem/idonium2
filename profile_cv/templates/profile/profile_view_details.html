@@ -1,29 +1,137 @@
 {% extends 'users/base.html' %}
 
+{% block title %}Profile Details{% endblock %}
+
 {% block content %}
-<div class="profile-cv">
-    <h1>Perfil de {{ profile.user.username }}</h1>
-    <img src="{{ profile.img_profile.url }}">
-    <p><strong>Dirección:</strong> {{ profile.address }}</p>
-    <p><strong>Teléfono 1:</strong> {{ profile.phone_1 }}</p>
-    <p><strong>Teléfono 2:</strong> {{ profile.phone_2 }}</p>
-    <p><strong>Email 1:</strong> {{ profile.email_1 }}</p>
-    <p><strong>Email 2:</strong> {{ profile.email_2 }}</p>
-    <p><strong>DNI:</strong> {{ profile.dni }}</p>
-    <p><strong>Biografía:</strong> {{ profile.biography }}</p>
-    <p><strong>Disponible para trabajar:</strong> {{ profile.open_to_work|yesno:"Sí,No" }}</p>
-    <p><strong>Vehículo:</strong> {{ profile.vehicle|yesno:"Sí,No" }}</p>
-    <p><strong>Discapacidad:</strong> {{ profile.disability|yesno:"Sí,No" }}</p>
-    <p><strong>Porcentaje de discapacidad:</strong> {{ profile.disability_percentage }}%</p>
-    <p><strong>Incorporación:</strong> {{ profile.incorporation }}</p>
-    <p><strong>Sector:</strong> {{ profile.sector }}</p>
-    <p><strong>Categoría:</strong> {{ profile.category }}</p>
-    <p><strong>Experiencias laborales:</strong> {{ profile.work_experiences }}</p>
-    <p><strong>Habilidades duras:</strong> {{ profile.hard_skills }}</p>
-    <p><strong>Habilidades blandas:</strong> {{ profile.soft_skills }}</p>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="mb-0">Profile Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="profile-cv">
+                        <h1>Perfil de {{ profile.user.username }}</h1>
+                        {% if profile.img_profile %}
+                            <img src="{{ profile.img_profile.url }}" class="img-fluid mb-4" style="max-width: 200px; max-height: 200px;">
+                        {% else %}
+                            <img src="path/to/default/image.jpg" class="img-fluid mb-4" style="max-width: 200px; max-height: 200px;">
+                        {% endif %}
+                        
+                        <div class="mb-4">
+                            <label for="address" class="form-label"><strong>Dirección:</strong></label>
+                            <input type="text" id="address" class="form-control" value="{{ profile.address|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="phone_1" class="form-label"><strong>Teléfono 1:</strong></label>
+                            <input type="text" id="phone_1" class="form-control" value="{{ profile.phone_1|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="phone_2" class="form-label"><strong>Teléfono 2:</strong></label>
+                            <input type="text" id="phone_2" class="form-control" value="{{ profile.phone_2|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email_1" class="form-label"><strong>Email 1:</strong></label>
+                            <input type="email" id="email_1" class="form-control" value="{{ profile.email_1|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email_2" class="form-label"><strong>Email 2:</strong></label>
+                            <input type="email" id="email_2" class="form-control" value="{{ profile.email_2|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="dni" class="form-label"><strong>DNI:</strong></label>
+                            <input type="text" id="dni" class="form-control" value="{{ profile.dni|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="biography" class="form-label"><strong>Biografía:</strong></label>
+                            <textarea id="biography" class="form-control" rows="4" readonly>{{ profile.biography|default_if_none:'' }}</textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="open_to_work" class="form-label"><strong>Disponible para trabajar:</strong></label>
+                            <input type="text" id="open_to_work" class="form-control" value="{{ profile.open_to_work|yesno:"Sí,No"|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="vehicle" class="form-label"><strong>Vehículo:</strong></label>
+                            <input type="text" id="vehicle" class="form-control" value="{{ profile.vehicle|yesno:"Sí,No"|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="disability" class="form-label"><strong>Discapacidad:</strong></label>
+                            <input type="text" id="disability" class="form-control" value="{{ profile.disability|yesno:"Sí,No"|default_if_none:'' }}" readonly>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="disability_percentage" class="form-label"><strong>Porcentaje de discapacidad:</strong></label>
+                            <input type="text" id="disability_percentage" class="form-control" value="{{ profile.disability_percentage|default_if_none:'' }}%" readonly>
+                        </div>
 
-    <!-- crear curriculum -->
-    <a class="btn btn-primary" href="{% url 'user_cv_create' profile.pk %}">Crear curriculum</a>
-
+                        <!-- editar perfil -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a class="btn btn-success" href="{% url 'profile_update' profile.pk %}"><i class="fas fa-edit"></i> Editar perfil</a>
+                            <a class="btn btn-primary" href="{% url 'user_cv_create' user.pk %}"><i class="fas fa-file-alt"></i> Crear curriculum</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    /* Form styles */
+    .form-label {
+        font-weight: 500;
+    }
+
+    .form-control {
+        padding: 0.75rem;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+    }
+
+    /* Textarea specific styles */
+    .textarea-header {
+        margin-bottom: 10px;
+    }
+
+    .textarea-field {
+        margin-top: 8px;
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+    }
+
+    /* Helper text */
+    .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 4px;
+    }
+
+    /* Buttons */
+    .main-btn {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+
+    .btn-outline-secondary {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+
+    /* Error states */
+    .invalid-feedback {
+        font-size: 0.875rem;
+    }
+</style>
 {% endblock %}

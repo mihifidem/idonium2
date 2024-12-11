@@ -47,10 +47,6 @@ class Command(BaseCommand):
                 Profile_CV.objects.create(
                     user=user,
                     img_profile=faker.image_url(),
-                    img_1_profile=faker.image_url(),
-                    img_2_profile=faker.image_url(),
-                    img_3_profile=faker.image_url(),
-                    img_4_profile=faker.image_url(),
                     address=faker.address(),
                     phone_1=faker.phone_number(),
                     phone_2=faker.phone_number(),
@@ -77,7 +73,6 @@ class Command(BaseCommand):
                 has_phone_2=faker.boolean(),
                 has_email_1=faker.boolean(),
                 has_email_2=faker.boolean(),
-                has_dni=faker.boolean(),
                 has_url=faker.boolean(),
                 has_biography=faker.boolean(),
                 biography=faker.text(),

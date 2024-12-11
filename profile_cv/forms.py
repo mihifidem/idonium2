@@ -6,11 +6,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile_CV
         fields = [
-            "user",
-            "img_1_profile",
-            "img_2_profile",
-            "img_3_profile",
-            "img_4_profile",
+            "img_profile",
             "address",
             "phone_1",
             "phone_2",
@@ -23,6 +19,53 @@ class ProfileForm(forms.ModelForm):
             "disability",
             "disability_percentage",
         ]
+        widgets = {
+        'img_profile': forms.FileInput(attrs={
+            'class': 'form-control'
+        }),
+        'address': forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your address'
+        }),
+        'phone_1': forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your primary phone number'
+        }),
+        'phone_2': forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your secondary phone number (optional)'
+        }),
+        'email_1': forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your primary email'
+        }),
+        'email_2': forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your secondary email (optional)'
+        }),
+        'dni': forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your DNI'
+        }),
+        'biography': forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 4,
+            'placeholder': 'Write a short biography about yourself'
+        }),
+        'open_to_work': forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        }),
+        'vehicle': forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        }),
+        'disability': forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        }),
+        'disability_percentage': forms.NumberInput(attrs={
+        'class': 'form-control',
+
+})
+    }
 
 # Form to represent a work experience
 class WorkExperienceForm(forms.ModelForm):
@@ -308,6 +351,9 @@ class UserCvForm(forms.ModelForm):
             "relations",
         ]
         widgets = {
+            'template': forms.Select(attrs={
+                'class': 'form-control'
+            }),
             'urlCV': ReadOnlyWidget(),
             'has_img_profile': ToggleButtonWidget(),
             'has_address': ToggleButtonWidget(),

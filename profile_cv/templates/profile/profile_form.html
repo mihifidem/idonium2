@@ -1,11 +1,39 @@
 {% extends 'users/base.html' %}
 {% block title %}Add/Edit Profile{% endblock %}
 {% block content %}
-<h1>{{ view.action }}Profile</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-success" type="submit">Submit</button>
-    <a class="btn btn-secondary" href="{% url 'profile_list' %}">Cancel</a>
-</form>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="mb-0">{{ view.action }} Profile</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-success" type="submit">Submit</button>
+                            <a class="btn btn-secondary" href="{% url 'profile_view' user.id %}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const disabilityInput = document.getElementById('disability_percentage');
+
+    disabilityInput.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            let currentValue = parseInt(disabilityInput.value, 10);
+            disabilityInput.value = currentValue + 1;
+        }
+    });
+});
+</script>
