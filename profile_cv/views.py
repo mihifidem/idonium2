@@ -111,7 +111,7 @@ def profile_view(request, user_id):
     except Profile_CV.DoesNotExist:
         return redirect('profile_create', user_id)
     
-    return render(request, 'profile/profile_view_details.html', {"user": user})
+    return render(request, 'profile/profile_view_details.html', {"user": user, "profile": profile})
 
 # * |--------------------------------------------------------------------------
 # * | Class WorkExperience
