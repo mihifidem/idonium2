@@ -204,6 +204,18 @@ def course_detail_view(request, course_id):
 @login_required
 def course_user_list_view(request):
     user_courses = request.user.enrolled_courses.all()
+    for user_course in user_courses:
+        total_lessons = Lesson.objects.filter(module__course=user_course.course).count()
+        print(total_lessons)
+        completed_lessons = LessonCompletion.objects.filter(course_user=user_course, finished_at__isnull=False).count()
+        print(completed_lessons)
+
+        if total_lessons > 0:
+            progress_percentage = (completed_lessons / total_lessons) * 100
+        else:
+            progress_percentage = 0
+
+    print(f"{progress_percentage}%")
     return render(request, 'user_course_list.html', {'user_courses': user_courses})
 
 @login_required
@@ -216,8 +228,8 @@ def course_user_detail_view(request, course_id):
         ),
         id=course_id
     )
-    return render(request, 'user_course_detail.html', {'course': course})
 
+    return render(request, 'user_course_detail.html', {'course': course})
 @login_required
 @group_required('teacher')
 def course_teacher_list_view(request):
@@ -295,7 +307,7 @@ def course_complete_view(request, course_id):
         return redirect('courses:course-detail', course_id=course_id)
 
     total_lessons = Lesson.objects.filter(module__course=course).count()
-    completed_lessons = LessonCompletion.objects.filter(user=request.user, lesson__module__course=course, finished_at__isnull=False).count()
+    completed_lessons = LessonCompletion.objects.filter(course_user=course_user, lesson__module__course=course, finished_at__isnull=False).count()
 
     if total_lessons == completed_lessons:
         course_user.status = Status.objects.get(name="completed")
@@ -371,15 +383,15 @@ def lesson_detail_view(request, course_id, module_id, lesson_id):
         module=module
     )
 
-    enrolled = CourseUser.objects.filter(user=request.user, course=course).exists()
-    if not enrolled:
+    course_user = CourseUser.objects.filter(user=request.user, course=course).first()
+    if not course_user:
         messages.error(request, "Debes estar inscrito en este curso para acceder a sus lecciones.")
         return redirect('courses:course-detail', course_id=course_id)
 
     resources = lesson.resources.all()
 
     # Registrar la lección como iniciada
-    lesson_completion, created = LessonCompletion.objects.get_or_create(user=request.user, lesson=lesson)
+    lesson_completion, created = LessonCompletion.objects.get_or_create(course_user=course_user, lesson=lesson)
     if created:
         lesson_completion.finished_at = timezone.now()
         lesson_completion.save()
@@ -387,13 +399,13 @@ def lesson_detail_view(request, course_id, module_id, lesson_id):
     # Total de lecciones del curso y lecciones completadas
     total_lessons = Lesson.objects.filter(module__course=course).count()
     completed_lessons = LessonCompletion.objects.filter(
-        user=request.user, lesson__module__course=course, finished_at__isnull=False
+        course_user=course_user, finished_at__isnull=False
     ).count()
 
     # Determinar la siguiente lección no completada
     next_lesson = (
         Lesson.objects.filter(module__course=course)
-        .exclude(id__in=LessonCompletion.objects.filter(user=request.user, finished_at__isnull=False).values_list('lesson__id', flat=True))
+        .exclude(id__in=LessonCompletion.objects.filter(course_user=course_user, finished_at__isnull=False).values_list('lesson__id', flat=True))
         .order_by('id')
         .first()
     )

@@ -113,7 +113,7 @@
                                                     <ul>
                                                         <li><i class="fa fa-file-o"></i></li>
                                                         <li><span class="lecture">Lecture {{ module_counter }}.{{ forloop.counter }}</span></li>
-                                                        <li><span class="head"><a href="{% url 'courses:lesson-detail' course.id module.id lesson.id %}">{{ lesson.name }}</a></span></li>
+                                                        <li><span class="head">{{ lesson.name }}</span></li>
                                                         {% if lesson.duration %}
                                                         <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
                                                         {% else %}
@@ -124,6 +124,7 @@
                                             </div>
                                         <div id="collapse{{ forloop.counter }}-module{{ module_counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}-module{{ module_counter }}" data-parent="#accordionExample{{ module_counter }}">
                                             <div class="card-body">
+                                                <a href="{% url 'courses:lesson-detail' course.id module.id lesson.id %}">{{ lesson.name }}</a>
                                                 <p>{{ lesson.description }}</p>
                                                 <ul>
                                                     <p class="font-weight-bold">Resources:</p>
