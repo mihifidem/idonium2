@@ -313,7 +313,14 @@ def profile_create(request, user_id):
 # ? Función para actualizar un perfil
 @login_required
 def profile_update(request, profile_id):
-    profile = get_object_or_404(Profile_CV, id=profile_id)
+    if request.user != user:
+        return redirect("profile_view", request.user.id)
+    try:
+        profile = get_object_or_404(Profile_CV, id=profile_id)
+        user = profile.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = ProfileForm(request.POST,  request.FILES, instance=profile)
         if form.is_valid():
@@ -327,13 +334,13 @@ def profile_update(request, profile_id):
 def profile_view(request, user_id):
     if request.user.id != user_id:
         return redirect("profile_view", request.user.id)  # Redirige al home o cualquier otra página.
-    
-    user = get_object_or_404(User, pk=user_id)
+
     try:
+        user = get_object_or_404(User, pk=user_id)
         profile = Profile_CV.objects.get(user=user)
     except Profile_CV.DoesNotExist:
-        return redirect('profile_create', user_id)
-    
+        return redirect('profile_create', request.user.id)
+
     return render(request, 'profile/profile_view_details.html', {"user": user, "profile": profile})
 
 # * |--------------------------------------------------------------------------
@@ -345,9 +352,13 @@ def profile_view(request, user_id):
 def work_experience_create(request, user_id):
     if request.user.id != user_id:
         return redirect("work_experience_create", request.user.id)
-    
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
+
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = WorkExperienceForm(request.POST)
         if form.is_valid():
@@ -365,17 +376,29 @@ def work_experience_list(request, user_id):
     if request.user.id != user_id:
         return redirect("work_experience_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    work_experiences = WorkExperience.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        work_experiences = WorkExperience.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
 
     return render(request, "work_experience/work_experience_list.html", {"work_experiences": work_experiences, "user": user})
 
 # ? Función para actualizar una experiencia laboral
 @login_required
 def work_experience_update(request, work_experience_id):
-    work_experience = get_object_or_404(WorkExperience, id=work_experience_id)
-    user = work_experience.profile_user.user
+    if request.user != user:
+        return redirect("work_experience_list", request.user.id)
+
+    try:
+        work_experience = get_object_or_404(WorkExperience, id=work_experience_id)
+        user = work_experience.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = WorkExperienceForm(request.POST, instance=work_experience)
         if form.is_valid():
@@ -388,8 +411,16 @@ def work_experience_update(request, work_experience_id):
 # ? Función para eliminar una experiencia laboral
 @login_required
 def work_experience_delete(request, work_experience_id):
-    work_experience = get_object_or_404(WorkExperience, id=work_experience_id)
-    user = work_experience.profile_user.user  # Obtén el usuario directamente desde el perfil
+    if request.user != user:
+        return redirect("work_experience_list", request.user.id)
+    
+    try:
+        work_experience = get_object_or_404(WorkExperience, id=work_experience_id)
+        user = work_experience.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         work_experience.delete()
         return redirect("work_experience_list", user.id)
@@ -405,8 +436,12 @@ def academic_education_create(request, user_id):
     if request.user.id != user_id:
         return redirect("academic_education_create", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = AcademicEducationForm(request.POST)
         if form.is_valid():
@@ -424,16 +459,28 @@ def academic_education_list(request, user_id):
     if request.user.id != user_id:
         return redirect("academic_education_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    academic_educations = AcademicEducation.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        academic_educations = AcademicEducation.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     return render(request, "academic_education/academic_education_list.html", {"academic_educations": academic_educations, "user": user})
 
 # ? Función para actualizar una educación académica
 @login_required
 def academic_education_update(request, academic_education_id):
-    academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
-    user = academic_education.profile_user.user  # Obtén el usuario directamente desde el perfil
+    if request.user != user:
+        return redirect("academic_education_list", request.user.id)
+
+    try:
+        academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
+        user = academic_education.profile_user.user  # Obtén el usuario directamente desde el perfil
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = AcademicEducationForm(request.POST, instance=academic_education)
         if form.is_valid():
@@ -446,8 +493,16 @@ def academic_education_update(request, academic_education_id):
 # ? Función para eliminar una educación académica
 @login_required
 def academic_education_delete(request, academic_education_id):
-    academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
-    user = academic_education.profile_user.user  # Obtén el usuario directamente desde el perfil
+    if request.user != user:
+        return redirect("academic_education_list", request.user.id)
+
+    try:
+        academic_education = get_object_or_404(AcademicEducation, id=academic_education_id)
+        user = academic_education.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         academic_education.delete()
         return redirect("academic_education_list", user.id)
@@ -463,9 +518,13 @@ def softskill_list(request, user_id):
     if request.user.id != user_id:
         return redirect("soft_skill_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    softskills = SoftSkillUser.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        softskills = SoftSkillUser.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     return render(request, "softskill/softskill_list.html", {"softskills": softskills, "user": user})
 
 #? Función para crear una SoftSkill
@@ -474,8 +533,12 @@ def softskill_create(request, user_id):
     if request.user.id != user_id:
         return redirect("soft_skill_create", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = SoftSkillForm(request.POST)
         if form.is_valid():
@@ -490,8 +553,15 @@ def softskill_create(request, user_id):
 #? Función para actualizar una SoftSkill
 @login_required
 def softskill_update(request, soft_skill_id):
-    softskill = get_object_or_404(SoftSkillUser, id=soft_skill_id)
-    user = softskill.profile_user.user
+    if request.user != user:
+        return redirect("soft_skill_list", request.user.id)
+
+    try:
+        softskill = get_object_or_404(SoftSkillUser, id=soft_skill_id)
+        user = softskill.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = SoftSkillForm(request.POST, instance=softskill)
         if form.is_valid():
@@ -504,8 +574,15 @@ def softskill_update(request, soft_skill_id):
 #? Función para eliminar una SoftSkill
 @login_required
 def softskill_delete(request, soft_skill_id):
-    softskill = get_object_or_404(SoftSkillUser, id=soft_skill_id)
-    user = softskill.profile_user.user
+    if request.user != user:
+        return redirect("soft_skill_list", request.user.id)
+
+    try:
+        softskill = get_object_or_404(SoftSkillUser, id=soft_skill_id)
+        user = softskill.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         softskill.delete()
         return redirect("soft_skill_list", user.id)
@@ -521,9 +598,13 @@ def hardskill_list(request, user_id):
     if request.user.id != user_id:
         return redirect("hard_skill_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile= get_object_or_404(Profile_CV,  user=user)
-    hardskills = HardSkillUser.objects.filter(profile_user = profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        hardskills = HardSkillUser.objects.filter(profile_user = profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     return render(request, "hardskill/hardskill_list.html", {"hardskills": hardskills, 'user': user})
 
 
@@ -533,8 +614,12 @@ def hardskill_create(request, user_id):
     if request.user.id != user_id:
         return redirect("hard_skill_create", request.user.id)
 
-    user = get_object_or_404(User, id= user_id)
-    profile = get_object_or_404(Profile_CV, user = user)
+    try:
+        user = get_object_or_404(User, id= user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = HardSkillForm(request.POST)
         if form.is_valid():
@@ -549,8 +634,15 @@ def hardskill_create(request, user_id):
 #? Función para eliminar una HardSkill
 @login_required
 def hardskill_delete(request, hard_skill_id):
-    hardskill = get_object_or_404(HardSkillUser, id=hard_skill_id)
-    user = hardskill.profile_user.user
+    if request.user != user:
+        return redirect("hard_skill_list", request.user.id)
+
+    try:
+        hardskill = get_object_or_404(HardSkillUser, id=hard_skill_id)
+        user = hardskill.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         hardskill.delete()
         return redirect("hard_skill_list", user.id)
@@ -559,8 +651,15 @@ def hardskill_delete(request, hard_skill_id):
 #? Función para actualizar una HardSkill
 @login_required
 def hardskill_update(request, hard_skill_id):
-    hardskill = get_object_or_404(HardSkillUser, id=hard_skill_id)
-    user = hardskill.profile_user.user
+    if request.user != user:
+        return redirect("hard_skill_list", request.user.id)
+
+    try:
+        hardskill = get_object_or_404(HardSkillUser, id=hard_skill_id)
+        user = hardskill.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = HardSkillForm(request.POST, instance=hardskill)
         if form.is_valid():
@@ -580,9 +679,13 @@ def language_list(request, user_id):
     if request.user.id != user_id:
         return redirect("language_list", request.user.id)
 
-    user = get_object_or_404(User, id = user_id)
-    profile = get_object_or_404(Profile_CV, user = user)
-    languages = LanguageUser.objects.filter(profile_user = profile)
+    try:
+        user = get_object_or_404(User, id = user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        languages = LanguageUser.objects.filter(profile_user = profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     return render(request, "language/language_list.html", {"languages": languages, 'user': user})
 
 #? Función para crear un idioma
@@ -591,8 +694,12 @@ def language_create(request, user_id):
     if request.user.id != user_id:
         return redirect("language_create", request.user.id)
 
-    user = get_object_or_404(User, id= user_id)
-    profile = get_object_or_404(Profile_CV, user= user)
+    try:
+        user = get_object_or_404(User, id= user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = LanguageForm(request.POST)
         if form.is_valid():
@@ -607,8 +714,15 @@ def language_create(request, user_id):
 #? Función para actualizar un idioma
 @login_required
 def language_update(request, language_id):
-    language = get_object_or_404(LanguageUser, id=language_id)
-    user = language.profile_user.user
+    if request.user != user:
+        return redirect("language_list", request.user.id)
+
+    try:
+        language = get_object_or_404(LanguageUser, id=language_id)
+        user = language.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = LanguageForm(request.POST, instance=language)
         if form.is_valid():
@@ -621,8 +735,15 @@ def language_update(request, language_id):
 #? Función para eliminar un idioma
 @login_required
 def language_delete(request, language_id):
-    language = get_object_or_404(LanguageUser, id=language_id)
-    user = language.profile_user.user
+    if request.user != user:
+        return redirect("language_list", request.user.id)
+
+    try:
+        language = get_object_or_404(LanguageUser, id=language_id)
+        user = language.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         language.delete()
         return redirect("language_list", user.id)
@@ -638,9 +759,13 @@ def volunteering_list(request, user_id):
     if request.user.id != user_id:
         return redirect("volunteering_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    volunteerings = Volunteering.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        volunteerings = Volunteering.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     return render(request, "volunteering/volunteering_list.html", {"volunteerings": volunteerings, "user": user})
 
 #? Función para crear un voluntariado
@@ -649,8 +774,12 @@ def volunteering_create(request, user_id):
     if request.user.id != user_id:
         return redirect("volunteering_create", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = VolunteeringForm(request.POST)
         if form.is_valid():
@@ -665,8 +794,15 @@ def volunteering_create(request, user_id):
 #? Función para actualizar un voluntariado
 @login_required
 def volunteering_update(request, volunteering_id):
-    volunteering = get_object_or_404(Volunteering, id=volunteering_id)
-    user = volunteering.profile_user.user
+    if request.user != user:
+        return redirect("volunteering_list", request.user.id)
+
+    try:
+        volunteering = get_object_or_404(Volunteering, id=volunteering_id)
+        user = volunteering.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = VolunteeringForm(request.POST, instance=volunteering)
         if form.is_valid():
@@ -681,8 +817,15 @@ def volunteering_update(request, volunteering_id):
 #? Función para eliminar un voluntariado
 @login_required
 def volunteering_delete(request, volunteering_id):
-    volunteering = get_object_or_404(Volunteering, id=volunteering_id)
-    user = volunteering.profile_user.user
+    if request.user != user:
+        return redirect("volunteering_list", request.user.id)
+
+    try:
+        volunteering = get_object_or_404(Volunteering, id=volunteering_id)
+        user = volunteering.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         volunteering.delete()
         return redirect("volunteering_list", user.id)
@@ -698,9 +841,14 @@ def project_list(request, user_id):
     if request.user.id != user_id:
         return redirect("project_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    projects = Project.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        projects = Project.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
+
     return render(request, "project/project_list.html", {"projects": projects, "user": user})
 
 #? Función para crear un proyecto
@@ -709,8 +857,12 @@ def project_create(request, user_id):
     if request.user.id != user_id:
         return redirect("project_create", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = ProjectForm(request.POST)
         if form.is_valid():
@@ -725,8 +877,15 @@ def project_create(request, user_id):
 #? Función para actualizar un proyecto
 @login_required
 def project_update(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    user = project.profile_user.user
+    if request.user != user:
+        return redirect("project_list", request.user.id)
+
+    try:
+        project = get_object_or_404(Project, id=project_id)
+        user = project.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
@@ -739,8 +898,15 @@ def project_update(request, project_id):
 #? Función para eliminar un proyecto
 @login_required
 def project_delete(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    user = project.profile_user.user
+    if request.user != user:
+        return redirect("project_list", request.user.id)
+
+    try:
+        project = get_object_or_404(Project, id=project_id)
+        user = project.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         project.delete()
         return redirect("project_list", user.id)
@@ -756,9 +922,14 @@ def recognition_award_list(request, user_id):
     if request.user.id != user_id:
         return redirect("recognition_award_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        recognitions_awards = RecognitionAward.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
+
     return render(request, "recognitionaward/recognitionaward_list.html", {"recognitions_awards": recognitions_awards, "user": user})
 
 #? Función para crear un reconocimiento o premio
@@ -767,8 +938,12 @@ def recognition_award_create(request, user_id):
     if request.user.id != user_id:
         return redirect("recognition_award_create", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = RecognitionForm(request.POST)
         if form.is_valid():
@@ -783,8 +958,15 @@ def recognition_award_create(request, user_id):
 #? Función para actualizar un reconocimiento o premio
 @login_required
 def recognition_award_update(request, recognition_award_id):
-    recognitionaward = get_object_or_404(RecognitionAward, id=recognition_award_id)
-    user = recognitionaward.profile_user.user
+    if request.user != user:
+        return redirect("recognition_award_list", request.user.id)
+
+    try:
+        recognitionaward = get_object_or_404(RecognitionAward, id=recognition_award_id)
+        user = recognitionaward.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = RecognitionForm(request.POST, instance=recognitionaward)
         if form.is_valid():
@@ -797,8 +979,15 @@ def recognition_award_update(request, recognition_award_id):
 #? Función para eliminar un reconocimiento o premio
 @login_required
 def recognition_award_delete(request, recognition_award_id):
-    recognitionaward = get_object_or_404(RecognitionAward, id=recognition_award_id)
-    user = recognitionaward.profile_user.user
+    if request.user != user:
+        return redirect("recognition_award_list", request.user.id)
+
+    try:
+        recognitionaward = get_object_or_404(RecognitionAward, id=recognition_award_id)
+        user = recognitionaward.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         recognitionaward.delete()
         return redirect("recognition_award_list", user.id)
@@ -814,9 +1003,14 @@ def publication_list(request, user_id):
     if request.user.id != user_id:
         return redirect("publication_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    publications = Publication.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        publications = Publication.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
+
     return render(request, "publication/publication_list.html", {"publications": publications, "user": user})
 
 #? Función para crear una publicación
@@ -825,8 +1019,12 @@ def publication_create(request, user_id):
     if request.user.id != user_id:
         return redirect("publication_create", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = PublicationForm(request.POST)
         if form.is_valid():
@@ -841,8 +1039,15 @@ def publication_create(request, user_id):
 #? Función para actualizar una publicación
 @login_required
 def publication_update(request, publication_id):
-    publication = get_object_or_404(Publication, id=publication_id)
-    user = publication.profile_user.user
+    if request.user != user:
+        return redirect("publication_list", request.user.id)
+
+    try:
+        publication = get_object_or_404(Publication, id=publication_id)
+        user = publication.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = PublicationForm(request.POST, instance=publication)
         if form.is_valid():
@@ -855,8 +1060,15 @@ def publication_update(request, publication_id):
 #? Función para eliminar una publicación
 @login_required
 def publication_delete(request, publication_id):
-    publication = get_object_or_404(Publication, id=publication_id)
-    user = publication.profile_user.user
+    if request.user != user:
+        return redirect("publication_list", request.user.id)
+
+    try:
+        publication = get_object_or_404(Publication, id=publication_id)
+        user = publication.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         publication.delete()
         return redirect("publication_list", user.id)
@@ -872,9 +1084,13 @@ def user_cv_list(request, user_id):
     if request.user.id != user_id:
         return redirect("user_cv_list", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile = get_object_or_404(Profile_CV, user=user)
-    user_cv = User_cv.objects.filter(profile_user=profile)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile = get_object_or_404(Profile_CV, user=user)
+        user_cv = User_cv.objects.filter(profile_user=profile)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     return render(request, "user_cv/user_cv_list.html", {"user_cv": user_cv, "profile": profile, "user": user})
 
 #? Función para crear un CV
@@ -883,24 +1099,27 @@ def user_cv_create(request, user_id):
     if request.user.id != user_id:
         return redirect("user_cv_create", request.user.id)
 
-    user = get_object_or_404(User, id=user_id)
-    profile_cv = get_object_or_404(Profile_CV, user=user)
-    work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
-    academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
-    hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
-    soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
-    languages = LanguageUser.objects.filter(profile_user=profile_cv)
-    categories = CategoryUser.objects.filter(profile_user=profile_cv)
-    sectors = SectorUser.objects.filter(profile_user=profile_cv)
-    incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
-    volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
-    projects = Project.objects.filter(profile_user=profile_cv)
-    publications = Publication.objects.filter(profile_user=profile_cv)
-    recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
+    try:
+        user = get_object_or_404(User, id=user_id)
+        profile = Profile_CV.objects.get(user=user)
+        profile_cv = get_object_or_404(Profile_CV, user=user)
+        work_experiences = WorkExperience.objects.filter(profile_user=profile_cv)
+        academic_educations = AcademicEducation.objects.filter(profile_user=profile_cv)
+        hard_skills = HardSkillUser.objects.filter(profile_user=profile_cv)
+        soft_skills = SoftSkillUser.objects.filter(profile_user=profile_cv)
+        languages = LanguageUser.objects.filter(profile_user=profile_cv)
+        categories = CategoryUser.objects.filter(profile_user=profile_cv)
+        sectors = SectorUser.objects.filter(profile_user=profile_cv)
+        incorporations = IncorporationUser.objects.filter(profile_user=profile_cv)
+        volunteerings = Volunteering.objects.filter(profile_user=profile_cv)
+        projects = Project.objects.filter(profile_user=profile_cv)
+        publications = Publication.objects.filter(profile_user=profile_cv)
+        recognitions_awards = RecognitionAward.objects.filter(profile_user=profile_cv)
 
-    random_numbers = ''.join(random.choices(string.digits, k=4))
-    initial_urlCV = f"{profile_cv.user.username}-{random_numbers}"
-
+        random_numbers = ''.join(random.choices(string.digits, k=4))
+        initial_urlCV = f"{profile_cv.user.username}-{random_numbers}"
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         print(request.POST)
         form = UserCvForm(request.POST)
@@ -1025,9 +1244,16 @@ def user_cv_create(request, user_id):
 #? Función para actualizar un CV
 @login_required
 def user_cv_update(request, user_cv_id):
-    user_cv = get_object_or_404(User_cv, id=user_cv_id)
-    profile_cv = get_object_or_404(Profile_CV, id= user_cv.profile_user.id)
-    user = profile_cv.user
+    if request.user != user:
+        return redirect("user_cv_list", request.user.id)
+
+    try:
+        user_cv = get_object_or_404(User_cv, id=user_cv_id)
+        profile = Profile_CV.objects.get(user=user_cv)
+        profile_cv = get_object_or_404(Profile_CV, id= user_cv.profile_user.id)
+        user = profile_cv.user
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         form = UserCvForm(request.POST, instance=user_cv)
         if form.is_valid():
@@ -1040,8 +1266,15 @@ def user_cv_update(request, user_cv_id):
 #? Función para eliminar un CV
 @login_required
 def user_cv_delete(request, user_cv_id):
-    user_cv = get_object_or_404(User_cv, id=user_cv_id)
-    user = user_cv.profile_user.user
+    if request.user != user:
+        return redirect("user_cv_list", request.user.id)
+
+    try:
+        user_cv = get_object_or_404(User_cv, id=user_cv_id)
+        user = user_cv.profile_user.user
+        profile = Profile_CV.objects.get(user=user)
+    except Profile_CV.DoesNotExist:
+        return redirect('profile_create', request.user.id)
     if request.method == "POST":
         user_cv.delete()
         return redirect("user_cv_list", user.pk)  # Pasa el profile_id aquí
