@@ -332,9 +332,6 @@ def profile_update(request, profile_id):
 
 @login_required
 def profile_view(request, user_id):
-    if request.user.id != user_id:
-        return redirect("profile_view", request.user.id)  # Redirige al home o cualquier otra página.
-
     try:
         user = get_object_or_404(User, pk=user_id)
         profile = Profile_CV.objects.get(user=user)

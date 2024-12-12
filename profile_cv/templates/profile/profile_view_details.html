@@ -75,10 +75,13 @@
                         </div>
 
                         <!-- editar perfil -->
+                        {% if request.user.pk == user.pk %}
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a class="btn btn-success" href="{% url 'profile_update' profile.pk %}"><i class="fas fa-edit"></i> Editar perfil</a>
                             <a class="btn btn-primary" href="{% url 'user_cv_create' user.pk %}"><i class="fas fa-file-alt"></i> Crear curriculum</a>
                         </div>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
