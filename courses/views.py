@@ -84,6 +84,7 @@ def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
 # * |--------------------------------------------------------------------------
 # * | Course Views
 # * |--------------------------------------------------------------------------
+
 @login_required
 def courses_list_view(request):
     # Obtener todos los cursos activos
@@ -122,9 +123,6 @@ def courses_list_view(request):
     page_number = request.GET.get('page')  # Obtén el número de página actual
     page_obj = paginator.get_page(page_number)
 
-
-
-    
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {
     'page_obj': page_obj, 
@@ -203,20 +201,28 @@ def course_detail_view(request, course_id):
 
 @login_required
 def course_user_list_view(request):
-    user_courses = request.user.enrolled_courses.all()
+    user_courses = request.user.enrolled_courses.select_related('course').all()
+
+    # Crear una lista para almacenar los datos de progreso de cada curso
+    user_courses_list = []
+
     for user_course in user_courses:
         total_lessons = Lesson.objects.filter(module__course=user_course.course).count()
-        print(total_lessons)
         completed_lessons = LessonCompletion.objects.filter(course_user=user_course, finished_at__isnull=False).count()
-        print(completed_lessons)
 
-        if total_lessons > 0:
-            progress_percentage = (completed_lessons / total_lessons) * 100
-        else:
-            progress_percentage = 0
+        # Calcular el porcentaje de progreso
+        progress_percentage = (completed_lessons / total_lessons) * 100 if total_lessons > 0 else 0
 
-    print(f"{progress_percentage}%")
-    return render(request, 'user_course_list.html', {'user_courses': user_courses})
+        # Añadir el curso y su progreso a la lista
+        user_courses_list.append({
+            'course': user_course.course,
+            'progress_percentage': progress_percentage,
+            'completed_lessons': completed_lessons,
+            'total_lessons': total_lessons,
+        })
+
+    # Pasar la lista completa al contexto de la plantilla
+    return render(request, 'user_course_list.html', {'user_courses_list': user_courses_list})
 
 @login_required
 def course_user_detail_view(request, course_id):

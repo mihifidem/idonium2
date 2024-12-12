@@ -171,6 +171,9 @@ class LessonCompletion(models.Model):
     started_at = models.DateTimeField(auto_now_add=True)
     finished_at = models.DateTimeField(null=True)
 
+    class Meta:
+        unique_together = ('course_user', 'lesson')
+
     def __str__(self):
         return f"{self.course_user.user.username} - {self.lesson.name}"
 
