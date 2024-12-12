@@ -7,7 +7,8 @@
       "2. django-admin startproject my_tennis_club",
       "3. django start my_tennis_club"
     ],
-    "correct_answer": "2. django-admin startproject my_tennis_club"
+    "correct_answer": "2. django-admin startproject my_tennis_club",
+    "improvement": "Remember, the command `django-admin startproject` is used to initialize a new Django project. Always verify the syntax and spelling of Django commands."
   },
   {
     "category": "Django",
@@ -17,7 +18,8 @@
       "2. py manage.py startserver",
       "3. py manage.py runserver"
     ],
-    "correct_answer": "3. py manage.py runserver"
+    "correct_answer": "3. py manage.py runserver",
+    "improvement": "To start the development server, the command is `py manage.py runserver`. The keyword is `runserver`, which makes it easier to remember."
   },
   {
     "category": "Django",
@@ -27,7 +29,8 @@
       "2. settings.py",
       "3. manage.py"
     ],
-    "correct_answer": "1. templates.py"
+    "correct_answer": "1. templates.py",
+    "improvement": "The `templates.py` file does not exist in a default Django project. Focus on understanding the purpose of essential files like `settings.py` and `manage.py`."
   },
   {
     "category": "Django",
@@ -36,7 +39,8 @@
       "1. JavaC",
       "2. Python"
     ],
-    "correct_answer": "2. Python"
+    "correct_answer": "2. Python",
+    "improvement": "Django is a Python-based framework. Familiarity with Python basics will help you work effectively with Django."
   },
   {
     "category": "Django",
@@ -46,7 +50,8 @@
       "2. settings.py",
       "3. urls.py"
     ],
-    "correct_answer": "3. urls.py"
+    "correct_answer": "3. urls.py",
+    "improvement": "Requests in Django are routed through `urls.py`. Study how URL patterns map to views to understand the request flow."
   },
   {
     "category": "Django",
@@ -56,7 +61,8 @@
       "2. views",
       "3. controls"
     ],
-    "correct_answer": "2. views"
+    "correct_answer": "2. views",
+    "improvement": "Django uses views to handle logic for incoming requests. Learn how to create and use views effectively."
   },
   {
     "category": "Django",
@@ -65,7 +71,8 @@
       "1. Yes",
       "2. No, never"
     ],
-    "correct_answer": "1. Yes"
+    "correct_answer": "1. Yes",
+    "improvement": "Django templates are typically `.html` files. Practice using Django's templating language within these files."
   },
   {
     "category": "Django",
@@ -75,7 +82,8 @@
       "2. Models",
       "3. SQLite"
     ],
-    "correct_answer": "2. Models"
+    "correct_answer": "2. Models",
+    "improvement": "Models in Django define the structure of your database tables. Understand how to create and use models for database interactions."
   },
   {
     "category": "Django",
@@ -85,7 +93,8 @@
       "2. py manage.py executemigrations",
       "3. py manage.py makemigrations"
     ],
-    "correct_answer": "3. py manage.py makemigrations"
+    "correct_answer": "3. py manage.py makemigrations",
+    "improvement": "Always run `py manage.py makemigrations` after modifying a model. Then execute `py manage.py migrate` to apply the changes."
   },
   {
     "category": "Django",
@@ -95,7 +104,8 @@
       "2. import members.Member",
       "3. import Member from members"
     ],
-    "correct_answer": "1. from members.models import Member"
+    "correct_answer": "1. from members.models import Member",
+    "improvement": "When importing a model, use the syntax `from <app_name>.models import <ModelName>`. Keep your imports organized."
   },
   {
     "category": "Django",
@@ -105,7 +115,8 @@
       "2. {{ firstname }}",
       "3. ' firstname '"
     ],
-    "correct_answer": "2. {{ firstname }}"
+    "correct_answer": "2. {{ firstname }}",
+    "improvement": "Django templates use `{{ variable_name }}` syntax to display variables. Practice rendering variables in templates."
   },
   {
     "category": "Django",
@@ -115,7 +126,8 @@
       "2. Python tuples",
       "3. Python dictionaries"
     ],
-    "correct_answer": "1. Python functions"
+    "correct_answer": "1. Python functions",
+    "improvement": "Views are Python functions that handle requests and return responses. Learn to define and link them to URLs."
   },
   {
     "category": "Django",
@@ -125,7 +137,8 @@
       "2. views.py",
       "3. settings.py"
     ],
-    "correct_answer": "3. settings.py"
+    "correct_answer": "3. settings.py",
+    "improvement": "The `settings.py` file contains configurations for your Django project. Familiarize yourself with its key settings."
   },
   {
     "category": "Django",
@@ -136,7 +149,8 @@
       "3. DEBUG = FALSE",
       "4. DEBUG = 'OFF'"
     ],
-    "correct_answer": "3. DEBUG = FALSE"
+    "correct_answer": "3. DEBUG = FALSE",
+    "improvement": "In Django, set `DEBUG = False` (capitalized) to turn off debugging in production. Double-check syntax for accuracy."
   },
   {
     "category": "Django",
@@ -145,7 +159,8 @@
       "1. False",
       "2. True"
     ],
-    "correct_answer": "2. True"
+    "correct_answer": "2. True",
+    "improvement": "When `DEBUG = False`, specify allowed hosts in the `ALLOWED_HOSTS` setting to secure your application."
   },
   {
     "category": "Django",
@@ -155,7 +170,8 @@
       "2. py manage.py createsuperuser",
       "3. py manage.py createuser"
     ],
-    "correct_answer": "2. py manage.py createsuperuser"
+    "correct_answer": "2. py manage.py createsuperuser",
+    "improvement": "Use `py manage.py createsuperuser` to create an admin user for the Django admin interface. Follow the prompts carefully."
   },
   {
     "category": "Django",
@@ -165,7 +181,8 @@
       "2. settings.py",
       "3. views.py"
     ],
-    "correct_answer": "1. admin.py"
+    "correct_answer": "1. admin.py",
+    "improvement": "Register models in `admin.py` using `admin.site.register(<ModelName>)`. This enables them in the admin interface."
   },
   {
     "category": "Django",
@@ -175,7 +192,8 @@
       "2. {% for x in y %}",
       "3. { for x in y }"
     ],
-    "correct_answer": "2. {% for x in y %}"
+    "correct_answer": "2. {% for x in y %}",
+    "improvement": "Template tags in Django use `{% %}`. Always enclose control structures like loops in these delimiters."
   },
   {
     "category": "Django",
@@ -185,7 +203,8 @@
       "2. remove",
       "3. comment"
     ],
-    "correct_answer": "3. comment"
+    "correct_answer": "3. comment",
+    "improvement": "Use `{% comment %} ... {% endcomment %}` for comments in Django templates. These are ignored during rendering."
   },
   {
     "category": "Django",
@@ -195,7 +214,8 @@
       "2. if",
       "3. when"
     ],
-    "correct_answer": "2. if"
+    "correct_answer": "2. if",
+    "improvement": "Use `{% if %}` for conditionals in templates. Ensure every `if` is closed with `{% endif %}`."
   },
   {
     "category": "Django",
@@ -206,7 +226,8 @@
       "3. end if",
       "4. end"
     ],
-    "correct_answer": "1. endif"
+    "correct_answer": "1. endif",
+    "improvement": "Always close conditionals in Django templates with `{% endif %}` to avoid syntax errors."
   },
   {
     "category": "Django",
@@ -216,7 +237,8 @@
       "2. if A like B",
       "3. if A == B"
     ],
-    "correct_answer": "3. if A == B"
+    "correct_answer": "3. if A == B",
+    "improvement": "The `==` operator is used in conditionals for equality checks. Ensure you're using it correctly in logic."
   },
   {
     "category": "Django",
@@ -226,7 +248,8 @@
       "2. var",
       "3. let"
     ],
-    "correct_answer": "1. with"
+    "correct_answer": "1. with",
+    "improvement": "Use the `{% with %}` tag to create variables in templates. This improves readability and reduces repetition."
   },
   {
     "category": "Django",
@@ -236,7 +259,8 @@
       "2. get(firstname='Emil')",
       "3. filter(firstname='Emil')"
     ],
-    "correct_answer": "3. filter(firstname='Emil')"
+    "correct_answer": "3. filter(firstname='Emil')",
+    "improvement": "Use `.filter()` to query multiple records based on conditions. Practice querying your database with different filters."
   },
   {
     "category": "Django",
@@ -247,6 +271,7 @@
       "3. orderby('firstname')",
       "4. sortby('firstname')"
     ],
-    "correct_answer": "2. order_by('firstname')"
+    "correct_answer": "2. order_by('firstname')",
+    "improvement": "Use `.order_by()` to sort QuerySets. Try chaining it with `.filter()` to perform combined queries."
   }
 ]

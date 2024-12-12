@@ -1,0 +1,300 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hello",
+        "Hey",
+        "Is anyone there?",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "Hi",
+        "Hey there",
+        "How are you?",
+        "What's up?"
+      ],
+      "responses": [
+        "Hello!",
+        "Hey! How are you?",
+        "Hi, how can I help you?",
+        "Hello! How are you?",
+        "Hi! How can I assist you today?",
+        "Hey! How can I help you?"
+      ]
+    },
+    {
+      "tag": "farewell",
+      "patterns": [
+        "Goodbye",
+        "See you later",
+        "I have to go",
+        "See you later!",
+        "Bye",
+        "Take care",
+        "Be well",
+        "Catch you later",
+        "Goodbye for now"
+      ],
+      "responses": [
+        "See you later!",
+        "Have a nice day!",
+        "Bye! Come back soon",
+        "Take care!",
+        "Goodbye! Hope to see you again soon",
+        "See you later! Take care"
+      ]
+    },
+    {
+      "tag": "Thank you",
+      "patterns": [
+        "Thank you very much",
+        "I appreciate it",
+        "Thank you for your help",
+        "Thanks a lot",
+        "You're very kind",
+        "Thanks",
+        "Cheers",
+        "Many thanks"
+      ],
+      "responses": [
+        "You're welcome!",
+        "Happy to help you!",
+        "Anything, I'm here!",
+        "It's a pleasure to help you!",
+        "You're very welcome!",
+        "Glad I could help!"
+      ]
+    },
+    {
+      "tag": "html setup",
+      "patterns": [
+        "How do I start an HTML file?",
+        "What is the structure of an HTML document?",
+        "How can I create a basic HTML page?",
+        "How to set up an HTML document?",
+        "What tags are needed for an HTML file?",
+        "Steps to create an HTML document",
+        "HTML document structure",
+        "How do I write an HTML file?",
+        "What is the basic template for HTML?",
+        "How to start coding in HTML?"
+      ],
+      "responses": [
+        "Start with the <!DOCTYPE html> declaration, followed by the <html> tag.",
+        "An HTML document begins with <!DOCTYPE html>, then includes <html>, <head>, and <body> tags.",
+        "Use <!DOCTYPE html> to define the document type, then add <html>, <head>, and <body>.",
+        "An HTML file requires a basic structure with <!DOCTYPE html>, <html>, <head>, and <body> tags.",
+        "To set up an HTML document, include a title in <head> and content within <body>.",
+        "Start with <!DOCTYPE html> and structure your page using <html>, <head>, and <body> tags."
+      ]
+    },
+    {
+      "tag": "html link",
+      "patterns": [
+        "How do I add a link in HTML?",
+        "What is the tag for links in HTML?",
+        "How to use the <a> tag?",
+        "How do I create hyperlinks in HTML?",
+        "Steps to add a link in HTML",
+        "What is the syntax for links in HTML?",
+        "How to make a clickable link in HTML?",
+        "How do I link one page to another in HTML?",
+        "HTML link example",
+        "How to add URLs to HTML?"
+      ],
+      "responses": [
+        "Use the <a> tag with the href attribute to create a link.",
+        "To add a link, write <a href='URL'>Link Text</a>.",
+        "The <a> tag is used to define hyperlinks in HTML.",
+        "Use <a href='https://example.com'>Click here</a> to create a link.",
+        "To link another page, use <a href='page.html'>Page Name</a>.",
+        "The href attribute specifies the URL for the link in the <a> tag."
+      ]
+    },
+    {
+      "tag": "html image",
+      "patterns": [
+        "How do I add an image in HTML?",
+        "What is the tag for images in HTML?",
+        "How to use the <img> tag?",
+        "Steps to add an image in HTML",
+        "What is the syntax for adding images in HTML?",
+        "How to embed an image in HTML?",
+        "HTML image example",
+        "What attributes are needed for the <img> tag?",
+        "How do I display a picture in HTML?",
+        "How to include an image in HTML?"
+      ],
+      "responses": [
+        "Use the <img> tag with the src attribute to add an image.",
+        "To display an image, write <img src='image.jpg' alt='description'>.",
+        "The <img> tag is used to embed images in HTML.",
+        "Use <img src='path/to/image.jpg'> to include an image in your HTML.",
+        "The src attribute specifies the image path, and alt provides alternative text.",
+        "To add an image, include the <img src='image.jpg' alt='description'> tag in your code."
+      ]
+    },
+    {
+      "tag": "html table",
+      "patterns": [
+        "How do I create a table in HTML?",
+        "What is the tag for tables in HTML?",
+        "How to use the <table> tag?",
+        "Steps to add a table in HTML",
+        "What is the syntax for tables in HTML?",
+        "How to format data in a table using HTML?",
+        "HTML table example",
+        "What attributes are needed for the <table> tag?",
+        "How do I create rows and columns in HTML?",
+        "How to include a table in HTML?"
+      ],
+      "responses": [
+        "Use the <table> tag to create a table and <tr>, <td>, and <th> tags to define its structure.",
+        "To create a table, write <table> followed by rows with <tr> and cells with <td>.",
+        "The <table> tag is used to define tables in HTML.",
+        "Use <table> with nested <tr> for rows and <td> for cells to format data.",
+        "Add a table header using the <th> tag inside a <tr> row.",
+        "The <table> tag includes optional attributes like border, cellpadding, and cellspacing."
+      ]
+    },
+    {
+      "tag": "html list",
+      "patterns": [
+        "How do I create a list in HTML?",
+        "What is the tag for lists in HTML?",
+        "How to use the <ul> and <ol> tags?",
+        "Steps to add a list in HTML",
+        "What is the syntax for unordered lists in HTML?",
+        "How to create a numbered list in HTML?",
+        "HTML list example",
+        "What attributes are needed for the <ul> tag?",
+        "How do I make a bullet list in HTML?",
+        "How to include a list in HTML?"
+      ],
+      "responses": [
+        "Use the <ul> tag for an unordered list and <ol> for an ordered list.",
+        "To create a list, write <ul> or <ol> with nested <li> items.",
+        "The <ul> tag defines a bullet-point list, while <ol> defines a numbered list.",
+        "Use <li> inside <ul> or <ol> to define list items.",
+        "An unordered list starts with <ul> and includes <li> items.",
+        "A numbered list uses <ol> as the parent tag for <li> items."
+      ]
+    },
+    {
+      "tag": "html form",
+      "patterns": [
+        "How do I create a form in HTML?",
+        "What is the tag for forms in HTML?",
+        "How to use the <form> tag?",
+        "Steps to add a form in HTML",
+        "What is the syntax for forms in HTML?",
+        "How to include input fields in HTML?",
+        "HTML form example",
+        "What attributes are needed for the <form> tag?",
+        "How do I create a submit button in HTML?",
+        "How to handle user input in HTML?"
+      ],
+      "responses": [
+        "Use the <form> tag to create a form and include input elements like <input> and <textarea>.",
+        "To create a form, write <form> with input elements and a submit button.",
+        "The <form> tag defines a form for collecting user input.",
+        "Include input fields using <input type='text'> and buttons with <button>.",
+        "The <form> tag can include attributes like action and method for form submission.",
+        "Use <form> with child elements like <input> and <button> to collect data."
+      ]
+    },
+    {
+      "tag": "html heading",
+      "patterns": [
+        "How do I create headings in HTML?",
+        "What is the tag for headings in HTML?",
+        "How to use the <h1> to <h6> tags?",
+        "Steps to add headings in HTML",
+        "What is the syntax for headings in HTML?",
+        "How to structure headings in HTML?",
+        "HTML heading example",
+        "What are the levels of headings in HTML?",
+        "How do I create a title in HTML?",
+        "How to format headings in HTML?"
+      ],
+      "responses": [
+        "Use <h1> to <h6> tags to create headings in HTML, with <h1> being the largest.",
+        "To add a heading, write <h1> for the main title and smaller tags like <h2>, <h3> for subtitles.",
+        "The <h1> to <h6> tags define headings, with decreasing size and importance.",
+        "Use <h1> for the main heading and <h2> to <h6> for subheadings.",
+        "Headings help structure content, with <h1> being the most prominent and <h6> the least.",
+        "Include headings in your HTML using <h1> to <h6> tags as appropriate."
+      ]
+    },
+    {
+      "tag": "html paragraph",
+      "patterns": [
+        "How do I add a paragraph in HTML?",
+        "What is the tag for paragraphs in HTML?",
+        "How to use the <p> tag?",
+        "Steps to add a paragraph in HTML",
+        "What is the syntax for paragraphs in HTML?",
+        "How to include text in HTML?",
+        "HTML paragraph example",
+        "What attributes can be used with the <p> tag?",
+        "How do I format a paragraph in HTML?",
+        "How to add textual content in HTML?"
+      ],
+      "responses": [
+        "Use the <p> tag to create a paragraph of text in HTML.",
+        "To add a paragraph, write <p> followed by your text and close with </p>.",
+        "The <p> tag defines a paragraph in HTML.",
+        "Include text in your HTML document using the <p> tag.",
+        "The <p> tag is used for formatting blocks of text in HTML.",
+        "Add paragraphs with the <p> tag and close each paragraph with </p>."
+      ]
+    },
+    {
+      "tag": "html span",
+      "patterns": [
+        "How do I use the <span> tag in HTML?",
+        "What is the purpose of the <span> tag in HTML?",
+        "How to style text using the <span> tag?",
+        "Steps to use the <span> tag in HTML",
+        "What is the syntax for the <span> tag?",
+        "How to apply styles to specific text in HTML?",
+        "HTML <span> example",
+        "What attributes can be used with the <span> tag?",
+        "How do I use <span> for inline text formatting?",
+        "How to emphasize part of a sentence in HTML?"
+      ],
+      "responses": [
+        "Use the <span> tag to apply styles or classes to specific inline text.",
+        "To style text, wrap it in a <span> tag and apply CSS styles.",
+        "The <span> tag is used for inline formatting and applying specific styles.",
+        "Include a <span> tag to format or emphasize specific parts of text.",
+        "The <span> tag can include attributes like class, id, and style for custom styling.",
+        "Use <span> for inline text styling or to target specific text for formatting."
+      ]
+    },
+    {
+      "tag": "html div",
+      "patterns": [
+        "How do I use the <div> tag in HTML?",
+        "What is the purpose of the <div> tag in HTML?",
+        "How to group elements using the <div> tag?",
+        "Steps to use the <div> tag in HTML",
+        "What is the syntax for the <div> tag?",
+        "How to style sections of a webpage in HTML?",
+        "HTML <div> example",
+        "What attributes can be used with the <div> tag?",
+        "How do I structure a webpage using <div>?",
+        "How to create containers in HTML?"
+      ],
+      "responses": [
+        "Use the <div> tag to group and organize sections of a webpage.",
+        "The <div> tag is a block-level element used to structure HTML content.",
+        "Wrap related content in a <div> tag to apply styles or organize layout.",
+        "Include a <div> tag to create containers for HTML elements.",
+        "The <div> tag can include attributes like class, id, and style for custom layouts.",
+        "Use <div> to group elements and apply consistent styles or layouts to sections."
+      ]
+    }
+  ]
+}

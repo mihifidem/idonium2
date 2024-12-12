@@ -1,277 +1,302 @@
 [
-  {
-    "category": "Python",
-    "question": "1. What is the purpose of the `__init__` method in Python classes?",
-    "answers": [
-      "1. It is used to initialize the class variables",
-      "2. It is used to initialize the object",
-      "3. It is used to initialize the method",
-      "4. It is used to initialize the function"
-    ],
-    "correct_answer": "2. It is used to initialize the object"
-  },
-  {
-    "category": "Python",
-    "question": "2. Which of the following is used to handle exceptions in Python?",
-    "answers": [
-      "1. try..except",
-      "2. if..else",
-      "3. for..else",
-      "4. catch..finally"
-    ],
-    "correct_answer": "1. try..except"
-  },
-  {
-    "category": "Python",
-    "question": "3. Which of the following statements about Python's garbage collection is true?",
-    "answers": [
-      "1. It automatically reclaims memory by deleting unused objects",
-      "2. It must be manually invoked by the user",
-      "3. It only works for non-primitive objects",
-      "4. It is disabled in Python"
-    ],
-    "correct_answer": "1. It automatically reclaims memory by deleting unused objects"
-  },
-  {
-    "category": "Python",
-    "question": "4. Which of the following functions is used to serialize an object in Python?",
-    "answers": [
-      "1. pickle.dump()",
-      "2. serialize()",
-      "3. str()",
-      "4. json.load()"
-    ],
-    "correct_answer": "1. pickle.dump()"
-  },
-  {
-    "category": "Python",
-    "question": "5. How do you define a class method that takes the class as its first argument?",
-    "answers": [
-      "1. def method(cls):",
-      "2. def method(self):",
-      "3. def method(class):",
-      "4. def method(this):"
-    ],
-    "correct_answer": "1. def method(cls):"
-  },
-  {
-    "category": "Python",
-    "question": "6. What does the `@staticmethod` decorator do in Python?",
-    "answers": [
-      "1. It defines a static method that does not require an instance or class as the first argument",
-      "2. It defines a class method that requires a class as the first argument",
-      "3. It marks a method as private",
-      "4. It marks a method as abstract"
-    ],
-    "correct_answer": "1. It defines a static method that does not require an instance or class as the first argument"
-  },
-  {
-    "category": "Python",
-    "question": "7. How do you create a generator in Python?",
-    "answers": [
-      "1. Using `yield` keyword",
-      "2. Using `return` keyword",
-      "3. Using `def` without arguments",
-      "4. Using `list()`"
-    ],
-    "correct_answer": "1. Using `yield` keyword"
-  },
-  {
-    "category": "Python",
-    "question": "8. How can you check if a file exists in Python?",
-    "answers": [
-      "1. os.path.exists()",
-      "2. os.path.isfile()",
-      "3. os.exists()",
-      "4. os.check()"
-    ],
-    "correct_answer": "1. os.path.exists()"
-  },
-  {
-    "category": "Python",
-    "question": "9. What is a lambda function in Python?",
-    "answers": [
-      "1. A small anonymous function defined with the keyword `lambda`",
-      "2. A function that can only be called once",
-      "3. A recursive function",
-      "4. A built-in Python function"
-    ],
-    "correct_answer": "1. A small anonymous function defined with the keyword `lambda`"
-  },
-  {
-    "category": "Python",
-    "question": "10. What is the output of `sorted([3, 1, 4])` in Python?",
-    "answers": [
-      "1. [1, 3, 4]",
-      "2. [4, 3, 1]",
-      "3. [1, 4, 3]",
-      "4. [3, 1, 4]"
-    ],
-    "correct_answer": "1. [1, 3, 4]"
-  },
-  {
-    "category": "Python",
-    "question": "11. How do you perform a deep copy of a list in Python?",
-    "answers": [
-      "1. Using `copy.deepcopy()`",
-      "2. Using `list.copy()`",
-      "3. Using `copy.copy()`",
-      "4. Using `list[:]`"
-    ],
-    "correct_answer": "1. Using `copy.deepcopy()`"
-  },
-  {
-    "category": "Python",
-    "question": "12. What does the `join()` method do in Python?",
-    "answers": [
-      "1. It joins a sequence of strings into a single string",
-      "2. It joins two lists",
-      "3. It joins two dictionaries",
-      "4. It joins a string and an integer"
-    ],
-    "correct_answer": "1. It joins a sequence of strings into a single string"
-  },
-  {
-    "category": "Python",
-    "question": "13. What is the use of the `os` module in Python?",
-    "answers": [
-      "1. It provides a way to interact with the operating system",
-      "2. It provides a way to interact with the database",
-      "3. It provides a way to manage memory",
-      "4. It provides a way to interact with the web"
-    ],
-    "correct_answer": "1. It provides a way to interact with the operating system"
-  },
-  {
-    "category": "Python",
-    "question": "14. What is the output of `bool([])` in Python?",
-    "answers": [
-      "1. False",
-      "2. True",
-      "3. Error",
-      "4. None"
-    ],
-    "correct_answer": "1. False"
-  },
-  {
-    "category": "Python",
-    "question": "15. Which of the following is a correct way to write a comment in Python?",
-    "answers": [
-      "1. # This is a comment",
-      "2. <!-- This is a comment -->",
-      "3. // This is a comment",
-      "4. comment This is a comment"
-    ],
-    "correct_answer": "1. # This is a comment"
-  },
-  {
-    "category": "Python",
-    "question": "16. What does `os.path.join()` do in Python?",
-    "answers": [
-      "1. It joins one or more path components",
-      "2. It splits a path into components",
-      "3. It checks if a path exists",
-      "4. It removes a file or directory"
-    ],
-    "correct_answer": "1. It joins one or more path components"
-  },
-  {
-    "category": "Python",
-    "question": "17. What is the output of `print(None == False)` in Python?",
-    "answers": [
-      "1. False",
-      "2. True",
-      "3. None",
-      "4. Error"
-    ],
-    "correct_answer": "1. False"
-  },
-  {
-    "category": "Python",
-    "question": "18. How do you define a class in Python?",
-    "answers": [
-      "1. class ClassName:",
-      "2. class(ClassName):",
-      "3. define class ClassName:",
-      "4. create class ClassName:"
-    ],
-    "correct_answer": "1. class ClassName:"
-  },
-  {
-    "category": "Python",
-    "question": "19. What will be the output of `print({}.get('key'))`?",
-    "answers": [
-      "1. None",
-      "2. KeyError",
-      "3. {}",
-      "4. 'key'"
-    ],
-    "correct_answer": "1. None"
-  },
-  {
-    "category": "Python",
-    "question": "20. Which of the following is used to create a set in Python?",
-    "answers": [
-      "1. set()",
-      "2. list()",
-      "3. tuple()",
-      "4. dict()"
-    ],
-    "correct_answer": "1. set()"
-  },
-  {
-    "category": "Python",
-    "question": "21. What is the purpose of `super()` in Python?",
-    "answers": [
-      "1. To call a method from a superclass",
-      "2. To define a class method",
-      "3. To define a static method",
-      "4. To terminate a method"
-    ],
-    "correct_answer": "1. To call a method from a superclass"
-  },
-  {
-    "category": "Python",
-    "question": "22. Which of the following methods is used to remove all elements from a list?",
-    "answers": [
-      "1. list.clear()",
-      "2. list.removeAll()",
-      "3. list.delete()",
-      "4. list.reset()"
-    ],
-    "correct_answer": "1. list.clear()"
-  },
-  {
-    "category": "Python",
-    "question": "23. What is the result of `x == y` when `x` is a string and `y` is a number?",
-    "answers": [
-      "1. False",
-      "2. True",
-      "3. Error",
-      "4. None"
-    ],
-    "correct_answer": "1. False"
-  },
-  {
-    "category": "Python",
-    "question": "24. Which method would you use to return the index of a value in a tuple?",
-    "answers": [
-      "1. tuple.index()",
-      "2. tuple.get()",
-      "3. tuple.find()",
-      "4. tuple.search()"
-    ],
-    "correct_answer": "1. tuple.index()"
-  },
-  {
-    "category": "Python",
-    "question": "25. What does `map()` do in Python?",
-    "answers": [
-      "1. It applies a function to all items in an iterable",
-      "2. It filters items in an iterable",
-      "3. It splits a string into a list",
-      "4. It returns a dictionary from a list"
-    ],
-    "correct_answer": "1. It applies a function to all items in an iterable"
-  }
+    {
+        "category": "Python",
+        "question": "1. What is the purpose of the `__init__` method in Python classes?",
+        "answers": [
+            "1. It is used to initialize the class variables",
+            "2. It is used to initialize the object",
+            "3. It is used to initialize the method",
+            "4. It is used to initialize the function"
+        ],
+        "correct_answer": "2. It is used to initialize the object",
+        "improvement": "The __init__ method initializes an instance of the class, setting up attributes."
+    },
+    {
+        "category": "Python",
+        "question": "2. Which of the following is used to handle exceptions in Python?",
+        "answers": [
+            "1. try..except",
+            "2. if..else",
+            "3. for..else",
+            "4. catch..finally"
+        ],
+        "correct_answer": "1. try..except",
+        "improvement": "Use try...except to handle exceptions and prevent your code from breaking."
+    },
+    {
+        "category": "Python",
+        "question": "3. Which of the following statements about Python's garbage collection is true?",
+        "answers": [
+            "1. It automatically reclaims memory by deleting unused objects",
+            "2. It must be manually invoked by the user",
+            "3. It only works for non-primitive objects",
+            "4. It is disabled in Python"
+        ],
+        "correct_answer": "1. It automatically reclaims memory by deleting unused objects",
+        "improvement": "Python's garbage collection reclaims unused memory automatically."
+    },
+    {
+        "category": "Python",
+        "question": "4. Which of the following functions is used to serialize an object in Python?",
+        "answers": [
+            "1. pickle.dump()",
+            "2. serialize()",
+            "3. str()",
+            "4. json.load()"
+        ],
+        "correct_answer": "1. pickle.dump()",
+        "improvement": "The pickle.dump() method serializes objects to a file for storage."
+    },
+    {
+        "category": "Python",
+        "question": "5. How do you define a class method that takes the class as its first argument?",
+        "answers": [
+            "1. def method(cls):",
+            "2. def method(self):",
+            "3. def method(class):",
+            "4. def method(this):"
+        ],
+        "correct_answer": "1. def method(cls):",
+        "improvement": "Use 'cls' as the first parameter in a class method to access the class itself."
+    },
+    {
+        "category": "Python",
+        "question": "6. What does the `@staticmethod` decorator do in Python?",
+        "answers": [
+            "1. It defines a static method that does not require an instance or class as the first argument",
+            "2. It defines a class method that requires a class as the first argument",
+            "3. It marks a method as private",
+            "4. It marks a method as abstract"
+        ],
+        "correct_answer": "1. It defines a static method that does not require an instance or class as the first argument",
+        "improvement": "The @staticmethod decorator defines a method that does not depend on instance or class."
+    },
+    {
+        "category": "Python",
+        "question": "7. How do you create a generator in Python?",
+        "answers": [
+            "1. Using `yield` keyword",
+            "2. Using `return` keyword",
+            "3. Using `def` without arguments",
+            "4. Using `list()`"
+        ],
+        "correct_answer": "1. Using `yield` keyword",
+        "improvement": "Generators use the yield keyword to produce items one at a time efficiently."
+    },
+    {
+        "category": "Python",
+        "question": "8. How can you check if a file exists in Python?",
+        "answers": [
+            "1. os.path.exists()",
+            "2. os.path.isfile()",
+            "3. os.exists()",
+            "4. os.check()"
+        ],
+        "correct_answer": "1. os.path.exists()",
+        "improvement": "Use os.path.exists() to check if a file or directory exists."
+    },
+    {
+        "category": "Python",
+        "question": "9. What is a lambda function in Python?",
+        "answers": [
+            "1. A small anonymous function defined with the keyword `lambda`",
+            "2. A function that can only be called once",
+            "3. A recursive function",
+            "4. A built-in Python function"
+        ],
+        "correct_answer": "1. A small anonymous function defined with the keyword `lambda`",
+        "improvement": "A lambda function is an anonymous function defined with the lambda keyword."
+    },
+    {
+        "category": "Python",
+        "question": "10. What is the output of `sorted([3, 1, 4])` in Python?",
+        "answers": [
+            "1. [1, 3, 4]",
+            "2. [4, 3, 1]",
+            "3. [1, 4, 3]",
+            "4. [3, 1, 4]"
+        ],
+        "correct_answer": "1. [1, 3, 4]",
+        "improvement": "The sorted() function returns a new sorted list without modifying the original."
+    },
+    {
+        "category": "Python",
+        "question": "11. How do you perform a deep copy of a list in Python?",
+        "answers": [
+            "1. Using `copy.deepcopy()`",
+            "2. Using `list.copy()`",
+            "3. Using `copy.copy()`",
+            "4. Using `list[:]`"
+        ],
+        "correct_answer": "1. Using `copy.deepcopy()`",
+        "improvement": "Use copy.deepcopy() for creating a deep copy of nested data structures."
+    },
+    {
+        "category": "Python",
+        "question": "12. What does the `join()` method do in Python?",
+        "answers": [
+            "1. It joins a sequence of strings into a single string",
+            "2. It joins two lists",
+            "3. It joins two dictionaries",
+            "4. It joins a string and an integer"
+        ],
+        "correct_answer": "1. It joins a sequence of strings into a single string",
+        "improvement": "The join() method combines a sequence of strings into one string, separated by a chosen delimiter."
+    },
+    {
+        "category": "Python",
+        "question": "13. What is the use of the `os` module in Python?",
+        "answers": [
+            "1. It provides a way to interact with the operating system",
+            "2. It provides a way to interact with the database",
+            "3. It provides a way to manage memory",
+            "4. It provides a way to interact with the web"
+        ],
+        "correct_answer": "1. It provides a way to interact with the operating system",
+        "improvement": "The os module allows you to interact with the operating system (e.g., paths, files)."
+    },
+    {
+        "category": "Python",
+        "question": "14. What is the output of `bool([])` in Python?",
+        "answers": [
+            "1. False",
+            "2. True",
+            "3. Error",
+            "4. None"
+        ],
+        "correct_answer": "1. False",
+        "improvement": "An empty list evaluates to False in a Boolean context."
+    },
+    {
+        "category": "Python",
+        "question": "15. Which of the following is a correct way to write a comment in Python?",
+        "answers": [
+            "1. # This is a comment",
+            "2. <!-- This is a comment -->",
+            "3. // This is a comment",
+            "4. comment This is a comment"
+        ],
+        "correct_answer": "1. # This is a comment",
+        "improvement": "Comments in Python start with a # and extend to the end of the line."
+    },
+    {
+        "category": "Python",
+        "question": "16. What does `os.path.join()` do in Python?",
+        "answers": [
+            "1. It joins one or more path components",
+            "2. It splits a path into components",
+            "3. It checks if a path exists",
+            "4. It removes a file or directory"
+        ],
+        "correct_answer": "1. It joins one or more path components",
+        "improvement": "os.path.join() safely combines paths to create platform-independent paths."
+    },
+    {
+        "category": "Python",
+        "question": "17. What is the output of `print(None == False)` in Python?",
+        "answers": [
+            "1. False",
+            "2. True",
+            "3. None",
+            "4. Error"
+        ],
+        "correct_answer": "1. False",
+        "improvement": "None is not equal to False; they represent different values."
+    },
+    {
+        "category": "Python",
+        "question": "18. How do you define a class in Python?",
+        "answers": [
+            "1. class ClassName:",
+            "2. class(ClassName):",
+            "3. define class ClassName:",
+            "4. create class ClassName:"
+        ],
+        "correct_answer": "1. class ClassName:",
+        "improvement": "Define a class in Python with the syntax class ClassName:."
+    },
+    {
+        "category": "Python",
+        "question": "19. What will be the output of `print({}.get('key'))`?",
+        "answers": [
+            "1. None",
+            "2. KeyError",
+            "3. {}",
+            "4. 'key'"
+        ],
+        "correct_answer": "1. None",
+        "improvement": "Using dict.get('key') avoids KeyError and returns None if the key is missing."
+    },
+    {
+        "category": "Python",
+        "question": "20. Which of the following is used to create a set in Python?",
+        "answers": [
+            "1. set()",
+            "2. list()",
+            "3. tuple()",
+            "4. dict()"
+        ],
+        "correct_answer": "1. set()",
+        "improvement": "Use set() to create sets, which are unordered collections of unique items."
+    },
+    {
+        "category": "Python",
+        "question": "21. What is the purpose of `super()` in Python?",
+        "answers": [
+            "1. To call a method from a superclass",
+            "2. To define a class method",
+            "3. To define a static method",
+            "4. To terminate a method"
+        ],
+        "correct_answer": "1. To call a method from a superclass",
+        "improvement": "The super() function calls methods from a superclass within a subclass."
+    },
+    {
+        "category": "Python",
+        "question": "22. Which of the following methods is used to remove all elements from a list?",
+        "answers": [
+            "1. list.clear()",
+            "2. list.removeAll()",
+            "3. list.delete()",
+            "4. list.reset()"
+        ],
+        "correct_answer": "1. list.clear()",
+        "improvement": "The list.clear() method removes all elements from a list, leaving it empty."
+    },
+    {
+        "category": "Python",
+        "question": "23. What is the result of `x == y` when `x` is a string and `y` is a number?",
+        "answers": [
+            "1. False",
+            "2. True",
+            "3. Error",
+            "4. None"
+        ],
+        "correct_answer": "1. False",
+        "improvement": "Python does not allow comparisons between incompatible types like string and number."
+    },
+    {
+        "category": "Python",
+        "question": "24. Which method would you use to return the index of a value in a tuple?",
+        "answers": [
+            "1. tuple.index()",
+            "2. tuple.get()",
+            "3. tuple.find()",
+            "4. tuple.search()"
+        ],
+        "correct_answer": "1. tuple.index()",
+        "improvement": "tuple.index(value) returns the index of the specified value in a tuple."
+    },
+    {
+        "category": "Python",
+        "question": "25. What does `map()` do in Python?",
+        "answers": [
+            "1. It applies a function to all items in an iterable",
+            "2. It filters items in an iterable",
+            "3. It splits a string into a list",
+            "4. It returns a dictionary from a list"
+        ],
+        "correct_answer": "1. It applies a function to all items in an iterable",
+        "improvement": "The map() function applies a function to each item in an iterable, returning a map object."
+    }
 ]

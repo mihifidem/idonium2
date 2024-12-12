@@ -7,7 +7,8 @@
       "2. Structured Question Language",
       "3. Strong Query Language"
     ],
-    "correct_answer": "1. Structured Query Language"
+    "correct_answer": "1. Structured Query Language",
+    "improvement": "Make sure to understand the purpose of SQL as a language used for managing and querying databases."
   },
   {
     "category": "SQL",
@@ -18,7 +19,8 @@
       "3. GET",
       "4. EXTRACT"
     ],
-    "correct_answer": "2. SELECT"
+    "correct_answer": "2. SELECT",
+    "improvement": "The SELECT statement is fundamental to SQL queries. Try practicing simple SELECT queries to retrieve specific data from a table."
   },
   {
     "category": "SQL",
@@ -29,7 +31,8 @@
       "3. UPDATE",
       "4. SAVE"
     ],
-    "correct_answer": "3. UPDATE"
+    "correct_answer": "3. UPDATE",
+    "improvement": "The UPDATE statement is important for modifying existing records. Be cautious when using it, and always include a WHERE clause to avoid unintended changes."
   },
   {
     "category": "SQL",
@@ -39,7 +42,8 @@
       "2. COLLAPSE",
       "3. REMOVE"
     ],
-    "correct_answer": "1. DELETE"
+    "correct_answer": "1. DELETE",
+    "improvement": "DELETE is a powerful command. Always verify your WHERE clause to prevent accidental data loss."
   },
   {
     "category": "SQL",
@@ -50,7 +54,8 @@
       "3. ADD RECORD",
       "4. INSERT INTO"
     ],
-    "correct_answer": "4. INSERT INTO"
+    "correct_answer": "4. INSERT INTO",
+    "improvement": "INSERT INTO is used to add new records. Try inserting data into a table to practice this SQL statement."
   },
   {
     "category": "SQL",
@@ -60,7 +65,8 @@
       "2. EXTRACT FirstName FROM Persons",
       "3. SELECT FirstName FROM Persons"
     ],
-    "correct_answer": "3. SELECT FirstName FROM Persons"
+    "correct_answer": "3. SELECT FirstName FROM Persons",
+    "improvement": "Practice selecting specific columns from different tables to improve your query-building skills."
   },
   {
     "category": "SQL",
@@ -71,7 +77,8 @@
       "3. SELECT [all] FROM Persons",
       "4. SELECT Persons"
     ],
-    "correct_answer": "2. SELECT * FROM Persons"
+    "correct_answer": "2. SELECT * FROM Persons",
+    "improvement": "SELECT * is a quick way to fetch all columns. It’s good for debugging, but try specifying only the columns you need for better performance."
   },
   {
     "category": "SQL",
@@ -82,7 +89,8 @@
       "3. SELECT * FROM Persons WHERE FirstName='Peter'",
       "4. SELECT [all] FROM Persons WHERE FirstName LIKE 'Peter'"
     ],
-    "correct_answer": "3. SELECT * FROM Persons WHERE FirstName='Peter'"
+    "correct_answer": "3. SELECT * FROM Persons WHERE FirstName='Peter'",
+    "improvement": "When querying for specific values, always use WHERE clauses to filter results based on conditions."
   },
   {
     "category": "SQL",
@@ -93,7 +101,8 @@
       "3. SELECT * FROM Persons WHERE FirstName='%a%'",
       "4. SELECT * FROM Persons WHERE FirstName LIKE 'a%'"
     ],
-    "correct_answer": "4. SELECT * FROM Persons WHERE FirstName LIKE 'a%'"
+    "correct_answer": "4. SELECT * FROM Persons WHERE FirstName LIKE 'a%'",
+    "improvement": "The LIKE operator is useful for pattern matching. Try using wildcards like '%' to find records with specific patterns."
   },
   {
     "category": "SQL",
@@ -102,7 +111,8 @@
       "1. True",
       "2. False"
     ],
-    "correct_answer": "1. True"
+    "correct_answer": "1. True",
+    "improvement": "Understand the difference between AND and OR operators to create complex queries with multiple conditions."
   },
   {
     "category": "SQL",
@@ -112,7 +122,8 @@
       "2. SELECT * FROM Persons WHERE FirstName<>'Peter' AND LastName<>'Jackson'",
       "3. SELECT * FROM Persons WHERE FirstName='Peter' AND LastName='Jackson'"
     ],
-    "correct_answer": "3. SELECT * FROM Persons WHERE FirstName='Peter' AND LastName='Jackson'"
+    "correct_answer": "3. SELECT * FROM Persons WHERE FirstName='Peter' AND LastName='Jackson'",
+    "improvement": "Learn how to combine multiple conditions using AND to refine your queries."
   },
   {
     "category": "SQL",
@@ -122,7 +133,8 @@
       "2. SELECT LastName>'Hansen' AND 'LastName<'Pettersen' from Persons",
       "3. SELECT * FROM Persons WHERE LastName>'Hansen' AND LastName<'Pettersen'"
     ],
-    "correct_answer": "1. SELECT * FROM Persons WHERE LastName BETWEEN 'Hansen' AND 'Pettersen'"
+    "correct_answer": "1. SELECT * FROM Persons WHERE LastName BETWEEN 'Hansen' AND 'Pettersen'",
+    "improvement": "The BETWEEN operator is useful for range queries. Experiment with it for numeric and alphabetic data types."
   },
   {
     "category": "SQL",
@@ -132,7 +144,8 @@
       "2. SELECT UNIQUE",
       "3. SELECT DISTINCT"
     ],
-    "correct_answer": "3. SELECT DISTINCT"
+    "correct_answer": "3. SELECT DISTINCT",
+    "improvement": "The DISTINCT keyword helps to remove duplicate rows. Try using it with SELECT to explore unique values in your data."
   },
   {
     "category": "SQL",
@@ -143,7 +156,8 @@
       "3. SORT BY",
       "4. ORDER BY"
     ],
-    "correct_answer": "4. ORDER BY"
+    "correct_answer": "4. ORDER BY",
+    "improvement": "Use ORDER BY to sort results. You can specify ascending or descending order with ASC or DESC."
   },
   {
     "category": "SQL",
@@ -154,7 +168,8 @@
       "3. SELECT * FROM Persons SORT 'FirstName' DESC",
       "4. SELECT * FROM Persons ORDER FirstName DESC"
     ],
-    "correct_answer": "2. SELECT * FROM Persons ORDER BY FirstName DESC"
+    "correct_answer": "2. SELECT * FROM Persons ORDER BY FirstName DESC",
+    "improvement": "Try using ORDER BY with different columns and sort directions to better understand how to control the order of results."
   },
   {
     "category": "SQL",
@@ -164,7 +179,8 @@
       "2. INSERT INTO Persons VALUES('Jimmy', 'Jackson')",
       "3. INSERT VALUES ('Jimmy', 'Jackson') INTO Persons"
     ],
-    "correct_answer": "2. INSERT INTO Persons VALUES('Jimmy', 'Jackson')"
+    "correct_answer": "2. INSERT INTO Persons VALUES('Jimmy', 'Jackson')",
+    "improvement": "Inserting records is essential for database management. Ensure the number of values matches the columns in the table."
   },
   {
     "category": "SQL",
@@ -174,7 +190,8 @@
       "2. INSERT ('Olsen') INTO Persons (LastName)",
       "3. INSERT INTO Persons ('LastName') VALUES ('Olsen')"
     ],
-    "correct_answer": "3. INSERT INTO Persons ('LastName') VALUES ('Olsen')"
+    "correct_answer": "3. INSERT INTO Persons ('LastName') VALUES ('Olsen')",
+    "improvement": "Make sure to insert data into the correct column names. Practice inserting into specific columns to avoid errors."
   },
   {
     "category": "SQL",
@@ -185,7 +202,8 @@
       "3. MODIFY Persons SET LastName='Hansen' INTO LastName='Nilsen'",
       "4. UPDATE Persons SET LastName='Nilsen' WHERE LastName='Hansen'"
     ],
-    "correct_answer": "4. UPDATE Persons SET LastName='Nilsen' WHERE LastName='Hansen'"
+    "correct_answer": "4. UPDATE Persons SET LastName='Nilsen' WHERE LastName='Hansen'",
+    "improvement": "The UPDATE command is crucial for modifying data. Always use WHERE to target specific rows to avoid unintended changes."
   },
   {
     "category": "SQL",
@@ -195,7 +213,8 @@
       "2. DELETE FROM Persons WHERE FirstName='Peter'",
       "3. DELETE FirstName='Peter' FROM Persons"
     ],
-    "correct_answer": "2. DELETE FROM Persons WHERE FirstName='Peter'"
+    "correct_answer": "2. DELETE FROM Persons WHERE FirstName='Peter'",
+    "improvement": "Be careful with DELETE queries as they permanently remove data. Always double-check your WHERE condition."
   },
   {
     "category": "SQL",
@@ -206,7 +225,8 @@
       "3. SELECT NO(*) FROM Persons",
       "4. SELECT COLUMNS(*) FROM Persons"
     ],
-    "correct_answer": "2. SELECT COUNT(*) FROM Persons"
+    "correct_answer": "2. SELECT COUNT(*) FROM Persons",
+    "improvement": "COUNT(*) is a simple yet powerful function for aggregating rows. Practice using it with other aggregate functions like SUM or AVG."
   },
   {
     "category": "SQL",
@@ -217,7 +237,8 @@
       "3. INSIDE JOIN",
       "4. JOINED"
     ],
-    "correct_answer": "1. INNER JOIN"
+    "correct_answer": "1. INNER JOIN",
+    "improvement": "INNER JOIN is essential for combining data from multiple tables. Try practicing it with different tables to see how it works."
   },
   {
     "category": "SQL",
@@ -227,7 +248,8 @@
       "2. WITHIN",
       "3. RANGE"
     ],
-    "correct_answer": "1. BETWEEN"
+    "correct_answer": "1. BETWEEN",
+    "improvement": "BETWEEN is useful for selecting values in a specified range. Practice using it with dates or numbers."
   },
   {
     "category": "SQL",
@@ -236,7 +258,8 @@
       "1. True",
       "2. False"
     ],
-    "correct_answer": "1. True"
+    "correct_answer": "1. True",
+    "improvement": "Understanding constraints like NOT NULL is essential for data integrity. Ensure your database schema enforces the right constraints."
   },
   {
     "category": "SQL",
@@ -246,7 +269,8 @@
       "2. LIKE",
       "3. FROM"
     ],
-    "correct_answer": "2. LIKE"
+    "correct_answer": "2. LIKE",
+    "improvement": "The LIKE operator helps in pattern matching, especially when working with string data types. Try using it with wildcards for complex queries."
   },
   {
     "category": "SQL",
@@ -257,6 +281,7 @@
       "3. CREATE TABLE Customers",
       "4. CREATE DB CUSTOMERS"
     ],
-    "correct_answer": "3. CREATE TABLE Customers"
+    "correct_answer": "3. CREATE TABLE Customers",
+    "improvement": "Creating tables is one of the first steps in database design. Experiment with creating tables and defining columns with different data types."
   }
-  ]
+]

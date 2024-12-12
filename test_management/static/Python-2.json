@@ -1,277 +1,302 @@
 [
-  {
-    "category": "Python",
-    "question": "1. What is the result of `3 ** 2` in Python?",
-    "answers": [
-      "1. 6",
-      "2. 9",
-      "3. 3",
-      "4. Error"
-    ],
-    "correct_answer": "2. 9"
-  },
-  {
-    "category": "Python",
-    "question": "2. How do you concatenate two strings in Python?",
-    "answers": [
-      "1. 'Hello' + ' World'",
-      "2. 'Hello'.concat(' World')",
-      "3. 'Hello'.append(' World')",
-      "4. 'Hello' & ' World'"
-    ],
-    "correct_answer": "1. 'Hello' + ' World'"
-  },
-  {
-    "category": "Python",
-    "question": "3. Which method is used to convert a string to lowercase in Python?",
-    "answers": [
-      "1. lower()",
-      "2. toLower()",
-      "3. lowercase()",
-      "4. convertLower()"
-    ],
-    "correct_answer": "1. lower()"
-  },
-  {
-    "category": "Python",
-    "question": "4. How do you check the length of a string in Python?",
-    "answers": [
-      "1. len()",
-      "2. count()",
-      "3. size()",
-      "4. length()"
-    ],
-    "correct_answer": "1. len()"
-  },
-  {
-    "category": "Python",
-    "question": "5. What is the result of `5 // 2`?",
-    "answers": [
-      "1. 2",
-      "2. 2.5",
-      "3. 3",
-      "4. 1"
-    ],
-    "correct_answer": "1. 2"
-  },
-  {
-    "category": "Python",
-    "question": "6. Which operator is used for exponentiation in Python?",
-    "answers": [
-      "1. ^",
-      "2. **",
-      "3. /",
-      "4. *"
-    ],
-    "correct_answer": "2. **"
-  },
-  {
-    "category": "Python",
-    "question": "7. How do you add an item to a list in Python?",
-    "answers": [
-      "1. list.add(item)",
-      "2. list.insert(item)",
-      "3. list.append(item)",
-      "4. list.append(item, index)"
-    ],
-    "correct_answer": "3. list.append(item)"
-  },
-  {
-    "category": "Python",
-    "question": "8. What is the purpose of the `continue` statement in Python?",
-    "answers": [
-      "1. To skip the current iteration of the loop",
-      "2. To terminate the loop",
-      "3. To skip the loop completely",
-      "4. To pause the loop"
-    ],
-    "correct_answer": "1. To skip the current iteration of the loop"
-  },
-  {
-    "category": "Python",
-    "question": "9. How do you write an if statement that checks if a variable `x` is greater than 10?",
-    "answers": [
-      "1. if x > 10:",
-      "2. if (x > 10)",
-      "3. if x > 10 then:",
-      "4. if x > 10 {}"
-    ],
-    "correct_answer": "1. if x > 10:"
-  },
-  {
-    "category": "Python",
-    "question": "10. What is the correct way to initialize a dictionary in Python?",
-    "answers": [
-      "1. dict = {}",
-      "2. dict = []",
-      "3. dict = ()",
-      "4. dict = 'key: value'"
-    ],
-    "correct_answer": "1. dict = {}"
-  },
-  {
-    "category": "Python",
-    "question": "11. Which of the following is the correct way to define a function in Python?",
-    "answers": [
-      "1. function myFunction()",
-      "2. def myFunction():",
-      "3. func myFunction():",
-      "4. function myFunction():"
-    ],
-    "correct_answer": "2. def myFunction():"
-  },
-  {
-    "category": "Python",
-    "question": "12. What will be the output of `print(3 == 3)`?",
-    "answers": [
-      "1. True",
-      "2. False",
-      "3. 3",
-      "4. Error"
-    ],
-    "correct_answer": "1. True"
-  },
-  {
-    "category": "Python",
-    "question": "13. What will the expression `x == y` return if `x` and `y` are the same object?",
-    "answers": [
-      "1. True",
-      "2. False",
-      "3. Error",
-      "4. None"
-    ],
-    "correct_answer": "1. True"
-  },
-  {
-    "category": "Python",
-    "question": "14. Which of the following methods will return a list of keys from a dictionary?",
-    "answers": [
-      "1. dict.keys()",
-      "2. dict.values()",
-      "3. dict.items()",
-      "4. dict.get()"
-    ],
-    "correct_answer": "1. dict.keys()"
-  },
-  {
-    "category": "Python",
-    "question": "15. How do you delete an element from a list in Python?",
-    "answers": [
-      "1. del list[index]",
-      "2. list.remove()",
-      "3. list.pop()",
-      "4. All of the above"
-    ],
-    "correct_answer": "4. All of the above"
-  },
-  {
-    "category": "Python",
-    "question": "16. Which of the following is used to handle exceptions in Python?",
-    "answers": [
-      "1. try..except",
-      "2. if..else",
-      "3. for..else",
-      "4. catch..finally"
-    ],
-    "correct_answer": "1. try..except"
-  },
-  {
-    "category": "Python",
-    "question": "17. How do you start a while loop in Python?",
-    "answers": [
-      "1. while (x < 10):",
-      "2. while x < 10",
-      "3. while x > 10:",
-      "4. while x < 10 {}"
-    ],
-    "correct_answer": "1. while (x < 10):"
-  },
-  {
-    "category": "Python",
-    "question": "18. Which method is used to get the index of an element in a list?",
-    "answers": [
-      "1. list.index()",
-      "2. list.get()",
-      "3. list.find()",
-      "4. list.search()"
-    ],
-    "correct_answer": "1. list.index()"
-  },
-  {
-    "category": "Python",
-    "question": "19. What is the output of the expression `x in y` in Python?",
-    "answers": [
-      "1. It checks if `x` is an element in `y`",
-      "2. It checks if `x` is greater than `y`",
-      "3. It checks if `x` is a number",
-      "4. It checks if `y` is a number"
-    ],
-    "correct_answer": "1. It checks if `x` is an element in `y`"
-  },
-  {
-    "category": "Python",
-    "question": "20. How do you access the value of a dictionary by key?",
-    "answers": [
-      "1. dict[key]",
-      "2. dict.get(key)",
-      "3. dict[key].value",
-      "4. dict.value(key)"
-    ],
-    "correct_answer": "1. dict[key]"
-  },
-  {
-    "category": "Python",
-    "question": "21. What is the purpose of `self` in Python class methods?",
-    "answers": [
-      "1. To reference the instance of the class",
-      "2. To reference the class itself",
-      "3. To reference a local variable",
-      "4. To pass arguments to a function"
-    ],
-    "correct_answer": "1. To reference the instance of the class"
-  },
-  {
-    "category": "Python",
-    "question": "22. How do you add an item to a set in Python?",
-    "answers": [
-      "1. set.add(item)",
-      "2. set.insert(item)",
-      "3. set.append(item)",
-      "4. set.append(item, index)"
-    ],
-    "correct_answer": "1. set.add(item)"
-  },
-  {
-    "category": "Python",
-    "question": "23. What will the code `print(range(1, 5))` output?",
-    "answers": [
-      "1. [1, 2, 3, 4]",
-      "2. (1, 2, 3, 4)",
-      "3. range(1, 5)",
-      "4. Error"
-    ],
-    "correct_answer": "1. [1, 2, 3, 4]"
-  },
-  {
-    "category": "Python",
-    "question": "24. How do you reverse a string in Python?",
-    "answers": [
-      "1. string.reverse()",
-      "2. string[::-1]",
-      "3. string.reverse()",
-      "4. reversed(string)"
-    ],
-    "correct_answer": "2. string[::-1]"
-  },
-  {
-    "category": "Python",
-    "question": "25. How do you handle multiple exceptions in a single `except` block?",
-    "answers": [
-      "1. except (TypeError, ValueError) as e:",
-      "2. except TypeError, ValueError as e:",
-      "3. except (TypeError or ValueError):",
-      "4. except TypeError and ValueError as e:"
-    ],
-    "correct_answer": "1. except (TypeError, ValueError) as e:"
-  }
+    {
+        "category": "Python",
+        "question": "1. What is the result of `3 ** 2` in Python?",
+        "answers": [
+            "1. 6",
+            "2. 9",
+            "3. 3",
+            "4. Error"
+        ],
+        "correct_answer": "2. 9",
+        "improvement": "Remember, '**' is the exponentiation operator in Python."
+    },
+    {
+        "category": "Python",
+        "question": "2. How do you concatenate two strings in Python?",
+        "answers": [
+            "1. 'Hello' + ' World'",
+            "2. 'Hello'.concat(' World')",
+            "3. 'Hello'.append(' World')",
+            "4. 'Hello' & ' World'"
+        ],
+        "correct_answer": "1. 'Hello' + ' World'",
+        "improvement": "Use the '+' operator to concatenate two strings in Python."
+    },
+    {
+        "category": "Python",
+        "question": "3. Which method is used to convert a string to lowercase in Python?",
+        "answers": [
+            "1. lower()",
+            "2. toLower()",
+            "3. lowercase()",
+            "4. convertLower()"
+        ],
+        "correct_answer": "1. lower()",
+        "improvement": "The 'lower()' method converts a string to lowercase in Python."
+    },
+    {
+        "category": "Python",
+        "question": "4. How do you check the length of a string in Python?",
+        "answers": [
+            "1. len()",
+            "2. count()",
+            "3. size()",
+            "4. length()"
+        ],
+        "correct_answer": "1. len()",
+        "improvement": "Use the 'len()' function to get the length of a string or other iterable."
+    },
+    {
+        "category": "Python",
+        "question": "5. What is the result of `5 // 2`?",
+        "answers": [
+            "1. 2",
+            "2. 2.5",
+            "3. 3",
+            "4. 1"
+        ],
+        "correct_answer": "1. 2",
+        "improvement": "'//' performs integer division in Python, discarding the fractional part."
+    },
+    {
+        "category": "Python",
+        "question": "6. Which operator is used for exponentiation in Python?",
+        "answers": [
+            "1. ^",
+            "2. **",
+            "3. /",
+            "4. *"
+        ],
+        "correct_answer": "2. **",
+        "improvement": "The '**' operator is used for exponentiation, like 2**3 equals 8."
+    },
+    {
+        "category": "Python",
+        "question": "7. How do you add an item to a list in Python?",
+        "answers": [
+            "1. list.add(item)",
+            "2. list.insert(item)",
+            "3. list.append(item)",
+            "4. list.append(item, index)"
+        ],
+        "correct_answer": "3. list.append(item)",
+        "improvement": "The 'append()' method adds an item to the end of a list in Python."
+    },
+    {
+        "category": "Python",
+        "question": "8. What is the purpose of the `continue` statement in Python?",
+        "answers": [
+            "1. To skip the current iteration of the loop",
+            "2. To terminate the loop",
+            "3. To skip the loop completely",
+            "4. To pause the loop"
+        ],
+        "correct_answer": "1. To skip the current iteration of the loop",
+        "improvement": "The 'continue' statement skips the current iteration and moves to the next loop iteration."
+    },
+    {
+        "category": "Python",
+        "question": "9. How do you write an if statement that checks if a variable `x` is greater than 10?",
+        "answers": [
+            "1. if x > 10:",
+            "2. if (x > 10)",
+            "3. if x > 10 then:",
+            "4. if x > 10 {}"
+        ],
+        "correct_answer": "1. if x > 10:",
+        "improvement": "Python uses 'if x > 10:' syntax to check conditions."
+    },
+    {
+        "category": "Python",
+        "question": "10. What is the correct way to initialize a dictionary in Python?",
+        "answers": [
+            "1. dict = {}",
+            "2. dict = []",
+            "3. dict = ()",
+            "4. dict = 'key: value'"
+        ],
+        "correct_answer": "1. dict = {}",
+        "improvement": "Initialize dictionaries using curly braces '{}', not square brackets or parentheses."
+    },
+    {
+        "category": "Python",
+        "question": "11. Which of the following is the correct way to define a function in Python?",
+        "answers": [
+            "1. function myFunction()",
+            "2. def myFunction():",
+            "3. func myFunction():",
+            "4. function myFunction():"
+        ],
+        "correct_answer": "2. def myFunction():",
+        "improvement": "Use the 'def' keyword to define a function in Python."
+    },
+    {
+        "category": "Python",
+        "question": "12. What will be the output of `print(3 == 3)`?",
+        "answers": [
+            "1. True",
+            "2. False",
+            "3. 3",
+            "4. Error"
+        ],
+        "correct_answer": "1. True",
+        "improvement": "'==' checks for equality between two values and returns True or False."
+    },
+    {
+        "category": "Python",
+        "question": "13. What will the expression `x == y` return if `x` and `y` are the same object?",
+        "answers": [
+            "1. True",
+            "2. False",
+            "3. Error",
+            "4. None"
+        ],
+        "correct_answer": "1. True",
+        "improvement": "'x == y' checks if two objects are equal in value, not identity."
+    },
+    {
+        "category": "Python",
+        "question": "14. Which of the following methods will return a list of keys from a dictionary?",
+        "answers": [
+            "1. dict.keys()",
+            "2. dict.values()",
+            "3. dict.items()",
+            "4. dict.get()"
+        ],
+        "correct_answer": "1. dict.keys()",
+        "improvement": "The 'keys()' method of a dictionary returns a list of its keys."
+    },
+    {
+        "category": "Python",
+        "question": "15. How do you delete an element from a list in Python?",
+        "answers": [
+            "1. del list[index]",
+            "2. list.remove()",
+            "3. list.pop()",
+            "4. All of the above"
+        ],
+        "correct_answer": "4. All of the above",
+        "improvement": "'del', 'remove()', and 'pop()' can all delete elements from a list."
+    },
+    {
+        "category": "Python",
+        "question": "16. Which of the following is used to handle exceptions in Python?",
+        "answers": [
+            "1. try..except",
+            "2. if..else",
+            "3. for..else",
+            "4. catch..finally"
+        ],
+        "correct_answer": "1. try..except",
+        "improvement": "Handle exceptions in Python using the 'try...except' block."
+    },
+    {
+        "category": "Python",
+        "question": "17. How do you start a while loop in Python?",
+        "answers": [
+            "1. while (x < 10):",
+            "2. while x < 10",
+            "3. while x > 10:",
+            "4. while x < 10 {}"
+        ],
+        "correct_answer": "1. while (x < 10):",
+        "improvement": "Start a 'while' loop using 'while condition:'."
+    },
+    {
+        "category": "Python",
+        "question": "18. Which method is used to get the index of an element in a list?",
+        "answers": [
+            "1. list.index()",
+            "2. list.get()",
+            "3. list.find()",
+            "4. list.search()"
+        ],
+        "correct_answer": "1. list.index()",
+        "improvement": "The 'index()' method returns the index of an element in a list."
+    },
+    {
+        "category": "Python",
+        "question": "19. What is the output of the expression `x in y` in Python?",
+        "answers": [
+            "1. It checks if `x` is an element in `y`",
+            "2. It checks if `x` is greater than `y`",
+            "3. It checks if `x` is a number",
+            "4. It checks if `y` is a number"
+        ],
+        "correct_answer": "1. It checks if `x` is an element in `y`",
+        "improvement": "'x in y' checks if 'x' is an element in 'y'."
+    },
+    {
+        "category": "Python",
+        "question": "20. How do you access the value of a dictionary by key?",
+        "answers": [
+            "1. dict[key]",
+            "2. dict.get(key)",
+            "3. dict[key].value",
+            "4. dict.value(key)"
+        ],
+        "correct_answer": "1. dict[key]",
+        "improvement": "Access dictionary values using 'dict[key]' or 'dict.get(key)'."
+    },
+    {
+        "category": "Python",
+        "question": "21. What is the purpose of `self` in Python class methods?",
+        "answers": [
+            "1. To reference the instance of the class",
+            "2. To reference the class itself",
+            "3. To reference a local variable",
+            "4. To pass arguments to a function"
+        ],
+        "correct_answer": "1. To reference the instance of the class",
+        "improvement": "The 'self' parameter is a reference to the current instance of the class."
+    },
+    {
+        "category": "Python",
+        "question": "22. How do you add an item to a set in Python?",
+        "answers": [
+            "1. set.add(item)",
+            "2. set.insert(item)",
+            "3. set.append(item)",
+            "4. set.append(item, index)"
+        ],
+        "correct_answer": "1. set.add(item)",
+        "improvement": "Use 'add()' to add an item to a set in Python."
+    },
+    {
+        "category": "Python",
+        "question": "23. What will the code `print(range(1, 5))` output?",
+        "answers": [
+            "1. [1, 2, 3, 4]",
+            "2. (1, 2, 3, 4)",
+            "3. range(1, 5)",
+            "4. Error"
+        ],
+        "correct_answer": "1. [1, 2, 3, 4]",
+        "improvement": "'range(1, 5)' generates a range object; use 'list()' to see its elements."
+    },
+    {
+        "category": "Python",
+        "question": "24. How do you reverse a string in Python?",
+        "answers": [
+            "1. string.reverse()",
+            "2. string[::-1]",
+            "3. string.reverse()",
+            "4. reversed(string)"
+        ],
+        "correct_answer": "2. string[::-1]",
+        "improvement": "Reverse strings in Python using slicing, like 'string[::-1]'."
+    },
+    {
+        "category": "Python",
+        "question": "25. How do you handle multiple exceptions in a single `except` block?",
+        "answers": [
+            "1. except (TypeError, ValueError) as e:",
+            "2. except TypeError, ValueError as e:",
+            "3. except (TypeError or ValueError):",
+            "4. except TypeError and ValueError as e:"
+        ],
+        "correct_answer": "1. except (TypeError, ValueError) as e:",
+        "improvement": "Handle multiple exceptions in one block using 'except (TypeError, ValueError) as e:'."
+    }
 ]

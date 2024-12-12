@@ -13,138 +13,75 @@ from django.shortcuts import render, redirect, get_object_or_404
 from keras.src.utils import pad_sequences
 from tensorflow.keras.models import load_model
 from sklearn.preprocessing import LabelEncoder
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from .forms import TestForm, QuestionForm
 from .models import Test, UserAnswer, TestResult
 
-
-# TEST CREATION
-@login_required
-def create_test(request):
-    if not request.user.is_headhunter:
-        return redirect("dashboard")
-
-    if request.method == "POST":
-        form = TestForm(request.POST)
-        if form.is_valid():
-            test = form.save(commit=False)
-            test.created_by = request.user
-            test.save()
-            return redirect("add_questions", test_id=test.id)
-    else:
-        form = TestForm()
-    return render(request, "test_platform/create_test.html", {"form": form})
-
-@login_required
-def add_questions(request, test_id):
-    test = get_object_or_404(Test, id=test_id, created_by=request.user)
-    if request.method == "POST":
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            question = form.save(commit=False)
-            question.test = test
-            question.save()
-            return redirect("add_questions", test_id=test.id)
-    else:
-        form = QuestionForm()
-    return render(request, "test_platform/add_questions.html", {"form": form, "test": test})
-
-# TEST TAKING AND SUBMISSION
-@login_required
-def take_test(request, test_id):
-    test = get_object_or_404(Test, id=test_id)
-    if request.method == "POST":
-        score = 0
-        for question in test.questions.all():
-            user_answer = request.POST.get(f"question_{question.id}")
-            is_correct = user_answer == question.correct_answer
-            UserAnswer.objects.create(
-                user=request.user, question=question, selected_answer=user_answer, is_correct=is_correct
-            )
-            score += 1 if is_correct else 0
-        TestResult.objects.create(user=request.user, test=test, score=score)
-        return redirect("dashboard")
-    return render(request, "test_platform/take_test.html", {"test": test})
-
-def load_quiz(file_name):
-    """Load quiz data from the selected JSON file."""
-    quiz_path = os.path.join(settings.BASE_DIR, "test_management", "static", file_name)
+def load_json_file(file_path):
+    """
+    Loads a JSON file from the specified path.
+    """
     try:
-        with open(quiz_path, 'r') as file:
+        with open(file_path, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
         return None
+    except json.JSONDecodeError:
+        return None
 
 # View to display quiz selection form
+import os
+from django.shortcuts import render
+from django.contrib import messages # Assuming you have this utility for loading JSON files
+
 def quiz_view(request):
+    """
+    Permite al usuario seleccionar y tomar un cuestionario.
+    """
+    # Lista de archivos con extensión .json
+    quiz_files = [
+        'CSS.json', 'Django.json', 'HTML.json', 'Numpy.json',
+        'SQL.json', 'Python-1.json', 'Python-2.json', 'Python-3.json',
+        'Soft Skills.json', 'Belbin.json', 'Git.json', 'JavaScript.json'
+    ]
+
+    # Quitar extensiones para mostrar en la plantilla
+    quiz_files_no_ext = [os.path.splitext(file)[0] for file in quiz_files]
+
     if request.method == 'POST':
+        # Recuperar el archivo seleccionado sin la extensión
         quiz_file = request.POST.get('quiz_file')
 
         if not quiz_file:
             return render(request, 'quiz/quiz_select.html', {
                 'error': 'No quiz file selected. Please select a quiz from the list.',
-                'quiz_files': [
-                    'CSS.json',
-                    'Django.json',
-                    'HTML.json',
-                    'Numpy.json',
-                    'SQL.json',
-                    'Python-1.json',
-                    'Python-2.json',
-                    'Python-3.json',
-                    'Soft Skills.json',
-                    'Belbin.json',
-                    'Git.json',
-                    'JavaScript.json'
-                ]
+                'quiz_files': quiz_files_no_ext
             })
 
-        quiz_data = load_quiz(quiz_file)
+        quiz_file_with_ext = f"{quiz_file}.json"
+
+        # Intentar cargar los datos del archivo seleccionado
+        quiz_data = load_json_file(f"test_management/static/{quiz_file_with_ext}")
 
         if quiz_data:
-            return render(request, 'quiz/quiz_form.html', {'quiz_data': quiz_data, 'quiz_file': quiz_file})
+            return render(request, 'quiz/quiz_form.html', {'quiz_data': quiz_data,
+                                                           'quiz_file': quiz_file})
         else:
+            messages.error(request, f"Archivo {quiz_file_with_ext} no encontrado.")
             return render(request, 'quiz/quiz_select.html', {
                 'error': f'Quiz file "{quiz_file}" not found. Please select a valid quiz.',
-                'quiz_files': [
-                    'CSS.json',
-                    'Django.json',
-                    'HTML.json',
-                    'Numpy.json',
-                    'SQL.json',
-                    'Python-1.json',
-                    'Python-2.json',
-                    'Python-3.json',
-                    'Soft Skills.json',
-                    'Belbin.json',
-                    'Git.json',
-                    'JavaScript.json'
-                ]
+                'quiz_files': quiz_files_no_ext
             })
 
-    else:
-        quiz_files = [
-            'CSS.json',
-            'Django.json',
-            'HTML.json',
-            'Numpy.json',
-            'SQL.json',
-            'Python-1.json',
-            'Python-2.json',
-            'Python-3.json',
-            'Soft Skills.json',
-            'Belbin.json',
-            'Git.json',
-            'JavaScript.json'
-        ]
-        return render(request, 'quiz/quiz_select.html', {'quiz_files': quiz_files})
-
+    return render(request, 'quiz/quiz_select.html', {'quiz_files': quiz_files_no_ext})
 
 # View to handle quiz submission and show results
 def submit_quiz(request):
     if request.method == 'POST':
         quiz_file = request.POST.get('quiz_file')
-        quiz_data = load_quiz(quiz_file)
+        quiz_file += ".json"
+        quiz_data = load_json_file(f"test_management/static/{quiz_file}")
 
         if not quiz_data:
             return render(request, 'quiz/quiz_form.html', {'error': 'Quiz file not found'})
@@ -162,14 +99,15 @@ def submit_quiz(request):
         for question in quiz_data:
             question_id = quiz_data.index(question) + 1
             selected_answer = request.POST.get(f'question_{question_id}')
-
+            improvement = quiz_data[question_id - 1].get('improvement', 'No improvement available')
             if selected_answer == question['correct_answer']:
                 score += 1
             else:
                 wrong_questions.append({
                     'question': question['question'],
                     'selected_answer': selected_answer,
-                    'correct_answer': question['correct_answer']
+                    'correct_answer': question['correct_answer'],
+                    'improvement': improvement
                 })
 
         score_percentage = (score / total_questions) * 100 if total_questions else 0
@@ -184,75 +122,164 @@ def submit_quiz(request):
         })
 
     return render(request, 'quiz/quiz_form.html', {'error': 'Invalid form submission'})
-
-model = load_model('test_management/chatbot/belbin/chatbot_model.keras')
-with open('test_management/chatbot/belbin/tokenizer.pickle', 'rb') as handle:
-    tokenizer = pickle.load(handle)
-with open('test_management/chatbot/belbin/label_encoder.pickle', 'rb') as handle:
-    label_encoder = pickle.load(handle)
-with open('test_management/chatbot/belbin/intents-Belbin.json') as file:
-    intents = json.load(file)
-
-# Function to generate chatbot response
-def chatbot_response(message):
+# Function to load resources for the selected category
+def load_chatbot_resources(category):
     try:
-        print(f"User Message: {message}")
+        if category == "belbin":
+            model_path = 'test_management/chatbot/belbin/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/belbin/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/belbin/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/belbin/intents-belbin.json'
 
-        # Tokenize and preprocess the input message (match training preprocessing)
-        input_data = tokenizer.texts_to_sequences([message])  # Use texts_to_sequences
-        input_data = pad_sequences(input_data, maxlen=11, padding='post')  # Set maxlen=11 to match training
+        elif category == "git":
+            model_path = 'test_management/chatbot/git/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/git/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/git/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/git/intents-git.json'
 
-        print(f"Processed Input Shape: {input_data.shape}")
+        elif category == "softskills":
+            model_path = 'test_management/chatbot/softskills/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/softskills/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/softskills/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/softskills/intents-softskills.json'
 
-        # Verify input shape matches training shape
+        elif category == "css":
+            model_path = 'test_management/chatbot/css/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/css/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/css/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/css/intents-css.json'
+
+        elif category == "html":
+            model_path = 'test_management/chatbot/html/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/html/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/html/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/html/intents-html.json'
+
+        elif category == "javascript":
+            model_path = 'test_management/chatbot/js/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/js/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/js/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/js/intents-js.json'
+
+        elif category == "python-1":
+            model_path = 'test_management/chatbot/python/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/python/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/python/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/python/intents-python.json'
+
+        elif category == "python-2":
+            model_path = 'test_management/chatbot/python/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/python/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/python/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/python/intents-python.json'
+
+        elif category == "python-3":
+            model_path = 'test_management/chatbot/python/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/python/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/python/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/python/intents-python.json'
+
+        elif category == "django":
+            model_path = 'test_management/chatbot/django/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/django/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/django/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/django/intents-django.json'
+
+        elif category == "numpy":
+            model_path = 'test_management/chatbot/numpy/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/numpy/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/numpy/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/numpy/intents-numpy.json'
+
+        elif category == "sql":
+            model_path = 'test_management/chatbot/sql/chatbot_model.keras'
+            tokenizer_path = 'test_management/chatbot/sql/tokenizer.pickle'
+            label_encoder_path = 'test_management/chatbot/sql/label_encoder.pickle'
+            intents_path = 'test_management/chatbot/sql/intents-sql.json'
+
+        else:
+            raise ValueError("Invalid category")
+
+        print(f"Loading model from {model_path}")
+        model = load_model(model_path)
+
+        print(f"Loading tokenizer from {tokenizer_path}")
+        with open(tokenizer_path, 'rb') as handle:
+            tokenizer = pickle.load(handle)
+
+        print(f"Loading label encoder from {label_encoder_path}")
+        with open(label_encoder_path, 'rb') as handle:
+            label_encoder = pickle.load(handle)
+
+        print(f"Loading intents from {intents_path}")
+        with open(intents_path) as file:
+            intents = json.load(file)
+
+        return model, tokenizer, label_encoder, intents
+    except Exception as e:
+        print(f"Error in load_chatbot_resources: {e}")
+        raise
+
+# Function to generate chatbot response based on the input message and category
+def chatbot_response(message, category):
+    try:
+        category = category.lower()
+        model, tokenizer, label_encoder, intents = load_chatbot_resources(category)
+
+        print("Model, tokenizer, label_encoder, and intents loaded successfully.")
+
+        # Tokenize and preprocess the input message
+
+        input_data = tokenizer.texts_to_sequences([message])
+        expected_input_shape = model.input_shape[1]  # Get maxlen from the model
+
+        input_data = pad_sequences(input_data, maxlen=expected_input_shape, padding='post')
+
+        # Verify input shape matches the model's expected shape
+        print(f"Input data shape: {input_data.shape}")
         expected_input_shape = model.input_shape[1]
         if input_data.shape[1] != expected_input_shape:
-            print(f"Input shape mismatch. Expected: {expected_input_shape}, Got: {input_data.shape[1]}")
             return "Sorry, I'm having trouble understanding that."
-
-        # Reshape input to match expected shape (batch_size, sequence_length, 1)
-        input_data = np.reshape(input_data, (input_data.shape[0], input_data.shape[1], 1))
 
         # Predict with the model
         prediction = model.predict(input_data)
-        print(f"Prediction Probabilities: {prediction}")
-
-        # Extract the most probable tag and its confidence
         predicted_index = np.argmax(prediction)
         predicted_confidence = prediction[0][predicted_index]
         predicted_tag = label_encoder.inverse_transform([predicted_index])[0]
 
-        print(f"Predicted Tag: {predicted_tag}, Confidence: {predicted_confidence}")
-
-        # Confidence threshold to filter uncertain responses
-        confidence_threshold = 0.7  # Adjust based on testing
+        # Confidence threshold
+        confidence_threshold = 0.7
         if predicted_confidence < confidence_threshold:
             return "I'm not sure. Can you clarify or ask in a different way?"
 
         # Find a response matching the predicted tag
-        for intent in intents['intents']:
-            if intent['tag'] == predicted_tag:
-                response = np.random.choice(intent['responses'])
-                print(f"Selected Response: {response}")
-                return response
+        for intent in intents["intents"]:
+            if intent["tag"] == predicted_tag:
+                return np.random.choice(intent["responses"])
 
-        # Default fallback if no match is found
         return "I understand your message, but I don't have an appropriate response."
-
     except Exception as e:
         print(f"Error in chatbot_response: {e}")
         return "Something went wrong. Please try again later."
 
 
-# Chatbot view to handle chatbot messages (POST requests)
+# Chatbot view to handle user messages and return bot responses modified 19:14
+@ensure_csrf_cookie
 def chatbot_view(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)  # Get the message from the request
-        user_message = data.get('message', '')  # Extract the message
-        response = chatbot_response(user_message)  # Get chatbot's response
-        return JsonResponse({'bot_message': response})  # Return the response as JSON
-    return JsonResponse({'error': 'Invalid request'}, status=400)  # Handle invalid requests
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_message = data.get("message", "")
+        category = data.get("category")
 
-# Render the chatbot page for GET requests
+        if user_message:
+            response = chatbot_response(user_message, category)
+            return JsonResponse({"bot_message": response})
+
+        return JsonResponse({"bot_message": "No message provided"}, status=400)
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
+
 def chatbot_page(request):
-    return render(request, 'quiz/chatbot.html')  # Render the new HTML page
+    categories = ["belbin", "git", "softskills", "css", "javascript", "python-1",
+                  "python-2", "python-3", "html", "django", "numpy", "sql"]
+    return render(request, 'quiz/quiz_form.html', {"categories": categories})  # Render the new HTML page

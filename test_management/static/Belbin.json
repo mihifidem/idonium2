@@ -110,7 +110,7 @@
     "correct_answer": "3. I analyze the situation logically and provide feedback based on facts."
   },
   {
-    "category": "Monitor-Evaluato",
+    "category": "Monitor-Evaluator",
     "question": "11. When discussing ideas, you tend to...",
     "answers": [
       "1. Focus on the big picture and overall strategy.",
@@ -121,7 +121,7 @@
     "correct_answer": "2. Question the feasibility and analyze risks."
   },
   {
-    "category": "Monitor-Evaluato",
+    "category": "Monitor-Evaluator",
     "question": "12. How do you approach evaluating a team's performance?",
     "answers": [
       "1. I focus on facts and data to assess performance objectively.",
@@ -132,7 +132,7 @@
     "correct_answer": "1. I focus on facts and data to assess performance objectively."
   },
   {
-    "category": "Monitor-Evaluato",
+    "category": "Monitor-Evaluator",
     "question": "13. How do you contribute when decisions need to be made?",
     "answers": [
       "1. I analyze the pros and cons and provide a detailed evaluation.",
@@ -143,7 +143,7 @@
     "correct_answer": "1. I analyze the pros and cons and provide a detailed evaluation."
   },
   {
-    "category": "Monitor-Evaluato",
+    "category": "Monitor-Evaluator",
     "question": "14. When problems arise in a project, you prefer to...",
     "answers": [
       "1. Look for objective data and identify a logical solution.",
@@ -154,7 +154,7 @@
     "correct_answer": "1. Look for objective data and identify a logical solution."
   },
   {
-    "category": "Monitor-Evaluato",
+    "category": "Monitor-Evaluator",
     "question": "15. How do you handle conflicting opinions in a team?",
     "answers": [
       "1. I focus on analyzing the facts and helping the team reach a logical conclusion.",
@@ -165,7 +165,7 @@
     "correct_answer": "1. I focus on analyzing the facts and helping the team reach a logical conclusion."
   },
   {
-    "category": "Monitor-Evaluato",
+    "category": "Monitor-Evaluator",
     "question": "16. How do you prioritize tasks within a team project?",
     "answers": [
       "1. I evaluate the tasks based on urgency and importance.",

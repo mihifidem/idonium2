@@ -25,8 +25,10 @@
         <li class="list-group-item">
             <strong>Question:</strong> {{ question.question }} <br>
             <strong>Your Answer:</strong> {{ question.selected_answer|default:"Not answered" }} <br>
-            <strong>Correct Answer:</strong> {{ question.correct_answer }}
+            <strong>Correct Answer:</strong> {{ question.correct_answer }} <br>
+            <strong>Improvement:</strong> {{ question.improvement }}
         </li>
+
         {% endfor %}
     </ul>
     {% else %}

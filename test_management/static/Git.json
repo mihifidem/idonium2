@@ -8,7 +8,8 @@
       "3. A programming language",
       "4. A version control system"
     ],
-    "correct_answer": "4. A version control system"
+    "correct_answer": "4. A version control system",
+    "improvement": "Understanding Git as a version control system will help you manage and track changes in projects more effectively."
   },
   {
     "category": "Git",
@@ -17,7 +18,8 @@
       "1. True",
       "2. False"
     ],
-    "correct_answer": "2. False"
+    "correct_answer": "2. False",
+    "improvement": "It's important to distinguish Git from GitHub; Git is the tool for version control, while GitHub is a hosting service for Git repositories."
   },
   {
     "category": "Git",
@@ -28,7 +30,8 @@
       "3. getGitVersion",
       "4. gitVersion"
     ],
-    "correct_answer": "2. git --version"
+    "correct_answer": "2. git --version",
+    "improvement": "Knowing the version command ensures you can verify your Git installation and troubleshoot compatibility issues."
   },
   {
     "category": "Git",
@@ -39,7 +42,8 @@
       "3. --all",
       "4. --global"
     ],
-    "correct_answer": "4. --global"
+    "correct_answer": "4. --global",
+    "improvement": "Using the '--global' option ensures your settings apply universally, saving time when working on multiple repositories."
   },
   {
     "category": "Git",
@@ -49,7 +53,8 @@
       "2. git config email",
       "3. git email.user"
     ],
-    "correct_answer": "1. git config user.email"
+    "correct_answer": "1. git config user.email",
+    "improvement": "Setting your user email correctly helps associate commits with your identity, which is crucial for collaboration."
   },
   {
     "category": "Git",
@@ -59,7 +64,8 @@
       "2. git add --all",
       "3. git add"
     ],
-    "correct_answer": "2. git add --all"
+    "correct_answer": "2. git add --all",
+    "improvement": "Using 'git add --all' ensures all changes, including deletions, are staged for commit."
   },
   {
     "category": "Git",
@@ -70,7 +76,8 @@
       "3. git getStatus",
       "4. git config --status"
     ],
-    "correct_answer": "2. git status"
+    "correct_answer": "2. git status",
+    "improvement": "'git status' provides an overview of your working directory, helping you keep track of changes and potential issues."
   },
   {
     "category": "Git",
@@ -81,7 +88,8 @@
       "3. initialize git",
       "4. git start"
     ],
-    "correct_answer": "1. git init"
+    "correct_answer": "1. git init",
+    "improvement": "Initializing a repository with 'git init' is the first step in tracking your project with Git."
   },
   {
     "category": "Git",
@@ -90,7 +98,8 @@
       "1. False",
       "2. True"
     ],
-    "correct_answer": "1. False"
+    "correct_answer": "1. False",
+    "improvement": "To start tracking files, you must explicitly add them using 'git add', reinforcing deliberate version control."
   },
   {
     "category": "Git",
@@ -101,7 +110,8 @@
       "3. Every year.",
       "4. Commit history is never automatically deleted."
     ],
-    "correct_answer": "4. Commit history is never automatically deleted."
+    "correct_answer": "4. Commit history is never automatically deleted.",
+    "improvement": "Understanding that Git preserves commit history unless deleted helps maintain long-term project accountability."
   },
   {
     "category": "Git",
@@ -112,7 +122,8 @@
       "3. git snapshot",
       "4. git commit"
     ],
-    "correct_answer": "4. git commit"
+    "correct_answer": "4. git commit",
+    "improvement": "'git commit' creates a snapshot of changes, essential for documenting progress and restoring earlier states."
   },
   {
     "category": "Git",
@@ -123,7 +134,8 @@
       "3. git commit message 'New email'",
       "4. git commit -log 'New email'"
     ],
-    "correct_answer": "1. git commit -m 'New email'"
+    "correct_answer": "1. git commit -m 'New email'",
+    "improvement": "Including messages with commits using '-m' provides context for changes, simplifying collaboration and troubleshooting."
   },
   {
     "category": "Git",
@@ -134,7 +146,8 @@
       "3. git --full-log",
       "4. git log"
     ],
-    "correct_answer": "4. git log"
+    "correct_answer": "4. git log",
+    "improvement": "Using 'git log' lets you view the history of changes, aiding in understanding past decisions and identifying issues."
   },
   {
     "category": "Git",
@@ -145,7 +158,8 @@
       "3. git commitHelp",
       "4. git commit readme"
     ],
-    "correct_answer": "1. git commit -help"
+    "correct_answer": "1. git commit -help",
+    "improvement": "Consulting the help options like '-help' ensures you are familiar with all command features and their uses."
   },
   {
     "category": "Git",
@@ -156,7 +170,8 @@
       "3. A separate version of the main repository.",
       "4. Nothing, it is a nonsense word."
     ],
-    "correct_answer": "3. A separate version of the main repository."
+    "correct_answer": "3. A separate version of the main repository.",
+    "improvement": "Understanding branches enables you to experiment or develop features without affecting the main codebase."
   },
   {
     "category": "Git",
@@ -167,7 +182,8 @@
       "3. git newBranch 'new-email'",
       "4. git branch new 'new-email'"
     ],
-    "correct_answer": "1. git branch new-email"
+    "correct_answer": "1. git branch new-email",
+    "improvement": "Creating branches with 'git branch' helps organize work and manage tasks independently."
   },
   {
     "category": "Git",
@@ -178,18 +194,20 @@
       "3. git branch -move new-email",
       "4. git checkout branch new-email"
     ],
-    "correct_answer": "1. git checkout new-email"
+    "correct_answer": "1. git checkout new-email",
+    "improvement": "Switching branches lets you work on different features or fixes without altering other branches."
   },
   {
     "category": "Git",
-    "question": "18. What is the option, when moving to a branch, to create the branch it if it does not exist?",
+    "question": "18. What is the option, when moving to a branch, to create the branch if it does not exist?",
     "answers": [
       "1. -all",
       "2. -b",
       "3. -new",
       "4. -newbranch"
     ],
-    "correct_answer": "2. -b"
+    "correct_answer": "2. -b",
+    "improvement": "The '-b' option in 'git checkout' ensures you can create and switch to a branch in one step."
   },
   {
     "category": "Git",
@@ -199,7 +217,8 @@
       "2. git commit -merge new-email",
       "3. git merge new-email"
     ],
-    "correct_answer": "3. git merge new-email"
+    "correct_answer": "3. git merge new-email",
+    "improvement": "Merging branches consolidates changes, ensuring updates are incorporated into the main codebase."
   },
   {
     "category": "Git",
@@ -210,7 +229,8 @@
       "3. git branch -d new-email",
       "4. git delete branch new-email"
     ],
-    "correct_answer": "3. git branch -d new-email"
+    "correct_answer": "3. git branch -d new-email",
+    "improvement": "Deleting branches you no longer need keeps the repository organized and free of unnecessary clutter."
   },
   {
     "category": "Git",
@@ -221,7 +241,8 @@
       "3. git add origin https://abc.xyz/d/e.git",
       "4. git origin=https://abc.xyz/d/e.git"
     ],
-    "correct_answer": "2. git remote add origin https://abc.xyz/d/e.git"
+    "correct_answer": "2. git remote add origin https://abc.xyz/d/e.git",
+    "improvement": "Adding a remote ensures you can sync your local repository with others for collaboration."
   },
   {
     "category": "Git",
@@ -230,40 +251,45 @@
       "1. git merge remote",
       "2. git remote push",
       "3. git push origin",
-      "4. git remote commmit"
+      "4. git remote commit"
     ],
-    "correct_answer": "3. git push origin"
+    "correct_answer": "3. git push origin",
+    "improvement": "Using 'git push' uploads your local changes to the remote repository, ensuring the team has access to your updates."
   },
   {
     "category": "Git",
-    "question": "23. What is the command to get all the change history of the remote repository 'origin'?",
+    "question": "23. What is the command to pull the latest changes from the remote repository?",
     "answers": [
-      "1. git origin help",
-      "2. git get log origin",
-      "3. git fetch origin",
-      "4. git status remote origin"
+      "1. git pull origin",
+      "2. git remote pull",
+      "3. git push origin",
+      "4. git fetch latest"
     ],
-    "correct_answer": "3. git fetch origin"
+    "correct_answer": "1. git pull origin",
+    "improvement": "'git pull' retrieves the latest changes from the remote repository, keeping your local codebase up to date."
   },
   {
     "category": "Git",
-    "question": "24. What is the command to show the differences between the current branch and the branch 'new-email'?",
+    "question": "24. What is the command to clone a remote repository to your local machine?",
     "answers": [
-      "1. git changes new-email",
-      "2. git status new-email",
-      "3. git diff new-email",
-      "4. git log new-email"
+      "1. git fetch clone",
+      "2. git clone",
+      "3. git copy remote",
+      "4. git get clone"
     ],
-    "correct_answer": "3. git diff new-email"
+    "correct_answer": "2. git clone",
+    "improvement": "Cloning repositories allows you to create a local copy of a remote project, enabling you to work offline."
   },
   {
     "category": "Git",
-    "question": "25. Git Pull is a combination of:",
+    "question": "25. What is the command to view the list of remote repositories?",
     "answers": [
-      "1. add and commit",
-      "2. fetch and merge",
-      "3. branch and checkout"
+      "1. git show remotes",
+      "2. git remote list",
+      "3. git remote -v",
+      "4. git show remote"
     ],
-    "correct_answer": "2. fetch and merge"
+    "correct_answer": "3. git remote -v",
+    "improvement": "Viewing remotes with 'git remote -v' helps you track and manage your connections to other repositories."
   }
 ]
