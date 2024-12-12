@@ -13,12 +13,12 @@ class CourseForm(forms.ModelForm):
 class ResourceCourseForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = ['name', 'image', 'link', 'document']
+        fields = ['name', 'image', 'url', 'document']
 
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = ['name', 'image', 'link', 'document', 'price']
+        fields = ['name', 'image', 'url', 'document', 'price']
 
 class CertificateForm(forms.ModelForm):
     class Meta:

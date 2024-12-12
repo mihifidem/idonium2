@@ -7,6 +7,9 @@ from django.db.models import Prefetch, Sum
 from django.core.paginator import Paginator
 from courses.models import *
 from courses.forms import *
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+from django.db.models import Q
 
 # * |--------------------------------------------------------------------------
 # * | Landing Page
@@ -31,10 +34,57 @@ def group_required(group_name):
         return wrapper
     return decorator
 
+def create_interaction_matrix():
+    users = User.objects.all()
+    courses = Course.objects.all()
+
+    # Crear un DataFrame vacío con usuarios como índices y cursos como columnas
+    matrix = pd.DataFrame(0, index=[user.id for user in users], columns=[course.id for course in courses])
+
+    wishlist = WishListUser.objects.filter(type_wish__name = 'Course')
+    # Llenar la matriz con datos de WishlistUser
+    for wish in wishlist: 
+        user_id = wish.user.id
+        course_id = wish.id_wish
+        if course_id in matrix.columns:
+            matrix.at[user_id, course_id] = 1
+
+    return matrix
+
+def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
+    # Obtener el ID del usuario actual
+    user_id = request.user.id
+
+    # Obtener los cursos ya valorados por el usuario actual
+    already_rated = interaction_matrix.loc[user_id]
+    already_rated = already_rated[already_rated > 0].index
+
+    # Obtener las similitudes del usuario actual con otros usuarios
+    similar_users = user_similarity_df[user_id]
+
+    # Ponderar las interacciones de otros usuarios por la similitud
+    weighted_scores = interaction_matrix.T.dot(similar_users)
+
+    # Normalizar por las similitudes totales
+    similarity_sums = similar_users.sum()
+    recommendations = weighted_scores / similarity_sums
+
+    # Ordenar las recomendaciones en orden descendente
+    recommendations_sorted = recommendations.sort_values(ascending=False)
+
+    # Excluir los cursos que el usuario ya ha valorado
+    recommendations_sorted = recommendations_sorted.drop(already_rated, errors='ignore')
+
+    recommended_courses = recommendations_sorted.head(2).index.tolist()
+
+    # Devolver los dos mejores cursos recomendados
+    return Course.objects.filter(id__in=recommended_courses)
+        
+
 # * |--------------------------------------------------------------------------
 # * | Course Views
 # * |--------------------------------------------------------------------------
-
+@login_required
 def courses_list_view(request):
     # Obtener todos los cursos activos
     courses = Course.objects.filter(is_active=True)
@@ -73,8 +123,14 @@ def courses_list_view(request):
     page_obj = paginator.get_page(page_number)
 
 
+
+    
     # Pasar los datos al contexto para renderizarlos en el template
-    return render(request, 'courses_list.html', {'page_obj': page_obj, 'total_courses': courses.count()})
+    return render(request, 'courses_list.html', {
+    'page_obj': page_obj, 
+    'total_courses': courses.count(),
+    
+})
 
 def course_detail_view(request, course_id):
     course = get_object_or_404(
@@ -102,14 +158,47 @@ def course_detail_view(request, course_id):
     minutes = total_duration_minutes % 60
     formatted_duration = f"{hours} hours {minutes} minutes"
 
+ # Crear la matriz de interacción y calcular similitudes
+    interaction_matrix = create_interaction_matrix()    
+    user_similarity = cosine_similarity(interaction_matrix)
+    user_similarity_df = pd.DataFrame(user_similarity, index=interaction_matrix.index, columns=interaction_matrix.index)
+
+    # Obtener las recomendaciones para el usuario actual
+    recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
+    
+    courses = Course.objects.filter(is_active=True)
+
+    for course in courses:
+        # Contar los usuarios que han completado el curso
+        completed_users_count = course.enrolled_users.filter(status__name="completed").count()
+
+        # Contar las veces que el curso ha sido añadido a la wishlist
+        course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.id).count()
+
+        #Contar las reviews que tiene el curso
+        #course_reviews_count = Review.objects.filter(course=course).count()
+        course_reviews_count = course.reviews.all().count()
+
+        #reviews = Review.objects.filter(course=course)
+        reviews = course.reviews.all()
+        if reviews.exists():
+            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+
+        else:
+            average_rating = 0  # Si no hay calificaciones, el promedio es 0
+
     context = {
         'course': course,
         'total_lessons': total_lessons,
         'total_resources': total_resources,
         'average_rating': average_rating,
         'formatted_duration': formatted_duration,
+        'recommended_courses': recommended_courses,
+        'course_reviews_count': course_reviews_count,
+        'average_rating': average_rating,
+        'completed_users_count': completed_users_count,
+        'course_wishlist_count': course_wishlist_count,
     }
-
     return render(request, 'course_detail.html', context)
 
 @login_required
