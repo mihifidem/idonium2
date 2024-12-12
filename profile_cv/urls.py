@@ -19,9 +19,6 @@ from .views import *
 
 urlpatterns = [
 
-    # Home URL
-    path('', home, name='home'),
-
     # Profile URLs
     path('profiles/<int:user_id>/', profile_view, name='profile_view'),
     path('profiles/create/<int:user_id>/', profile_create, name='profile_create'),
