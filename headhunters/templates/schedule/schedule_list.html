@@ -1,15 +1,58 @@
 {% extends "users/base.html" %}
 
 {% block content %}
-  <h2>List of Schedule</h2>
-  <ul>
-    {% for schedule in schedules %}
-      <li>
-        <a href="{% url 'schedule_detail' pk=schedule.pk %}">{{ action.name }}</a>
-      </li>
-    {% empty %}
-      <p>No schedules found.</p>
-    {% endfor %}
-  </ul>
-  <a href="{% url 'schedule_create' %}">Create New tAction</a>
+<div class="container mt-5 mb-5"> <!-- Agregado mb-5 para mayor separación del footer -->
+  <h2 class="mb-4">Agenda de Headhunters</h2>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Tipo de Acción</th>
+        <th>Oferta</th>
+        <th>Candidato</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for schedule in schedule %}
+        <tr>
+          <td>{{ schedule.type_action.name }}</td>
+          <td>
+            {% if schedule.joboffer %}
+              {{ schedule.joboffer }}
+            {% else %}
+              <em>No asignado</em>
+            {% endif %}
+          </td>
+          <td>
+            {% if schedule.candidate %}
+              {{ schedule.candidate }}
+            {% else %}
+              <em>No asignado</em>
+            {% endif %}
+          </td>
+          <td>{{ schedule.description }}</td>
+          <td>{{ schedule.date|date:"Y-m-d H:i" }}</td>
+          <td>{{ schedule.status }}</td>
+          <td>
+            <a href="{% url 'schedule_update' schedule.id %}" class="btn btn-primary btn-sm">Editar</a>
+            <a href="{% url 'schedule_delete' schedule.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center">No hay acciones programadas.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center mt-3">
+    <a href="{% url 'schedule_create' %}" class="btn btn-success btn-lg">
+      <i class="bi bi-plus-lg me-2"></i>Create New Action
+    </a>
+  </div>
+</div>
 {% endblock %}
