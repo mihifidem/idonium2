@@ -145,3 +145,12 @@ class JobOfferNotification(models.Model):
 
     def __str__(self):
         return f"Notification for {self.job_offer.title} to {self.candidate.name}"
+
+class ChatMessage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    is_bot = models.BooleanField(default=False)  # True if the message is from the bot, False if from the user
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def _str_(self):
+        return f"Message from {'Bot' if self.is_bot else 'User'} at {self.timestamp}"
