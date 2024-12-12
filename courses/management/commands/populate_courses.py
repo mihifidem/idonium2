@@ -100,7 +100,7 @@ class Command(BaseCommand):
                     name=faker.unique.word(),
                     downloadable=random.choice([True, False]),
                     is_member=lesson.is_member,
-                    link=faker.url(),
+                    url=faker.url(),
                     image=self.get_random_image(RESOURCES_IMAGE_DIR),
                     document=None,
                     is_active=True,

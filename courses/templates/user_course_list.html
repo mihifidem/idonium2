@@ -14,7 +14,12 @@
                         <div class="card-body">
                             <a href="{% url 'courses:course-user-detail' user_course.course_id %}"><h5 class="card-title">{{ user_course.course.title }}</h5></a>
                             <p class="card-text">{{ user_course.course.description }}</p>
+                            {% if user_course.status.name == "completed" %}
+                            <p class="font_weight_bold">Curso completado!</p>
+                            {% else %}
+                            <p>Tienes el {{ progress_percentage|floatformat:1 }}% del curso completado.</p>
                             <a href="#url_delete" class="btn btn-danger">Abandonar</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
