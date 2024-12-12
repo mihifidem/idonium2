@@ -249,8 +249,8 @@ display:flex
           fetch("{% url 'chatbot_view' %}", {
               method: "POST",
               headers: {
-                  "Content-Type": "application/json",
-                  "X-CSRFToken": getCookie('csrftoken') // Include CSRF token for Django
+                  "Content-Type": "application/json, charset=UTF-8",
+                  "X-CSRFToken": getCookie('csrftoken'), // Include CSRF token for Django
               },
               body: JSON.stringify({ message: msg }) // Send the user message as JSON
           })
@@ -326,7 +326,7 @@ display:flex
               document.getElementById("chatbot").classList.remove("collapsed")
               document.getElementById("chatbot_toggle").children[0].style.display = "none"
               document.getElementById("chatbot_toggle").children[1].style.display = ""
-              setTimeout(addResponseMsg, 1000, "Hi! How can I assist you today?");
+              setTimeout(addResponseMsg, 1000, "Hola soy tu asistente virtual, fuí creado para resolver tus dudas.");
           }
           else {
               document.getElementById("chatbot").classList.add("collapsed")
