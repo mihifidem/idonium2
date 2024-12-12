@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
-
+from headhunters.urls import AddToExistingOfferView
 
 # from transformers import pipeline
 

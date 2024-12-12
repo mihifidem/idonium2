@@ -84,7 +84,7 @@
 
                         {% if is_headhunter and request.user.pk != user.pk %}
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a class="btn btn-success" href="{% url 'profile_update' profile.pk %}"><i class="fas fa-edit"></i> Agregar a oferta existente</a>
+                            <a class="btn btn-success" href="{% url 'add_to_existing_offer' profile.pk %}"><i class="fas fa-edit"></i> Agregar a oferta existente</a>
                         </div>
                         {% endif %}
 
