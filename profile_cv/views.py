@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
+
+
 # from transformers import pipeline
 
 # * |--------------------------------------------------------------------------
@@ -334,11 +336,12 @@ def profile_update(request, profile_id):
 def profile_view(request, user_id):
     try:
         user = get_object_or_404(User, pk=user_id)
+        is_headhunter = request.user.groups.filter(name="headhunter").exists()
         profile = Profile_CV.objects.get(user=user)
     except Profile_CV.DoesNotExist:
         return redirect('profile_create', request.user.id)
 
-    return render(request, 'profile/profile_view_details.html', {"user": user, "profile": profile})
+    return render(request, 'profile/profile_view_details.html', {"user": user, "profile": profile, "is_headhunter": is_headhunter})
 
 # * |--------------------------------------------------------------------------
 # * | Class WorkExperience
