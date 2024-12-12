@@ -1,5 +1,6 @@
 
 
+from django.forms import FileField, ImageField, model_to_dict
 from django.http import JsonResponse
 from datetime import datetime
 import json
@@ -11,7 +12,7 @@ from ..forms import JobOfferForm
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from profile_cv.models import Category, HardSkill, Profile_CV, Sector, SoftSkill
+from profile_cv.models import Category, HardSkill, Profile_CV, Sector, SoftSkill, User_cv, UserCvRelation
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -371,3 +372,69 @@ class MyOffers(ListView):
         management_candidates = ManagementCandidates.objects.filter(candidate__user=self.request.user)
         print(JobOffer.objects.filter(id__in=management_candidates.values('job_offer')))
         return JobOffer.objects.filter(id__in=management_candidates.values('job_offer'))
+
+from django.http import JsonResponse
+from django.forms import model_to_dict
+from django.db.models import ImageField, FileField, ForeignKey, ManyToManyField, OneToOneField
+
+from django.http import JsonResponse
+from django.forms import model_to_dict
+from django.db.models import ImageField, FileField, ForeignKey, ManyToManyField, OneToOneField
+
+from django.db import models
+
+class RecomendationOffers(ListView):
+
+    def serialize_model(self, instance):
+        """
+        Serializa un modelo excluyendo los campos no serializables (por ejemplo, ImageField, FileField).
+        Si un campo es una relación (ForeignKey, ManyToMany), lo serializa recursivamente.
+        """
+        # Asegurarnos de que estamos trabajando con una instancia del modelo
+        if not instance:
+            return {}
+
+        # Convertir el modelo a un diccionario
+        for object in instance:
+        data = model_to_dict(instance)
+
+        for field in instance._meta.get_fields():
+            field_name = field.name
+
+            # Si el campo es un ImageField o FileField, lo excluimos
+            if isinstance(field, (ImageField, FileField)):
+                if field_name in data:
+                    del data[field_name]
+
+            # Si el campo es una relación (ForeignKey, OneToOneField), serializamos recursivamente
+            elif isinstance(field, (ForeignKey, OneToOneField)):
+                if field_name in data and data[field_name] is not None:
+                    related_instance = data[field_name]
+                    # Verificamos que `related_instance` sea una instancia de un modelo
+                    if isinstance(related_instance, models.Model):
+                        data[field_name] = self.serialize_model(related_instance)
+
+            # Si el campo es una relación ManyToManyField
+            elif isinstance(field, ManyToManyField):
+                if field_name in data:
+                    # En este caso, la relación ManyToMany devuelve un queryset
+                    related_instances = data[field_name]
+                    data[field_name] = [self.serialize_model(related_instance) for related_instance in related_instances]
+
+        return data
+
+    def profile_to_json(self, request):
+        # Obtener el primer perfil
+        profile = User_cv.objects.all()
+
+        # Serializar el perfil
+        serialized_profile = self.serialize_model(profile)
+
+        return serialized_profile  # Retorna el diccionario, no un JsonResponse
+
+    def get(self, request, *args, **kwargs):
+        # Obtener los datos serializados del perfil
+        data = self.profile_to_json(request)
+
+        # Devolver la respuesta en formato JSON
+        return JsonResponse({"response": data})  # Este es el JsonResponse final

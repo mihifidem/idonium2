@@ -8,7 +8,7 @@ from .views import (
     LandingHeadHuntersView,ManageCandidatesView, ApplyDirectToOffer, MyOffers,CandidateSearchView,
     CreateOfferFromSelectedView,
     AddToExistingOfferView,
-    DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView,
+    DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView, RecomendationOffers
     
 )
 
@@ -49,7 +49,8 @@ urlpatterns = [
       path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),     
       path('apply_direct/',ApplyDirectToOffer.as_view(), name='apply_direct'),
       path('search-candidates/', CandidateSearchView.as_view(), name='search_candidates'),
-      path('my_offers/',MyOffers.as_view(), name="my_offers")
+      path('my_offers/',MyOffers.as_view(), name="my_offers"),
+      path('recomended_offers/',RecomendationOffers.as_view(), name = 'recomended_ofers')
 ]
 
 
