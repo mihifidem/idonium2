@@ -149,10 +149,10 @@ def courses_list_view(request):
         completed_users_count = course.enrolled_users.filter(status__name="completed").count()
 
         # Contar las veces que el curso ha sido añadido a la wishlist
-        course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.pk).count()
+        course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.id).count()
 
         #Contar las reviews que tiene el curso
-        course_reviews_count = course.reviews.all().count()
+        course_reviews_count = course.reviews.count()
 
         reviews = course.reviews.all()
         if reviews.exists():
@@ -185,12 +185,11 @@ def courses_list_view(request):
 
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {
-    'page_obj': page_obj, 
-    'total_courses': courses.count(),
-    'recommended_courses': recommended_courses,
-    'query': query,  
-    
-})
+        'page_obj': page_obj, 
+        'total_courses': courses.count(),
+        'recommended_courses': recommended_courses,
+        'query': query,  
+    })
 
 def course_detail_view(request, course_id):
     course = get_object_or_404(
@@ -217,27 +216,10 @@ def course_detail_view(request, course_id):
     hours = total_duration_minutes // 60
     minutes = total_duration_minutes % 60
     formatted_duration = f"{hours} hours {minutes} minutes"
-    
-    courses = Course.objects.filter(is_active=True)
 
-    for course in courses:
-        # Contar los usuarios que han completado el curso
-        completed_users_count = course.enrolled_users.filter(status__name="completed").count()
-
-        # Contar las veces que el curso ha sido añadido a la wishlist
-        course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.id).count()
-
-        #Contar las reviews que tiene el curso
-        #course_reviews_count = Review.objects.filter(course=course).count()
-        course_reviews_count = course.reviews.all().count()
-
-        #reviews = Review.objects.filter(course=course)
-        reviews = course.reviews.select_related('user').all()
-        if reviews.exists():
-            average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-
-        else:
-            average_rating = 0  # Si no hay calificaciones, el promedio es 0
+    completed_users_count = course.enrolled_users.filter(status__name="completed").count()
+    course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.id).count()
+    course_reviews_count = course.reviews.count()
 
     recommended_courses = None
     if request.user.is_authenticated:
@@ -260,7 +242,7 @@ def course_detail_view(request, course_id):
         'average_rating': average_rating,
         'completed_users_count': completed_users_count,
         'course_wishlist_count': course_wishlist_count,
-        'reviews': reviews,
+        'reviews': course.reviews.all(),
     }
     return render(request, 'course_detail.html', context)
 
