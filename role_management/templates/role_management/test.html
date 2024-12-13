@@ -1,8 +1,6 @@
 {% extends "users/base.html" %}
 {% block title %} Home Page {% endblock title%}
 {% load static %}
-
-
 <!--====== HEADER PART ENDS ======-->
 {% block menu_util %}
 {% if user.is_authenticated %}
@@ -21,7 +19,7 @@
 
             <div class="col-lg-3">
                 <p class="text-warning">
-                    Welcome headhunter, {{ user.first_name|default:"Guest" }} {{ user.last_name|default:""  }}
+                    Welcome , {{ user.first_name|default:"Guest" }} {{ user.last_name|default:" " }} (premium)
 
                 </p>
             </div>
@@ -29,8 +27,7 @@
                 {% if user_duckycoins > -1 %}
                 <a href="{% url 'transaction_list' %}" class="position-relative text-decoration-none ms-3">
                     <i class="bi bi-award fs-4 text-warning"></i>
-                    <span
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {{ user_duckycoins }}
                         <span class="visually-hidden">DuckyCoins</span>
                     </span>
@@ -41,8 +38,7 @@
                 {% if unread_messages_count > 0 %}
                 <a href="{% url 'inbox' %}" class="position-relative text-decoration-none ms-3">
                     <i class="bi bi-envelope-fill fs-4 text-warning"></i>
-                    <span
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {{ unread_messages_count }}
                         <span class="visually-hidden">unread messages</span>
                     </span>
@@ -58,8 +54,8 @@
                     <a href="/role"
                         class="d-flex align-items-center justify-content-center link-warning text-decoration-none dropdown-toggle"
                         id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if headhunter_profile.profile_foto %}
-                        <img class="thum-red" src="{{ headhunter_profile.profile_foto.url }}" alt="HeadHunter"
+                        {% if profile_user.image %}
+                        <img class="thum-red" src="{{ profile_user.image.url }}" alt="User"
                             style="border-radius: 50%; width: 50px; height: 50px;">
 
                         {%else %}
@@ -99,11 +95,10 @@
 </div>
 {%endif%}
 {% endblock menu_util%}
-
-
-{% block navbar %}
-<div class="navigation">
+{%block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
     <div class="container-fluid">
+<<<<<<< HEAD:role_management/templates/role_management/dashboard_premium.html
         <div class="row mr-0 ml-4">
             <div class="col-lg-8 col-md-4 col-sm-6 col-8">
                 
@@ -121,25 +116,23 @@
                                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                                 </li> -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Dashboard</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Ofertas
-                                    </a>
-                                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul> -->
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/courses/courses">My profile</a>
+                                    <a class="nav-link" href="/role/premium_profile">Profile CV</a>
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/role/headhunter_chat">Chat</a>
+                                    <a class="nav-link" href="/courses/courses">Management CV</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Job Offers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'courses:course-user-list' %}">Courses</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Tests</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/role/premium_chat">Chat</a>
                                 </li>
                                 
                                
@@ -163,7 +156,7 @@
                             <li class="nav-item bg-warning p-3">
                                 <a class="nav-link active d-flex flex-column text-center" aria-current="page"
                                     href="/register"><i class="bi bi-journal-text"></i><span
-                                        class="small">Create Offer</span></a>
+                                        class="small">Create Course</span></a>
                             </li>
                             {%if user.is_authenticated%}
                             <li class="nav-item bg-warning p-3">
@@ -174,13 +167,83 @@
                             {%endif%}
                             </ul>
 
+=======
+        <a class="navbar-brand" href="#">Duckyways</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Menú principal -->
+            <ul class="navbar-nav me-auto">
+                {% for item in menu %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" onclick="showSubmenu('{{ forloop.counter }}')">
+                            {{ item.name }}
+                        </a>
+>>>>>>> b469f5a8a42aabc52b8bb9e6833594095e3837dd:role_management/templates/role_management/test.html
                         
+                    </li>
                     
-                    <!-- </div> -->
-            </div>
-            {%endblock role_menu %}
+                {% endfor %}
+            </ul>
+            
+            <ul class="d-flex flex-row justify-content-end align-items-end justify-content-end">
 
+<<<<<<< HEAD:role_management/templates/role_management/dashboard_premium.html
         </div> <!-- row -->
+        {% block user_course %}
+
+        {% endblock %}
     </div> <!-- container -->
 </div>
 {%endblock navbar  %}
+=======
+            <!-- Subítems como botones -->
+            <div class="d-flex ms-auto">
+                {% for item in menu %}
+                    {% if item.submenu %}
+                        <div id="submenu-{{ forloop.counter }}" class="submenu-buttons d-none">
+                            <ul class="d-flex flex-row justify-content-end align-items-end justify-content-end">
+
+                            {% for subitem in item.submenu %}
+                            <li class="nav-item bg-warning p-3">
+                                <!-- <a href="{{ subitem.url }}" class="btn btn-outline-primary mx-2">
+                                    {{ subitem.name }}
+                                </a> -->
+                                <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                                href="{{ subitem.url }}"><i class="{{subitem.icon}} fs-3 "></i>
+                                <span class="small">{{ subitem.name }}</span></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</nav>  
+
+
+<script>
+    function showSubmenu(id) {
+        // Ocultar todos los submenús
+        const allSubmenus = document.querySelectorAll('.submenu-buttons');
+        allSubmenus.forEach(submenu => submenu.classList.add('d-none'));
+
+        // Mostrar el submenú correspondiente
+        const submenu = document.getElementById(`submenu-${id}`);
+        if (submenu) {
+            submenu.classList.toggle('d-none');
+        }
+    }
+</script>
+
+
+{%endblock navbar %}
+
+{%block content%}
+{%endblock}
+>>>>>>> b469f5a8a42aabc52b8bb9e6833594095e3837dd:role_management/templates/role_management/test.html

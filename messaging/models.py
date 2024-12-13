@@ -9,11 +9,11 @@ class Message(models.Model):
     body = models.TextField()
     timestamp = models.DateTimeField(default=now)
     is_read = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)  # Control de mensajes activos/inactivos
+    is_active = models.BooleanField(default=True)
+    reply_to = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name="replies")
 
     def __str__(self):
         return f"From {self.sender} to {self.recipient} at {self.timestamp}"
-
 
 
 

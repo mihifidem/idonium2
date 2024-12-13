@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row">
+        <!-- Navbar Section -->
+        <div class="col-lg-8">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            {% for item in menu_items %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="{{ item.url }}" id="navbarDropdown{{ forloop.counter }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ item.name }}
+                                    </a>
+                                    {% if item.submenu %}
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ forloop.counter }}">
+                                            {% for subitem in item.submenu %}
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ subitem.url }}">
+                                                        <i class="{{ subitem.icon }}"></i> <span>{{ subitem.name }}</span>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- User Info Section -->
+        <div class="col-lg-4 d-flex justify-content-end">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% if user_duckycoins > -1 %}
+                        <a href="{% url 'transaction_list' %}" class="position-relative text-decoration-none ms-3">
+                            <i class="bi bi-award fs-4 text-warning"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ user_duckycoins }}
+                                <span class="visually-hidden">DuckyCoins</span>
+                            </span>
+                        </a>
+                    {% endif %}
+
+                    {% if unread_messages_count > 0 %}
+                        <a href="{% url 'inbox' %}" class="position-relative text-decoration-none ms-3">
+                            <i class="bi bi-envelope-fill fs-4 text-warning"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ unread_messages_count }}
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+                    {% endif %}
+                    </div>
+                <div class="col-lg-4">
+                    {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <a href="/" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if profile_teacher.image %}
+                                    <img class="rounded-circle" src="{{ profile_teacher.image.url }}" alt="Teacher" style="width: 50px; height: 50px;">
+                                {% else %}
+                                    <i class="bi bi-person-vcard" style="font-size: 35px; color: #07294d;"></i>
+                                {% endif %}
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                                <li><a class="dropdown-item" href="/guest_home">Home</a></li>
+                                <li><a class="dropdown-item" href="/">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="support-button d-none d-md-block mb-2">
+                            
+
+                            <a href="{% url 'login' %}"><i class="btn btn-warning bi bi-box-arrow-in-right" style="padding:2px; font-size: 35px; color: #07294d;"></i></a>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

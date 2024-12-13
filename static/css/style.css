@@ -524,7 +524,7 @@ p {
 
 .navigation .navbar .navbar-nav{}
 .navigation .navbar .navbar-nav li{
-    margin-right: 40px;
+    margin-right:30px;
     position: relative;
 }
 .navigation .navbar .navbar-nav li:last-child{
@@ -532,14 +532,13 @@ p {
 }
 
 .navigation .navbar .navbar-nav li a{
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     color: #07294d;
     text-transform: uppercase;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
-    padding: 25px 0;
 }
 
 .navigation .navbar .navbar-nav > li > a.active,
@@ -550,6 +549,7 @@ p {
 .navigation .navbar .navbar-nav li .sub-menu{
     position: absolute;
     top: 110%;
+    padding: 20px;
     left: 0;
     background-color: #07294d;
     width: 200px;
@@ -778,6 +778,11 @@ p {
     color: #07294d;
     cursor: pointer;
     font-size: 16px;
+}
+
+.icon_menu{
+    color: #07294d;
+
 }
 
 /*=====================================================

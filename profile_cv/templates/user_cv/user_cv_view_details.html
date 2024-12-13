@@ -196,6 +196,7 @@
     </section>
     {% endif %}
 
+<<<<<<< HEAD
     <!-- si el template es 2 -->
     {% if user_cv.template.name == "2" %}
     
@@ -253,4 +254,11 @@
     </form>
     </div>
     </div>
+=======
+    <!--====== EVENTS PART ENDS ======-->
+    <form method="post" action="{% url 'generate_cv_feedback' user_cv.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="main-btn">Generate Feedback</button>
+    </form>
+>>>>>>> b469f5a8a42aabc52b8bb9e6833594095e3837dd
 {% endblock content %}

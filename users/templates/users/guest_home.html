@@ -2,9 +2,8 @@
 {% block title %} Home Page {% endblock title%}
 {% load static %}
 
-{%block navbar%}
-{%include 'users/navbar.html'%}
-{%endblock navbar%}
+
+
 
 
 
@@ -145,12 +144,14 @@
             <div class="col-lg-5">
                 <div class="section-title mt-50">
                     <h5>About us</h5>
-                    <h2>Welcome to Duckyways </h2>
+                    <h2>Bienvenido a Duckyways </h2>
                 </div> <!-- section title -->
                 <div class="about-cont">
-                    <p>DuckyWay es una innovadora plataforma diseñada para guiar a personas en su desarrollo profesional, ayudándoles a encontrar empleo, mejorar habilidades y alcanzar sus metas con el apoyo de mentores, herramientas tecnológicas y recursos personalizados.
-                <br/>   <br/>         
-                        El nombre "DuckyWay" combina la idea de un camino (way) hacia el éxito con la figura del pato (ducky), que simboliza adaptabilidad y resiliencia. Al igual que un pato que navega por aguas tranquilas o turbulentas con serenidad, DuckyWay busca ser una guía confiable y versátil para acompañarte en los desafíos de tu carrera profesional.</p>
+                    <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons
+                        equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi
+                        accumsan ipsum velit. Nam nec tellus a odio tincidunt mauris. <br> <br> auci elit cons equat
+                        ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi
+                        accumsan ipsum velit. Nam nec tellus a odio tincidunt mauris</p>
                     <a href="#" class="main-btn mt-55">+ info</a>
                 </div>
             </div> <!-- about cont -->
@@ -273,7 +274,7 @@
                             <li><i class="fa fa-star"></i></li>
                         </ul><br>
                         <span>(20 Reviws)</span> <br>
-                        <a href="{% url 'courses:course-detail' course.id %}">
+                        <a href="{% url 'courses:course-detail' pk=course.pk %}">
                             <h4>{{course.title}}</h4>
                         </a>
                         <div class="course-teacher">

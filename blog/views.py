@@ -50,3 +50,4 @@ def post_detail(request, slug):
         "categories": categories,
         "popular_posts": popular_posts,
     })
+
