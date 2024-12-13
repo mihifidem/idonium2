@@ -201,27 +201,24 @@ def course_detail_view(request, course_id):
 
 @login_required
 def course_user_list_view(request):
-    user_courses = request.user.enrolled_courses.select_related('course').all()
+    user_courses = CourseUser.objects.filter(user=request.user).select_related('course')
 
-    # Crear una lista para almacenar los datos de progreso de cada curso
     user_courses_list = []
+    for course_user in user_courses:
+        total_lessons = Lesson.objects.filter(module__course=course_user.course).count()
+        completed_lessons = LessonCompletion.objects.filter(course_user=course_user, finished_at__isnull=False).count()
 
-    for user_course in user_courses:
-        total_lessons = Lesson.objects.filter(module__course=user_course.course).count()
-        completed_lessons = LessonCompletion.objects.filter(course_user=user_course, finished_at__isnull=False).count()
+        if total_lessons > 0:
+            progress_percentage = (completed_lessons / total_lessons) * 100
+        else:
+            progress_percentage = 0
 
-        # Calcular el porcentaje de progreso
-        progress_percentage = (completed_lessons / total_lessons) * 100 if total_lessons > 0 else 0
-
-        # Añadir el curso y su progreso a la lista
         user_courses_list.append({
-            'course': user_course.course,
-            'progress_percentage': progress_percentage,
-            'completed_lessons': completed_lessons,
-            'total_lessons': total_lessons,
+            "course": course_user.course,
+            "status": course_user.status,
+            "progress": progress_percentage,
         })
 
-    # Pasar la lista completa al contexto de la plantilla
     return render(request, 'user_course_list.html', {'user_courses_list': user_courses_list})
 
 @login_required
