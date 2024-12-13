@@ -100,18 +100,17 @@
                                 <div class="curriculam-cont">
                                     {% for module in course.modules.all %}
                                     <div class="title">
-                                        <h6>{{ forloop.counter }}.{{ module.title }}</h6>
-                                        
+                                        <h6>{{ forloop.counter }}. {{ module.title }}</h6>
                                     </div>
 
                                     <div class="accordion" id="accordionExample{{ forloop.counter }}">
                                         {% with forloop.counter as module_counter %}
                                         {% for lesson in module.lessons.all %}
-                                        <div class="card">
+                                        <div class="card {% if lesson.id in completed_lessons %}completed-lesson{% endif %}">
                                             <div class="card-header" id="heading{{ forloop.counter }}-module{{ module_counter }}">
                                                 <a href="#" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}-module{{ module_counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}-module{{ module_counter }}">
                                                     <ul>
-                                                        <li><i class="fa fa-file-o"></i></li>
+                                                        <li><i class="fa {% if lesson.id in completed_lessons %}fa-check-circle{% else %}fa-file-o{% endif %}"></i></li>
                                                         <li><span class="lecture">Lecture {{ module_counter }}.{{ forloop.counter }}</span></li>
                                                         <li><span class="head">{{ lesson.name }}</span></li>
                                                         {% if lesson.duration %}
@@ -122,21 +121,21 @@
                                                     </ul>
                                                 </a>
                                             </div>
-                                        <div id="collapse{{ forloop.counter }}-module{{ module_counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}-module{{ module_counter }}" data-parent="#accordionExample{{ module_counter }}">
-                                            <div class="card-body">
-                                                <a href="{% url 'courses:lesson-detail' course.id module.id lesson.id %}">{{ lesson.name }}</a>
-                                                <p>{{ lesson.description }}</p>
-                                                <ul>
-                                                    <p class="font-weight-bold">Resources:</p>
-                                                    {% for resource in lesson.resources.all %}
-                                                    <li>
-                                                        <span class="mr-3 mb-3">- {{resource.name}}</span>
-                                                    </li>
-                                                    {% endfor %}
-                                                </ul>
+                                            <div id="collapse{{ forloop.counter }}-module{{ module_counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}-module{{ module_counter }}" data-parent="#accordionExample{{ module_counter }}">
+                                                <div class="card-body">
+                                                    <a href="{% url 'courses:lesson-detail' course.id module.id lesson.id %}">{{ lesson.name }}</a>
+                                                    <p>{{ lesson.description }}</p>
+                                                    <ul>
+                                                        <p class="font-weight-bold">Resources:</p>
+                                                        {% for resource in lesson.resources.all %}
+                                                        <li>
+                                                            <span class="mr-3 mb-3">- {{ resource.name }}</span>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                         {% endfor %}
                                         {% endwith %}
                                     </div>

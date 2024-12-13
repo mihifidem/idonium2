@@ -231,8 +231,17 @@ def course_user_detail_view(request, course_id):
         ),
         id=course_id
     )
+    completed_lessons = LessonCompletion.objects.filter(
+        course_user__user=request.user, 
+        course_user__course=course,
+        finished_at__isnull=False
+    ).values_list('lesson_id', flat=True)
 
-    return render(request, 'user_course_detail.html', {'course': course})
+    return render(request, 'user_course_detail.html', {
+        'course': course,
+        'completed_lessons': set(completed_lessons),  # Convertir a conjunto para fácil verificación
+    })
+
 @login_required
 @group_required('teacher')
 def course_teacher_list_view(request):
