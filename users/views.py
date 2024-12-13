@@ -15,7 +15,7 @@ from django.shortcuts import redirect
 
 def custom_logout(request):
     logout(request)
-    return redirect('users-home')  # Redirige al home o cualquier otra página.
+    return redirect('users:users-home')  # Redirige al home o cualquier otra página.
 
 
 # def custom_404_view(request, exception):

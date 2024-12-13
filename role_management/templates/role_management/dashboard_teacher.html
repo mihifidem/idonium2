@@ -21,7 +21,7 @@
 
             <div class="col-lg-3">
                 <p class="text-warning">
-                    Welcome teacher, {{ user.first_name|default:"Guest" }} {{ user.first_name|default:" " }}
+                    Welcome teacher, {{ user.first_name|default:"Guest" }} {{ user.last_name|default:" " }}
 
                 </p>
             </div>
@@ -135,7 +135,7 @@
                                     </ul> -->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/courses/courses">My profile</a>
+                                    <a class="nav-link" href="{% url 'teacher_dashboard' %}">My profile</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Resources</a>
@@ -164,7 +164,7 @@
 
                             <li class="nav-item bg-warning p-3">
                                 <a class="nav-link active d-flex flex-column text-center" aria-current="page"
-                                    href="/register"><i class="bi bi-journal-text"></i><span
+                                    href="{% url 'courses:course-create' %}"><i class="bi bi-journal-text"></i><span
                                         class="small">Create Course</span></a>
                             </li>
                             {%if user.is_authenticated%}
@@ -183,6 +183,9 @@
             {%endblock role_menu %}
 
         </div> <!-- row -->
+            {% block teacher_course %}
+
+            {% endblock %}
     </div> <!-- container -->
 </div>
 {%endblock navbar  %}

@@ -366,7 +366,7 @@
                             <li><i class="fa fa-star"></i></li>
                         </ul><br>
                         <span>(20 Reviws)</span> <br>
-                        <a href="{% url 'courses:course-detail' pk=course.pk %}">
+                        <a href="{% url 'courses:course-detail' course.id %}">
                             <h4>{{course.title}}</h4>
                         </a>
                         <div class="course-teacher">
