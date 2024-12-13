@@ -28,6 +28,15 @@
     .filter-form {
         margin-bottom: 20px;
     }
+    .info-candidate-count {
+    background: none; /* Elimina el fondo celeste */
+    padding: 0; /* Reduce el espacio interior */
+    font-size: 14px; /* Ajusta el tamaño de la fuente */
+    display: inline-flex; /* Asegura que los elementos dentro estén alineados horizontalmente */
+    align-items: center; /* Centra verticalmente los íconos y texto */
+    color: #333; /* Cambia el color del texto si es necesario */
+}
+
 </style>
 
 <div class="container mt-5">
@@ -138,15 +147,20 @@
                             <td>{{ job.location }}</td>
                             <td>{{ job.posted_date|date:"d M, Y" }}</td>
                             <td>
-                                <a href="{% url 'joboffer_detail' job.id %}" class="btn btn-info btn-sm">Ver</a>
+                                <a href="{% url 'joboffer_detail' job.id %}" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> Ver
+                                </a>
                                 {% if request.user == job.headhunter.user %}
-                                    <a href="{% url 'joboffer_update' job.id %}" class="btn btn-warning btn-sm">Editar</a>
-                                    <a href="{% url 'joboffer_delete' job.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-                                    <div class="alert alert-info">
+                                <a href="{% url 'joboffer_update' job.id %}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <a href="{% url 'joboffer_delete' job.id %}" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </a>
+                                    <div class="info-candidate-count d-inline-block ms-2">
                                         <i class="bi bi-person-circle"></i>
-                                        <!--Aqui debo mostrar el valor del diccionario candidate_count_per_offer relacionado a la job.id-->
-
-                                        <span><strong>{{ candidate_count_per_offer|get_item:job.id|default:0  }}</strong></span>
+                                        <!-- Mostrar el valor del diccionario candidate_count_per_offer relacionado a la job.id -->
+                                        <span><strong>{{ candidate_count_per_offer|get_item:job.id|default:0 }}</strong></span>
                                     </div>
                                 {% endif %}
                             </td>
