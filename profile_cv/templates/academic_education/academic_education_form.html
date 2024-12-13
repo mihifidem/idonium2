@@ -14,7 +14,7 @@
                                 Fill in the information about your academic background
                             </div>
                         </div>
-                        <a href="{% url 'academic_education_list' %}" class="btn btn-outline-secondary btn-sm">
+                        <a href="{% url 'academic_education_list' user.pk %}" class="btn btn-outline-secondary btn-sm">
                             <i class="fas fa-arrow-left me-2"></i>Back to List
                         </a>
                     </div>
@@ -141,7 +141,7 @@
                 <!-- Form Actions -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
-                    <a href="{% url 'academic_education_list' %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                    <a href="{% url 'academic_education_list' user.pk %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
                 </div>
             </form>
         </div>

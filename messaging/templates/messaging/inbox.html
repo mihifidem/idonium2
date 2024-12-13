@@ -1,5 +1,7 @@
-{% extends "role_management/teacher_chat.html" %}
-
+{% extends "users/base.html" %}
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
 {% block content %}
 <div class="container">
 
@@ -123,4 +125,5 @@
     });
 </script>
 </div>
+
 {% endblock content%}

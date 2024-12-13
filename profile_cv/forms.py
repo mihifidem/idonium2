@@ -37,6 +37,7 @@ class WorkExperienceForm(forms.ModelForm):
             "description",
             "achievements",
             "references",
+            "hard_skills",
         ]
         widgets = {
             'job_title': forms.TextInput(attrs={
@@ -72,6 +73,9 @@ class WorkExperienceForm(forms.ModelForm):
                 'class': 'form-control',
                 'rows': 3,
                 'placeholder': 'Add professional references (optional)'
+            }),
+            'hard_skills': forms.CheckboxSelectMultiple(attrs={
+                "class": 'form-check-input'
             })
         }
 
@@ -119,7 +123,7 @@ class AcademicEducationForm(forms.ModelForm):
 class HardSkillForm(forms.ModelForm):
     class Meta:
         model = HardSkillUser
-        fields = ["profile_user","hard_skill", "description", "level_skill"]
+        fields = ["hard_skill", "description", "level_skill"]
         widgets ={
             'hard_skill': forms.Select(attrs={
             'class': 'form-control',
@@ -139,7 +143,7 @@ class HardSkillForm(forms.ModelForm):
 class SoftSkillForm(forms.ModelForm):
     class Meta:
         model = SoftSkillUser
-        fields = ["profile_user","soft_skill", "description"]
+        fields = ["soft_skill", "description"]
         widgets = {
             'soft_skill': forms.Select(attrs={
             'class': 'form-control',
@@ -155,7 +159,7 @@ class SoftSkillForm(forms.ModelForm):
 class LanguageForm(forms.ModelForm):
     class Meta:
         model = LanguageUser
-        fields = ["profile_user","language", "level", "certifications"]
+        fields = ["language", "level", "certifications"]
         widgets = {
             'language': forms.Select(attrs={
                 'class': 'form-control',
@@ -176,7 +180,6 @@ class VolunteeringForm(forms.ModelForm):
     class Meta:
         model = Volunteering
         fields = [
-            "profile_user",
             "volunteering_position",
             "start_date",
             "end_date",
@@ -201,7 +204,7 @@ class VolunteeringForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["profile_user","name", "description", "link"]
+        fields = ["name", "description", "link"]
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -222,7 +225,7 @@ class ProjectForm(forms.ModelForm):
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
-        fields = ["profile_user","doi", "url", "role", "name"]
+        fields = ["doi", "url", "role", "name"]
         widgets = {
             'doi': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -246,7 +249,7 @@ class PublicationForm(forms.ModelForm):
 class RecognitionForm(forms.ModelForm):
     class Meta:
         model = RecognitionAward
-        fields = ["profile_user","name", "entity", "description"]
+        fields = ["name", "entity", "description"]
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',

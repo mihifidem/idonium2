@@ -11,9 +11,9 @@
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        
+
                         {{ form.profile_user }}
-                        
+
                         <div class="mb-4">
                             <label for="{{ form.volunteering_position.id_for_label }}" class="form-label">Position</label>
                             {{ form.volunteering_position }}
@@ -107,7 +107,7 @@
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
                             <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
-                            <a href="{% url 'volunteering_list' %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                            <a href="{% url 'volunteering_list' user.pk %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
                         </div>
                     </form>
                 </div>

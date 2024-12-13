@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">DuckyWay</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!-- Menús principales -->
+            <ul class="navbar-nav me-auto">
+                {% for menu in menu_items %}
+                    <li class="nav-item">
+                        <a class="nav-link menu-item" href="{{ menu.url }}" data-menu="{{ forloop.counter }}">
+                            {{ menu.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <!-- Submenús -->
+            <div id="submenu-container" class="d-flex align-items-center ">
+                {% for menu in menu_items %}
+                    <div class="submenu d-none " id="submenu-{{ forloop.counter }}">
+                        {% for submenu in menu.submenu %}
+                            <a class="btn btn-secondary me-2 submenu-item  btn-warning" href="{{ submenu.url }}" data-menu="{{ forloop.parentloop.counter }}">
+                                <i class="{{ submenu.icon }}"></i> {{ submenu.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuItems = document.querySelectorAll('.menu-item');
+        const submenus = document.querySelectorAll('.submenu');
+
+        // Mostrar submenú al hacer clic en el menú principal
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault(); // Evitar el comportamiento por defecto
+                const menuId = item.getAttribute('data-menu');
+
+                // Ocultar todos los submenús
+                submenus.forEach(submenu => submenu.classList.add('d-none'));
+
+                // Mostrar el submenú correspondiente
+                const submenuToShow = document.getElementById(`submenu-${menuId}`);
+                if (submenuToShow) {
+                    submenuToShow.classList.remove('d-none');
+                }
+
+                // Almacenar el menú activo
+                sessionStorage.setItem('activeMenu', menuId);
+            });
+        });
+
+        // Almacenar el estado del menú después de hacer clic en un subitem
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        submenuItems.forEach(subitem => {
+            subitem.addEventListener('click', (e) => {
+                const menuId = subitem.getAttribute('data-menu');
+                sessionStorage.setItem('activeMenu', menuId);
+            });
+        });
+
+        // Restaurar el estado del menú activo al recargar la página
+        const activeMenu = sessionStorage.getItem('activeMenu');
+        if (activeMenu) {
+            submenus.forEach(submenu => submenu.classList.add('d-none'));
+            const submenuToShow = document.getElementById(`submenu-${activeMenu}`);
+            if (submenuToShow) {
+                submenuToShow.classList.remove('d-none');
+            }
+        }
+    });
+</script>

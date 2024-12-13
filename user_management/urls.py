@@ -61,6 +61,7 @@ urlpatterns = [
     path('gaming/', include('gaming.urls')),
     path('messaging/', include('messaging.urls')),
     path('forum/', include('forum.urls')),
+    path('profile/', include('profile_cv.urls')), 
 
 
 

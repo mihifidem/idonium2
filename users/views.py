@@ -12,10 +12,36 @@ from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from .menus import MENU_ITEMS
+from django.urls import reverse
+
+
+def dynamic_menu_view(request):
+    user_role = request.user.groups.first().name if request.user.groups.exists() else None
+    menu = MENU_ITEMS.get(user_role, MENU_ITEMS['guest'])
+    return render(request, 'users/home.html', {'menu': menu})
+
+
+# def profilecv_menu_view(request):
+#     user_groups = request.user.groups.all()
+    
+#     # Verifica el grupo del usuario
+#     user_role = None
+#     if user_groups.exists():
+#         user_role = user_groups[0].name  # Obtén el nombre del primer grupo asociado al usuario
+#     context = {}  # Inicializa el contexto
+
+#     if user_role == 'premium':
+#         menu = MENU_ITEMS['premium']
+
+#     context = {
+#         'menu': menu,
+#     }
+#     return render(request, 'role_management/subitem_profilecv.html', context)
 
 def custom_logout(request):
     logout(request)
-    return redirect('users-home')  # Redirige al home o cualquier otra página.
+    return redirect(reverse('users-home'))
 
 
 # def custom_404_view(request, exception):
@@ -30,32 +56,57 @@ def pre_404_view(request):
 
 
 def custom_404_view(request, exception=None):
-    return render(request, '404.html', status=404)
-# def home(request):
-#     return render(request, 'users/home.html')
+    menu = MENU_ITEMS.get('guest', [])  # Mostrar menú de invitados
+    context = {
+        'message': '¡Algo salió mal!',
+        'suggestions': ['Inicio', 'Contáctanos', 'Buscar otra página'],
+        'menu': menu,
+    }
+    return render(request, 'users/404.html', context, status=404)
 
-
-def home(request):
-    # Obtener el último post publicado
+def guest_home(request):
+    user_groups = request.user.groups.all()
+    user_role = user_groups[0].name if user_groups.exists() else None
+    # menu = MENU_ITEMS.get(user_role, MENU_ITEMS['guest'])
+    menu = MENU_ITEMS['guest']
+    print(menu)
     latest_post = Post.objects.filter(status=1).order_by('-created_on').first()
-    posts3MaxLike = Post.objects.filter(status=1).order_by('-likes')[:3]  # Limitar a los 3 primeros
-    courses  = Course.objects.filter(is_active=True).order_by('-title') 
-    courses  = Course.objects.all()
-    # Inicializa la variable para evitar el error
-    user_duckycoins = None
+    posts3MaxLike = Post.objects.filter(status=1).order_by('-likes')[:3]
+    courses = Course.objects.all()
 
-    if request.user.is_authenticated:
-        try:
-            user_duckycoins = request.user.duckycoins.balance
-        except DuckyCoin.DoesNotExist:
-            user_duckycoins = 0  # Valor predeterminado si no tiene DuckyCoins
+    user_duckycoins = getattr(request.user.duckycoins, 'balance', 0) if request.user.is_authenticated else None
 
+    current_path = request.path  # Captura la URL actual
     return render(request, 'users/home.html', {
         'latest_post': latest_post,
         'posts3MaxLike': posts3MaxLike,
-        'courses':courses,
+        'courses': courses,
         'user_duckycoins': user_duckycoins,
+        'menu_items': menu,
+        'current_path': current_path,  # Pasa la URL actual al contexto
     })
+
+def home(request):
+    user_groups = request.user.groups.all()
+    user_role = user_groups[0].name if user_groups.exists() else None
+    menu = MENU_ITEMS.get(user_role, MENU_ITEMS['guest'])
+
+    latest_post = Post.objects.filter(status=1).order_by('-created_on').first()
+    posts3MaxLike = Post.objects.filter(status=1).order_by('-likes')[:3]
+    courses = Course.objects.all()
+
+    user_duckycoins = getattr(request.user.duckycoins, 'balance', 0) if request.user.is_authenticated else None
+
+    current_path = request.path  # Captura la URL actual
+    return render(request, 'users/home.html', {
+        'latest_post': latest_post,
+        'posts3MaxLike': posts3MaxLike,
+        'courses': courses,
+        'user_duckycoins': user_duckycoins,
+        'menu': menu,
+        'current_path': current_path,  # Pasa la URL actual al contexto
+    })
+
     
 
 

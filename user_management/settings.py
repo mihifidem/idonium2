@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     "role_management",
     "gaming",
     "messaging",
-    'channels',
     "forum",
   
 ]
@@ -109,6 +108,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'users.context_processors.menu_items',
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
@@ -182,7 +182,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/role'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 
 
