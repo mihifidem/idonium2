@@ -20,6 +20,7 @@ urlpatterns = [
     # ----------- Teacher URL patterns --------------
     path('teacher/courses/<int:course_id>/', course_teacher_detail_view, name='teacher-course-detail'),  # Read/Edit course_teacher
     path('teacher/courses/', course_teacher_list_view, name='teacher-course-list'),                      # List course_teacher
+    path('teacher/profile/add', teacher_profile_create_or_update_view, name='teacher-profile-create'),   # Create profile_teacher
 
     # ----------- Module URL patterns --------------
     path('courses/<int:course_id>/module/add/', module_create_or_update_view, name='module-create'),                # Create module
@@ -55,7 +56,6 @@ urlpatterns = [
     path('resources/', resources_list_view, name = 'resources-list'),  # List resources
 
     # ----------- Review URL patterns ---------------
-
     path('courses/<int:course_id>/review/', create_or_update_course_review_view, name = 'review-course-create'),
     path('courses/<int:course_id>/review/<int:review_id>/', create_or_update_course_review_view, name ='review-course-update'),
     # path('resources/<int:course_id>/review/', create_or_update_resource_review_view, name = 'review-resource-create'),

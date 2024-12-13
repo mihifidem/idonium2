@@ -23,13 +23,17 @@ def landing_page(request):
 # * |--------------------------------------------------------------------------
 
 def group_required(group_name):
-    """Decorator to check if a user belongs to a specific group."""
     def decorator(view_func):
         def wrapper(request, *args, **kwargs):
-            if not request.user.groups.filter(name=group_name).exists():
+            user = request.user
+            if not user.groups.filter(name=group_name).exists():
                 return render(request, 'role_management/access_denied.html', {
-                'message': 'You do not have permission to access this page.',
+                    'message': 'You do not have permission to access this page.',
                 })
+
+            if group_name == 'teacher' and not hasattr(user, 'profile_teacher'):
+                return redirect('courses:teacher-profile-create')
+        
             return view_func(request, *args, **kwargs)
         return wrapper
     return decorator
@@ -148,10 +152,8 @@ def courses_list_view(request):
         course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.pk).count()
 
         #Contar las reviews que tiene el curso
-        #course_reviews_count = Review.objects.filter(course=course).count()
         course_reviews_count = course.reviews.all().count()
 
-        #reviews = Review.objects.filter(course=course)
         reviews = course.reviews.all()
         if reviews.exists():
             average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
@@ -172,14 +174,14 @@ def courses_list_view(request):
     page_number = request.GET.get('page')  # Obtén el número de página actual
     page_obj = paginator.get_page(page_number)
 
-    interaction_matrix = create_interaction_matrix()    
-    user_similarity = cosine_similarity(interaction_matrix)
-    user_similarity_df = pd.DataFrame(user_similarity, index=interaction_matrix.index, columns=interaction_matrix.index)
+    recommended_courses = None
+    if request.user.is_authenticated:
+        interaction_matrix = create_interaction_matrix()    
+        user_similarity = cosine_similarity(interaction_matrix)
+        user_similarity_df = pd.DataFrame(user_similarity, index=interaction_matrix.index, columns=interaction_matrix.index)
 
-    # Obtener las recomendaciones para el usuario actual
-    recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
-
-
+        # Obtener las recomendaciones para el usuario actual
+        recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
 
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {
@@ -215,14 +217,6 @@ def course_detail_view(request, course_id):
     hours = total_duration_minutes // 60
     minutes = total_duration_minutes % 60
     formatted_duration = f"{hours} hours {minutes} minutes"
-
- # Crear la matriz de interacción y calcular similitudes
-    interaction_matrix = create_interaction_matrix()    
-    user_similarity = cosine_similarity(interaction_matrix)
-    user_similarity_df = pd.DataFrame(user_similarity, index=interaction_matrix.index, columns=interaction_matrix.index)
-
-    # Obtener las recomendaciones para el usuario actual
-    recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
     
     courses = Course.objects.filter(is_active=True)
 
@@ -238,14 +232,22 @@ def course_detail_view(request, course_id):
         course_reviews_count = course.reviews.all().count()
 
         #reviews = Review.objects.filter(course=course)
-        reviews = course.reviews.select_related('profile_user').all()
+        reviews = course.reviews.select_related('user').all()
         if reviews.exists():
             average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
 
         else:
             average_rating = 0  # Si no hay calificaciones, el promedio es 0
-        
 
+    recommended_courses = None
+    if request.user.is_authenticated:
+        # Crear la matriz de interacción y calcular similitudes
+        interaction_matrix = create_interaction_matrix()    
+        user_similarity = cosine_similarity(interaction_matrix)
+        user_similarity_df = pd.DataFrame(user_similarity, index=interaction_matrix.index, columns=interaction_matrix.index)
+
+        # Obtener las recomendaciones para el usuario actual
+        recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
 
     context = {
         'course': course,
@@ -411,6 +413,33 @@ def course_teacher_detail_view(request, course_id):
     )
 
     return render(request, "teacher_course_detail.html", {"course": course})
+
+@login_required
+def teacher_profile_create_or_update_view(request):
+    user = request.user
+    if not user.groups.filter(name='teacher').exists():
+        return render(request, 'role_management/access_denied.html', {
+            'message': 'You do not have permission to access this page.',
+        })
+     
+    profile_teacher = getattr(user, 'profile_teacher', None)
+
+    if request.method == "POST":
+        form = ProfileTeacherForm(request.POST, instance=profile_teacher)
+        if form.is_valid():
+            profile_teacher = form.save(commit=False)
+            if not profile_teacher.id:  
+                profile_teacher.user = user
+            profile_teacher.save()
+            messages.success(request, "El perfil de profesor se ha guardado correctamente.")
+            return redirect("dashboard")
+        else:
+            messages.error(request, "Corrige los errores en el formulario.")
+    else:
+        form = ProfileTeacherForm(instance=profile_teacher)
+
+    return render(request, "teacher_profile_create_update.html", {"form": form, "profile_teacher": profile_teacher})
+
 
 # * |--------------------------------------------------------------------------
 # * | Module - Lesson - Resource_Course Views

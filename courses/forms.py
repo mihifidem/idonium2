@@ -51,4 +51,8 @@ class ResourceSearchForm(forms.Form):
     query = forms.CharField(label='Search', max_length=100, required=False)
 
 
+class ProfileTeacherForm(forms.ModelForm):
+    class Meta:
+        model = ProfileTeacher
+        fields = ['bio', 'image', 'hardskills', 'category', 'sector']
 
