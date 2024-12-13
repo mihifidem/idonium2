@@ -50,8 +50,7 @@ class LandingHeadHuntersView(ListView):
     model = Profile_CV
     template_name = 'headhunters/landing_headhunters.html'
     context_object_name = 'candidates'
-    #manejar la paginacion
-    paginate_by = 9
+    
     
 
     def get_queryset(self):
@@ -148,9 +147,6 @@ class CandidateSearchView(View):
             filter_conditions |= Q(address__icontains=keyword)
             # Filtrar por biografía
             filter_conditions |= Q(biography__icontains=keyword)
-            # Filtrar por open_to_work (si se busca "open", "work", etc.)
-            if keyword in ['open', 'work', 'available']:
-                filter_conditions |= Q(open_to_work=True)
             # Filtrar por vehículo
             if keyword in ['vehicle', 'car', 'transport']:
                 filter_conditions |= Q(vehicle=True)
@@ -174,7 +170,6 @@ class CandidateSearchView(View):
                 "phone": candidate.phone_1,
                 "address": candidate.address,
                 "biography": candidate.biography,
-                "open_to_work": candidate.open_to_work,
                 "vehicle": candidate.vehicle,
                 "disability": candidate.disability,
                 "disability_percentage": candidate.disability_percentage,
