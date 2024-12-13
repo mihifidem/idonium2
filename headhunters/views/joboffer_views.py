@@ -374,67 +374,88 @@ class MyOffers(ListView):
         return JobOffer.objects.filter(id__in=management_candidates.values('job_offer'))
 
 from django.http import JsonResponse
-from django.forms import model_to_dict
-from django.db.models import ImageField, FileField, ForeignKey, ManyToManyField, OneToOneField
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer, util
 
-from django.http import JsonResponse
-from django.forms import model_to_dict
-from django.db.models import ImageField, FileField, ForeignKey, ManyToManyField, OneToOneField
+class RecomendationOffers(View):
+    def generate_json(self):
+        # Consultar usuarios desde la base de datos
+        users = User_cv.objects.select_related('profile_user__user').prefetch_related(
+            'relations__hard_skill', 'relations__soft_skill'
+        )
 
-from django.db import models
+        # Consultar ofertas laborales desde la base de datos
+        job_offers = JobOffer.objects.prefetch_related('required_hard_skills', 'required_soft_skills')
 
-class RecomendationOffers(ListView):
+        # Crear lista de usuarios con sus habilidades
+        user_list = []
+        for user in users:
+            # Obtener IDs de habilidades del usuario a través de las relaciones
+            user_hard_skills = list(user.relations.values_list('hard_skill__hard_skill__name_hard_skill', flat=True))
+            print(user_hard_skills)
+            user_soft_skills = list(user.relations.values_list('soft_skill__soft_skill__name_soft_skill', flat=True))
+            user_skills = ", ".join(user_hard_skills + user_soft_skills)
 
-    def serialize_model(self, instance):
-        """
-        Serializa un modelo excluyendo los campos no serializables (por ejemplo, ImageField, FileField).
-        Si un campo es una relación (ForeignKey, ManyToMany), lo serializa recursivamente.
-        """
-        # Asegurarnos de que estamos trabajando con una instancia del modelo
-        if not instance:
-            return {}
+            user_list.append({
+                "id": user.id,
+                "name": user.profile_user.user.username,
+                "cv_text": user_skills  # Combinamos todas las habilidades en un string
+            })
 
-        # Convertir el modelo a un diccionario
-        for object in instance:
-        data = model_to_dict(instance)
+        # Crear lista de ofertas laborales con sus habilidades requeridas
+        job_list = []
+        for job in job_offers:
+            # Obtener habilidades requeridas por la oferta
+            job_hard_skills = list(job.required_hard_skills.values_list('name_hard_skill', flat=True))
+            job_soft_skills = list(job.required_soft_skills.values_list('name_soft_skill', flat=True))
+            job_requirements = ", ".join(job_hard_skills + job_soft_skills)
 
-        for field in instance._meta.get_fields():
-            field_name = field.name
+            job_list.append({
+                "id": job.id,
+                "title": job.title,
+                "requirements": job_requirements  # Combinamos todas las habilidades en un string
+            })
 
-            # Si el campo es un ImageField o FileField, lo excluimos
-            if isinstance(field, (ImageField, FileField)):
-                if field_name in data:
-                    del data[field_name]
+        return json.dumps(user_list, indent=4), json.dumps(job_list, indent=4)
+    
+    def _calculate_similarity(self, cv_text, job_requirements):
+        """Calcula la similitud entre el CV del usuario y los requisitos del trabajo."""
+        documents = [cv_text, job_requirements]
+        vectorizer = TfidfVectorizer(stop_words='english')
+        tfidf_matrix = vectorizer.fit_transform(documents)
+        similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
+        return similarity[0][0]
+    
+    def _generate_recomendation(self, users_df, jobs_df):
+        recommendations = []
+        for _, user in users_df.iterrows():
+            user_recommendations = []
+            for _, job in jobs_df.iterrows():
+                similarity = self.calculate_similarity(user['cv_text'], job['requirements'])
+                user_recommendations.append((job['title'], similarity))
+            # Ordenar recomendaciones por similitud
+            user_recommendations = sorted(user_recommendations, key=lambda x: x[1], reverse=True)
+            recommendations.append({"user": user['name'], "recommendations": user_recommendations})
 
-            # Si el campo es una relación (ForeignKey, OneToOneField), serializamos recursivamente
-            elif isinstance(field, (ForeignKey, OneToOneField)):
-                if field_name in data and data[field_name] is not None:
-                    related_instance = data[field_name]
-                    # Verificamos que `related_instance` sea una instancia de un modelo
-                    if isinstance(related_instance, models.Model):
-                        data[field_name] = self.serialize_model(related_instance)
-
-            # Si el campo es una relación ManyToManyField
-            elif isinstance(field, ManyToManyField):
-                if field_name in data:
-                    # En este caso, la relación ManyToMany devuelve un queryset
-                    related_instances = data[field_name]
-                    data[field_name] = [self.serialize_model(related_instance) for related_instance in related_instances]
-
-        return data
-
-    def profile_to_json(self, request):
-        # Obtener el primer perfil
-        profile = User_cv.objects.all()
-
-        # Serializar el perfil
-        serialized_profile = self.serialize_model(profile)
-
-        return serialized_profile  # Retorna el diccionario, no un JsonResponse
+        # Mostrar recomendaciones
+        for rec in recommendations:
+            print(f"Recomendaciones para {rec['user']}:\n")
+            for job, similarity in rec['recommendations']:
+                print(f"  - {job} (Similitud: {similarity:.2f})")
+            print()
 
     def get(self, request, *args, **kwargs):
-        # Obtener los datos serializados del perfil
-        data = self.profile_to_json(request)
+        # Generar los JSON
+        user_json, job_json = self.generate_json()
 
-        # Devolver la respuesta en formato JSON
-        return JsonResponse({"response": data})  # Este es el JsonResponse final
+        print("User JSON:\n", user_json)
+        print("\nJob JSON:\n", job_json)
+        users_df = pd.DataFrame(user_json)
+        jobs_df = pd.DataFrame(job_json)
+        self._generate_recomendation(users_df,self)
+        return JsonResponse({
+            "users": json.loads(user_json),
+            "job_offers": json.loads(job_json)
+        })
