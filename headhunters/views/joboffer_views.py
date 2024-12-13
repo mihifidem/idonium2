@@ -71,10 +71,18 @@ class JobOfferListView(ListView):
 
         if 'headhunter' in [group.name for group in groups]:
             headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
-            return queryset.filter(headhunter=headhunter)
+            queryset.filter(headhunter=headhunter)
+             # Contamos los candidatos relacionados con las ofertas del headhunter
+            candidate_count = ManagementCandidates.objects.filter(job_offer__in=queryset).count()
+
+            # Si no hay candidatos, la cuenta será 0
+            if candidate_count is None:
+                candidate_count = 0
+            
+            return queryset, candidate_count
         else:
-            return queryset
-    
+            return queryset, None
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         groups = list(self.request.user.groups.all())
@@ -85,8 +93,11 @@ class JobOfferListView(ListView):
         context['soft_skills'] = SoftSkill.objects.all()
         context['is_headhunter'] = groups[0].name == 'headhunter'
         context['active_filter'] = True
+        # Añadimos la cantidad de candidatos al contexto
+        job_offers, candidate_count = self.get_queryset()
+        context['job_offers'] = job_offers
+        context['candidate_count'] = candidate_count
         return context
-
 
 class JobOfferDetailView(DetailView):
     model = JobOffer
