@@ -239,8 +239,8 @@
                                                 <div class="reviews-author">
                                                     <div class="author-thum">
                                                         <!-- Mostrar la imagen del usuario -->
-                                                        {% if review.profile_user.img_profile %}
-                                                        <img src="{{ review.profile_user.img_profile.url }}" alt="Reviews">
+                                                        {% if review.user.profile_user.img_profile %}
+                                                        <img src="{{ review.user.profile_user.img_profile.url }}" alt="Reviews">
                                                         {% else %}
                                                         <!-- Imagen por defecto si no tiene imagen el usuario -->
                                                         <img src="media\default.jpg" alt="Image User">
@@ -248,7 +248,7 @@
                                                     </div>
                                                     <div class="author-name">
                                                         <!-- Mostrar el nombre completo del usuario -->
-                                                        <h6>{{ review.profile_user.user.first_name }} {{ review.profile_user.user.last_name }}
+                                                        <h6>{{ review.user.first_name }} {{ review.user.last_name }}
                                                         </h6>
                                                         <span>{{ review.date }}</span>
                                                     </div>

@@ -44,4 +44,8 @@ class ReviewForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={'placeholder': 'Leave your comment here...'}),
         }
 
+class ProfileTeacherForm(forms.ModelForm):
+    class Meta:
+        model = ProfileTeacher
+        fields = ['bio', 'image', 'hardskills', 'category', 'sector']
 
