@@ -113,9 +113,14 @@
                 </thead>
                 <tbody>
                     {% for job in job_offers %}
+                        
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ job.title }}</td>
+                            <td>
+                                <a href="{% url 'joboffer_detail' job.id %}" class="text-decoration-none text-dark">
+                                    {{ job.title }}
+                                </a>
+                            </td>
                             <td>{{ job.headhunter.company }}</td>
                             <td>{{ job.location }}</td>
                             <td>{{ job.posted_date|date:"d M, Y" }}</td>
