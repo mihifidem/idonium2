@@ -1,4 +1,5 @@
 {% extends "users/base.html" %}
+{% load custom_filters %}
 
 {% block content %}
 <style>
@@ -109,7 +110,7 @@
         </div>
         <div class="alert alert-info">
             <i class="bi bi-person-circle"></i>
-            <span>Cantidad de Candidatos en todas tus ofertas: <strong>{{ candidate_count }}</strong></span>
+            <span>Cantidad de Candidatos en todas tus ofertas: <strong>{{ candidate_count_total  }}</strong></span>
         </div>
         
             <table class="table table-striped table-hover shadow-sm">
@@ -141,6 +142,12 @@
                                 {% if request.user == job.headhunter.user %}
                                     <a href="{% url 'joboffer_update' job.id %}" class="btn btn-warning btn-sm">Editar</a>
                                     <a href="{% url 'joboffer_delete' job.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-person-circle"></i>
+                                        <!--Aqui debo mostrar el valor del diccionario candidate_count_per_offer relacionado a la job.id-->
+
+                                        <span><strong>{{ candidate_count_per_offer|get_item:job.id|default:0  }}</strong></span>
+                                    </div>
                                 {% endif %}
                             </td>
                         </tr>

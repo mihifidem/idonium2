@@ -71,21 +71,14 @@ class JobOfferListView(ListView):
 
         if 'headhunter' in [group.name for group in groups]:
             headhunter = get_object_or_404(HeadHunterUser, user=self.request.user)
-            queryset.filter(headhunter=headhunter)
-             # Contamos los candidatos relacionados con las ofertas del headhunter
-            candidate_count = ManagementCandidates.objects.filter(job_offer__in=queryset).count()
+            queryset = queryset.filter(headhunter=headhunter)
 
-            # Si no hay candidatos, la cuenta será 0
-            if candidate_count is None:
-                candidate_count = 0
-            
-            return queryset, candidate_count
-        else:
-            return queryset, None
-
+        return queryset
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         groups = list(self.request.user.groups.all())
+        
         # Añadimos los filtros disponibles al contexto
         context['sectors'] = Sector.objects.all()
         context['categories'] = Category.objects.all()
@@ -93,10 +86,23 @@ class JobOfferListView(ListView):
         context['soft_skills'] = SoftSkill.objects.all()
         context['is_headhunter'] = groups[0].name == 'headhunter'
         context['active_filter'] = True
+
         # Añadimos la cantidad de candidatos al contexto
-        job_offers, candidate_count = self.get_queryset()
+        job_offers = self.get_queryset()
+        
+        # Calcular los candidatos para cada oferta individualmente
+        candidate_count_per_offer = {}
+        for job_offer in job_offers:
+            candidate_count_per_offer[job_offer.id] = ManagementCandidates.objects.filter(job_offer=job_offer).count()
+        
+        # Ahora contamos todos los candidatos asociados al headhunter para todas las ofertas
+        candidate_count_total = ManagementCandidates.objects.filter(job_offer__in=job_offers).count()
+
+        # Pasamos ambos valores al contexto
+        context['candidate_count_total'] = candidate_count_total
+        context['candidate_count_per_offer'] = candidate_count_per_offer
         context['job_offers'] = job_offers
-        context['candidate_count'] = candidate_count
+
         return context
 
 class JobOfferDetailView(DetailView):
