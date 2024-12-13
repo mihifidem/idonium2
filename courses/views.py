@@ -79,13 +79,22 @@ def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
 
     # Devolver los dos mejores cursos recomendados
     return Course.objects.filter(id__in=recommended_courses)
-        
+
+@login_required
+def add_userwish_view(request, course_id):
+        # Obtener el ID del curso seleccionado
+        type_wish = WishListType.objects.get(name='Course')
+        WishListUser.objects.create(id_wish=course_id, type_wish=type_wish, user = request.user)
+        return redirect('courses:courses-list')
+
+
+
 
 # * |--------------------------------------------------------------------------
 # * | Course Views
 # * |--------------------------------------------------------------------------
 
-@login_required
+
 def courses_list_view(request):
     # Obtener todos los cursos activos
     courses = Course.objects.filter(is_active=True)
@@ -110,6 +119,8 @@ def courses_list_view(request):
         else:
             average_rating = 0  # Si no hay calificaciones, el promedio es 0
 
+        
+
         # Agregar el curso y los resultados de los contadores a la lista
         completed_courses.append({
             'course': course,
@@ -123,10 +134,20 @@ def courses_list_view(request):
     page_number = request.GET.get('page')  # Obtén el número de página actual
     page_obj = paginator.get_page(page_number)
 
+    interaction_matrix = create_interaction_matrix()    
+    user_similarity = cosine_similarity(interaction_matrix)
+    user_similarity_df = pd.DataFrame(user_similarity, index=interaction_matrix.index, columns=interaction_matrix.index)
+
+    # Obtener las recomendaciones para el usuario actual
+    recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
+
+
+
     # Pasar los datos al contexto para renderizarlos en el template
     return render(request, 'courses_list.html', {
     'page_obj': page_obj, 
     'total_courses': courses.count(),
+    'recommended_courses': recommended_courses,
     
 })
 
