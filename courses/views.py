@@ -102,14 +102,14 @@ def add_userwish_view(request, course_id):
     # Después de añadir o eliminar, redirigir a la lista de cursos
     return redirect('courses:courses-list')
 
-
+@login_required
 def create_or_update_course_review_view(request, course_id, review_id=None):
-
+    course = get_object_or_404(Course, id=course_id)
     # Si existe un course_id, intenta obtener el curso; de lo contrario, crea uno nuevo
     review = None
 
     if review_id:
-        review = get_object_or_404(Review, id=course_id)
+        review = get_object_or_404(Review, user= request.user, course=course)
     
     # Usa el formulario de modelo (creación o actualización)
     if request.method == "POST":
@@ -119,21 +119,16 @@ def create_or_update_course_review_view(request, course_id, review_id=None):
             # Asociar el curso con el perfil del maestro si es creación
             if not review.id:  
                 review.user = request.user
+                review.course = course
             review.save()
             messages.success(request, "La review se ha guardado correctamente.")
-            return redirect("courses:course-detail", id=course_id)  # Redirige a una página de detalles del curso
+            return redirect("courses:course-detail", course_id=course.id)  # Redirige a una página de detalles del curso
         else:
             messages.error(request, "Corrige los errores en el formulario.")
     else:
         form = ReviewForm(instance=review)  # Pasa el curso al formulario
 
-    return render(request, "review_create_update.html", {"form": form, "review": review})
-
-            
-
-
-
-    
+    return render(request, "review_create_update.html", {"form": form, "course": course, "review": review})
 
 
 # * |--------------------------------------------------------------------------
@@ -245,14 +240,14 @@ def course_detail_view(request, course_id):
         course_reviews_count = course.reviews.all().count()
 
         #reviews = Review.objects.filter(course=course)
-        reviews = course.reviews.all()
+        reviews = course.reviews.select_related('profile_user').all()
         if reviews.exists():
             average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
 
         else:
             average_rating = 0  # Si no hay calificaciones, el promedio es 0
         
-        
+
 
     context = {
         'course': course,
@@ -265,6 +260,7 @@ def course_detail_view(request, course_id):
         'average_rating': average_rating,
         'completed_users_count': completed_users_count,
         'course_wishlist_count': course_wishlist_count,
+        'reviews': reviews,
     }
     return render(request, 'course_detail.html', context)
 

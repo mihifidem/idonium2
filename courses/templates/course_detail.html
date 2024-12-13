@@ -165,13 +165,11 @@
                                                     aria-controls="collapse{{ forloop.counter }}-module{{ module_counter }}">
                                                     <ul>
                                                         <li><i class="fa fa-file-o"></i></li>
-                                                        <li><span class="lecture">Lecture {{ module_counter }}.{{
-                                                                forloop.counter }}</span></li>
+                                                        <li><span class="lecture">Lecture {{ module_counter }}.{{ forloop.counter }}</span></li>
                                                         <li><span class="head">{{ lesson.name }}</span></li>
                                                         {% if lesson.duration %}
                                                         <li><span class="time d-none d-md-block"><i
-                                                                    class="fa fa-clock-o"></i> <span>{{ lesson.duration
-                                                                    }} min</span></span></li>
+                                                                    class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
                                                         {% else %}
                                                         <li><span class="time d-none d-md-block"><i
                                                                     class="fa fa-clock-o"></i> <span>0 min</span></span>
@@ -235,22 +233,22 @@
                                         <h6>Student Reviews</h6>
                                     </div>
                                     <ul>
-                                        {% for review in course.reviews.all %}
+                                        {% for review in reviews %}
                                         <li>
                                             <div class="singel-reviews">
                                                 <div class="reviews-author">
                                                     <div class="author-thum">
                                                         <!-- Mostrar la imagen del usuario -->
-                                                        {% if item.user_image %}
-                                                        <img src="{{ review.user.profile_cv.image.url }}" alt="Reviews">
+                                                        {% if review.profile_user.img_profile %}
+                                                        <img src="{{ review.profile_user.img_profile.url }}" alt="Reviews">
                                                         {% else %}
                                                         <!-- Imagen por defecto si no tiene imagen el usuario -->
-                                                        <img src="media\default.jpg" alt="Default Reviews">
+                                                        <img src="media\default.jpg" alt="Image User">
                                                         {% endif %}
                                                     </div>
                                                     <div class="author-name">
                                                         <!-- Mostrar el nombre completo del usuario -->
-                                                        <h6>{{ review.user.first_name }} {{ review.user.last_name }}
+                                                        <h6>{{ review.profile_user.user.first_name }} {{ review.profile_user.user.last_name }}
                                                         </h6>
                                                         <span>{{ review.date }}</span>
                                                     </div>
@@ -274,36 +272,7 @@
                                         </li>
                                         {% endfor %}
                                     </ul>
-                                    <div class="title pt-15">
-                                        <h6>Leave A Comment</h6>
-                                        {% if user.is_authenticated %}
-                                    </div>
-                                    <div class="reviews-form">
-                                        <form method='post'>
-                                            {% csrf_token %}
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-singel">
-                                                        <div class="rate-wrapper">
-                                                            <div class="rate-label">Your Rating:</div>
-                                                            {{form.rating}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="form-singel">
-                                                        {{form.comment}}
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="form-singel">
-                                                        <button type="submit" class="main-btn">Post Review</button>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- row -->
-                                        </form>
-                                    </div>
-                                     {% endif %}
+                                    <a href="{% url 'courses:review-course-create' course.id %}" class="btn btn-primary">Create Review</a>
                                 </div> <!-- reviews cont -->
                             </div>
                         </div> <!-- tab content -->

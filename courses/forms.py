@@ -39,5 +39,9 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'comment']
+        widgets = {
+            'rating': forms.NumberInput(attrs={'max': 5, 'min': 1}),  # Asegúrate de que el rating sea un número entre 1 y 5
+            'comment': forms.Textarea(attrs={'placeholder': 'Leave your comment here...'}),
+        }
 
 
