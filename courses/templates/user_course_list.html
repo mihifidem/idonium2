@@ -15,9 +15,9 @@
                             <a href="{% url 'courses:course-user-detail' user_course.course.id %}"><h5 class="card-title">{{ user_course.course.title }}</h5></a>
                             <p class="card-text">{{ user_course.course.description }}</p>
                             {% if user_course.status.name == "completed" %}
-                            <p class="font_weight_bold">Curso completado!</p>
-                            {% else %}
-                            <p>Tienes el {{ user_course.progress_percentage|floatformat:2 }}% del curso completado.</p>
+                            <p class="font-weight-bold">Curso completado!</p>
+                            {% elif user_course.status.name == "inprogress" %}
+                            <p>Tienes el {{ user_course.progress|floatformat:0 }}% del curso completado.</p>
                             <a href="#url_delete" class="btn btn-danger">Abandonar</a>
                             {% endif %}
                         </div>
