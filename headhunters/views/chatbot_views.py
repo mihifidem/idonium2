@@ -10,12 +10,12 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from tensorflow.keras.models import load_model
 
-model = load_model('D:/Dres/Programacion/IDONIUM2/idonium2/headhunters/chatbot/enhanced_chat_model.keras')
-with open('D:/Dres/Programacion/IDONIUM2/idonium2/headhunters/chatbot/tokenizer.pickle', 'rb') as handle:
+model = load_model('headhunters/chatbot/enhanced_chat_model.keras')
+with open('headhunters/chatbot/tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
-with open('D:/Dres/Programacion/IDONIUM2/idonium2/headhunters/chatbot/label_encoder.pickle', 'rb') as handle:
+with open('headhunters/chatbot/label_encoder.pickle', 'rb') as handle:
     label_encoder = pickle.load(handle)
-with open('D:/Dres/Programacion/IDONIUM2/idonium2/headhunters/chatbot/intents2.json') as file:
+with open('headhunters/chatbot/intents2.json',encoding='utf-8') as file:
     intents = json.load(file)
 
 responses = {}
