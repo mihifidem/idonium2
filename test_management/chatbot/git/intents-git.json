@@ -1,0 +1,285 @@
+{
+  "intents": [
+      {
+      "tag": "greetings",
+      "patterns": [
+        "Hello",
+        "Hi",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "What's up?",
+        "How are you?"
+        ],
+      "responses": [
+        "Hello! How can I assist you today?",
+        "Hi there! How can I help you?",
+        "Hey! What's up?",
+        "Good day! How can I help?",
+        "Hello! How's it going?"
+        ]
+      },
+      {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye",
+        "Bye",
+        "See you later",
+        "Take care",
+        "Catch you later",
+        "Bye for now"
+        ],
+      "responses": [
+        "Goodbye! Have a great day!",
+        "See you later! Take care!",
+        "Bye! Hope to chat with you again soon!",
+        "Catch you later! Stay safe!"
+        ]
+      },
+      {
+      "tag": "thanks",
+      "patterns": [
+        "Thank you",
+        "Thanks",
+        "Thanks a lot",
+        "I appreciate it",
+        "Thanks for your help",
+        "Thank you very much"
+        ],
+      "responses": [
+        "You're welcome!",
+        "Glad to help!",
+        "You're very welcome!",
+        "No problem at all!",
+        "Happy to help!"
+        ]
+      },
+      {
+      "tag": "sorry",
+      "patterns": [
+        "Sorry",
+        "I'm sorry",
+        "Apologies",
+        "My apologies",
+        "I apologize"
+        ],
+      "responses": [
+        "No worries! It's all good.",
+        "It's okay! Don't worry about it.",
+        "No problem, all forgiven.",
+        "It's all right, don't worry."
+        ]
+      },
+      {
+      "tag": "affirmative",
+      "patterns": [
+        "Yes",
+        "Yeah",
+        "Of course",
+        "Sure",
+        "Definitely",
+        "Absolutely"
+        ],
+      "responses": [
+        "Great! How can I assist you further?",
+        "Awesome! What else can I help you with?",
+        "Thanks for confirming! What's next?",
+        "Wonderful! What's on your mind?"
+        ]
+      },
+      {
+      "tag": "negative",
+      "patterns": [
+        "No",
+        "Nope",
+        "Not really",
+        "I don't think so",
+        "Definitely not",
+        "Not at all"
+        ],
+      "responses": [
+        "Okay, let me know if you change your mind.",
+        "Alright, feel free to ask me anything else!",
+        "No problem, let me know if you need anything.",
+        "Got it! I'm here if you need anything later."
+        ]
+      },
+    {
+      "tag": "git init",
+      "patterns": [
+        "How do I initialize a Git repository?",
+        "What is git init?",
+        "How can I start a Git project?",
+        "How to create a new Git repository?",
+        "Command to initialize a Git repo?",
+        "How do I use git init?",
+        "Start a Git repo",
+        "Command to begin using Git",
+        "Can you explain git init?",
+        "How to set up a new Git repository?"
+      ],
+      "responses": [
+        "Use the command `git init` to initialize a new Git repository.",
+        "`git init` sets up a new Git repository in your project directory.",
+        "To start a Git project, go to your folder and run `git init`.",
+        "`git init` creates a hidden `.git` folder where Git stores its data.",
+        "Run `git init` in your project directory to initialize version control."
+      ]
+    },
+    {
+      "tag": "git clone",
+      "patterns": [
+        "How do I clone a repository?",
+        "What is git clone?",
+        "Command to copy a remote repository?",
+        "How to use git clone?",
+        "Clone a Git repository",
+        "How can I download a repo from GitHub?",
+        "Can you explain git clone?",
+        "What does git clone do?",
+        "How do I copy a Git project?",
+        "Steps to clone a Git repo"
+      ],
+      "responses": [
+        "Use `git clone <repository_url>` to copy a repository to your local machine.",
+        "`git clone` downloads a remote repository and sets it up on your system.",
+        "To clone a repository, use the `git clone` command followed by the repo's URL.",
+        "`git clone` creates a full copy of a Git repository locally.",
+        "Run `git clone <repo_URL>` to get a copy of the project on your machine."
+      ]
+    },
+    {
+      "tag": "git commit",
+      "patterns": [
+        "How do I make a commit?",
+        "What is git commit?",
+        "Command to save changes in Git?",
+        "How to use git commit?",
+        "Steps to commit changes in Git",
+        "Can you explain git commit?",
+        "Save changes in Git",
+        "How do I record changes in Git?",
+        "What does git commit do?",
+        "How to add a message to a Git commit?"
+      ],
+      "responses": [
+        "Use `git commit -m 'Your message'` to save changes to your repository.",
+        "`git commit` records your changes along with a message describing them.",
+        "To commit changes, stage them first with `git add` and then use `git commit`.",
+        "`git commit` creates a snapshot of your project at a specific point.",
+        "Run `git commit` to finalize your changes and save them to Git's history."
+      ]
+    },
+    {
+      "tag": "git status",
+      "patterns": [
+        "How do I check the status of my repo?",
+        "What is git status?",
+        "Command to check modified files?",
+        "How to use git status?",
+        "View the current state of my repository",
+        "What does git status do?",
+        "How do I know which files are staged?",
+        "Command to list changes in Git",
+        "Check if there are untracked files in Git",
+        "Steps to view repository status"
+      ],
+      "responses": [
+        "Use `git status` to see the current state of your repository.",
+        "`git status` shows untracked, modified, and staged files in your project.",
+        "Run `git status` to check if there are any pending changes or commits.",
+        "`git status` helps you see what Git is tracking or ignoring.",
+        "The `git status` command provides details about your working directory."
+      ]
+    },
+    {
+      "tag": "git branch",
+      "patterns": [
+        "How do I create a branch in Git?",
+        "What is git branch?",
+        "Command to create a new branch?",
+        "How to list all branches in Git?",
+        "Switch branches in Git",
+        "Can you explain git branch?",
+        "What does git branch do?",
+        "How do I delete a branch?",
+        "Steps to manage branches in Git",
+        "How do I see all branches in my repo?"
+      ],
+      "responses": [
+        "Use `git branch <branch_name>` to create a new branch.",
+        "`git branch` lists all branches in your repository.",
+        "To switch branches, use `git checkout <branch_name>`.",
+        "Run `git branch -d <branch_name>` to delete a branch.",
+        "Branches in Git allow you to work on separate features or fixes."
+      ]
+    },
+    {
+      "tag": "git merge",
+      "patterns": [
+        "How do I merge branches in Git?",
+        "What is git merge?",
+        "Command to combine branches?",
+        "How to use git merge?",
+        "Steps to merge in Git",
+        "Can you explain git merge?",
+        "What does git merge do?",
+        "How do I merge a branch into the main branch?",
+        "Resolve conflicts during Git merge",
+        "How to handle merge conflicts?"
+      ],
+      "responses": [
+        "Use `git merge <branch_name>` to combine a branch into the current branch.",
+        "`git merge` integrates changes from one branch into another.",
+        "To merge, switch to the target branch and run `git merge <branch>`.",
+        "`git merge` may result in conflicts, which you'll need to resolve manually.",
+        "Run `git merge` to bring changes from another branch into your current branch."
+      ]
+    },
+    {
+      "tag": "git pull",
+      "patterns": [
+        "How do I pull changes from a remote repository?",
+        "What is git pull?",
+        "Command to sync my local repo with the remote?",
+        "How to use git pull?",
+        "Steps to update my local repository",
+        "Can you explain git pull?",
+        "What does git pull do?",
+        "How do I get the latest changes from GitHub?",
+        "Command to fetch and merge changes from remote",
+        "Sync my project with the latest changes"
+      ],
+      "responses": [
+        "Use `git pull` to fetch and merge changes from the remote repository.",
+        "`git pull` keeps your local repository up to date with the remote version.",
+        "Run `git pull` to download and integrate the latest changes from your remote repo.",
+        "`git pull` is a combination of `git fetch` and `git merge`.",
+        "To update your local repository, use `git pull origin <branch_name>`."
+      ]
+    },
+    {
+      "tag": "git push",
+      "patterns": [
+        "How do I push changes to a remote repository?",
+        "What is git push?",
+        "Command to upload changes to GitHub?",
+        "How to use git push?",
+        "Steps to send commits to the remote repository",
+        "Can you explain git push?",
+        "What does git push do?",
+        "How do I update the remote repo with my changes?",
+        "Command to sync my changes with the server",
+        "How do I push code to GitHub?"
+      ],
+      "responses": [
+        "Use `git push` to upload your commits to a remote repository.",
+        "`git push` sends your local changes to the remote repository.",
+        "To push changes, run `git push origin <branch_name>`.",
+        "Run `git push` after committing to share your work with others.",
+        "`git push` syncs your local changes with the remote repository."
+      ]
+    }
+  ]
+}

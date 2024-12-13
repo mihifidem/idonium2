@@ -5,7 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 #registro usuario lo hace oscar
 # Formulario de registro de usuario 
 
-
+class ChatbotForm(forms.Form):
+    question = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Escribe tu pregunta...'}), max_length=255)
 class TestForm(forms.ModelForm):
     class Meta:
         model = Test
@@ -62,27 +63,6 @@ class QuestionForm(forms.ModelForm):
                 raise forms.ValidationError("La respuesta correcta debe coincidir con una de las opciones.")
         return correct_answer
 
-# Formulario de creación de pruebas
-class TestForm(forms.ModelForm):
-    class Meta:
-        model = Test
-        fields = ['title', 'description']
-
-    def clean_title(self):
-        title = self.cleaned_data.get("title")
-        title_regex = r'^[a-zA-Z0-9\s]+$'
-        if not re.match(title_regex, title):
-            raise forms.ValidationError("El título solo puede contener letras, números y espacios.")
-        return title
-
-    def clean_description(self):
-        description = self.cleaned_data.get("description", "")
-        description_regex = r'^[a-zA-Z0-9\s,.!?]*$'
-        if description and not re.match(description_regex, description):
-            raise forms.ValidationError(
-                "La descripción solo puede contener letras, números, espacios, comas, puntos, signos de exclamación e interrogación."
-            )
-        return description
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control"}))
     user_type = forms.ChoiceField(
@@ -102,13 +82,20 @@ class QuizSelectForm(forms.Form):
     """Form for selecting a quiz file."""
     quiz_file = forms.ChoiceField(
         choices=[
-            ('Hard_skills_CSS.json', 'CSS'),
-            ('Hard_skills_Django.json', 'Django'),
-            ('Hard_skills_HTML.json', 'HTML'),
-            ('Hard_skills_Numpy.json', 'Numpy'),
-            ('Hard_skills_SQL.json', 'SQL'),
-            ('Hard_skills_Python.json', 'Python'),
-            ('Soft_Skills_Test.json', 'Soft Skills'),
+            ('CSS.json', 'CSS'),
+            ('Django.json', 'Django'),
+            ('HTML.json', 'HTML'),
+            ('Numpy.json', 'Numpy'),
+            ('SQL.json', 'SQL'),
+            ('Python-1.json', 'Python'),
+            ('Soft Skills.json', 'Soft Skills'),
+            ('Python-1.json', 'Python1'),
+            ('Python-2.json', 'Python2'),
+            ('Python-3.json', 'Python3'),
+            ('Soft Skills.json', 'Soft Skills'),
+            ('JavaScript.json', 'JavaScript'),
+            ('Belbin.json', 'Belbin'),
+            ('Git.json', 'Git'),
         ],
         label="Select a quiz",
     )

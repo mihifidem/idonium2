@@ -1,13 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Results</title>
-</head>
-<body>
-    <h1>Quiz Results</h1>
-    <p>You scored {{ score }} out of {{ total }}.</p>
-    <a href="{% url 'quiz_view' %}">Take another quiz</a>
-</body>
-</html>
+{% extends "users/base.html" %}
+{% block title %}Quiz Results{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Quiz Results</h1>
+    
+    {% if category_scores %}
+    <h2 class="text-center">Category Scores</h2>
+    <ul class="list-group">
+        {% for category, score in category_scores.items %}
+        <li class="list-group-item">
+            <strong>{{ category }}:</strong> {{ score }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center">You scored <strong>{{ score }}</strong> out of <strong>{{ total }}</strong></p>
+    <p class="text-center">Time taken: <strong>{{ duration_minutes }} minutes {{ duration_seconds }} seconds</strong></p>
+
+    <div class="progress my-4" style="height: 30px;">
+        <div class="progress-bar bg-success" role="progressbar" 
+             style="width: {{ score_percentage|floatformat:2 }}%;" 
+             aria-valuenow="{{ score_percentage }}" 
+             aria-valuemin="0" 
+             aria-valuemax="100">
+            {{ score_percentage|floatformat:2 }}%
+        </div>
+    </div>
+    {% endif %}
+
+    {% if unanswered_questions %}
+    <h3 class="mt-4">Questions You Did Not Answer</h3>
+    <ul class="list-group">
+        {% for question in unanswered_questions %}
+        <li class="list-group-item">
+            <strong>Question:</strong> {{ question.question }} <br>
+            <strong>Correct Answer:</strong> {{ question.correct_answer }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if wrong_questions %}
+    <h3 class="mt-4">Questions You Got Wrong</h3>
+    <ul class="list-group">
+        {% for question in wrong_questions %}
+        <li class="list-group-item">
+            <strong>Question:</strong> {{ question.question }} <br>
+            <strong>Your Answer:</strong> {{ question.selected_answer|default:"Not answered" }} <br>
+            <strong>Correct Answer:</strong> {{ question.correct_answer }} <br>
+            <strong>Improvement:</strong> {{ question.improvement }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="text-center mt-5">
+        <a href="{% url 'quiz_view' %}" class="btn btn-primary">Take another quiz</a>
+    </div>
+</div>
+{% endblock %}

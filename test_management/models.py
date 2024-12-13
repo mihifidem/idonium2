@@ -11,8 +11,6 @@ class Test(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_tests")
     duration = models.PositiveIntegerField(help_text="Duration in minutes")
     is_from_json = models.BooleanField(default=False)
-    #soft skills relacion con tabla grupo montse
-    #hard skills relacion con tabla grupo montse
 
 class QuestionType(models.Model):
     code = models.CharField(max_length=50)
@@ -31,11 +29,11 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 class UserAnswer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE)    
-    selected_answer =  models.ForeignKey(Answer, on_delete=models.CASCADE) 
-    is_correct = models.BooleanField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="default")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, default="default")
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, default="default")    
+    selected_answer =  models.ForeignKey(Answer, on_delete=models.CASCADE, default="default") 
+    is_correct = models.BooleanField(default=False)
     #relacionar hard skills con user test
 
 class UserTest(models.Model):
@@ -54,4 +52,35 @@ class Catergory(models.Model):
     name = models.CharField(max_length=200) 
     type = models.ForeignKey(CatergoryType, on_delete=models.CASCADE)
 
+class TestResult(models.Model):
+    title = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_test_results")
+    duration = models.FloatField(help_text="Duration in minutes")
+    is_from_json = models.BooleanField(default=False)
+    result = models.FloatField(help_text="Result of the test")
+    
+    def _str_(self):
+        return self.name 
 
+class TestResult(models.Model):
+    title = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_test_results")
+    duration = models.FloatField(help_text="Duration in minutes")
+    is_from_json = models.BooleanField(default=False)
+    result = models.FloatField(help_text="Result of the test")
+    
+    def str(self):
+        return self.name
+
+class ChatMessage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='test_management_chatmessages')
+    message = models.TextField()
+    is_bot = models.BooleanField(default=False)  # True if the message is from the bot, False if from the user
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def _str_(self):
+        return f"Message from {'Bot' if self.is_bot else 'User'} at {self.timestamp}"

@@ -1,0 +1,68 @@
+{% extends "users/base.html" %}
+{% block title %} Chatbot {% endblock %}
+{% block content %}
+
+    <<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function getCSRFToken() {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'csrftoken') {
+                    return value;
+                }
+            }
+            return null;
+        }
+
+        $(document).ready(function() {
+            $("#sendMessage").click(function() {
+                const message = $("#chatbotInput").val();
+                const category = $("#categorySelect").val();
+
+                $.ajax({
+                    url: "/quiz/chatbot/view/",
+                    type: "POST",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken()
+                    },
+                    data: JSON.stringify({
+                        message: message,
+                        category: category
+                    }),
+                    contentType: "application/json",
+                    success: function(data) {
+                        $("#chatbotOutput").html(data.bot_message);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Chatbot</h1>
+
+    <!-- Chatbot Input and Category Selector -->
+    <input type="text" id="chatbotInput" placeholder="Type your message">
+    <select id="categorySelect">
+        <option value="belbin">Belbin</option>
+        <option value="git">Git</option>
+        <option value="softskills">Soft Skills</option>
+    </select>
+    <button id="sendMessage">Send Message</button>
+
+    <!-- Chatbot Output -->
+    <div id="chatbotOutput"></div>
+</body>
+</html>
+
+{% endblock %}

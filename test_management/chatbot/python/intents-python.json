@@ -1,0 +1,398 @@
+{
+  "intents": [
+    {
+      "tag": "greetings",
+      "patterns": [
+        "Hello",
+        "Hi",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "What's up?",
+        "How are you?"
+      ],
+      "responses": [
+        "Hello! How can I assist you today?",
+        "Hi there! How can I help you?",
+        "Hey! What's up?",
+        "Good day! How can I help?",
+        "Hello! How's it going?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye",
+        "Bye",
+        "See you later",
+        "Take care",
+        "Catch you later",
+        "Bye for now"
+      ],
+      "responses": [
+        "Goodbye! Have a great day!",
+        "See you later! Take care!",
+        "Bye! Hope to chat with you again soon!",
+        "Catch you later! Stay safe!"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thank you",
+        "Thanks",
+        "Thanks a lot",
+        "I appreciate it",
+        "Thanks for your help",
+        "Thank you very much"
+      ],
+      "responses": [
+        "You're welcome!",
+        "Glad to help!",
+        "You're very welcome!",
+        "No problem at all!",
+        "Happy to help!"
+      ]
+    },
+    {
+      "tag": "sorry",
+      "patterns": [
+        "Sorry",
+        "I'm sorry",
+        "Apologies",
+        "My apologies",
+        "I apologize"
+      ],
+      "responses": [
+        "No worries! It's all good.",
+        "It's okay! Don't worry about it.",
+        "No problem, all forgiven.",
+        "It's all right, don't worry."
+      ]
+    },
+    {
+      "tag": "affirmative",
+      "patterns": [
+        "Yes",
+        "Yeah",
+        "Of course",
+        "Sure",
+        "Definitely",
+        "Absolutely"
+      ],
+      "responses": [
+        "Great! How can I assist you further?",
+        "Awesome! What else can I help you with?",
+        "Thanks for confirming! What's next?",
+        "Wonderful! What's on your mind?"
+      ]
+    },
+    {
+      "tag": "negative",
+      "patterns": [
+        "No",
+        "Nope",
+        "Not really",
+        "I don't think so",
+        "Definitely not",
+        "Not at all"
+      ],
+      "responses": [
+        "Okay, let me know if you change your mind.",
+        "Alright, feel free to ask me anything else!",
+        "No problem, let me know if you need anything.",
+        "Got it! I'm here if you need anything later."
+      ]
+    },
+    {
+      "tag": "python_variable",
+      "patterns": [
+        "How to create a variable in Python?",
+        "Python variable example?",
+        "What is a variable in Python?",
+        "Define a variable in Python?",
+        "How to assign a value to a variable in Python?"
+      ],
+      "responses": [
+        "In Python, a variable is created by simply assigning a value to a name. For example: `x = 5`.",
+        "You can define a variable by assigning it a value: `name = 'John'`.",
+        "To create a variable, just use `variable_name = value`.",
+        "Example: `age = 25` assigns the value 25 to the variable 'age'."
+      ]
+    },
+    {
+      "tag": "python_data_types",
+      "patterns": [
+        "What are the data types in Python?",
+        "Python data types examples?",
+        "How to use data types in Python?",
+        "What is an integer in Python?",
+        "What are strings in Python?"
+      ],
+      "responses": [
+        "Python has several data types, including: int, float, str, bool, list, tuple, dict, set.",
+        "Example of an integer: `x = 10` and a string: `name = 'Alice'`.",
+        "In Python, 'int' is used for integers, 'float' for decimal numbers, 'str' for strings, and so on.",
+        "A list is created with square brackets, e.g., `my_list = [1, 2, 3]`."
+      ]
+    },
+    {
+      "tag": "python_if_statement",
+      "patterns": [
+        "How to write an if statement in Python?",
+        "Python if condition?",
+        "What is the syntax of if statements?",
+        "How to use if in Python?",
+        "Python example of if statement"
+      ],
+      "responses": [
+        "An if statement in Python looks like this: `if condition: // code`.",
+        "Example: `if x > 5: print('x is greater than 5')`.",
+        "Use 'if' followed by a condition, and then indent the block of code to execute if the condition is true.",
+        "The syntax is: `if condition: // code`, and you can add 'elif' or 'else' for additional conditions."
+      ]
+    },
+    {
+      "tag": "python_for_loop",
+      "patterns": [
+        "How to use a for loop in Python?",
+        "Python for loop example?",
+        "What is a for loop in Python?",
+        "Syntax of for loop in Python?",
+        "How do for loops work in Python?"
+      ],
+      "responses": [
+        "A for loop in Python is written like this: `for item in iterable: // code`.",
+        "Example: `for i in range(5): print(i)` will print numbers from 0 to 4.",
+        "You can use 'range()' to generate a sequence of numbers in a for loop.",
+        "In a for loop, the variable 'item' will take each value from the iterable, and the indented code will execute for each value."
+      ]
+    },
+    {
+      "tag": "python_while_loop",
+      "patterns": [
+        "How to use a while loop in Python?",
+        "Python while loop example?",
+        "What is a while loop in Python?",
+        "Syntax of while loop in Python?",
+        "How does the while loop work in Python?"
+      ],
+      "responses": [
+        "A while loop continues to execute as long as the condition is true: `while condition: // code`.",
+        "Example: `while x < 5: print(x); x += 1` will print values of x from 0 to 4.",
+        "A while loop checks the condition before executing the code inside it, and will keep executing until the condition is false.",
+        "Make sure to change the condition inside the loop to avoid an infinite loop."
+      ]
+    },
+    {
+      "tag": "python_function",
+      "patterns": [
+        "How to create a function in Python?",
+        "Python function syntax?",
+        "How to define a function in Python?",
+        "Python example of a function?",
+        "What is the syntax for a function?"
+      ],
+      "responses": [
+        "You define a function in Python using the `def` keyword: `def function_name(): // code`.",
+        "Example: `def greet(): print('Hello!')` defines a function called 'greet'.",
+        "Functions can also take arguments, like this: `def greet(name): print('Hello, ' + name)`.",
+        "To call a function, just use the function name followed by parentheses: `greet()`."
+      ]
+    },
+    {
+      "tag": "python_classes",
+      "patterns": [
+        "How to create a class in Python?",
+        "Python class example?",
+        "What is a class in Python?",
+        "Python class syntax?",
+        "How does object-oriented programming work in Python?"
+      ],
+      "responses": [
+        "You define a class in Python using the `class` keyword: `class MyClass:`.",
+        "Example: `class Person: def __init__(self, name, age): self.name = name; self.age = age`.",
+        "Classes define blueprints for objects, and the `__init__` method initializes the object's attributes.",
+        "To create an object, instantiate a class: `person1 = Person('Alice', 30)`."
+      ]
+    },
+    {
+      "tag": "python_import",
+      "patterns": [
+        "How to import a module in Python?",
+        "Python import example?",
+        "What is an import in Python?",
+        "How to use import in Python?",
+        "How do I import a library in Python?"
+      ],
+      "responses": [
+        "To import a module, use the `import` keyword: `import module_name`.",
+        "Example: `import math` allows you to use functions from the 'math' module, like `math.sqrt(16)`.",
+        "You can import specific functions with: `from module_name import function_name`.",
+        "If you want to import with an alias: `import module_name as alias`, for example `import numpy as np`."
+      ]
+    },
+    {
+      "tag": "python_list",
+      "patterns": [
+        "How to create a list in Python?",
+        "Python list example?",
+        "What is a list in Python?",
+        "How to access list elements in Python?",
+        "How to modify a list in Python?"
+      ],
+      "responses": [
+        "A list is created with square brackets: `my_list = [1, 2, 3]`.",
+        "You can access elements by their index: `my_list[0]` accesses the first item.",
+        "To modify an element, use the index: `my_list[1] = 10` changes the second item to 10.",
+        "Lists are mutable, so you can add, remove, or change elements as needed."
+      ]
+    },
+    {
+      "tag": "python_string_manipulation",
+      "patterns": [
+        "How to manipulate strings in Python?",
+        "Python string methods?",
+        "How to concatenate strings in Python?",
+        "How to split a string in Python?",
+        "What are common string operations in Python?"
+      ],
+      "responses": [
+        "You can concatenate strings using the + operator: greeting = 'Hello' + ' ' + 'World'.",
+        "To split a string, use the split() method: string.split(' ').",
+        "Other common string methods include upper(), lower(), strip(), and replace().",
+        "Example: 'hello'.upper() will return 'HELLO'."
+      ]
+    },
+    {
+      "tag": "python_list_comprehension",
+      "patterns": [
+        "What is list comprehension in Python?",
+        "Python list comprehension example?",
+        "How to create a list using list comprehension?",
+        "What does list comprehension do in Python?",
+        "Syntax of list comprehension in Python?"
+      ],
+      "responses": [
+        "List comprehension is a concise way to create lists. Example: [x**2 for x in range(5)] returns [0, 1, 4, 9, 16].",
+        "It combines a for loop with the ability to apply conditions. Example: [x for x in range(5) if x % 2 == 0].",
+        "Syntax: [expression for item in iterable if condition].",
+        "List comprehensions are useful for creating lists from existing data in a single line."
+      ]
+    },
+    {
+      "tag": "python_dict_comprehension",
+      "patterns": [
+        "How to use dictionary comprehension in Python?",
+        "Python dictionary comprehension example?",
+        "What is dictionary comprehension?",
+        "Syntax of dictionary comprehension?",
+        "How to create a dictionary using comprehension in Python?"
+      ],
+      "responses": [
+        "Dictionary comprehension allows you to create dictionaries concisely. Example: {x: x**2 for x in range(5)}.",
+        "Syntax: {key_expression: value_expression for item in iterable if condition}.",
+        "Example: {x: x**2 for x in range(3)} will return {0: 0, 1: 1, 2: 4}.",
+        "Dictionary comprehensions are useful for transforming data into key-value pairs in a single step."
+      ]
+    },
+    {
+      "tag": "python_modules",
+      "patterns": [
+        "What are modules in Python?",
+        "How to create a module in Python?",
+        "How to import a Python module?",
+        "What is the purpose of modules in Python?",
+        "How do you use modules in Python?"
+      ],
+      "responses": [
+        "A module is a file containing Python definitions and statements. For example, math.py is a module.",
+        "You can import a module using import module_name, such as import math.",
+        "To use a specific function from a module, you can use from module_name import function_name.",
+        "Modules allow you to organize your code into separate files for better readability and reusability."
+      ]
+    },
+    {
+      "tag": "python_argument_unpacking",
+      "patterns": [
+        "How to unpack arguments in Python?",
+        "What is argument unpacking in Python?",
+        "Python unpacking a tuple into function arguments?",
+        "How to pass arguments using *args and **kwargs?",
+        "Syntax for unpacking arguments in Python?"
+      ],
+      "responses": [
+        "In Python, you can unpack arguments using *args for positional arguments and **kwargs for keyword arguments.",
+        "Example: def func(*args): will allow you to pass a variable number of arguments.",
+        "To pass keyword arguments, use **kwargs. Example: def func(**kwargs) allows passing key-value pairs.",
+        "Argument unpacking helps to handle variable-length argument lists in functions."
+      ]
+    },
+    {
+      "tag": "python_decorator",
+      "patterns": [
+        "What is a decorator in Python?",
+        "How do decorators work in Python?",
+        "Python decorator example?",
+        "Syntax for creating a decorator in Python?",
+        "How to apply a decorator in Python?"
+      ],
+      "responses": [
+        "A decorator is a function that takes another function and extends its behavior.",
+        "Example of a decorator: def decorator(func): return lambda: func(). To apply, use @decorator.",
+        "Syntax: @decorator_name is placed above the function to be decorated.",
+        "Decorators are commonly used for logging, access control, memoization, and more."
+      ]
+    },
+    {
+      "tag": "python_generator",
+      "patterns": [
+        "What is a generator in Python?",
+        "How to create a generator in Python?",
+        "Python generator example?",
+        "How does the yield keyword work?",
+        "What are the benefits of using generators?"
+      ],
+      "responses": [
+        "A generator is a function that returns an iterator, allowing you to iterate over a sequence lazily.",
+        "You create a generator by using the yield keyword in a function: def count(): yield 1; yield 2.",
+        "The benefit of generators is that they save memory by generating values one at a time rather than storing them all in memory.",
+        "Example: def generate_numbers(): yield 1; yield 2. You can iterate over it like a list but lazily."
+      ]
+    },
+    {
+      "tag": "python_iterators",
+      "patterns": [
+        "What is an iterator in Python?",
+        "How to create an iterator in Python?",
+        "How does the iter() function work?",
+        "What is the purpose of iterators in Python?",
+        "Python example of iterator?"
+      ],
+      "responses": [
+        "An iterator is an object that implements the __iter__() and __next__() methods.",
+        "You can convert an iterable (like a list) to an iterator using iter(): it = iter([1, 2, 3]).",
+        "Use next() to get the next value from an iterator: next(it).",
+        "Iterators allow you to iterate over a collection without having to store the entire collection in memory."
+      ]
+    },
+    {
+      "tag": "python_scope",
+      "patterns": [
+        "What is variable scope in Python?",
+        "How does scope work in Python?",
+        "What is a local variable in Python?",
+        "What is a global variable in Python?",
+        "How to access variables outside a function in Python?"
+      ],
+      "responses": [
+        "In Python, variables have a scope, which determines where they can be accessed.",
+        "A local variable is defined inside a function and can only be used within that function.",
+        "A global variable is defined outside any function and can be accessed throughout the script.",
+        "To access a global variable inside a function, use the global keyword: global x."
+      ]
+    }
+  ]
+}
+
