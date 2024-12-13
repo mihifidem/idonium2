@@ -13,45 +13,40 @@ class PostList(generic.ListView):
 
 
 
+from django.shortcuts import render
+from django.core.paginator import Paginator
+from .models import Post, CategoryPost
+
 def blog_list(request):
-    blogs = Post.objects.filter(status=1).order_by('-created_on')  # Filtrar posts publicados
+    query = request.GET.get("q")  # Manejo de búsqueda
+    category = request.GET.get("category")  # Filtro de categorías
+    blogs = Post.objects.filter(status=1).order_by("-created_on")
 
-    paginator = Paginator(blogs, 3)  # 5 entradas por página
+    if query:
+        blogs = blogs.filter(title__icontains=query)  # Filtrar por título
+    if category:
+        blogs = blogs.filter(category_post__id=category)  # Filtrar por categoría
 
-    page_number = request.GET.get('page')  # Obtén el número de página actual
-    page_obj = paginator.get_page(page_number)  # Obtén los objetos de la página actual
+    paginator = Paginator(blogs, 3)  # 3 posts por página
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'blog/blog.html', {'page_obj': page_obj})
+    categories = CategoryPost.objects.all()  # Obtener categorías
+
+    return render(request, "blog/blog.html", {"page_obj": page_obj, "categories": categories})
+
 # class PostDetail(generic.DetailView):
 #     model = Post
 #     template_name = 'post_detail.html'
 
 
-def post_detail(request, pk):
-    template_name = "blog/blog-detail.html"
-    post = get_object_or_404(Post, id=pk)
-    # comments = post.comments.filter(active=True).order_by("-created_on")
-    # new_comment = None
-    # Comment posted
-    # if request.method == "POST":
-    #     comment_form = CommentForm(data=request.POST)
-    #     if comment_form.is_valid():
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    categories = CategoryPost.objects.all()
+    popular_posts = Post.objects.filter(status=1).order_by("-likes")[:5]  # Top 5 posts por likes
 
-            # Create Comment object but don't save to database yet
-            # new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            # new_comment.post = post
-            # Save the comment to the database
-            # new_comment.save()
-    # else:
-        # comment_form = CommentForm()
-    return render(
-        request,
-        template_name,
-        {
-            "post": post,
-            # "comments": comments,
-            # "new_comment": new_comment,
-            # "comment_form": comment_form,
-        },
-    )
+    return render(request, "blog/blog-detail.html", {
+        "post": post,
+        "categories": categories,
+        "popular_posts": popular_posts,
+    })

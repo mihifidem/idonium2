@@ -10,12 +10,12 @@ class CourseForm(forms.ModelForm):
 class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = ['name', 'lesson', '']
+        fields = ['name', 'lesson']
 
 class CertificateForm(forms.ModelForm):
     class Meta:
         model = Certificate
-        fields = ['course', 'date_issued']
+        fields = ['course', 'name', 'code']
         
 class ModuleForm(forms.ModelForm):
     class Meta:

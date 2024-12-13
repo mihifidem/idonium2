@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="en">
+{% load static %}
 <head>
-    {% load static %}
-   
+    
+
     <!--====== Required meta tags ======-->
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <!--====== Title ======-->
-    <title>Idonium</title>
-    
+    <title>DuckyWays</title>
+
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
@@ -21,10 +22,10 @@
 
     <!--====== Animate css ======-->
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    
+
     <!--====== Nice Select css ======-->
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
-    
+
     <!--====== Nice Number css ======-->
     <link rel="stylesheet" href="{% static 'css/jquery.nice-number.min.css' %}">
 
@@ -32,32 +33,34 @@
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
 
     <!--====== Bootstrap css ======-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
-    
+
     <!--====== Fontawesome css ======-->
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    
+
     <!--====== Default css ======-->
     <link rel="stylesheet" href="{% static 'css/default.css'%}">
-    
-    <!--====== Style css ======-->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.0">
-    
+
+   
+
     <!--====== Responsive css ======-->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-  
-        <!--====== awesome css ======-->
+
+    <!--====== awesome css ======-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+ <!--====== Style css ======-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.0">
 </head>
 
 <body>
-   
+
     <!--====== PRELOADER PART START ======-->
-    
+
     <!-- <div class="preloader">
         <div class="loader rubix-cube">
             <div class="layer layer-1"></div>
@@ -70,163 +73,107 @@
             <div class="layer layer-8"></div>
         </div>
     </div> -->
-    
-    <!--====== PRELOADER PART START ======-->
-    
-    <!--====== HEADER PART START ======-->
-    
-    <header id="header-part">
-       
-        <div class="header-top d-none d-lg-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header-contact text-lg-left text-center">
-                            <ul>
-                                <!-- <li><img src="{% static 'images/all-icon/map.png' %}" alt="icon"><span>127/5 Mark street, New york</span></li> -->
-                                <li><img src="{% static 'images/all-icon/email.png' %}" alt="icon"><span>info@duckyways.com</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header-opening-time text-lg-right text-center">
-                            {% if user %}
-                            <p>Welcome, {{user.first_name|default:'Guest'}}</p>
-                          
-                            {% endif %}
-                        </div>
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- header top -->
-        
-       
-        
-        <div class="header-logo-support pt-30 pb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="logo">
-                            <a href="/">
-                                <img src="{% static 'images/logo.png' %}" alt="Logo">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8">
-                        <div class="support-button float-right d-none d-md-block">
-                            <div class="support float-left">
-                                <div class="icon">
-                                    <img src="{% static 'images/all-icon/support.png' %}" alt="icon">
-                                </div>
-                                <div class="cont">
-                                    <p>Need Help? call us free</p>
-                                    <span>321 325 5678</span>
-                                </div>
-                            </div>
-                            <div class="button float-left">
-                                {% if user.is_authenticated %}
-                                <a class="main-btn" href="{% url 'logout' %}">Logout</a>
-                                {% else %}
-                                <a class="main-btn" href="{% url 'login' %}">Sign in</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- header logo support -->
-        <div class="navigation">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 col-md-10 col-sm-9 col-8">
-                        <nav class="navbar navbar-expand-lg">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-        
-                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item">
-                                        <a class="active" href="/">Home</a>
-                                        <ul class="sub-menu">
-                                            <li><a class="active" href="index-2.html">Home 01</a></li>
-                                            <li><a href="index-3.html">Home 02</a></li>
-                                            <li><a href="index-4.html">Home 03</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="about.html">About us</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="courses.html">Courses</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="courses.html">Courses</a></li>
-                                            <li><a href="courses-singel.html">Course Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="events.html">Events</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="events.html">Events</a></li>
-                                            <li><a href="events-singel.html">Event Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="teachers.html">Our teachers</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="teachers.html">teachers</a></li>
-                                            <li><a href="teachers-singel.html">teacher Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/blog">Blog</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog-singel.html">Blog Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="shop.html">Shop</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="shop.html">Shop</a></li>
-                                            <li><a href="shop-singel.html">Shop Singel</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="contact.html">Contact</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="contact.html">Contact Us</a></li>
-                                            <li><a href="contact-2.html">Contact Us 2</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav> <!-- nav -->
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-4">
-                        <div class="right-icon text-right">
-                            <ul>
-                                <li><a href="#" id="search"><i class="fa fa-search"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
-                            </ul>
-                        </div> <!-- right icon -->
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div>
-        
-        </header>
-        {% block content %}
-   
 
-{% endblock content %}
-        
-        
-        <!--====== FOOTER PART START ======-->
-        
-        <footer id="footer-part">
+    <!--====== PRELOADER PART START ======-->
+    <!--====== SEARCH BOX PART START ======-->
+
+    <div class="search-box">
+        <div class="serach-form">
+            <div class="closebtn">
+                <span></span>
+                <span></span>
+            </div>
+            <form action="#">
+                <input type="text" placeholder="Search by keyword">
+                <button><i class="fa fa-search"></i></button>
+            </form>
+        </div> <!-- serach form -->
+    </div>
+
+    <!--====== SEARCH BOX PART ENDS ======-->
+
+    <!--====== HEADER PART START ======-->
+
+    <header id="header-part">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+            <!-- Container wrapper -->
+            <div class="container">
+
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-2"> <!-- Navbar brand -->
+                            <div class="logo">
+                                <a href="/">
+                                    <img src="{% static 'images/logo.png' %}" alt="Logo">
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-6">
+                            <div class="support-button float-end d-none d-md-block">
+                                <div class="support float-end">
+                                    <div class="icon">
+                                        <img src="{% static 'images/all-icon/support.png' %}" alt="icon">
+                                    </div>
+                                    <div class="cont">
+                                        <p>Need Help? call us free</p>
+                                        <span>321 325 5678</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            {% if not user.is_authenticated %}
+                            <div class="support-button float-end d-none d-md-block">
+                                <div class="button float-end">
+
+
+
+
+                                    <a class="main-btn" href="{% url 'login' %}">Sign in</a>
+
+                                </div>
+                            </div>
+                            {% endif%}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+
+        {%block menu_util%}
+        {%endblock menu_util%}
+
+
+
+
+
+
+
+    </header>
+    {% block navbar %}
+    {% endblock navbar %}
+    {% block content %}
+    {% endblock content %}
+
+
+    <!--====== FOOTER PART START ======-->
+
+    <footer id="footer-part">
         <div class="footer-top pt-40 pb-70">
             <div class="container">
                 <div class="row">
@@ -235,7 +182,8 @@
                             <div class="logo">
                                 <a href="#"><img src="{% static 'images/logo-2.png' %}" alt="Logo"></a>
                             </div>
-                            <p>Gravida nibh vel velit auctor aliquetn quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate.</p>
+                            <p>Gravida nibh vel velit auctor aliquetn quibibendum auci elit cons equat ipsutis sem nibh
+                                id elit. Duis sed odio sit amet nibh vulputate.</p>
                             <ul class="mt-20">
                                 <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -315,85 +263,92 @@
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- footer top -->
-        
+
         <div class="footer-copyright pt-10 pb-25">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="copyright text-md-left text-center pt-15">
-                            <p>Made with <span style="color: brown;">&#10084;</span> in Barcelona by <a target="_blank" href="https://www.mihifidem.net"> Mihifidem</a> & <a target="_blank" href="#">IA01/2024</a></p>
+                            <p>Made with <span style="color: brown;">&#10084;</span> in Barcelona by <a target="_blank"
+                                    href="https://www.mihifidem.net"> Mihifidem</a> & <a target="_blank"
+                                    href="#">IA01/2024</a></p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="copyright text-md-right text-center pt-15">
-                           
+
                         </div>
                     </div>
                 </div> <!-- row -->
             </div> <!-- container -->
         </div> <!-- footer copyright -->
-        </footer>
-        
-        <!--====== FOOTER PART ENDS ======-->
-        
-        <!--====== BACK TO TP PART START ======-->
-        
-        <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
-        
-        <!--====== BACK TO TP PART ENDS ======-->
-    
-    
-    
+    </footer>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TP PART START ======-->
+
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+    <!--====== BACK TO TP PART ENDS ======-->
+
+
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 
-    
-    
+{% load static %}
+
     <!--====== jquery js ======-->
     <script src="{% static 'js/vendor/modernizr-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
-
-    <!--====== Bootstrap js ======-->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     
+    <!--====== Bootstrap js ======-->
+    <!-- <script src="{% static 'js/vendor/bootstrap-5.3.3-dist/js/bootstrap.min.js' %}"></script> -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
     <!--====== Slick js ======-->
     <script src="{% static 'js/slick.min.js' %}"></script>
-    
+
     <!--====== Magnific Popup js ======-->
     <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    
+
     <!--====== Counter Up js ======-->
     <script src="{% static 'js/waypoints.min.js' %}"></script>
     <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
-    
+
     <!--====== Nice Select js ======-->
     <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
-    
+
     <!--====== Nice Number js ======-->
     <script src="{% static 'js/jquery.nice-number.min.js' %}"></script>
-    
+
     <!--====== Count Down js ======-->
     <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
-    
 
-    
+
+
     <!-- A plugin for password show/hide  -->
     <!-- <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script> -->
 
     <!--====== Validator js ======-->
     <script src="{% static 'js/validator.min.js' %}"></script>
-    
+
     <!--====== Ajax Contact js ======-->
     <script src="{% static 'js/ajax-contact.js' %}"></script>
-    
+
     <!--====== Main js ======-->
     <script src="{% static 'js/main.js' %}"></script>
-    
+
     <!--====== Map js ======-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
     <script src="{% static 'js/map-script.js' %}"></script>
 
 </body>
+
 </html>

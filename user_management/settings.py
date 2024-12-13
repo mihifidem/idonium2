@@ -27,11 +27,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+DEBUG = True
+ALLOWED_HOSTS = ['*'] 
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 
 SUMMERNOTE_CONFIG = {
     'iframe': True,  # Usa iframe para evitar conflictos con estilos de CSS del admin
@@ -61,12 +64,25 @@ INSTALLED_APPS = [
     "headhunters",
     "test",
     "profile_cv",
-    "test_management",
     "role_management",
     "gaming",
     "messaging",
-    "forum"
+    "forum",
+    "test_management",
+  
 ]
+
+ASGI_APPLICATION = 'chat_project.asgi.application'
+
+# Configuración de Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("127.0.0.1", 6379)],  # Asegúrate de que Redis esté corriendo
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,6 +92,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'users.middleware.Custom404Middleware',  # Middleware personalizado
 
 ]
 
@@ -95,7 +112,8 @@ TEMPLATES = [
 
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-            ],
+                'gaming.context_processors.user_duckycoins',
+                'messaging.context_processors.unread_messages_count',           ],
         },
     },
 ]
@@ -164,7 +182,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/role'
 LOGIN_URL = 'login'
 
 
