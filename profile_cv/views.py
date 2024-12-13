@@ -427,8 +427,8 @@ def work_experience_delete(request, work_experience_id):
         work_experience.delete()
         return redirect("work_experience_list", user.id)
     return render(request, "work_experience/work_experience_confirm_delete.html", {"work_experience": work_experience, "user": user})
-        return redirect("work_experience_list", user.id)
-    return render(request, "work_experience/work_experience_confirm_delete.html", {"work_experience": work_experience, "user": user})
+    #     return redirect("work_experience_list", user.id)
+    # return render(request, "work_experience/work_experience_confirm_delete.html", {"work_experience": work_experience, "user": user})
 
 # * |--------------------------------------------------------------------------
 # * | Class AcademicEducation
@@ -456,7 +456,6 @@ def academic_education_create(request, user_id):
             return redirect("academic_education_list", user_id)
     else:
         form = AcademicEducationForm()
-    return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
     return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
 
 # ? Función para listar las educaciones académicas
@@ -496,7 +495,6 @@ def academic_education_update(request, academic_education_id):
     else:
         form = AcademicEducationForm(instance=academic_education)
     return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
-    return render(request, "academic_education/academic_education_form.html", {"form": form, "user": user})
 
 # ? Función para eliminar una educación académica
 @login_required
@@ -514,9 +512,7 @@ def academic_education_delete(request, academic_education_id):
         academic_education.delete()
         return redirect("academic_education_list", user.id)
     return render(request, "academic_education/academic_education_confirm_delete.html", {"academic_education": academic_education, "user": user})
-        return redirect("academic_education_list", user.id)
-    return render(request, "academic_education/academic_education_confirm_delete.html", {"academic_education": academic_education, "user": user})
-
+       
 # * |--------------------------------------------------------------------------
 # * | Class SoftSkill
 # * |--------------------------------------------------------------------------
@@ -561,7 +557,6 @@ def softskill_create(request, user_id):
     else:
         form = SoftSkillForm()
     return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
-    return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
 
 #? Función para actualizar una SoftSkill
 @login_required
@@ -580,10 +575,8 @@ def softskill_update(request, soft_skill_id):
         if form.is_valid():
             form.save()
             return redirect("soft_skill_list", user.id)
-            return redirect("soft_skill_list", user.id)
     else:
         form = SoftSkillForm(instance=softskill)
-    return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
     return render(request, "softskill/softskill_form.html", {"form": form, "user": user})
 
 #? Función para eliminar una SoftSkill
@@ -602,9 +595,7 @@ def softskill_delete(request, soft_skill_id):
         softskill.delete()
         return redirect("soft_skill_list", user.id)
     return render(request, "softskill/softskill_confirm_delete.html", {"softskill": softskill, "user": user})
-        return redirect("soft_skill_list", user.id)
-    return render(request, "softskill/softskill_confirm_delete.html", {"softskill": softskill, "user": user})
-
+     
 # * |--------------------------------------------------------------------------
 # * | Class HardSkill
 # * |--------------------------------------------------------------------------
@@ -646,7 +637,6 @@ def hardskill_create(request, user_id):
             hardskill.profile_user = profile
             form.save()
             return redirect("hard_skill_list", user_id)
-            return redirect("hard_skill_list", user_id)
     else:
         form = HardSkillForm()
     return render(request, "hardskill/hardskill_form.html", {"form": form, 'user': user})
@@ -685,10 +675,8 @@ def hardskill_update(request, hard_skill_id):
         if form.is_valid():
             form.save()
             return redirect("hard_skill_list", user.id)
-            return redirect("hard_skill_list", user.id)
     else:
         form = HardSkillForm(instance=hardskill)
-    return render(request, "hardskill/hardskill_form.html", {"form": form, "user": user})
     return render(request, "hardskill/hardskill_form.html", {"form": form, "user": user})
 
 # * |--------------------------------------------------------------------------
@@ -731,10 +719,8 @@ def language_create(request, user_id):
             language.profile_user = profile
             form.save()
             return redirect("language_list", user_id)
-            return redirect("language_list", user_id)
     else:
         form = LanguageForm()
-    return render(request, "language/language_form.html", {"form": form, 'user':user})
     return render(request, "language/language_form.html", {"form": form, 'user':user})
 
 #? Función para actualizar un idioma
@@ -754,10 +740,8 @@ def language_update(request, language_id):
         if form.is_valid():
             form.save()
             return redirect("language_list", user.id)
-            return redirect("language_list", user.id)
     else:
         form = LanguageForm(instance=language)
-    return render(request, "language/language_form.html", {"form": form, "user": user})
     return render(request, "language/language_form.html", {"form": form, "user": user})
 
 #? Función para eliminar un idioma
@@ -776,9 +760,7 @@ def language_delete(request, language_id):
         language.delete()
         return redirect("language_list", user.id)
     return render(request, "language/language_confirm_delete.html", {"language": language, "user": user})
-        return redirect("language_list", user.id)
-    return render(request, "language/language_confirm_delete.html", {"language": language, "user": user})
-
+      
 # * |--------------------------------------------------------------------------
 # * | Class Volunteering
 # * |--------------------------------------------------------------------------
@@ -819,10 +801,8 @@ def volunteering_create(request, user_id):
             volunteering.profile_user = profile
             form.save()
             return redirect("volunteering_list", user_id)
-            return redirect("volunteering_list", user_id)
     else:
         form = VolunteeringForm()
-    return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
     return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un voluntariado
@@ -842,16 +822,13 @@ def volunteering_update(request, volunteering_id):
         if form.is_valid():
             form.save()
             return redirect("volunteering_list", user.id)
-            return redirect("volunteering_list", user.id)
     else:
         form = VolunteeringForm(instance=volunteering)
 
-    print(user)
+    
     return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
 
-    print(user)
-    return render(request, "volunteering/volunteering_form.html", {"form": form, "user": user})
-
+    
 #? Función para eliminar un voluntariado
 @login_required
 def volunteering_delete(request, volunteering_id):
@@ -868,9 +845,7 @@ def volunteering_delete(request, volunteering_id):
         volunteering.delete()
         return redirect("volunteering_list", user.id)
     return render(request, "volunteering/volunteering_confirm_delete.html", {"volunteering": volunteering, "user": user})
-        return redirect("volunteering_list", user.id)
-    return render(request, "volunteering/volunteering_confirm_delete.html", {"volunteering": volunteering, "user": user})
-
+       
 # * |--------------------------------------------------------------------------
 # * | Class Project
 # * |--------------------------------------------------------------------------
@@ -912,10 +887,9 @@ def project_create(request, user_id):
             project.profile_user = profile
             form.save()
             return redirect("project_list", user_id)
-            return redirect("project_list", user_id)
+            return redirect("project_list", )
     else:
         form = ProjectForm()
-    return render(request, "project/project_form.html", {"form": form, "user": user})
     return render(request, "project/project_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un proyecto
@@ -935,10 +909,8 @@ def project_update(request, project_id):
         if form.is_valid():
             form.save()
             return redirect("project_list", user.id)
-            return redirect("project_list", user.id)
     else:
         form = ProjectForm(instance=project)
-    return render(request, "project/project_form.html", {"form": form, "user": user})
     return render(request, "project/project_form.html", {"form": form, "user": user})
 
 #? Función para eliminar un proyecto
@@ -955,8 +927,6 @@ def project_delete(request, project_id):
         return redirect("project_list", request.user.id)
     if request.method == "POST":
         project.delete()
-        return redirect("project_list", user.id)
-    return render(request, "project/project_confirm_delete.html", {"project": project, "user": user})
         return redirect("project_list", user.id)
     return render(request, "project/project_confirm_delete.html", {"project": project, "user": user})
 
@@ -1001,10 +971,8 @@ def recognition_award_create(request, user_id):
             recognitionaward.profile_user = profile
             form.save()
             return redirect("recognition_award_list", user_id)
-            return redirect("recognition_award_list", user_id)
     else:
         form = RecognitionForm()
-    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
     return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
 
 #? Función para actualizar un reconocimiento o premio
@@ -1024,10 +992,8 @@ def recognition_award_update(request, recognition_award_id):
         if form.is_valid():
             form.save()
             return redirect("recognition_award_list", user.id)
-            return redirect("recognition_award_list", user.id)
     else:
         form = RecognitionForm(instance=recognitionaward)
-    return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
     return render(request, "recognitionaward/recognitionaward_form.html", {"form": form, "user": user})
 
 #? Función para eliminar un reconocimiento o premio
@@ -1044,8 +1010,6 @@ def recognition_award_delete(request, recognition_award_id):
         return redirect("recognition_award_list", request.user.id)
     if request.method == "POST":
         recognitionaward.delete()
-        return redirect("recognition_award_list", user.id)
-    return render(request, "recognitionaward/recognitionaward_confirm_delete.html", {"recognitions_awards": recognitionaward, "user": user})
         return redirect("recognition_award_list", user.id)
     return render(request, "recognitionaward/recognitionaward_confirm_delete.html", {"recognitions_awards": recognitionaward, "user": user})
 
@@ -1090,10 +1054,8 @@ def publication_create(request, user_id):
             publication.profile_user = profile
             form.save()
             return redirect("publication_list", user_id)
-            return redirect("publication_list", user_id)
     else:
         form = PublicationForm()
-    return render(request, "publication/publication_form.html", {"form": form, "user": user})
     return render(request, "publication/publication_form.html", {"form": form, "user": user})
 
 #? Función para actualizar una publicación
@@ -1113,10 +1075,8 @@ def publication_update(request, publication_id):
         if form.is_valid():
             form.save()
             return redirect("publication_list", user.id)
-            return redirect("publication_list", user.id)
     else:
         form = PublicationForm(instance=publication)
-    return render(request, "publication/publication_form.html", {"form": form, "user": user})
     return render(request, "publication/publication_form.html", {"form": form, "user": user})
 
 #? Función para eliminar una publicación
@@ -1133,8 +1093,6 @@ def publication_delete(request, publication_id):
         return redirect("publication_list", request.user.id)
     if request.method == "POST":
         publication.delete()
-        return redirect("publication_list", user.id)
-    return render(request, "publication/publication_confirm_delete.html", {"publication": publication, "user": user})
         return redirect("publication_list", user.id)
     return render(request, "publication/publication_confirm_delete.html", {"publication": publication, "user": user})
 

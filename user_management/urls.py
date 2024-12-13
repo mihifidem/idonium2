@@ -54,8 +54,6 @@ urlpatterns = [
 #     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 
 
-     path("", include('profile_cv.urls')),
-
 
 
     path('role/', include('role_management.urls')),
