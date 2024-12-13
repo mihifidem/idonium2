@@ -148,66 +148,66 @@
                     <div class="col-lg-12 col-md-6"></div>
                     <div class="row">
                         <h2> Recommended Courses </h2>
-                        {% for recommended_course in recommended_courses %}
+                        {% for course in recommended_context %}
                         <div class="col-lg-4">
                             <div class="singel-course mt-30">
                                 <div class="thum">
                                     <div class="image">
-                                        <img src="{{recommended_course.image.url}}" alt="Course">
+                                        <img src="{{course.recommended_course.image.url}}" alt="Course">
                                     </div>
                                     <div class="price">
-                                        {%if recommended_course.is_free%}
+                                        {%if course.recommended_course.is_free%}
                                         <span>Free</span>
                                         {%else%}
-                                        <span>${{recommended_course.price}}</span>
+                                        <span>${{course.recommended_course.price}}</span>
                                         {% endif %}
                                     </div>
                                 </div>
                                 <div class="cont">
                                     <ul>
-                                        <li>{{recommended_course.average_rating}}</li>
-                                        {% if recommended_course.average_rating > 0 %}
+                                        <li>{{course.average_recommended}}</li>
+                                        {% if course.average_recommended > 0 %}
                                         <li><i class="fa fa-star"></i></li>
                                         {%else%}
                                         <li><i class="far fa-star"></i></li>
                                         {% endif %}
                                     </ul>
-                                    {% if recommended_course.course_review_count > 0 %}
-                                    <span>({{recommended_course.course_reviews_count}} Reviews)</span>
+                                    {% if course.course_reviews_count > 0 %}
+                                    <span>({{course.course_reviews_count}} Reviews)</span>
                                     {%else%}
                                     <span>(0 Reviews)</span>
                                     {% endif %}
-                                    <a href="{% url 'courses:course-detail' recommended_course.id %}">
-                                        <h4>{{recommended_course.title}}</h4>
+                                    <a href="{% url 'courses:course-detail' course.recommended_course.id %}">
+                                        <h4>{{course.recommended_course.title}}</h4>
                                     </a>
                                     <div class="course-teacher">
                                         <div class="thum">
-                                            <a href="#"><img src="{{recommended_course.profile_teacher.image.url}}"
+                                            <a href="#"><img src="{{course.recommended_course.profile_teacher.image.url}}"
                                                     alt="teacher"></a>
                                         </div>
                                         <div class="name">
                                             <a href="#">
-                                                <h6>{{recommended_course.profile_teacher.user.first_name}}
-                                                    {{recommended_course.profile_teacher.user.last_name}}</h6>
+                                                <h6>{{course.recommended_course.profile_teacher.user.first_name}}
+                                                    {{course.recommended_course.profile_teacher.user.last_name}}</h6>
                                             </a>
                                         </div>
                                         <div class="admin">
                                             <ul>
-                                                {% if recommended_course.completed_users_count > 0 %}
+                                                {% if course.completed_count > 0 %}
                                                 <li>
-                                                    <a href="#"><i class="fa fa-user"></i><span>{{recommended_course.completed_users_count}}</span></a>
+                                                    <a href="#"><i class="fa fa-user"></i><span>{{course.completed_count}}</span></a>
                                                 </li>
                                                 {% else %}
                                                 <li>
                                                     <a href="#"><i class="fa fa-user"></i><span>0</span></a>
                                                 </li>
                                                 {% endif %}
-                                                {% if recommended_course.course_wishlist_count > 0 %}
-                                                <li><a href="{% url 'courses:add-userwish' recommended_course.id %}"><i class="fa fa-heart"></i>
-                                                    <span>{{recommended_course.course_wishlist_count}}</span></a>
+                                                {% if course.wishlist_count > 0 %}
+                                                <li><a href="{% url 'courses:add-userwish' course.recommended_course.id %}"><i class="fa fa-heart"></i>
+                                                    <span>{{course.wishlist_count}}</span></a>
                                                 </li>
                                                 {%else%}
-                                                <li><a href="{% url 'courses:add-userwish' recommended_course.id %}"><i class="fa fa-heart"></i>
+                                                <li><a href="{% url 'courses:add-userwish' course.recommended_course.id %}"><i class="fa fa-heart"></i>
                                                     <span>0</span></a>
                                                 </li>
                                                 {% endif %}

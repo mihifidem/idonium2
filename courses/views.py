@@ -176,21 +176,54 @@ def courses_list_view(request):
 
     recommended_courses = None
     if request.user.is_authenticated:
-        interaction_matrix = create_interaction_matrix()    
+        # Crear la matriz de interacción
+        interaction_matrix = create_interaction_matrix()
+        
+        # Calcular la similitud entre usuarios
         user_similarity = cosine_similarity(interaction_matrix)
         user_similarity_df = pd.DataFrame(user_similarity, index=interaction_matrix.index, columns=interaction_matrix.index)
 
         # Obtener las recomendaciones para el usuario actual
         recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
 
-    # Pasar los datos al contexto para renderizarlos en el template
-    return render(request, 'courses_list.html', {
-    'page_obj': page_obj, 
-    'total_courses': courses.count(),
-    'recommended_courses': recommended_courses,
-    'query': query,  
-    
-})
+        # Inicializar el diccionario para almacenar la información de wishlist, completados y promedio de reseñas
+        recommended_context = []
+
+        # Iterar sobre los cursos recomendados
+        for course in recommended_courses:
+            # Obtener el recuento de WishListUser para cada curso
+            wishlist_count = WishListUser.objects.filter(type_wish__name='Course', id=course.id).count()
+            
+            # Obtener las reseñas del curso
+            reviews = course.reviews.all()
+            if reviews.exists():
+                # Calcular el promedio de las reseñas
+                average_recommended = reviews.aggregate(Avg('rating'))['rating__avg']
+            else:
+                # Si no hay reseñas, establecer el promedio como 0
+                average_recommended = 0
+
+            # Obtener el número de usuarios que han completado el curso
+            completed_count = CourseUser.objects.filter(status__name='completed', course=course).count()
+
+            course_reviews_count = course.reviews.count()
+
+            # Agregar los resultados al diccionario recomendado_context
+            recommended_context.append({
+                'recommended_course': course,
+                'wishlist_count': wishlist_count,
+                'completed_count': completed_count,
+                'average_recommended': average_recommended,
+                'course_reviews_count': course_reviews_count,
+            })
+
+        # Pasar los datos al contexto para renderizarlos en el template
+        return render(request, 'courses_list.html', {
+            'page_obj': page_obj,
+            'total_courses': courses.count(),
+            'recommended_context': recommended_context,
+            'query': query,
+        })
 
 def course_detail_view(request, course_id):
     course = get_object_or_404(
@@ -249,6 +282,8 @@ def course_detail_view(request, course_id):
         # Obtener las recomendaciones para el usuario actual
         recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
 
+        recommended_courses_wishlist_count = WishListUser.objects.filter(type_wish__name = 'Course', id__in=recommended_courses)
+        recommended_context = {}
     context = {
         'course': course,
         'total_lessons': total_lessons,
