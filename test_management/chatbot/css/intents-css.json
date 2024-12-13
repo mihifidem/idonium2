@@ -1,51 +1,111 @@
 {
   "intents": [
-    {
-      "tag": "greeting",
+      {
+      "tag": "greetings",
       "patterns": [
         "Hello",
+        "Hi",
         "Hey",
-        "Is anyone there?",
         "Good morning",
         "Good afternoon",
         "Good evening",
-        "Hi",
-        "Hey there",
-        "How are you?",
-        "What's up?"
-      ],
+        "What's up?",
+        "How are you?"
+        ],
       "responses": [
-        "Hello!",
-        "Hey! How are you?",
-        "Hi, how can I help you?",
-        "Hello! How are you?",
-        "Hi! How can I assist you today?",
-        "Hey! How can I help you?"
-      ]
-    },
-    {
-      "tag": "farewell",
+        "Hello! How can I assist you today?",
+        "Hi there! How can I help you?",
+        "Hey! What's up?",
+        "Good day! How can I help?",
+        "Hello! How's it going?"
+        ]
+      },
+      {
+      "tag": "goodbye",
       "patterns": [
         "Goodbye",
-        "See you later",
-        "I have to go",
-        "See you later!",
         "Bye",
+        "See you later",
         "Take care",
-        "Be well",
         "Catch you later",
-        "Goodbye for now"
-      ],
+        "Bye for now"
+        ],
       "responses": [
-        "See you later!",
-        "Have a nice day!",
-        "Bye! Come back soon",
-        "Take care!",
-        "Goodbye! Hope to see you again soon",
-        "See you later! Take care"
-      ]
-    },
-    {
+        "Goodbye! Have a great day!",
+        "See you later! Take care!",
+        "Bye! Hope to chat with you again soon!",
+        "Catch you later! Stay safe!"
+        ]
+      },
+      {
+      "tag": "thanks",
+      "patterns": [
+        "Thank you",
+        "Thanks",
+        "Thanks a lot",
+        "I appreciate it",
+        "Thanks for your help",
+        "Thank you very much"
+        ],
+      "responses": [
+        "You're welcome!",
+        "Glad to help!",
+        "You're very welcome!",
+        "No problem at all!",
+        "Happy to help!"
+        ]
+      },
+      {
+      "tag": "sorry",
+      "patterns": [
+        "Sorry",
+        "I'm sorry",
+        "Apologies",
+        "My apologies",
+        "I apologize"
+        ],
+      "responses": [
+        "No worries! It's all good.",
+        "It's okay! Don't worry about it.",
+        "No problem, all forgiven.",
+        "It's all right, don't worry."
+        ]
+      },
+      {
+      "tag": "affirmative",
+      "patterns": [
+        "Yes",
+        "Yeah",
+        "Of course",
+        "Sure",
+        "Definitely",
+        "Absolutely"
+        ],
+      "responses": [
+        "Great! How can I assist you further?",
+        "Awesome! What else can I help you with?",
+        "Thanks for confirming! What's next?",
+        "Wonderful! What's on your mind?"
+        ]
+      },
+      {
+      "tag": "negative",
+      "patterns": [
+        "No",
+        "Nope",
+        "Not really",
+        "I don't think so",
+        "Definitely not",
+        "Not at all"
+        ],
+      "responses": [
+        "Okay, let me know if you change your mind.",
+        "Alright, feel free to ask me anything else!",
+        "No problem, let me know if you need anything.",
+        "Got it! I'm here if you need anything later."
+        ]
+      },
+      {
       "tag": "css link",
       "patterns": [
         "How do I add a link to CSS in HTML?",
@@ -267,7 +327,7 @@
       "responses": [
         "The correct element is <style>'.",
         "You include CSS inside the <style>' tag.",
-        "Use the <style&gt;' element to add CSS to your HTML.",
+        "Use the <style>' element to add CSS to your HTML.",
         "CSS should go in the <style>' tag."
       ]
     },
