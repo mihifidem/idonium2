@@ -108,7 +108,7 @@
 
                             <!-- Current Education Switch -->
                             <div class="col-12">
-                                <div class="form-check form-switch">
+                                <div class="form-check mb-4">
                                     {{ form.current_education }}
                                     <label class="form-check-label" for="{{ form.current_education.id_for_label }}">
                                         I am currently studying here
@@ -178,35 +178,9 @@
         </div>
     </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const currentEducationCheckbox = document.getElementById('{{ form.current_education.id_for_label }}');
-        const endDateInput = document.getElementById('{{ form.end_date.id_for_label }}');
-        const endDateContainer = endDateInput.closest('.col-md-6');
-
-        function toggleEndDate() {
-            if (currentEducationCheckbox.checked) {
-                endDateContainer.style.opacity = '0.5';
-                endDateInput.disabled = true;
-                endDateInput.value = '';
-            } else {
-                endDateContainer.style.opacity = '1';
-                endDateInput.disabled = false;
-            }
-        }
-
-        currentEducationCheckbox.addEventListener('change', toggleEndDate);
-        toggleEndDate(); // Initial state
-    });
-</script>
-{% endblock %}
-
-{% block extra_css %}
 <style>
-    .form-control:focus {
+    .form-control{
         border-color: #80bdff;
         box-shadow: 0 0 0 0.2rem rgba(0,123,255,.15);
     }
@@ -224,4 +198,30 @@
         border-color: #0d6efd;
     }
 </style>
+
+
+<script>
+    window.onload = function() {
+        var currentEducation = document.querySelector('input[name="current_education"]');
+        var endDate = document.querySelector('input[name="end_date"]');
+        
+        function handleEducationChange() {
+            if (currentEducation && endDate) {
+                if (currentEducation.checked) {
+                    endDate.value = '';
+                    endDate.disabled = true;
+                    endDate.setAttribute('readonly', 'readonly');
+                } else {
+                    endDate.disabled = false;
+                    endDate.removeAttribute('readonly');
+                }
+            }
+        }
+
+        if (currentEducation && endDate) {
+            handleEducationChange();
+            currentEducation.addEventListener('change', handleEducationChange);
+        }
+    };
+</script>
 {% endblock %}
