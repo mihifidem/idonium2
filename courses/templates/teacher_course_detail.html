@@ -170,8 +170,8 @@
                                                 <div class="reviews-author">
                                                     <div class="author-thum">
                                                         <!-- Mostrar la imagen del usuario -->
-                                                        {% if review.user_image %}
-                                                            <img src="{{ review.user_image.url }}" alt="Reviews">
+                                                        {% if review.user.image %}
+                                                            <img src="{{ review.user.image.url }}" alt="Reviews">
                                                         {% else %}
                                                             <!-- Imagen por defecto si no tiene imagen el usuario -->
                                                             <img src="media\default.jpg" alt="Default Reviews">

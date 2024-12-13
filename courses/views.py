@@ -443,7 +443,7 @@ def teacher_profile_create_or_update_view(request):
     profile_teacher = getattr(user, 'profile_teacher', None)
 
     if request.method == "POST":
-        form = ProfileTeacherForm(request.POST, instance=profile_teacher)
+        form = ProfileTeacherForm(request.POST, request.FILES, instance=profile_teacher)
         if form.is_valid():
             profile_teacher = form.save(commit=False)
             if not profile_teacher.id:  
