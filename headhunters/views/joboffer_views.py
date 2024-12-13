@@ -101,7 +101,9 @@ class JobOfferDetailView(DetailView):
 
         # Obtener todos los candidatos relacionados a través de ManagementCandidates
         all_candidates = ManagementCandidates.objects.filter(job_offer=job_offer).select_related('candidate')
-
+        hard_skills = job_offer.required_hard_skills.all()
+        soft_skills = job_offer.required_soft_skills.all()
+        print(soft_skills)
         # Filtrar candidatos por los que están seleccionados por el headhunter
         selected_candidates = all_candidates.filter(is_selected_by_headhunter=True)
         
@@ -109,6 +111,8 @@ class JobOfferDetailView(DetailView):
         direct_application_candidates = all_candidates.filter(applied_directly=True)
 
         # Añadir los candidatos seleccionados y los aplicados directamente al contexto
+        context['required_hard_skills']=hard_skills
+        context['required_soft_skills']=soft_skills
         context['selected_candidates'] = selected_candidates
         context['direct_application_candidates'] = direct_application_candidates
 
@@ -144,6 +148,12 @@ class JobOfferCreateView(CreateView):
     form_class = JobOfferForm
     template_name = 'joboffers/create_offer.html'
     success_url = reverse_lazy('joboffer_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hard_skills'] = HardSkill.objects.all()  
+        context['soft_skills'] = SoftSkill.objects.all()
+        return context
     
     def form_valid(self, form):
         # Aquí puedes agregar cualquier lógica adicional antes de guardar los datos
@@ -370,7 +380,6 @@ class MyOffers(ListView):
     def get_queryset(self):
         super().get_queryset()
         management_candidates = ManagementCandidates.objects.filter(candidate__user=self.request.user)
-        print(JobOffer.objects.filter(id__in=management_candidates.values('job_offer')))
         return JobOffer.objects.filter(id__in=management_candidates.values('job_offer'))
 
 from django.http import JsonResponse

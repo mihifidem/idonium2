@@ -3,7 +3,7 @@ from faker import Faker
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from profile_cv.models import (
-    Profile_CV, User_cv, WorkExperience, AcademicEducation, HardSkillUser, SoftSkillUser, LanguageUser,
+    Profile_CV, User_cv, UserCvRelation, WorkExperience, AcademicEducation, HardSkillUser, SoftSkillUser, LanguageUser,
     CategoryUser, SectorUser, IncorporationUser, Volunteering, Project, Publication, RecognitionAward,
     HardSkill, SoftSkill, Language, Category, Sector, Incorporation, Level
 )
@@ -29,6 +29,7 @@ class Command(BaseCommand):
         self.create_projects()
         self.create_publications()
         self.create_recognitions_awards()
+        self.create_cv_relations()
 
     def create_users(self):
         for _ in range(10):  # Cambia este número según cuántos usuarios quieras crear
@@ -233,4 +234,52 @@ class Command(BaseCommand):
                 name=faker.word(),
                 entity=faker.company(),
                 description=faker.text()
+            )
+    def create_cv_relations(self):
+
+        # Obtener IDs de los modelos relacionados existentes
+        user_cv_ids = list(User_cv.objects.values_list('id', flat=True))
+        work_experience_ids = list(WorkExperience.objects.values_list('id', flat=True))
+        academic_education_ids = list(AcademicEducation.objects.values_list('id', flat=True))
+        hard_skill_ids = list(HardSkillUser.objects.values_list('id', flat=True))
+        soft_skill_ids = list(SoftSkillUser.objects.values_list('id', flat=True))
+        language_ids = list(LanguageUser.objects.values_list('id', flat=True))
+        category_ids = list(CategoryUser.objects.values_list('id', flat=True))
+        sector_ids = list(SectorUser.objects.values_list('id', flat=True))
+        incorporation_ids = list(IncorporationUser.objects.values_list('id', flat=True))
+        volunteering_ids = list(Volunteering.objects.values_list('id', flat=True))
+        project_ids = list(Project.objects.values_list('id', flat=True))
+        publication_ids = list(Publication.objects.values_list('id', flat=True))
+        recognition_award_ids = list(RecognitionAward.objects.values_list('id', flat=True))
+
+        # Crear instancias de UserCvRelation con datos falsos
+        for _ in range(100):  # Cambia el rango para generar más o menos datos
+            user_cv = random.choice(user_cv_ids) if user_cv_ids else None
+            work_experience = random.choice(work_experience_ids) if work_experience_ids else None
+            academic_education = random.choice(academic_education_ids) if academic_education_ids else None
+            hard_skill = random.choice(hard_skill_ids) if hard_skill_ids else None
+            soft_skill = random.choice(soft_skill_ids) if soft_skill_ids else None
+            language = random.choice(language_ids) if language_ids else None
+            category = random.choice(category_ids) if category_ids else None
+            sector = random.choice(sector_ids) if sector_ids else None
+            incorporation = random.choice(incorporation_ids) if incorporation_ids else None
+            volunteering = random.choice(volunteering_ids) if volunteering_ids else None
+            project = random.choice(project_ids) if project_ids else None
+            publication = random.choice(publication_ids) if publication_ids else None
+            recognition_award = random.choice(recognition_award_ids) if recognition_award_ids else None
+
+            UserCvRelation.objects.create(
+                user_cv_id=user_cv,
+                work_experience_id=work_experience,
+                academic_education_id=academic_education,
+                hard_skill_id=hard_skill,
+                soft_skill_id=soft_skill,
+                language_id=language,
+                category_id=category,
+                sector_id=sector,
+                incorporation_id=incorporation,
+                volunteering_id=volunteering,
+                project_id=project,
+                publication_id=publication,
+                recognition_award_id=recognition_award
             )

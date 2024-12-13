@@ -1,6 +1,6 @@
 from django import forms
 from test_management.models import Test
-from profile_cv.models import Profile_CV, Sector, Category
+from profile_cv.models import HardSkill, Profile_CV, Sector, Category, SoftSkill
 from .models import HeadHunterUser, JobOffer, ManagementCandidates, Schedule, JobOfferNotification
 class HeadHunterForm(forms.ModelForm):
     class Meta:
@@ -64,10 +64,22 @@ class JobOfferForm(forms.ModelForm):
         )
 
         JobOfferTests = forms.ModelMultipleChoiceField(
-        queryset=Test.objects.all(),  # Obtener todos los tests disponibles
-        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),  # Añadir clase CSS para estilo
-        required=False,  # Este campo no es obligatorio
-    )
+            queryset=Test.objects.all(),  # Obtener todos los tests disponibles
+            widget=forms.SelectMultiple(attrs={'class': 'form-control'}),  # Añadir clase CSS para estilo
+            required=False,  # Este campo no es obligatorio
+        )
+
+        required_hard_skills = forms.ModelMultipleChoiceField(
+            queryset=HardSkill.objects.all(),  # Obtiene las opciones de la base de datos
+            widget=forms.CheckboxSelectMultiple,  # Renderiza las opciones como checkboxes
+            required=False  # Cambia a True si deseas que sea obligatorio
+        )
+
+        required_soft_skills = forms.ModelMultipleChoiceField(
+            queryset=SoftSkill.objects.all(),  # Trae todas las categorías de la base de datos
+            widget=forms.CheckboxSelectMultiple,  # Muestra las opciones como checkboxes
+            required=False  # Puede ser opcional o requerido dependiendo de tus necesidades
+        )
     
     
     widgets = {
