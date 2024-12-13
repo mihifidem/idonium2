@@ -103,7 +103,7 @@ def chatbot_view(request):
         data = json.loads(request.body)  # Get the message from the request
         user_message = data.get('message', '')  # Extract the message
         response = chatbot_response(user_message)  # Get chatbot's response
-        return JsonResponse({'bot_message': response})  # Return the response as JSON
+        return JsonResponse({'bot_message': response}, json_dumps_params={'ensure_ascii': False})  # Return the response as JSON
     return JsonResponse({'error': 'Invalid request'}, status=400)  # Handle invalid requests
 
 # Render the chatbot page for GET requests
