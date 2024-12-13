@@ -100,6 +100,14 @@
     <!--FIN FILTROS-->
     <div class="row">
         {% if job_offers %}
+          <!-- Mostrar la cantidad de ofertas -->
+          <div class="col-12 mb-3">
+            <div class="alert alert-info d-flex align-items-center">
+                <i class="bi bi-briefcase me-2"></i>
+                <span>Cantidad de Ofertas: <strong>{{ job_offers|length }}</strong></span>
+            </div>
+        </div>
+        
             <table class="table table-striped table-hover shadow-sm">
                 <thead class="bg-primary text-white">
                     <tr>
