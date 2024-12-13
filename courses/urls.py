@@ -55,4 +55,7 @@ urlpatterns = [
     path('resources/', resources_list_view, name = 'resources-list'),  # List resources
 
     # ----------- Review URL patterns --------------
+
+    #------------ Wishlist URL patterns --------------
+    path('courses/<int:course_id>/add_wish/', add_userwish_view, name = 'add-userwish'), # Add
 ]
