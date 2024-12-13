@@ -54,7 +54,12 @@ urlpatterns = [
     # ----------- Resources URL patterns --------------
     path('resources/', resources_list_view, name = 'resources-list'),  # List resources
 
-    # ----------- Review URL patterns --------------
+    # ----------- Review URL patterns ---------------
+
+    path('courses/<int:course_id>/review/', create_or_update_course_review_view, name = 'review-course-create'),
+    path('courses/<int:course_id>/review/<int:review_id>/', create_or_update_course_review_view, name ='review-course-update'),
+    # path('resources/<int:course_id>/review/', create_or_update_resource_review_view, name = 'review-resource-create'),
+    # path('resources/<int:course_id>/review/<int:review_id>', create_or_update_resource_review_view, name ='review-resource-update'),
 
     #------------ Wishlist URL patterns --------------
     path('courses/<int:course_id>/add_wish/', add_userwish_view, name = 'add-userwish'), # Add

@@ -82,12 +82,58 @@ def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
 
 @login_required
 def add_userwish_view(request, course_id):
-        # Obtener el ID del curso seleccionado
         type_wish = WishListType.objects.get(name='Course')
-        WishListUser.objects.create(id_wish=course_id, type_wish=type_wish, user = request.user)
-        return redirect('courses:courses-list')
+        
+        from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from .models import WishListUser, WishListType
+
+@login_required
+def add_userwish_view(request, course_id):
+    # Obtener el tipo de lista de deseos "Course"
+    type_wish = WishListType.objects.get(name='Course')
+    
+    # Obtener o crear el objeto de la lista de deseos
+    user_wish, created = WishListUser.objects.get_or_create(user=request.user, type_wish=type_wish, id_wish=course_id)
+
+    if not created:  # Si el objeto no fue creado, significa que ya existía en la lista de deseos
+        user_wish.delete()  # Eliminar el curso de la lista de deseos
+
+    # Después de añadir o eliminar, redirigir a la lista de cursos
+    return redirect('courses:courses-list')
 
 
+def create_or_update_course_review_view(request, course_id, review_id=None):
+
+    # Si existe un course_id, intenta obtener el curso; de lo contrario, crea uno nuevo
+    review = None
+
+    if review_id:
+        review = get_object_or_404(Review, id=course_id)
+    
+    # Usa el formulario de modelo (creación o actualización)
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)  # Si `course` es None, creará uno nuevo
+        if form.is_valid():
+            review = form.save(commit=False)
+            # Asociar el curso con el perfil del maestro si es creación
+            if not review.id:  
+                review.user = request.user
+            review.save()
+            messages.success(request, "La review se ha guardado correctamente.")
+            return redirect("courses:course-detail", id=course_id)  # Redirige a una página de detalles del curso
+        else:
+            messages.error(request, "Corrige los errores en el formulario.")
+    else:
+        form = ReviewForm(instance=review)  # Pasa el curso al formulario
+
+    return render(request, "review_create_update.html", {"form": form, "review": review})
+
+            
+
+
+
+    
 
 
 # * |--------------------------------------------------------------------------
@@ -205,6 +251,8 @@ def course_detail_view(request, course_id):
 
         else:
             average_rating = 0  # Si no hay calificaciones, el promedio es 0
+        
+        
 
     context = {
         'course': course,
