@@ -144,6 +144,20 @@ class CandidateSearchView(View):
             filter_conditions |= Q(
                 softskilluser__soft_skill__name_soft_skill__icontains=keyword
             )
+            # Filtrar por dirección
+            filter_conditions |= Q(address__icontains=keyword)
+            # Filtrar por biografía
+            filter_conditions |= Q(biography__icontains=keyword)
+            # Filtrar por open_to_work (si se busca "open", "work", etc.)
+            if keyword in ['open', 'work', 'available']:
+                filter_conditions |= Q(open_to_work=True)
+            # Filtrar por vehículo
+            if keyword in ['vehicle', 'car', 'transport']:
+                filter_conditions |= Q(vehicle=True)
+            # Filtrar por discapacidad
+            if keyword in ['disability', 'disabled', 'accessible']:
+                filter_conditions |= Q(disability=True)
+
 
         # Aplicar el filtro compuesto al queryset
         candidates = candidates.filter(filter_conditions)
@@ -158,6 +172,12 @@ class CandidateSearchView(View):
                 "username": candidate.user.username,
                 "email": candidate.email_1,
                 "phone": candidate.phone_1,
+                "address": candidate.address,
+                "biography": candidate.biography,
+                "open_to_work": candidate.open_to_work,
+                "vehicle": candidate.vehicle,
+                "disability": candidate.disability,
+                "disability_percentage": candidate.disability_percentage,
             }
             for candidate in candidates
         ]

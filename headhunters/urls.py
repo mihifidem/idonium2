@@ -11,7 +11,7 @@ from .views import (
     DeleteCandidateView,WishListView,AddToWishListView,RemoveFromWishListView,
     
 )
-
+from .views.chatbot_views import *
 
 urlpatterns = [
     path('joboffers/', JobOfferListView.as_view(), name='joboffer_list'),
@@ -49,7 +49,10 @@ urlpatterns = [
       path('wishlist/remove/<int:pk>/', RemoveFromWishListView.as_view(), name='remove_from_wishlist'),     
       path('apply_direct/',ApplyDirectToOffer.as_view(), name='apply_direct'),
       path('search-candidates/', CandidateSearchView.as_view(), name='search_candidates'),
-      path('my_offers/',MyOffers.as_view(), name="my_offers")
+      path('my_offers/',MyOffers.as_view(), name="my_offers"),
+
+      path('chatbot/', chatbot_page, name='chatbot_page'),
+      path('chatbot/view/', chatbot_view, name='chatbot_view'),
 ]
 
 
