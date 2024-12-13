@@ -82,14 +82,6 @@ def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
 
 @login_required
 def add_userwish_view(request, course_id):
-        type_wish = WishListType.objects.get(name='Course')
-        
-        from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
-from .models import WishListUser, WishListType
-
-@login_required
-def add_userwish_view(request, course_id):
     # Obtener el tipo de lista de deseos "Course"
     type_wish = WishListType.objects.get(name='Course')
     
@@ -138,7 +130,14 @@ def create_or_update_course_review_view(request, course_id, review_id=None):
 
 def courses_list_view(request):
     # Obtener todos los cursos activos
+    query = request.GET.get('query','')
     courses = Course.objects.filter(is_active=True)
+
+    courses = courses.filter(
+    Q(title__icontains=query) | 
+    Q(description__icontains=query) | 
+    Q(hardskills__name_hard_skill__icontains=query)
+    )
 
     completed_courses = []
     for course in courses:
@@ -159,8 +158,6 @@ def courses_list_view(request):
 
         else:
             average_rating = 0  # Si no hay calificaciones, el promedio es 0
-
-        
 
         # Agregar el curso y los resultados de los contadores a la lista
         completed_courses.append({
@@ -189,6 +186,7 @@ def courses_list_view(request):
     'page_obj': page_obj, 
     'total_courses': courses.count(),
     'recommended_courses': recommended_courses,
+    'query': query,  
     
 })
 
@@ -606,6 +604,10 @@ def lesson_delete_view(request, course_id, module_id, lesson_id):
 def resources_list_view(request):
     resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
     resource_type = WishListType.objects.get(name="Resource")
+    query = request.GET.get('query', '')
+
+    if query:
+        resources = resources.filter(Q(name__icontains=query) | Q(hardskill_icontains=query))
 
     resources_list = []
     for resource in resources:
@@ -622,7 +624,8 @@ def resources_list_view(request):
             "resource": resource,
             "resource_wishlist_count": resource_wishlist_count,
             "resource_reviews_count": resource_reviews_count,
-            "average_rating": round(average_rating, 1)
+            "average_rating": round(average_rating, 1),
+            "query": query,
         })
 
     return render(request, 'resources_list.html', {'resources_list': resources_list})

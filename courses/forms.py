@@ -44,4 +44,11 @@ class ReviewForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={'placeholder': 'Leave your comment here...'}),
         }
 
+class CourseSearchForm(forms.Form):
+    query = forms.CharField(label='Search', max_length=100, required=False)
+
+class ResourceSearchForm(forms.Form):
+    query = forms.CharField(label='Search', max_length=100, required=False)
+
+
 
