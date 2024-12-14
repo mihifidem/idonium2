@@ -51,16 +51,17 @@ class JobOfferForm(forms.ModelForm):
             'required_hard_skills', 'required_soft_skills', 
             'required_experience', 'JobOfferTests'
         ]
+
         sector = forms.ModelChoiceField(
-        queryset=Sector.objects.all(),  # Obtiene todos los sectores
-        widget=forms.Select(attrs={'class': 'form-control'}),  # Estilo de Bootstrap para el <select>
-        required=True  # Asegúrate de que este campo sea obligatorio
-    )
+            queryset=Sector.objects.all(),  # Obtiene todos los sectores
+            widget=forms.Select(attrs={'class': 'form-control'}),  # Estilo de Bootstrap para el <select>
+            required=True  # Asegúrate de que este campo sea obligatorio
+        )
 
         category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),  # Obtiene todas las categorías
-        widget=forms.Select(attrs={'class': 'form-control'}),  # Estilo de Bootstrap para el <select>
-        required=True  # Asegúrate de que este campo sea obligatorio
+            queryset=Category.objects.all(),  # Obtiene todas las categorías
+            widget=forms.Select(attrs={'class': 'form-control'}),  # Estilo de Bootstrap para el <select>
+            required=True  # Asegúrate de que este campo sea obligatorio
         )
 
         JobOfferTests = forms.ModelMultipleChoiceField(
