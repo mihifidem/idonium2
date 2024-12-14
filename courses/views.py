@@ -174,7 +174,7 @@ def courses_list_view(request):
     page_number = request.GET.get('page')  # Obtén el número de página actual
     page_obj = paginator.get_page(page_number)
 
-    recommended_courses = None
+    recommended_context = None
     if request.user.is_authenticated:
         # Crear la matriz de interacción
         interaction_matrix = create_interaction_matrix()
@@ -736,3 +736,73 @@ def certificate_delete_view(request, course_id, certificate_id):
 # Review: ---- Create/Update Views ----
 def review_create_or_update(request, pk=None):
     pass
+
+# * |--------------------------------------------------------------------------
+# * | Chatbot Views
+# * |--------------------------------------------------------------------------
+
+# ------------- Imports Chatbot ---------------
+
+import os
+import json
+import numpy as np
+import pickle
+from django.shortcuts import render
+from keras.models import load_model
+from keras.preprocessing.sequence import pad_sequences
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from django.http import JsonResponse
+
+# ------------- Funciones Chatbot ---------------
+
+def load_chatbot_resourses():
+    lemmatizer = WordNetLemmatizer()
+    model = load_model('courses/chatbot/chatbot_model.keras')
+    with open('courses/chatbot/tokenizer.pickle', 'rb') as handle:
+        tokenizer = pickle.load(handle)
+    with open('courses/chatbot/label_encoder.pickle', 'rb') as handle:
+        label_encoder = pickle.load(handle)
+    with open('courses/chatbot/intents.json') as file:
+        intents = json.load(file)
+    return lemmatizer, model, tokenizer, intents, label_encoder
+
+def preprocess_message(message, lemmatizer):
+    # Tokenizar el mensaje en palabras
+    tokens = word_tokenize(message.lower())
+
+    # Lematizar cada token
+    lemmatized_tokens = [lemmatizer.lemmatize(token) for token in tokens]
+
+    # Reconstruir el texto después de la lematización
+    return ' '.join(lemmatized_tokens)
+
+def get_chatbot_response(message):
+    lemmatizer, model, tokenizer, intents, label_encoder = load_chatbot_resourses()
+    
+    processed_message = preprocess_message(message, lemmatizer)
+    input_sequence = tokenizer.texts_to_sequences([processed_message])
+    input_padded = pad_sequences(input_sequence, maxlen=model.input_shape[1])  # Normalizar longitud
+    predictions = model.predict(input_padded)
+
+    predicted_label = label_encoder.inverse_transform([np.argmax(predictions)])
+
+    for intent in intents['intents']:
+        if intent['tag'] == predicted_label[0]:
+            return np.random.choice(intent.get('responses', ["Pedro","No entiendo"]))
+
+    return "Lo siento, no entiendo tu mensaje."
+
+# ------------- Chatbot Views ---------------
+
+def chat_view(request):
+    if request.method == 'POST':
+        user_message = request.POST.get('message', '').strip()
+        if not user_message:
+            response = "Por favor, escribe un mensaje válido."
+        else:
+            response = get_chatbot_response(user_message)
+        return JsonResponse({'response': response})
+    return render(request, 'chatbot.html')
+
+

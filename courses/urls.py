@@ -61,6 +61,9 @@ urlpatterns = [
     # path('resources/<int:course_id>/review/', create_or_update_resource_review_view, name = 'review-resource-create'),
     # path('resources/<int:course_id>/review/<int:review_id>', create_or_update_resource_review_view, name ='review-resource-update'),
 
-    #------------ Wishlist URL patterns --------------
+    # ------------ Wishlist URL patterns -------------
     path('courses/<int:course_id>/add_wish/', add_userwish_view, name = 'add-userwish'), # Add
+
+    # ----------- Chatbot URL patterns --------------
+    path('courses/chatbot/', chat_view, name='chatbot'),
 ]
