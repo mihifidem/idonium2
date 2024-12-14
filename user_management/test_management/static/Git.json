@@ -1,0 +1,295 @@
+[
+  {
+    "category": "Git",
+    "question": "1. What is Git?",
+    "answers": [
+      "1. A remote repository platform",
+      "2. A nickname for GitHub",
+      "3. A programming language",
+      "4. A version control system"
+    ],
+    "correct_answer": "4. A version control system",
+    "improvement": "Understanding Git as a version control system will help you manage and track changes in projects more effectively."
+  },
+  {
+    "category": "Git",
+    "question": "2. Git is the same as GitHub.",
+    "answers": [
+      "1. True",
+      "2. False"
+    ],
+    "correct_answer": "2. False",
+    "improvement": "It's important to distinguish Git from GitHub; Git is the tool for version control, while GitHub is a hosting service for Git repositories."
+  },
+  {
+    "category": "Git",
+    "question": "3. What is the command to get the installed version of Git?",
+    "answers": [
+      "1. git help version",
+      "2. git --version",
+      "3. getGitVersion",
+      "4. gitVersion"
+    ],
+    "correct_answer": "2. git --version",
+    "improvement": "Knowing the version command ensures you can verify your Git installation and troubleshoot compatibility issues."
+  },
+  {
+    "category": "Git",
+    "question": "4. Which option should you use to set the default user name for every repository on your computer?",
+    "answers": [
+      "1. --A",
+      "2. No need to specify, that is the default.",
+      "3. --all",
+      "4. --global"
+    ],
+    "correct_answer": "4. --global",
+    "improvement": "Using the '--global' option ensures your settings apply universally, saving time when working on multiple repositories."
+  },
+  {
+    "category": "Git",
+    "question": "5. What is the command to set the user email for the current repository?",
+    "answers": [
+      "1. git config user.email",
+      "2. git config email",
+      "3. git email.user"
+    ],
+    "correct_answer": "1. git config user.email",
+    "improvement": "Setting your user email correctly helps associate commits with your identity, which is crucial for collaboration."
+  },
+  {
+    "category": "Git",
+    "question": "6. What is the command to add all files and changes of the current folder to the staging environment of the Git repository?",
+    "answers": [
+      "1. git add --files",
+      "2. git add --all",
+      "3. git add"
+    ],
+    "correct_answer": "2. git add --all",
+    "improvement": "Using 'git add --all' ensures all changes, including deletions, are staged for commit."
+  },
+  {
+    "category": "Git",
+    "question": "7. What is the command to get the current status of the Git repository?",
+    "answers": [
+      "1. --status",
+      "2. git status",
+      "3. git getStatus",
+      "4. git config --status"
+    ],
+    "correct_answer": "2. git status",
+    "improvement": "'git status' provides an overview of your working directory, helping you keep track of changes and potential issues."
+  },
+  {
+    "category": "Git",
+    "question": "8. What is the command to initialize Git on the current repository?",
+    "answers": [
+      "1. git init",
+      "2. start git",
+      "3. initialize git",
+      "4. git start"
+    ],
+    "correct_answer": "1. git init",
+    "improvement": "Initializing a repository with 'git init' is the first step in tracking your project with Git."
+  },
+  {
+    "category": "Git",
+    "question": "9. Git automatically adds new files to the repository and starts tracking them.",
+    "answers": [
+      "1. False",
+      "2. True"
+    ],
+    "correct_answer": "1. False",
+    "improvement": "To start tracking files, you must explicitly add them using 'git add', reinforcing deliberate version control."
+  },
+  {
+    "category": "Git",
+    "question": "10. Git commit history is automatically deleted:",
+    "answers": [
+      "1. Every month.",
+      "2. Every 2 weeks.",
+      "3. Every year.",
+      "4. Commit history is never automatically deleted."
+    ],
+    "correct_answer": "4. Commit history is never automatically deleted.",
+    "improvement": "Understanding that Git preserves commit history unless deleted helps maintain long-term project accountability."
+  },
+  {
+    "category": "Git",
+    "question": "11. What is the command to commit the staged changes for the Git repository?",
+    "answers": [
+      "1. git com",
+      "2. git save",
+      "3. git snapshot",
+      "4. git commit"
+    ],
+    "correct_answer": "4. git commit",
+    "improvement": "'git commit' creates a snapshot of changes, essential for documenting progress and restoring earlier states."
+  },
+  {
+    "category": "Git",
+    "question": "12. What is the command to commit with the message 'New email':",
+    "answers": [
+      "1. git commit -m 'New email'",
+      "2. git commit -mess 'New email'",
+      "3. git commit message 'New email'",
+      "4. git commit -log 'New email'"
+    ],
+    "correct_answer": "1. git commit -m 'New email'",
+    "improvement": "Including messages with commits using '-m' provides context for changes, simplifying collaboration and troubleshooting."
+  },
+  {
+    "category": "Git",
+    "question": "13. What is the command to view the history of commits for the repository?",
+    "answers": [
+      "1. git history",
+      "2. git commits",
+      "3. git --full-log",
+      "4. git log"
+    ],
+    "correct_answer": "4. git log",
+    "improvement": "Using 'git log' lets you view the history of changes, aiding in understanding past decisions and identifying issues."
+  },
+  {
+    "category": "Git",
+    "question": "14. What is the command to see the available options for the commit command?",
+    "answers": [
+      "1. git commit -help",
+      "2. gitHelp commit",
+      "3. git commitHelp",
+      "4. git commit readme"
+    ],
+    "correct_answer": "1. git commit -help",
+    "improvement": "Consulting the help options like '-help' ensures you are familiar with all command features and their uses."
+  },
+  {
+    "category": "Git",
+    "question": "15. In Git, a branch is:",
+    "answers": [
+      "1. A secret part of Git config.",
+      "2. A small wooden stick you can use to type commands.",
+      "3. A separate version of the main repository.",
+      "4. Nothing, it is a nonsense word."
+    ],
+    "correct_answer": "3. A separate version of the main repository.",
+    "improvement": "Understanding branches enables you to experiment or develop features without affecting the main codebase."
+  },
+  {
+    "category": "Git",
+    "question": "16. What is the command to create a new branch named 'new-email'?",
+    "answers": [
+      "1. git branch new-email",
+      "2. git add branch 'new-email'",
+      "3. git newBranch 'new-email'",
+      "4. git branch new 'new-email'"
+    ],
+    "correct_answer": "1. git branch new-email",
+    "improvement": "Creating branches with 'git branch' helps organize work and manage tasks independently."
+  },
+  {
+    "category": "Git",
+    "question": "17. What is the command to move to the branch named 'new-email'?",
+    "answers": [
+      "1. git checkout new-email",
+      "2. git branch new-email",
+      "3. git branch -move new-email",
+      "4. git checkout branch new-email"
+    ],
+    "correct_answer": "1. git checkout new-email",
+    "improvement": "Switching branches lets you work on different features or fixes without altering other branches."
+  },
+  {
+    "category": "Git",
+    "question": "18. What is the option, when moving to a branch, to create the branch if it does not exist?",
+    "answers": [
+      "1. -all",
+      "2. -b",
+      "3. -new",
+      "4. -newbranch"
+    ],
+    "correct_answer": "2. -b",
+    "improvement": "The '-b' option in 'git checkout' ensures you can create and switch to a branch in one step."
+  },
+  {
+    "category": "Git",
+    "question": "19. What is the command to merge the current branch with the branch 'new-email'?",
+    "answers": [
+      "1. git add new-email",
+      "2. git commit -merge new-email",
+      "3. git merge new-email"
+    ],
+    "correct_answer": "3. git merge new-email",
+    "improvement": "Merging branches consolidates changes, ensuring updates are incorporated into the main codebase."
+  },
+  {
+    "category": "Git",
+    "question": "20. What is the command to delete the branch 'new-email'?",
+    "answers": [
+      "1. git gone new-email",
+      "2. git delete new-email",
+      "3. git branch -d new-email",
+      "4. git delete branch new-email"
+    ],
+    "correct_answer": "3. git branch -d new-email",
+    "improvement": "Deleting branches you no longer need keeps the repository organized and free of unnecessary clutter."
+  },
+  {
+    "category": "Git",
+    "question": "21. What is the command to add the remote repository 'https://abc.xyz/d/e.git' as 'origin'?",
+    "answers": [
+      "1. git remote https://abc.xyz/d/e.git",
+      "2. git remote add origin https://abc.xyz/d/e.git",
+      "3. git add origin https://abc.xyz/d/e.git",
+      "4. git origin=https://abc.xyz/d/e.git"
+    ],
+    "correct_answer": "2. git remote add origin https://abc.xyz/d/e.git",
+    "improvement": "Adding a remote ensures you can sync your local repository with others for collaboration."
+  },
+  {
+    "category": "Git",
+    "question": "22. What is the command to push the current repository to the remote origin?",
+    "answers": [
+      "1. git merge remote",
+      "2. git remote push",
+      "3. git push origin",
+      "4. git remote commit"
+    ],
+    "correct_answer": "3. git push origin",
+    "improvement": "Using 'git push' uploads your local changes to the remote repository, ensuring the team has access to your updates."
+  },
+  {
+    "category": "Git",
+    "question": "23. What is the command to pull the latest changes from the remote repository?",
+    "answers": [
+      "1. git pull origin",
+      "2. git remote pull",
+      "3. git push origin",
+      "4. git fetch latest"
+    ],
+    "correct_answer": "1. git pull origin",
+    "improvement": "'git pull' retrieves the latest changes from the remote repository, keeping your local codebase up to date."
+  },
+  {
+    "category": "Git",
+    "question": "24. What is the command to clone a remote repository to your local machine?",
+    "answers": [
+      "1. git fetch clone",
+      "2. git clone",
+      "3. git copy remote",
+      "4. git get clone"
+    ],
+    "correct_answer": "2. git clone",
+    "improvement": "Cloning repositories allows you to create a local copy of a remote project, enabling you to work offline."
+  },
+  {
+    "category": "Git",
+    "question": "25. What is the command to view the list of remote repositories?",
+    "answers": [
+      "1. git show remotes",
+      "2. git remote list",
+      "3. git remote -v",
+      "4. git show remote"
+    ],
+    "correct_answer": "3. git remote -v",
+    "improvement": "Viewing remotes with 'git remote -v' helps you track and manage your connections to other repositories."
+  }
+]

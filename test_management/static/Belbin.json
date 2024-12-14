@@ -203,66 +203,8 @@
         ]
     },
     {
-        "category": "The Plant",
-        "question": "8. When leading a team, you focus on...",
-        "answers": [
-            "1. Delegating tasks effectively and ensuring everyone knows their role.",
-            "2. Encouraging collaboration and generating creative solutions.",
-            "3. Maintaining high morale and ensuring that everyone feels included.",
-            "4. Focusing on strategic direction and ensuring the team stays on track."
-        ],
-        "correct_answer": "4. Focusing on strategic direction and ensuring the team stays on track.",
-        "answer_weights": [
-            {
-                "answer": "1. Delegating tasks effectively and ensuring everyone knows their role.",
-                "weight": 1
-            },
-            {
-                "answer": "2. Encouraging collaboration and generating creative solutions.",
-                "weight": 3
-            },
-            {
-                "answer": "3. Maintaining high morale and ensuring that everyone feels included.",
-                "weight": 2
-            },
-            {
-                "answer": "4. Focusing on strategic direction and ensuring the team stays on track.",
-                "weight": 1
-            }
-        ]
-    },
-    {
-        "category": "The Plant",
-        "question": "9. How do you ensure your ideas are implemented in a team?",
-        "answers": [
-            "1. I present logical and well-supported arguments to convince others.",
-            "2. I encourage the team to brainstorm new solutions and build on each other's ideas.",
-            "3. I motivate others to embrace change and make sure the team is on board.",
-            "4. I make sure tasks are clearly defined and that everyone is aligned with the plan."
-        ],
-        "correct_answer": "1. I present logical and well-supported arguments to convince others.",
-        "answer_weights": [
-            {
-                "answer": "1. I present logical and well-supported arguments to convince others.",
-                "weight": 1
-            },
-            {
-                "answer": "2. I encourage the team to brainstorm new solutions and build on each other's ideas.",
-                "weight": 3
-            },
-            {
-                "answer": "3. I motivate others to embrace change and make sure the team is on board.",
-                "weight": 2
-            },
-            {
-                "answer": "4. I make sure tasks are clearly defined and that everyone is aligned with the plan.",
-                "weight": 1
-            }
-        ]
-    },
-    {
         "category": "Monitor-Evaluator",
-        "question": "10. How do you react when the team faces a challenge?",
+        "question": "8. How do you react when the team faces a challenge?",
         "answers": [
             "1. I analyze the facts and propose a practical, data-driven solution.",
             "2. I prefer to gather opinions and develop multiple strategies.",
@@ -291,7 +233,7 @@
     },
     {
         "category": "Monitor-Evaluator",
-        "question": "11. When discussing ideas, you tend to...",
+        "question": "9. When discussing ideas, you tend to...",
         "answers": [
             "1. Focus on the big picture and overall strategy.",
             "2. Question the feasibility and analyze risks.",
@@ -320,7 +262,7 @@
     },
     {
         "category": "Monitor-Evaluator",
-        "question": "12. How do you approach evaluating a team's performance?",
+        "question": "10. How do you approach evaluating a team's performance?",
         "answers": [
             "1. I focus on facts and data to assess performance objectively.",
             "2. I ask for feedback from the team and identify areas for improvement.",
@@ -349,7 +291,7 @@
     },
     {
         "category": "Monitor-Evaluator",
-        "question": "13. How do you contribute when decisions need to be made?",
+        "question": "11. How do you contribute when decisions need to be made?",
         "answers": [
             "1. I analyze the pros and cons and provide a detailed evaluation.",
             "2. I give my opinion based on my expertise in the subject.",
@@ -378,7 +320,7 @@
     },
     {
         "category": "Monitor-Evaluator",
-        "question": "14. When problems arise in a project, you prefer to...",
+        "question": "12. When problems arise in a project, you prefer to...",
         "answers": [
             "1. Look for objective data and identify a logical solution.",
             "2. Discuss the issue with the team to find a collective approach.",
@@ -407,7 +349,7 @@
     },
     {
         "category": "Monitor-Evaluator",
-        "question": "15. How do you handle conflicting opinions in a team?",
+        "question": "13. How do you handle conflicting opinions in a team?",
         "answers": [
             "1. I focus on analyzing the facts and helping the team reach a logical conclusion.",
             "2. I encourage everyone to share their views and look for common ground.",
@@ -436,7 +378,7 @@
     },
     {
         "category": "Monitor-Evaluator",
-        "question": "16. How do you prioritize tasks within a team project?",
+        "question": "14. How do you prioritize tasks within a team project?",
         "answers": [
             "1. I evaluate the tasks based on urgency and importance.",
             "2. I prefer to break down tasks and delegate them based on expertise.",
@@ -465,7 +407,7 @@
     },
     {
         "category": "Specialist",
-        "question": "17. How do you prefer to approach tasks that require in-depth knowledge?",
+        "question": "15. How do you prefer to approach tasks that require in-depth knowledge?",
         "answers": [
             "1. I focus on applying my expertise to ensure high-quality results.",
             "2. I rely on my broad understanding to offer solutions across various domains.",
@@ -494,7 +436,7 @@
     },
     {
         "category": "Specialist",
-        "question": "18. How do you deal with unfamiliar topics or tasks?",
+        "question": "16. How do you deal with unfamiliar topics or tasks?",
         "answers": [
             "1. I research and learn everything I can before contributing.",
             "2. I rely on others to fill in gaps where I don\u2019t have expertise.",
@@ -523,7 +465,7 @@
     },
     {
         "category": "Specialist",
-        "question": "19. How do you contribute during a team project that requires technical expertise?",
+        "question": "17. How do you contribute during a team project that requires technical expertise?",
         "answers": [
             "1. I provide specialized knowledge and share insights that others might not have.",
             "2. I contribute my broad perspective to help guide the direction of the project.",
@@ -552,7 +494,7 @@
     },
     {
         "category": "Specialist",
-        "question": "20. When solving a problem, you tend to...",
+        "question": "18. When solving a problem, you tend to...",
         "answers": [
             "1. Dig deep into the details to understand all technical aspects.",
             "2. Look at the issue from multiple perspectives to find the most balanced solution.",
@@ -581,7 +523,7 @@
     },
     {
         "category": "Specialist",
-        "question": "21. When a new issue arises, how do you react?",
+        "question": "19. When a new issue arises, how do you react?",
         "answers": [
             "1. I delve into the details to find a specialized solution.",
             "2. I quickly assess whether I have the expertise or if I need help from others.",
@@ -610,7 +552,7 @@
     },
     {
         "category": "Specialist",
-        "question": "22. How do you keep yourself updated with developments in your field?",
+        "question": "20. How do you keep yourself updated with developments in your field?",
         "answers": [
             "1. I regularly attend conferences and read up on the latest research.",
             "2. I follow key figures in my field and engage in continuous learning.",
@@ -639,7 +581,7 @@
     },
     {
         "category": "Specialist",
-        "question": "23. How do you communicate complex ideas to the team?",
+        "question": "21. How do you communicate complex ideas to the team?",
         "answers": [
             "1. I break down complex concepts into simpler, understandable pieces.",
             "2. I focus on key takeaways and ensure clarity in the explanation.",
@@ -668,7 +610,7 @@
     },
     {
         "category": "Resource Investigator",
-        "question": "24. How do you approach gathering information for a project?",
+        "question": "22. How do you approach gathering information for a project?",
         "answers": [
             "1. I actively reach out to others and explore multiple sources.",
             "2. I prefer to rely on existing data and conduct my own analysis.",
@@ -697,7 +639,7 @@
     },
     {
         "category": "Resource Investigator",
-        "question": "25. How do you contribute to a team when it comes to new opportunities?",
+        "question": "23. How do you contribute to a team when it comes to new opportunities?",
         "answers": [
             "1. I bring in fresh ideas from outside sources and inspire the team with new possibilities.",
             "2. I focus on practical solutions based on current resources and capabilities.",
@@ -726,7 +668,7 @@
     },
     {
         "category": "Resource Investigator",
-        "question": "26. When faced with a challenge, you tend to...",
+        "question": "24. When faced with a challenge, you tend to...",
         "answers": [
             "1. Look for external connections or resources that can help solve the problem.",
             "2. Analyze the problem deeply and look for logical solutions.",
@@ -755,7 +697,7 @@
     },
     {
         "category": "Resource Investigator",
-        "question": "27. How do you maintain relationships in a team?",
+        "question": "25. How do you maintain relationships in a team?",
         "answers": [
             "1. I stay connected and ensure communication is open and positive.",
             "2. I focus on the big picture and ensure the team stays aligned with the goals.",
@@ -784,7 +726,7 @@
     },
     {
         "category": "Resource Investigator",
-        "question": "28. How do you deal with new people or clients?",
+        "question": "26. How do you deal with new people or clients?",
         "answers": [
             "1. I establish rapport quickly and build trust with them.",
             "2. I focus on presenting relevant facts and ensuring clarity.",
@@ -813,7 +755,7 @@
     },
     {
         "category": "Resource Investigator",
-        "question": "29. How do you approach change or new directions in a project?",
+        "question": "27. How do you approach change or new directions in a project?",
         "answers": [
             "1. I embrace change and look for new opportunities that it brings.",
             "2. I ensure the team is well-prepared and adaptable to change.",
@@ -842,7 +784,7 @@
     },
     {
         "category": "Resource Investigator",
-        "question": "30. How do you handle setbacks in a team project?",
+        "question": "28. How do you handle setbacks in a team project?",
         "answers": [
             "1. I maintain a positive attitude and motivate others to keep going.",
             "2. I find alternative resources or connections that can help the team.",
@@ -871,7 +813,7 @@
     },
     {
         "category": "Team Worker",
-        "question": "31. How do you contribute to maintaining harmony within the team?",
+        "question": "29. How do you contribute to maintaining harmony within the team?",
         "answers": [
             "1. I ensure everyone feels heard and valued, supporting team cohesion.",
             "2. I motivate the team to keep moving forward and stay focused on the goal.",
@@ -900,7 +842,7 @@
     },
     {
         "category": "Team Worker",
-        "question": "32. How do you approach team conflicts?",
+        "question": "30. How do you approach team conflicts?",
         "answers": [
             "1. I listen to both sides and help mediate the situation.",
             "2. I focus on maintaining a positive attitude and help others see the bigger picture.",
@@ -929,7 +871,7 @@
     },
     {
         "category": "Team Worker",
-        "question": "33. How do you ensure everyone on the team feels involved?",
+        "question": "31. How do you ensure everyone on the team feels involved?",
         "answers": [
             "1. I encourage quiet team members to share their thoughts and ideas.",
             "2. I focus on the task and ensure it\u2019s completed efficiently.",
@@ -958,7 +900,7 @@
     },
     {
         "category": "Team Worker",
-        "question": "34. How do you deal with stress in the team?",
+        "question": "32. How do you deal with stress in the team?",
         "answers": [
             "1. I help everyone stay calm by maintaining a supportive atmosphere.",
             "2. I address the source of stress directly and work on solutions.",
@@ -987,7 +929,7 @@
     },
     {
         "category": "Team Worker",
-        "question": "35. When others are struggling, you tend to...",
+        "question": "33. When others are struggling, you tend to...",
         "answers": [
             "1. Offer encouragement and help them stay focused on the task.",
             "2. Provide advice on how to improve performance.",
@@ -1016,7 +958,7 @@
     },
     {
         "category": "Team Worker",
-        "question": "36. How do you ensure communication is smooth within a team?",
+        "question": "34. How do you ensure communication is smooth within a team?",
         "answers": [
             "1. I make sure that everyone is on the same page and encourage open communication.",
             "2. I focus on keeping the conversation focused and productive.",
@@ -1045,7 +987,7 @@
     },
     {
         "category": "Team Worker",
-        "question": "37. How do you support team members during high-pressure situations?",
+        "question": "35. How do you support team members during high-pressure situations?",
         "answers": [
             "1. I provide reassurance and help the team stay positive and focused.",
             "2. I take control of the situation and guide the team through it.",
@@ -1074,7 +1016,7 @@
     },
     {
         "category": "Co-ordinator",
-        "question": "38. How do you approach delegating tasks in a team?",
+        "question": "36. How do you approach delegating tasks in a team?",
         "answers": [
             "1. I ensure everyone is given tasks based on their strengths and abilities.",
             "2. I give clear instructions and ensure that everyone understands their role.",
@@ -1103,7 +1045,7 @@
     },
     {
         "category": "Co-ordinator",
-        "question": "39. When the team is unclear about direction, you tend to...",
+        "question": "37. When the team is unclear about direction, you tend to...",
         "answers": [
             "1. Provide a clear vision and make sure everyone understands the goals.",
             "2. Help the team find common ground and prioritize tasks.",
@@ -1132,7 +1074,7 @@
     },
     {
         "category": "Co-ordinator",
-        "question": "40. How do you ensure the team stays aligned with its objectives?",
+        "question": "38. How do you ensure the team stays aligned with its objectives?",
         "answers": [
             "1. I constantly check in with team members to ensure they understand their roles.",
             "2. I provide regular updates and check for alignment during meetings.",
@@ -1161,7 +1103,7 @@
     },
     {
         "category": "Co-ordinator",
-        "question": "41. How do you handle competing priorities within the team?",
+        "question": "39. How do you handle competing priorities within the team?",
         "answers": [
             "1. I work with the team to determine what\u2019s most important and prioritize accordingly.",
             "2. I delegate tasks and manage the team\u2019s workflow to avoid overlap.",
@@ -1190,7 +1132,7 @@
     },
     {
         "category": "Co-ordinator",
-        "question": "42. When there is a lack of clarity, you tend to...",
+        "question": "40. When there is a lack of clarity, you tend to...",
         "answers": [
             "1. Take the lead and provide structure and clarity for the team.",
             "2. Encourage team discussions to align on common objectives.",
@@ -1219,7 +1161,7 @@
     },
     {
         "category": "Co-ordinator",
-        "question": "43. How do you ensure everyone is accountable for their tasks?",
+        "question": "41. How do you ensure everyone is accountable for their tasks?",
         "answers": [
             "1. I set clear expectations and follow up regularly.",
             "2. I encourage the team to take ownership and ensure they feel responsible.",
@@ -1248,7 +1190,7 @@
     },
     {
         "category": "Co-ordinator",
-        "question": "44. How do you handle the responsibility of leading a team?",
+        "question": "42. How do you handle the responsibility of leading a team?",
         "answers": [
             "1. I focus on creating a balanced and harmonious team environment.",
             "2. I prioritize team success by ensuring clear communication and delegation.",
@@ -1277,7 +1219,7 @@
     },
     {
         "category": "Shaper",
-        "question": "45. How do you approach challenging tasks?",
+        "question": "43. How do you approach challenging tasks?",
         "answers": [
             "1. I embrace challenges and find ways to push the team forward.",
             "2. I break tasks into manageable parts and tackle them step by step.",
@@ -1306,7 +1248,7 @@
     },
     {
         "category": "Shaper",
-        "question": "46. How do you react when faced with resistance in a team?",
+        "question": "44. How do you react when faced with resistance in a team?",
         "answers": [
             "1. I push through and encourage the team to take action.",
             "2. I try to understand the concerns and address them rationally.",
@@ -1335,7 +1277,7 @@
     },
     {
         "category": "Shaper",
-        "question": "47. When a team project starts losing momentum, you tend to...",
+        "question": "45. When a team project starts losing momentum, you tend to...",
         "answers": [
             "1. Take charge and inject energy into the team.",
             "2. Refocus the team\u2019s efforts and encourage collaboration.",
@@ -1364,7 +1306,7 @@
     },
     {
         "category": "Shaper",
-        "question": "48. How do you deal with team members who are hesitant to take risks?",
+        "question": "46. How do you deal with team members who are hesitant to take risks?",
         "answers": [
             "1. I push them to step outside their comfort zone and try new approaches.",
             "2. I help them understand the benefits of taking risks for growth.",
@@ -1393,7 +1335,7 @@
     },
     {
         "category": "Shaper",
-        "question": "49. How do you react to criticism?",
+        "question": "47. How do you react to criticism?",
         "answers": [
             "1. I use it as motivation to improve and push forward.",
             "2. I consider it carefully and look for ways to adjust my approach.",
@@ -1422,7 +1364,7 @@
     },
     {
         "category": "Shaper",
-        "question": "50. When the team is stuck, you tend to...",
+        "question": "48. When the team is stuck, you tend to...",
         "answers": [
             "1. Push for action and suggest bold new strategies.",
             "2. Seek consensus on the best course of action.",
@@ -1451,7 +1393,7 @@
     },
     {
         "category": "Shaper",
-        "question": "51. How do you approach high-pressure situations?",
+        "question": "49. How do you approach high-pressure situations?",
         "answers": [
             "1. I thrive under pressure and encourage the team to keep pushing forward.",
             "2. I stay calm and ensure the team stays focused on the task at hand.",
@@ -1480,7 +1422,7 @@
     },
     {
         "category": "Implementer",
-        "question": "52. How do you approach the implementation of a plan?",
+        "question": "50. How do you approach the implementation of a plan?",
         "answers": [
             "1. I break down the plan into structured steps and ensure everything is organized.",
             "2. I make sure the plan is followed meticulously and monitor progress regularly.",
@@ -1509,7 +1451,7 @@
     },
     {
         "category": "Implementer",
-        "question": "53. When given a task, you tend to...",
+        "question": "51. When given a task, you tend to...",
         "answers": [
             "1. Organize the work and set clear timelines for everyone involved.",
             "2. Focus on ensuring that all resources are available and that the task is done efficiently.",
@@ -1538,7 +1480,7 @@
     },
     {
         "category": "Implementer",
-        "question": "54. How do you handle tasks that require a high degree of precision?",
+        "question": "52. How do you handle tasks that require a high degree of precision?",
         "answers": [
             "1. I focus on the details and ensure everything is done according to the plan.",
             "2. I keep track of every aspect to make sure the task is done with accuracy.",
@@ -1567,7 +1509,7 @@
     },
     {
         "category": "Implementer",
-        "question": "55. How do you react when tasks change during the course of a project?",
+        "question": "53. How do you react when tasks change during the course of a project?",
         "answers": [
             "1. I make sure the changes are integrated smoothly into the current plan.",
             "2. I focus on managing the adjustments and ensuring the team adapts quickly.",
@@ -1596,7 +1538,7 @@
     },
     {
         "category": "Implementer",
-        "question": "56. How do you keep track of progress during a project?",
+        "question": "54. How do you keep track of progress during a project?",
         "answers": [
             "1. I use detailed checklists and schedules to monitor progress.",
             "2. I maintain regular communication with the team to ensure tasks are on track.",
@@ -1625,7 +1567,7 @@
     },
     {
         "category": "Implementer",
-        "question": "57. How do you ensure tasks are completed on time?",
+        "question": "55. How do you ensure tasks are completed on time?",
         "answers": [
             "1. I create a structured plan and stick to it to ensure deadlines are met.",
             "2. I keep the team on track and ensure they are working efficiently.",
@@ -1654,7 +1596,7 @@
     },
     {
         "category": "Implementer",
-        "question": "58. How do you ensure quality when implementing a task?",
+        "question": "56. How do you ensure quality when implementing a task?",
         "answers": [
             "1. I follow established procedures and focus on doing things right the first time.",
             "2. I double-check work to ensure everything meets high standards.",
@@ -1683,7 +1625,7 @@
     },
     {
         "category": "Completer/Finisher",
-        "question": "59. How do you ensure tasks are completed to the highest standard?",
+        "question": "57. How do you ensure tasks are completed to the highest standard?",
         "answers": [
             "1. I pay close attention to details and ensure no steps are overlooked.",
             "2. I focus on making sure all aspects of the task are finished before moving forward.",
@@ -1712,7 +1654,7 @@
     },
     {
         "category": "Completer/Finisher",
-        "question": "60. When you encounter a problem, you tend to...",
+        "question": "58. When you encounter a problem, you tend to...",
         "answers": [
             "1. Identify any issues and make sure they are addressed thoroughly.",
             "2. Find ways to improve efficiency and ensure the task is finished without delays.",
@@ -1741,7 +1683,7 @@
     },
     {
         "category": "Completer/Finisher",
-        "question": "61. How do you handle tasks that are near completion?",
+        "question": "59. How do you handle tasks that are near completion?",
         "answers": [
             "1. I review the work carefully to ensure it\u2019s completed to the best of my ability.",
             "2. I double-check for any overlooked details and ensure everything is finalized.",
@@ -1770,7 +1712,7 @@
     },
     {
         "category": "Completer/Finisher",
-        "question": "62. When a deadline is approaching, you tend to...",
+        "question": "60. When a deadline is approaching, you tend to...",
         "answers": [
             "1. Ensure everything is completed with a high level of attention to detail.",
             "2. Focus on the final stages to ensure the task is finished without errors.",
@@ -1799,7 +1741,7 @@
     },
     {
         "category": "Completer/Finisher",
-        "question": "63. How do you manage the pressure of completing tasks?",
+        "question": "61. How do you manage the pressure of completing tasks?",
         "answers": [
             "1. I stay focused and methodical to ensure high-quality results, even under pressure.",
             "2. I prioritize tasks and make sure the most critical ones are done first.",
@@ -1828,7 +1770,7 @@
     },
     {
         "category": "Completer/Finisher",
-        "question": "64. How do you handle a task that requires refinement before completion?",
+        "question": "62. How do you handle a task that requires refinement before completion?",
         "answers": [
             "1. I review it thoroughly and make sure everything is perfect before finishing.",
             "2. I ask for feedback to make sure the work aligns with expectations.",
@@ -1857,7 +1799,7 @@
     },
     {
         "category": "Completer/Finisher",
-        "question": "65. When working under tight deadlines, you tend to...",
+        "question": "63. When working under tight deadlines, you tend to...",
         "answers": [
             "1. Focus on getting the task done with precision and attention to detail.",
             "2. Make sure that the task is completed correctly and within the set timeframe.",

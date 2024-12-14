@@ -1,0 +1,287 @@
+[
+  {
+    "category": "SQL",
+    "question": "1. What does SQL stand for?",
+    "answers": [
+      "1. Structured Query Language",
+      "2. Structured Question Language",
+      "3. Strong Query Language"
+    ],
+    "correct_answer": "1. Structured Query Language",
+    "improvement": "Make sure to understand the purpose of SQL as a language used for managing and querying databases."
+  },
+  {
+    "category": "SQL",
+    "question": "2. Which SQL statement is used to extract data from a database?",
+    "answers": [
+      "1. OPEN",
+      "2. SELECT",
+      "3. GET",
+      "4. EXTRACT"
+    ],
+    "correct_answer": "2. SELECT",
+    "improvement": "The SELECT statement is fundamental to SQL queries. Try practicing simple SELECT queries to retrieve specific data from a table."
+  },
+  {
+    "category": "SQL",
+    "question": "3. Which SQL statement is used to update data in a database?",
+    "answers": [
+      "1. SAVE AS",
+      "2. MODIFY",
+      "3. UPDATE",
+      "4. SAVE"
+    ],
+    "correct_answer": "3. UPDATE",
+    "improvement": "The UPDATE statement is important for modifying existing records. Be cautious when using it, and always include a WHERE clause to avoid unintended changes."
+  },
+  {
+    "category": "SQL",
+    "question": "4. Which SQL statement is used to delete data from a database?",
+    "answers": [
+      "1. DELETE",
+      "2. COLLAPSE",
+      "3. REMOVE"
+    ],
+    "correct_answer": "1. DELETE",
+    "improvement": "DELETE is a powerful command. Always verify your WHERE clause to prevent accidental data loss."
+  },
+  {
+    "category": "SQL",
+    "question": "5. Which SQL statement is used to insert new data in a database?",
+    "answers": [
+      "1. ADD NEW",
+      "2. INSERT NEW",
+      "3. ADD RECORD",
+      "4. INSERT INTO"
+    ],
+    "correct_answer": "4. INSERT INTO",
+    "improvement": "INSERT INTO is used to add new records. Try inserting data into a table to practice this SQL statement."
+  },
+  {
+    "category": "SQL",
+    "question": "6. With SQL, how do you select a column named 'FirstName' from a table named 'Persons'?",
+    "answers": [
+      "1. SELECT Person.FirstName",
+      "2. EXTRACT FirstName FROM Persons",
+      "3. SELECT FirstName FROM Persons"
+    ],
+    "correct_answer": "3. SELECT FirstName FROM Persons",
+    "improvement": "Practice selecting specific columns from different tables to improve your query-building skills."
+  },
+  {
+    "category": "SQL",
+    "question": "7. With SQL, how do you select all the columns from a table named 'Persons'?",
+    "answers": [
+      "1. SELECT *.Persons",
+      "2. SELECT * FROM Persons",
+      "3. SELECT [all] FROM Persons",
+      "4. SELECT Persons"
+    ],
+    "correct_answer": "2. SELECT * FROM Persons",
+    "improvement": "SELECT * is a quick way to fetch all columns. It’s good for debugging, but try specifying only the columns you need for better performance."
+  },
+  {
+    "category": "SQL",
+    "question": "8. With SQL, how do you select all the records from a table named 'Persons' where the value of the column 'FirstName' is 'Peter'?",
+    "answers": [
+      "1. SELECT * FROM Persons WHERE FirstName<>'Peter'",
+      "2. SELECT [all] FROM Persons WHERE FirstName='Peter'",
+      "3. SELECT * FROM Persons WHERE FirstName='Peter'",
+      "4. SELECT [all] FROM Persons WHERE FirstName LIKE 'Peter'"
+    ],
+    "correct_answer": "3. SELECT * FROM Persons WHERE FirstName='Peter'",
+    "improvement": "When querying for specific values, always use WHERE clauses to filter results based on conditions."
+  },
+  {
+    "category": "SQL",
+    "question": "9. With SQL, how do you select all the records from a table named 'Persons' where the value of the column 'FirstName' starts with an 'a'?",
+    "answers": [
+      "1. SELECT * FROM Persons WHERE FirstName LIKE '%a'",
+      "2. SELECT * FROM Persons WHERE FirstName='a'",
+      "3. SELECT * FROM Persons WHERE FirstName='%a%'",
+      "4. SELECT * FROM Persons WHERE FirstName LIKE 'a%'"
+    ],
+    "correct_answer": "4. SELECT * FROM Persons WHERE FirstName LIKE 'a%'",
+    "improvement": "The LIKE operator is useful for pattern matching. Try using wildcards like '%' to find records with specific patterns."
+  },
+  {
+    "category": "SQL",
+    "question": "10. The OR operator displays a record if ANY conditions listed are true. The AND operator displays a record if ALL of the conditions listed are true",
+    "answers": [
+      "1. True",
+      "2. False"
+    ],
+    "correct_answer": "1. True",
+    "improvement": "Understand the difference between AND and OR operators to create complex queries with multiple conditions."
+  },
+  {
+    "category": "SQL",
+    "question": "11. With SQL, how do you select all the records from a table named 'Persons' where the 'FirstName' is 'Peter' and the 'LastName' is 'Jackson'?",
+    "answers": [
+      "1. SELECT FirstName='Peter', LastName='Jackson' FROM Persons",
+      "2. SELECT * FROM Persons WHERE FirstName<>'Peter' AND LastName<>'Jackson'",
+      "3. SELECT * FROM Persons WHERE FirstName='Peter' AND LastName='Jackson'"
+    ],
+    "correct_answer": "3. SELECT * FROM Persons WHERE FirstName='Peter' AND LastName='Jackson'",
+    "improvement": "Learn how to combine multiple conditions using AND to refine your queries."
+  },
+  {
+    "category": "SQL",
+    "question": "12. With SQL, how do you select all the records from a table named 'Person' where the 'LastName' is alphabetically between (and including) 'Hansen' and 'Pettersen'?",
+    "answers": [
+      "1. SELECT * FROM Persons WHERE LastName BETWEEN 'Hansen' AND 'Pettersen'",
+      "2. SELECT LastName>'Hansen' AND 'LastName<'Pettersen' from Persons",
+      "3. SELECT * FROM Persons WHERE LastName>'Hansen' AND LastName<'Pettersen'"
+    ],
+    "correct_answer": "1. SELECT * FROM Persons WHERE LastName BETWEEN 'Hansen' AND 'Pettersen'",
+    "improvement": "The BETWEEN operator is useful for range queries. Experiment with it for numeric and alphabetic data types."
+  },
+  {
+    "category": "SQL",
+    "question": "13. Which SQL statement is used to return only different values?",
+    "answers": [
+      "1. SELECT DIFFERENT",
+      "2. SELECT UNIQUE",
+      "3. SELECT DISTINCT"
+    ],
+    "correct_answer": "3. SELECT DISTINCT",
+    "improvement": "The DISTINCT keyword helps to remove duplicate rows. Try using it with SELECT to explore unique values in your data."
+  },
+  {
+    "category": "SQL",
+    "question": "14. Which SQL keyword is used to sort the result-set?",
+    "answers": [
+      "1. SORT",
+      "2. ORDER",
+      "3. SORT BY",
+      "4. ORDER BY"
+    ],
+    "correct_answer": "4. ORDER BY",
+    "improvement": "Use ORDER BY to sort results. You can specify ascending or descending order with ASC or DESC."
+  },
+  {
+    "category": "SQL",
+    "question": "15. With SQL, how can you return all the records from a table named 'Persons' sorted descending by 'FirstName'?",
+    "answers": [
+      "1. SELECT * FROM Persons SORT BY 'FirstName' DESC",
+      "2. SELECT * FROM Persons ORDER BY FirstName DESC",
+      "3. SELECT * FROM Persons SORT 'FirstName' DESC",
+      "4. SELECT * FROM Persons ORDER FirstName DESC"
+    ],
+    "correct_answer": "2. SELECT * FROM Persons ORDER BY FirstName DESC",
+    "improvement": "Try using ORDER BY with different columns and sort directions to better understand how to control the order of results."
+  },
+  {
+    "category": "SQL",
+    "question": "16. With SQL, how can you insert a new record into the 'Persons' table?",
+    "answers": [
+      "1. INSERT ('Jimmy', 'Jackson') INTO Persons",
+      "2. INSERT INTO Persons VALUES('Jimmy', 'Jackson')",
+      "3. INSERT VALUES ('Jimmy', 'Jackson') INTO Persons"
+    ],
+    "correct_answer": "2. INSERT INTO Persons VALUES('Jimmy', 'Jackson')",
+    "improvement": "Inserting records is essential for database management. Ensure the number of values matches the columns in the table."
+  },
+  {
+    "category": "SQL",
+    "question": "17. With SQL, how can you insert 'Olsen' as the 'LastName' in the 'Persons' table?",
+    "answers": [
+      "1. INSERT INTO Persons ('Olsen') INTO LastName",
+      "2. INSERT ('Olsen') INTO Persons (LastName)",
+      "3. INSERT INTO Persons ('LastName') VALUES ('Olsen')"
+    ],
+    "correct_answer": "3. INSERT INTO Persons ('LastName') VALUES ('Olsen')",
+    "improvement": "Make sure to insert data into the correct column names. Practice inserting into specific columns to avoid errors."
+  },
+  {
+    "category": "SQL",
+    "question": "18. How can you change 'Hansen' into 'Nilsen' in the 'LastName' column in the Persons table?",
+    "answers": [
+      "1. UPDATE Persons SET LastName='Hansen' INTO LastName='Nilsen'",
+      "2. MODIFY Persons SET LastName='Nilsen' WHERE LastName='Hansen'",
+      "3. MODIFY Persons SET LastName='Hansen' INTO LastName='Nilsen'",
+      "4. UPDATE Persons SET LastName='Nilsen' WHERE LastName='Hansen'"
+    ],
+    "correct_answer": "4. UPDATE Persons SET LastName='Nilsen' WHERE LastName='Hansen'",
+    "improvement": "The UPDATE command is crucial for modifying data. Always use WHERE to target specific rows to avoid unintended changes."
+  },
+  {
+    "category": "SQL",
+    "question": "19. With SQL, how can you delete the records where the 'FirstName' is 'Peter' in the Persons Table?",
+    "answers": [
+      "1. DELETE ROW FirstName='Peter' FROM Persons",
+      "2. DELETE FROM Persons WHERE FirstName='Peter'",
+      "3. DELETE FirstName='Peter' FROM Persons"
+    ],
+    "correct_answer": "2. DELETE FROM Persons WHERE FirstName='Peter'",
+    "improvement": "Be careful with DELETE queries as they permanently remove data. Always double-check your WHERE condition."
+  },
+  {
+    "category": "SQL",
+    "question": "20. With SQL, how can you return the number of records in the 'Persons' table?",
+    "answers": [
+      "1. SELECT LEN(*) FROM Persons",
+      "2. SELECT COUNT(*) FROM Persons",
+      "3. SELECT NO(*) FROM Persons",
+      "4. SELECT COLUMNS(*) FROM Persons"
+    ],
+    "correct_answer": "2. SELECT COUNT(*) FROM Persons",
+    "improvement": "COUNT(*) is a simple yet powerful function for aggregating rows. Practice using it with other aggregate functions like SUM or AVG."
+  },
+  {
+    "category": "SQL",
+    "question": "21. What is the most common type of join?",
+    "answers": [
+      "1. INNER JOIN",
+      "2. JOINED TABLE",
+      "3. INSIDE JOIN",
+      "4. JOINED"
+    ],
+    "correct_answer": "1. INNER JOIN",
+    "improvement": "INNER JOIN is essential for combining data from multiple tables. Try practicing it with different tables to see how it works."
+  },
+  {
+    "category": "SQL",
+    "question": "22. Which operator is used to select values within a range?",
+    "answers": [
+      "1. BETWEEN",
+      "2. WITHIN",
+      "3. RANGE"
+    ],
+    "correct_answer": "1. BETWEEN",
+    "improvement": "BETWEEN is useful for selecting values in a specified range. Practice using it with dates or numbers."
+  },
+  {
+    "category": "SQL",
+    "question": "23. The NOT NULL constraint enforces a column to not accept NULL values.",
+    "answers": [
+      "1. True",
+      "2. False"
+    ],
+    "correct_answer": "1. True",
+    "improvement": "Understanding constraints like NOT NULL is essential for data integrity. Ensure your database schema enforces the right constraints."
+  },
+  {
+    "category": "SQL",
+    "question": "24. Which operator is used to search for a specified pattern in a column?",
+    "answers": [
+      "1. GET",
+      "2. LIKE",
+      "3. FROM"
+    ],
+    "correct_answer": "2. LIKE",
+    "improvement": "The LIKE operator helps in pattern matching, especially when working with string data types. Try using it with wildcards for complex queries."
+  },
+  {
+    "category": "SQL",
+    "question": "25. Which SQL statement is used to create a database table called 'Customers'?",
+    "answers": [
+      "1. CREATE DATABASE TAB Customers",
+      "2. CREATE DATABASE TABLE Customers",
+      "3. CREATE TABLE Customers",
+      "4. CREATE DB CUSTOMERS"
+    ],
+    "correct_answer": "3. CREATE TABLE Customers",
+    "improvement": "Creating tables is one of the first steps in database design. Experiment with creating tables and defining columns with different data types."
+  }
+]
