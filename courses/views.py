@@ -192,7 +192,7 @@ def courses_list_view(request):
         # Iterar sobre los cursos recomendados
         for course in recommended_courses:
             # Obtener el recuento de WishListUser para cada curso
-            wishlist_count = WishListUser.objects.filter(type_wish__name='Course', id=course.id).count()
+            wishlist_count = WishListUser.objects.filter(type_wish__name='Course', id_wish=course.id).count()
             
             # Obtener las reseñas del curso
             reviews = course.reviews.all()
@@ -255,7 +255,8 @@ def course_detail_view(request, course_id):
     course_wishlist_count = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.id).count()
     course_reviews_count = course.reviews.count()
 
-    recommended_courses = None
+    recommended_context = None
+
     if request.user.is_authenticated:
         # Crear la matriz de interacción y calcular similitudes
         interaction_matrix = create_interaction_matrix()    
@@ -265,15 +266,45 @@ def course_detail_view(request, course_id):
         # Obtener las recomendaciones para el usuario actual
         recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
 
-        recommended_courses_wishlist_count = WishListUser.objects.filter(type_wish__name = 'Course', id__in=recommended_courses)
-        recommended_context = {}
+        # Inicializar el diccionario para almacenar la información de wishlist, completados y promedio de reseñas
+        recommended_context = []
+
+        # Iterar sobre los cursos recomendados
+        for recommended_course in recommended_courses:
+            # Obtener el recuento de WishListUser para cada curso
+            wishlist_count = WishListUser.objects.filter(type_wish__name='Course', id=recommended_course.id).count()
+            
+            # Obtener las reseñas del curso
+            reviews = recommended_course.reviews.all()
+
+            if reviews.exists():
+                # Calcular el promedio de las reseñas
+                average_recommended = sum([review.rating for review in reviews]) / len(reviews)
+            else:
+                # Si no hay reseñas, establecer el promedio como 0
+                average_recommended = 0
+
+            # Obtener el número de usuarios que han completado el curso
+            completed_count = recommended_course.enrolled_users.filter(status__name='completed').count()
+
+            course_reviews_count = recommended_course.reviews.count()
+
+            # Agregar los resultados al diccionario recomendado_context
+            recommended_context.append({
+                'recommended_course': recommended_course,
+                'wishlist_count': wishlist_count,
+                'completed_count': completed_count,
+                'average_recommended': average_recommended,
+                'course_reviews_count': course_reviews_count,
+            })
+
     context = {
         'course': course,
         'total_lessons': total_lessons,
         'total_resources': total_resources,
         'average_rating': average_rating,
         'formatted_duration': formatted_duration,
-        'recommended_courses': recommended_courses,
+        'recommended_context': recommended_context,
         'course_reviews_count': course_reviews_count,
         'average_rating': average_rating,
         'completed_users_count': completed_users_count,
