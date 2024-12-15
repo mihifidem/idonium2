@@ -1,339 +1,250 @@
 {% block content %}
 {% load static %}
 
-<div class="title">
-  <div>
-    <div id="chatbot" class="main-card collapsed">
-      <button id="chatbot_toggle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M0 0h24v24H0V0z" fill="none" />
-          <path
-            d="M15 4v7H5.17l-.59.59-.58.58V4h11m1-2H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm5 4h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1z" />
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none">
-          <path d="M0 0h24v24H0V0z" fill="none" />
-          <path
-            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
-        </svg>
-      </button>
-      <div class="main-title">
-        <div>
-          <svg viewBox="0 0 640 512" title="robot">
-            <path fill="currentColor"
-              d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z" />
-          </svg>
-        </div>
-        <span>Chatbot</span>
-
-      </div>
-      <div class="chat-area" id="message-box">
-      </div>
-      <div class="line"></div>
-      <div class="input-div">
-        <input class="input-message" name="message" type="text" id="message" placeholder="Type your message ..." />
-        <button class="input-send" onclick="send()">
-          <svg style="width:24px;height:24px">
-            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
-          </svg>
-        </button>
-      </div>
+<div class="robot">
+  <!-- Toggle Button -->
+  <button id="chatbot-toggle" onclick="toggleChatbot()">
+    <img src="/static/images/chatbot.png" alt="Chatbot Toggle" />
+  </button>
+  <!-- Chatbot Popup -->
+  <div id="chatbot-popup" style="display: none;">
+    <!-- Chatbot Header -->
+    <div id="chatbot-header">
+      <h3>Duckbot</h3>
+      <button id="close-chatbot" onclick="toggleChatbot()">&times;</button>
     </div>
-    <style>
-      /* body {
-height: 100vh;
-font-family: Roboto, sans-serif;
-margin: 0px;
-background-color: white;
-overflow: hidden;
-background: gainsboro;
-display:flex
-} */
-      .title {
-        margin: auto;
-        font-size: x-large;
-        font-family: Raleway, sans-serif;
-        color: rebeccapurple;
-      }
 
-      @media (min-width: 450px) {
-        .main-card {
-          width: 96%;
-          max-width: 400px;
-          height: calc(100% - 32px) !important;
-          border-radius: 8px !important;
-          max-height: 600px;
-          margin: 16px !important;
+    <!-- Chat Messages -->
+    <div class="chat-area" id="message-box"></div>
+
+    <!-- Input Area -->
+    <div class="input-div">
+      <form id="chatbot-form" onsubmit="send(event)">
+        <input
+          class="input-message"
+          name="message"
+          type="text"
+          id="message"
+          placeholder="Type your message ..."
+        />
+        <button class="input-send" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Robot container */
+  .robot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  /* Toggle button */
+  #chatbot-toggle {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  #chatbot-toggle img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Chatbot Popup */
+  #chatbot-popup {
+    display: none;
+    width: 300px;
+    position: fixed;
+    bottom: 120px;
+    right: 50px;
+    background-color: #ffeb3b;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+
+  /* Header styles */
+  #chatbot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Comic Sans MS", sans-serif;
+    color: #333;
+  }
+
+  #close-chatbot {
+    border: none;
+    background: #ffd54f;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  #close-chatbot:hover {
+    background-color: #ffcc80;
+    transform: scale(1.1);
+  }
+
+  /* Chat Messages */
+  .chat-area {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  .chat-message-sent {
+    background-color: lavender;
+    margin: 8px 16px 8px auto;
+    padding: 10px;
+    border-radius: 12px 12px 2px 12px;
+    color: black;
+  }
+
+  .chat-message-received {
+    background-color: white;
+    margin: 8px auto 8px 16px;
+    padding: 10px;
+    border-radius: 12px 12px 12px 2px;
+    color: black;
+  }
+
+  /* Input Area */
+  .input-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    padding: 10px 0;
+  }
+
+  .input-message {
+    width: calc(100% - 50px);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-family: "Arial", sans-serif;
+  }
+
+  .input-send {
+    padding: 10px;
+    background-color: #ff9800;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .input-send:hover {
+    background-color: #ffcc80;
+  }
+</style>
+
+<script>
+  // Función para mostrar/ocultar el chatbot
+  function toggleChatbot() {
+    const popup = document.getElementById("chatbot-popup");
+    const toggleButton = document.getElementById("chatbot-toggle");
+
+    if (popup.style.display === "none" || popup.style.display === "") {
+      popup.style.display = "block"; // Mostrar el popup
+      toggleButton.style.display = "none"; // Ocultar el botón
+    } else {
+      popup.style.display = "none"; // Ocultar el popup
+      toggleButton.style.display = "block"; // Mostrar el botón
+    }
+  }
+
+  // Para enviar mensajes (simulado con fetch y CSRF incluido)
+  var running = false;
+  function send(event) {
+    event.preventDefault();
+
+    if (running) return;
+
+    const messageInput = document.getElementById("message");
+    const msg = messageInput.value.trim();
+    if (!msg) return;
+
+    running = true;
+    addMsg(msg);
+    messageInput.value = "";
+
+    fetch("{% url 'chatbot_view' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify({ message: msg }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        addResponseMsg(data.bot_message || "Error: Could not understand.");
+      })
+      .catch((error) => {
+        console.error("Error communicating with chatbot:", error);
+        addResponseMsg("Error occurred. Please try later.");
+      })
+      .finally(() => (running = false));
+  }
+
+  // Agrega el mensaje enviado
+  function addMsg(msg) {
+    const messages = document.getElementById("message-box");
+    const div = document.createElement("div");
+    div.className = "chat-message-sent";
+    div.textContent = msg;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Agrega la respuesta del bot
+  function addResponseMsg(msg) {
+    const messages = document.getElementById("message-box");
+    const div = document.createElement("div");
+    div.className = "chat-message-received";
+    div.textContent = msg;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Obtener CSRF token
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie) {
+      const cookies = document.cookie.split(";");
+      cookies.forEach((cookie) => {
+        const trimmed = cookie.trim();
+        if (trimmed.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(trimmed.substring(name.length + 1));
         }
-      }
-
-      .collapsed {
-        width: 48px !important;
-        height: 48px !important;
-        border-radius: 24px !important;
-        margin: 16px !important;
-      }
-
-      .main-card {
-        background: white;
-        color: white;
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        border-radius: 0px;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        right: 0;
-        bottom: 0;
-        position: absolute;
-        transition: all 0.5s;
-        box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      }
-
-      #chatbot_toggle {
-        position: absolute;
-        right: 0;
-        border: none;
-        height: 48px;
-        width: 48px;
-        background: #c4972a;
-        padding: 14px;
-        color: white;
-      }
-
-      #chatbot_toggle:hover {
-        background: #7d56a5;
-      }
-
-      .line {
-        height: 1px;
-        background-color: #0a142f;
-        width: 100%;
-        opacity: 0.2;
-      }
-
-      .main-title {
-        background-color: #0d1d47;
-        font-size: large;
-        font-weight: bold;
-        display: flex;
-        height: 48px;
-      }
-
-      .main-title>div {
-        height: 48px;
-        width: 48px;
-        display: flex;
-        margin-left: 8px;
-      }
-
-      .main-title svg {
-        height: 24px;
-        margin: auto;
-      }
-
-      .main-title>span {
-        margin: auto auto auto 8px;
-      }
-
-      .chat-area {
-        flex-grow: 1;
-        overflow: auto;
-        border-radius: 8px;
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .input-message {
-        padding: 8px 48px 8px 16px;
-        flex-grow: 1;
-        border: none;
-      }
-
-      .input-message:focus {
-        outline: none;
-      }
-
-      .input-div {
-        height: 48px;
-        display: flex;
-      }
-
-      .input-send {
-        background: transparent;
-        width: 48px;
-        height: 48px;
-        right: 0%;
-        border: none;
-        cursor: pointer;
-      }
-
-      .input-send:hover {
-        background: lavender;
-      }
-
-      .input-send svg {
-        fill: #c4972a;
-        margin: 11px 8px;
-      }
-
-      .chat-message-div {
-        display: flex;
-      }
-
-      .chat-message-sent {
-        background-color: white;
-        margin: 8px 16px 8px 64px;
-        padding: 8px 16px;
-        animation-name: fadeIn;
-        animation-iteration-count: 1;
-        animation-timing-function: ease-in;
-        animation-duration: 100ms;
-        color: black;
-        border-radius: 8px 8px 2px 8px;
-        background-color: lavender;
-      }
-
-      .chat-message-received {
-        background-color: white;
-        margin: 8px 64px 8px 16px;
-        padding: 8px 16px;
-        animation-name: fadeIn;
-        animation-iteration-count: 1;
-        animation-timing-function: ease-in;
-        animation-duration: 100ms;
-        color: black;
-        border-radius: 8px 8px 8px 2px;
-        background-color: lavender;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-
-        to {
-          opacity: 1;
-        }
-      }
-
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: #888;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-      }
-    </style>
-    <script>
-      var running = false;
-      function send() {
-          if (running == true) return;
-          var msg = document.getElementById("message").value;
-          if (msg == "") return;
-          running = true;
-  
-          // Add user message to the chat
-          addMsg(msg);
-  
-          // Send the message to the chatbot API
-          fetch("{% url 'chatbot_view' %}", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json, charset=UTF-8",
-                  "X-CSRFToken": getCookie('csrftoken'), // Include CSRF token for Django
-              },
-              body: JSON.stringify({ message: msg }) // Send the user message as JSON
-          })
-          .then(response => response.json())
-          .then(data => {
-              if (data.bot_message) {
-                  // Add the chatbot's response to the chat
-                  addResponseMsg(data.bot_message);
-              } else {
-                  // Handle case where no response is received
-                  addResponseMsg("I'm having trouble understanding that. Please try again.");
-              }
-          })
-          .catch(error => {
-              console.error("Error communicating with the chatbot API:", error);
-              addResponseMsg("There was an error. Please try again later.");
-          })
-          .finally(() => {
-              running = false;
-          });
-      }
-  
-      function addMsg(msg) {
-          var div = document.createElement("div");
-          div.innerHTML =
-              "<span style='flex-grow:1'></span><div class='chat-message-sent'>" +
-              msg +
-              "</div>";
-          div.className = "chat-message-div";
-          document.getElementById("message-box").appendChild(div);
-          document.getElementById("message").value = "";
-          document.getElementById("message-box").scrollTop = document.getElementById(
-              "message-box"
-          ).scrollHeight;
-      }
-  
-      function addResponseMsg(msg) {
-          var div = document.createElement("div");
-          div.innerHTML = "<div class='chat-message-received'>" + msg + "</div>";
-          div.className = "chat-message-div";
-          document.getElementById("message-box").appendChild(div);
-          document.getElementById("message-box").scrollTop = document.getElementById(
-              "message-box"
-          ).scrollHeight;
-      }
-  
-      // Helper function to get CSRF token
-      function getCookie(name) {
-          let cookieValue = null;
-          if (document.cookie && document.cookie !== '') {
-              const cookies = document.cookie.split(';');
-              for (let i = 0; i < cookies.length; i++) {
-                  const cookie = cookies[i].trim();
-                  // Does this cookie string begin with the name we want?
-                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                      break;
-                  }
-              }
-          }
-          return cookieValue;
-      }
-  
-      document.getElementById("message").addEventListener("keyup", function (event) {
-          if (event.keyCode === 13) {
-              event.preventDefault();
-              send();
-          }
       });
-  
-      document.getElementById("chatbot_toggle").onclick = function () {
-          if (document.getElementById("chatbot").classList.contains("collapsed")) {
-              document.getElementById("chatbot").classList.remove("collapsed")
-              document.getElementById("chatbot_toggle").children[0].style.display = "none"
-              document.getElementById("chatbot_toggle").children[1].style.display = ""
-              setTimeout(addResponseMsg, 1000, "Hello, I am your virtual assistant, I was created to solve your doubts.");
-          }
-          else {
-              document.getElementById("chatbot").classList.add("collapsed")
-              document.getElementById("chatbot_toggle").children[0].style.display = ""
-              document.getElementById("chatbot_toggle").children[1].style.display = "none"
-          }
-      }
-  </script>
-  
-    {% endblock %}
+    }
+    return cookieValue;
+  }
+</script>
+
+
+
+{% endblock %}
