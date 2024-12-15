@@ -84,48 +84,6 @@ def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
     # Devolver los dos mejores cursos recomendados
     return Course.objects.filter(id__in=recommended_courses)
 
-@login_required
-def add_userwish_view(request, course_id):
-    # Obtener el tipo de lista de deseos "Course"
-    type_wish = WishListType.objects.get(name='Course')
-    
-    # Obtener o crear el objeto de la lista de deseos
-    user_wish, created = WishListUser.objects.get_or_create(user=request.user, type_wish=type_wish, id_wish=course_id)
-
-    if not created:  # Si el objeto no fue creado, significa que ya existía en la lista de deseos
-        user_wish.delete()  # Eliminar el curso de la lista de deseos
-
-    # Después de añadir o eliminar, redirigir a la lista de cursos
-    return redirect('courses:courses-list')
-
-@login_required
-def create_or_update_course_review_view(request, course_id, review_id=None):
-    course = get_object_or_404(Course, id=course_id)
-    # Si existe un course_id, intenta obtener el curso; de lo contrario, crea uno nuevo
-    review = None
-
-    if review_id:
-        review = get_object_or_404(Review, user= request.user, course=course)
-    
-    # Usa el formulario de modelo (creación o actualización)
-    if request.method == "POST":
-        form = ReviewForm(request.POST, instance=review)  # Si `course` es None, creará uno nuevo
-        if form.is_valid():
-            review = form.save(commit=False)
-            # Asociar el curso con el perfil del maestro si es creación
-            if not review.id:  
-                review.user = request.user
-                review.course = course
-            review.save()
-            messages.success(request, "La review se ha guardado correctamente.")
-            return redirect("courses:course-detail", course_id=course.id)  # Redirige a una página de detalles del curso
-        else:
-            messages.error(request, "Corrige los errores en el formulario.")
-    else:
-        form = ReviewForm(instance=review)  # Pasa el curso al formulario
-
-    return render(request, "review_create_update.html", {"form": form, "course": course, "review": review})
-
 
 # * |--------------------------------------------------------------------------
 # * | Course Views
@@ -360,12 +318,29 @@ def course_user_detail_view(request, course_id):
 @group_required('teacher')
 def course_teacher_list_view(request):
     profile_teacher = getattr(request.user, 'profile_teacher', None)
+    teacher_courses = profile_teacher.courses.all()
+    
+    # Agregamos los totales
+    teacher_courses_list = []
+    for course in teacher_courses:
+        total_users = course.enrolled_users.count()
+        total_completed = course.enrolled_users.filter(course=course, status__name="completed").count()
+        total_wishlist = WishListUser.objects.filter(type_wish__name="Course", id_wish=course.id).count()
+        
+        teacher_courses_list.append({
+            'course': course,
+            'total_users': total_users,
+            'total_completed': total_completed,
+            'total_wishlist': total_wishlist,
+        })
+    
     context = {
         'user_role': 'teacher',
         'profile_teacher': profile_teacher,
-        'teacher_courses': profile_teacher.courses.all()
+        'teacher_courses': teacher_courses_list,
     }
     return render(request, 'teacher_course_list.html', context)
+
 
 # Course: ---- Enroll User View ----
 @login_required
@@ -761,12 +736,50 @@ def certificate_delete_view(request, course_id, certificate_id):
     return redirect('courses:teacher-course-detail', course_id=course_id)
 
 # * |--------------------------------------------------------------------------
-# * | Review Views
+# * | Review/Wishlist Views
 # * |--------------------------------------------------------------------------
 
-# Review: ---- Create/Update Views ----
-def review_create_or_update(request, pk=None):
-    pass
+@login_required
+def add_userwish_view(request, course_id):
+    # Obtener el tipo de lista de deseos "Course"
+    type_wish = WishListType.objects.get(name='Course')
+    
+    # Obtener o crear el objeto de la lista de deseos
+    user_wish, created = WishListUser.objects.get_or_create(user=request.user, type_wish=type_wish, id_wish=course_id)
+
+    if not created:  # Si el objeto no fue creado, significa que ya existía en la lista de deseos
+        user_wish.delete()  # Eliminar el curso de la lista de deseos
+
+    # Después de añadir o eliminar, redirigir a la lista de cursos
+    return redirect('courses:courses-list')
+
+@login_required
+def create_or_update_course_review_view(request, course_id, review_id=None):
+    course = get_object_or_404(Course, id=course_id)
+    # Si existe un course_id, intenta obtener el curso; de lo contrario, crea uno nuevo
+    review = None
+
+    if review_id:
+        review = get_object_or_404(Review, user= request.user, course=course)
+    
+    # Usa el formulario de modelo (creación o actualización)
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)  # Si `course` es None, creará uno nuevo
+        if form.is_valid():
+            review = form.save(commit=False)
+            # Asociar el curso con el perfil del maestro si es creación
+            if not review.id:  
+                review.user = request.user
+                review.course = course
+            review.save()
+            messages.success(request, "La review se ha guardado correctamente.")
+            return redirect("courses:course-detail", course_id=course.id)  # Redirige a una página de detalles del curso
+        else:
+            messages.error(request, "Corrige los errores en el formulario.")
+    else:
+        form = ReviewForm(instance=review)  # Pasa el curso al formulario
+
+    return render(request, "review_create_update.html", {"form": form, "course": course, "review": review})
 
 # * |--------------------------------------------------------------------------
 # * | Chatbot Views
@@ -779,8 +792,8 @@ import json
 import numpy as np
 import pickle
 from django.shortcuts import render
-from keras.models import load_model
-from keras.preprocessing.sequence import pad_sequences
+from keras.models import load_model # type: ignore
+from keras.preprocessing.sequence import pad_sequences # type: ignore
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from django.http import JsonResponse
