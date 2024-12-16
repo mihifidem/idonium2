@@ -14,6 +14,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from profile_cv.models import Category, HardSkill, Profile_CV, Sector, SoftSkill, User_cv, UserCvRelation
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer, util
 
 
 
@@ -75,19 +80,105 @@ class JobOfferListView(ListView):
             return queryset.filter(headhunter=headhunter)
         else:
             return queryset
+
     
     def get_context_data(self, **kwargs):
+        logged_in_user = self.request.user
         context = super().get_context_data(**kwargs)
-        groups = list(self.request.user.groups.all())
-        # Añadimos los filtros disponibles al contexto
+
+        if logged_in_user.is_authenticated:
+            user_json, job_json = self.generate_json()
+            if user_json and job_json:
+                users_data = json.loads(user_json)
+                jobs_data = json.loads(job_json)
+                users_df = pd.DataFrame(users_data)
+                jobs_df = pd.DataFrame(jobs_data)
+                recommendations = self._generate_recommendation(users_df, jobs_df, logged_in_user.id)
+                context['recommended_offers'] = recommendations
+            else:
+                context['recommended_offers'] = None
+        else:
+            context['recommended_offers'] = None
+
         context['sectors'] = Sector.objects.all()
         context['categories'] = Category.objects.all()
         context['hard_skills'] = HardSkill.objects.all()
         context['soft_skills'] = SoftSkill.objects.all()
-        context['is_headhunter'] = groups[0].name == 'headhunter'
+        context['is_headhunter'] = any(group.name == 'headhunter' for group in self.request.user.groups.all())
         context['active_filter'] = True
         return context
 
+    def generate_json(self):
+        logged_in_user = self.request.user
+
+        if not logged_in_user.is_authenticated:
+            print("no esta logeado")
+            return json.dumps([], indent=4), json.dumps([], indent=4)
+
+        profile = Profile_CV.objects.filter(user=logged_in_user).first()
+        if not profile:
+            print("no tiene perfil")
+            return json.dumps([], indent=4), json.dumps([], indent=4)
+
+        user_cv = User_cv.objects.filter(profile_user=profile).first()
+        user_id = profile.user.id
+
+        cv_text = ""
+        if user_cv:
+            hard_skills = UserCvRelation.objects.filter(user_cv=user_cv)
+            hard_skill_names = [relation.hard_skill.hard_skill.name_hard_skill for relation in hard_skills]
+            cv_text = ', '.join(hard_skill_names)
+
+        user_list = [{
+            'id': user_id,
+            'cv_text': cv_text.strip(", ")
+        }]
+
+        job_offers = JobOffer.objects.prefetch_related('required_hard_skills', 'required_soft_skills')
+        job_list = []
+        for job in job_offers:
+            job_hard_skills = list(job.required_hard_skills.values_list('name_hard_skill', flat=True))
+            job_soft_skills = list(job.required_soft_skills.values_list('name_soft_skill', flat=True))
+            job_requirements = ", ".join(job_hard_skills + job_soft_skills)
+            job_list.append({
+                "id": job.id,
+                "title": job.title,
+                "requirements": job_requirements
+            })
+
+        return json.dumps(user_list, indent=4), json.dumps(job_list, indent=4)
+
+
+    def _calculate_similarity(self, cv_text, job_requirements):
+        """Calcula la similitud entre el CV del usuario y los requisitos del trabajo."""
+        documents = [cv_text, job_requirements]
+        vectorizer = TfidfVectorizer(stop_words='english')
+        tfidf_matrix = vectorizer.fit_transform(documents)
+        similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
+        return similarity[0][0]
+
+
+    def _generate_recommendation(self, users_df, jobs_df, logged_in_user_id):
+        """Generar recomendaciones para el usuario logueado.""" 
+        user_filtered = users_df[users_df['id'] == logged_in_user_id]
+
+        if user_filtered.empty:
+            return []
+
+        user = user_filtered.iloc[0]
+        recommendations = []
+
+        for _, job in jobs_df.iterrows():
+            similarity = self._calculate_similarity(user['cv_text'], job['requirements'])
+            recommendations.append({
+                "job_id": job['id'],
+                "title": job['title'],
+                "similarity": similarity
+            })
+
+        recommendations = sorted(recommendations, key=lambda x: x['similarity'], reverse=True)[:2]
+        print("recom", recommendations)
+        return recommendations
 
 class JobOfferDetailView(DetailView):
     model = JobOffer
@@ -382,89 +473,3 @@ class MyOffers(ListView):
         management_candidates = ManagementCandidates.objects.filter(candidate__user=self.request.user)
         return JobOffer.objects.filter(id__in=management_candidates.values('job_offer'))
 
-from django.http import JsonResponse
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-from sentence_transformers import SentenceTransformer, util
-
-class RecomendationOffers(View):
-    def generate_json(self):
-        # Consultar usuarios desde la base de datos
-        users = User_cv.objects.select_related('profile_user__user').prefetch_related(
-            'relations__hard_skill', 'relations__soft_skill'
-        )
-
-        # Consultar ofertas laborales desde la base de datos
-        job_offers = JobOffer.objects.prefetch_related('required_hard_skills', 'required_soft_skills')
-
-        # Crear lista de usuarios con sus habilidades
-        user_list = []
-        for user in users:
-            # Obtener IDs de habilidades del usuario a través de las relaciones
-            user_hard_skills = list(user.relations.values_list('hard_skill__hard_skill__name_hard_skill', flat=True))
-            print(user_hard_skills)
-            user_soft_skills = list(user.relations.values_list('soft_skill__soft_skill__name_soft_skill', flat=True))
-            user_skills = ", ".join(user_hard_skills + user_soft_skills)
-
-            user_list.append({
-                "id": user.id,
-                "name": user.profile_user.user.username,
-                "cv_text": user_skills  # Combinamos todas las habilidades en un string
-            })
-
-        # Crear lista de ofertas laborales con sus habilidades requeridas
-        job_list = []
-        for job in job_offers:
-            # Obtener habilidades requeridas por la oferta
-            job_hard_skills = list(job.required_hard_skills.values_list('name_hard_skill', flat=True))
-            job_soft_skills = list(job.required_soft_skills.values_list('name_soft_skill', flat=True))
-            job_requirements = ", ".join(job_hard_skills + job_soft_skills)
-
-            job_list.append({
-                "id": job.id,
-                "title": job.title,
-                "requirements": job_requirements  # Combinamos todas las habilidades en un string
-            })
-
-        return json.dumps(user_list, indent=4), json.dumps(job_list, indent=4)
-    
-    def _calculate_similarity(self, cv_text, job_requirements):
-        """Calcula la similitud entre el CV del usuario y los requisitos del trabajo."""
-        documents = [cv_text, job_requirements]
-        vectorizer = TfidfVectorizer(stop_words='english')
-        tfidf_matrix = vectorizer.fit_transform(documents)
-        similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
-        return similarity[0][0]
-    
-    def _generate_recomendation(self, users_df, jobs_df):
-        recommendations = []
-        for _, user in users_df.iterrows():
-            user_recommendations = []
-            for _, job in jobs_df.iterrows():
-                similarity = self.calculate_similarity(user['cv_text'], job['requirements'])
-                user_recommendations.append((job['title'], similarity))
-            # Ordenar recomendaciones por similitud
-            user_recommendations = sorted(user_recommendations, key=lambda x: x[1], reverse=True)
-            recommendations.append({"user": user['name'], "recommendations": user_recommendations})
-
-        # Mostrar recomendaciones
-        for rec in recommendations:
-            print(f"Recomendaciones para {rec['user']}:\n")
-            for job, similarity in rec['recommendations']:
-                print(f"  - {job} (Similitud: {similarity:.2f})")
-            print()
-
-    def get(self, request, *args, **kwargs):
-        # Generar los JSON
-        user_json, job_json = self.generate_json()
-
-        print("User JSON:\n", user_json)
-        print("\nJob JSON:\n", job_json)
-        users_df = pd.DataFrame(user_json)
-        jobs_df = pd.DataFrame(job_json)
-        self._generate_recomendation(users_df,self)
-        return JsonResponse({
-            "users": json.loads(user_json),
-            "job_offers": json.loads(job_json)
-        })
