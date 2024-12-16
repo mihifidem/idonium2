@@ -1,0 +1,488 @@
+{
+  "intents": [
+      {
+      "tag": "greetings",
+      "patterns": [
+        "Hello",
+        "Hi",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "What's up?",
+        "How are you?"
+        ],
+      "responses": [
+        "Hello! How can I assist you today?",
+        "Hi there! How can I help you?",
+        "Hey! What's up?",
+        "Good day! How can I help?",
+        "Hello! How's it going?"
+        ]
+      },
+      {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye",
+        "Bye",
+        "See you later",
+        "Take care",
+        "Catch you later",
+        "Bye for now"
+        ],
+      "responses": [
+        "Goodbye! Have a great day!",
+        "See you later! Take care!",
+        "Bye! Hope to chat with you again soon!",
+        "Catch you later! Stay safe!"
+        ]
+      },
+      {
+      "tag": "thanks",
+      "patterns": [
+        "Thank you",
+        "Thanks",
+        "Thanks a lot",
+        "I appreciate it",
+        "Thanks for your help",
+        "Thank you very much"
+        ],
+      "responses": [
+        "You're welcome!",
+        "Glad to help!",
+        "You're very welcome!",
+        "No problem at all!",
+        "Happy to help!"
+        ]
+      },
+      {
+      "tag": "sorry",
+      "patterns": [
+        "Sorry",
+        "I'm sorry",
+        "Apologies",
+        "My apologies",
+        "I apologize"
+        ],
+      "responses": [
+        "No worries! It's all good.",
+        "It's okay! Don't worry about it.",
+        "No problem, all forgiven.",
+        "It's all right, don't worry."
+        ]
+      },
+      {
+      "tag": "affirmative",
+      "patterns": [
+        "Yes",
+        "Yeah",
+        "Of course",
+        "Sure",
+        "Definitely",
+        "Absolutely"
+        ],
+      "responses": [
+        "Great! How can I assist you further?",
+        "Awesome! What else can I help you with?",
+        "Thanks for confirming! What's next?",
+        "Wonderful! What's on your mind?"
+        ]
+      },
+      {
+      "tag": "negative",
+      "patterns": [
+        "No",
+        "Nope",
+        "Not really",
+        "I don't think so",
+        "Definitely not",
+        "Not at all"
+        ],
+      "responses": [
+        "Okay, let me know if you change your mind.",
+        "Alright, feel free to ask me anything else!",
+        "No problem, let me know if you need anything.",
+        "Got it! I'm here if you need anything later."
+        ]
+      },
+      {
+      "tag": "css link",
+      "patterns": [
+        "How do I add a link to CSS in HTML?",
+        "What is the tag to link CSS in HTML?",
+        "How to use the &lt;link&gt; tag?",
+        "How do I include a CSS file in HTML?",
+        "Steps to link a CSS file to HTML",
+        "What is the syntax for linking CSS in HTML?",
+        "How to connect CSS to an HTML file?",
+        "How do I link external stylesheets in HTML?",
+        "CSS link example",
+        "How to add external styles to HTML?"
+      ],
+      "responses": [
+        "Use the <link> tag in the <head&gt; section of your HTML to link a CSS file.",
+        "To add a link, write <link rel='stylesheet' href='styles.css'>.",
+        "The <link> tag is used to include external CSS files in HTML.",
+        "Use <link rel='stylesheet' href='styles.css> to connect a CSS file.",
+        "To link an external CSS file, include <link rel='stylesheet' href='filename.css'> in the <head> tag.",
+        "The href attribute specifies the path to the CSS file in the <link> tag."
+      ]
+    },
+    {
+      "tag": "css selectors",
+      "patterns": [
+        "How do I use selectors in CSS?",
+        "What are the types of selectors in CSS?",
+        "How to use classes and ids in CSS?",
+        "Steps to apply styles using selectors in CSS",
+        "What is the syntax for CSS selectors?",
+        "How to select elements in CSS?",
+        "CSS selector example",
+        "What attributes are needed for CSS selectors?",
+        "How do I target elements with CSS?",
+        "How to style specific parts of HTML in CSS?"
+      ],
+      "responses": [
+        "Use selectors like element, class (.), or id (#) to target HTML elements in CSS.",
+        "To style elements, write selectors followed by a declaration block with properties and values.",
+        "The .class selector targets elements with a specific class attribute.",
+        "Use #id to target elements with a unique id attribute.",
+        "CSS supports selectors for tags, classes, ids, and advanced combinations.",
+        "To apply styles, write a selector followed by properties and values in curly braces {}."
+      ]
+    },
+    {
+      "tag": "css properties",
+      "patterns": [
+        "How do I change the color of text in CSS?",
+        "What properties can I use in CSS?",
+        "How to set font size with CSS?",
+        "Steps to style elements using CSS properties",
+        "What is the syntax for CSS properties?",
+        "How to format elements in CSS?",
+        "CSS property example",
+        "What attributes can I change with CSS?",
+        "How do I style borders in CSS?",
+        "How to add margins with CSS?"
+      ],
+      "responses": [
+        "Use the color property to change text color: e.g., color: blue;.",
+        "Set font size with font-size: value;, e.g., font-size: 16px;.",
+        "CSS properties control styles like color, size, and layout.",
+        "Write CSS rules with properties and values inside curly braces.",
+        "To format elements, use properties like margin, padding, and border.",
+        "CSS properties are written as property: value; pairs in declaration blocks."
+      ]
+    },
+    {
+      "tag": "css animations",
+      "patterns": [
+        "How do I create animations in CSS?",
+        "What is the syntax for CSS animations?",
+        "How to animate elements using CSS?",
+        "Steps to add animations in CSS",
+        "What are keyframes in CSS?",
+        "How to create smooth transitions in CSS?",
+        "CSS animation example",
+        "What properties control animations in CSS?",
+        "How do I define animation duration in CSS?",
+        "How to use @keyframes in CSS?"
+      ],
+      "responses": [
+        "Use the @keyframes rule to define an animation and the animation property to apply it.",
+        "To animate elements, write @keyframes followed by animation-name and animation properties.",
+        "CSS animations allow you to create smooth transitions between states.",
+        "Set animation duration with animation-duration: time;.",
+        "Define animations with keyframes and apply them using animation-name.",
+        "Combine animation properties like timing-function, delay, and iteration-count for effects."
+      ]
+    },
+    {
+      "tag": "css grid",
+      "patterns": [
+        "How do I create a grid layout in CSS?",
+        "What is the CSS grid property?",
+        "How to use display: grid in CSS?",
+        "Steps to set up a grid in CSS",
+        "What is the syntax for CSS grid?",
+        "How to define rows and columns in CSS grid?",
+        "CSS grid example",
+        "What are grid-template-rows and grid-template-columns?",
+        "How do I align items in CSS grid?",
+        "How to style grids in CSS?"
+      ],
+      "responses": [
+        "Use display: grid to create a grid container in CSS.",
+        "Define rows and columns using grid-template-rows and grid-template-columns.",
+        "The CSS grid layout allows you to create flexible, responsive layouts.",
+        "Set gaps between grid items using the gap property.",
+        "Align grid items using justify-items and align-items properties.",
+        "Combine CSS grid properties for structured, adaptable layouts."
+      ]
+    },
+    {
+      "tag": "css flexbox",
+      "patterns": [
+        "How do I create a flexbox layout in CSS?",
+        "What is the CSS flexbox property?",
+        "How to use display: flex in CSS?",
+        "Steps to set up flexbox in CSS",
+        "What is the syntax for CSS flexbox?",
+        "How to align items in CSS flexbox?",
+        "CSS flexbox example",
+        "What are justify-content and align-items in CSS?",
+        "How do I use flex-wrap in CSS?",
+        "How to style flex containers in CSS?"
+      ],
+      "responses": [
+        "Use display: flex to create a flex container in CSS.",
+        "Align items along the main axis with justify-content.",
+        "The CSS flexbox layout allows you to design flexible, responsive layouts.",
+        "Control item alignment along the cross axis with align-items.",
+        "Set the direction of flex items using flex-direction.",
+        "Combine CSS flexbox properties for dynamic, adaptable layouts."
+      ]
+    },
+    {
+      "tag": "css pseudo-classes",
+      "patterns": [
+        "How do I use pseudo-classes in CSS?",
+        "What are common pseudo-classes in CSS?",
+        "How to style elements with :hover in CSS?",
+        "Steps to apply pseudo-classes in CSS",
+        "What is the syntax for CSS pseudo-classes?",
+        "How to style links with :visited and :active?",
+        "CSS pseudo-class example",
+        "What pseudo-classes are available in CSS?",
+        "How do I use :nth-child in CSS?",
+        "How to style specific states of elements in CSS?"
+      ],
+      "responses": [
+        "Use pseudo-classes like :hover, :focus, or :nth-child to style specific states.",
+        "To style a hovered element, use the :hover pseudo-class.",
+        "CSS pseudo-classes allow you to target elements in specific states.",
+        "Write pseudo-classes after the selector, e.g., a:hover { color: red; }.",
+        "Target visited links with the :visited pseudo-class.",
+        "Combine pseudo-classes for advanced styling options."
+      ]
+    },
+    {
+      "tag": "css variables",
+      "patterns": [
+        "How do I use variables in CSS?",
+        "What is the syntax for CSS variables?",
+        "How to define custom properties in CSS?",
+        "Steps to create and use variables in CSS",
+        "What are CSS custom properties?",
+        "How to access variables in CSS?",
+        "CSS variable example",
+        "What are the benefits of CSS variables?",
+        "How do I declare variables in CSS?",
+        "How to reuse styles with CSS variables?"
+      ],
+      "responses": [
+        "Define variables using --var-name: value; in the :root selector.",
+        "Access variables with var(--var-name) in your CSS properties.",
+        "CSS variables allow for reusable, consistent styling.",
+        "Write variables in the :root selector for global usage.",
+        "Combine variables for dynamic, adaptable styles.",
+        "CSS variables simplify maintaining and reusing styles."
+      ]
+    },
+    {
+      "tag": "css media queries",
+      "patterns": [
+        "How do I use media queries in CSS?",
+        "What is the syntax for CSS media queries?",
+        "How to create responsive designs with media queries?",
+        "Steps to apply media queries in CSS",
+        "What are media queries in CSS?",
+        "How to target screen sizes with CSS?",
+        "CSS media query example",
+        "What properties can be used in media queries?",
+        "How do I make a layout responsive with CSS?",
+        "How to use min-width and max-width in CSS?"
+      ],
+      "responses": [
+        "Use @media followed by a condition to define styles for specific scenarios.",
+        "Write media queries to target screen sizes, e.g., @media (max-width: 600px) {}.",
+        "CSS media queries allow for responsive designs that adapt to devices.",
+        "Combine media queries with CSS properties for flexible layouts.",
+        "Target specific devices or orientations with media queries.",
+        "Write media queries with conditions like min-width and max-width for adaptability."
+      ]
+    },
+    {
+      "tag": "css_element",
+      "patterns": [
+        "Which HTML element for CSS?",
+        "HTML element for CSS?",
+        "CSS element in HTML?",
+        "Where to add CSS in HTML?",
+        "Inside which HTML tag do we add CSS?",
+        "What tag contains CSS?",
+        "Element for including CSS?",
+        "HTML element for adding CSS?"
+      ],
+      "responses": [
+        "The correct element is <style>'.",
+        "You include CSS inside the <style>' tag.",
+        "Use the <style>' element to add CSS to your HTML.",
+        "CSS should go in the <style>' tag."
+      ]
+    },
+    {
+      "tag": "external_css",
+      "patterns": [
+        "How to link an external CSS file?",
+        "Link external CSS file?",
+        "How to add an external CSS file?",
+        "Syntax for linking external CSS?",
+        "How do you include an external CSS file?",
+        "What tag is used for external CSS?",
+        "Can CSS be linked externally?",
+        "Correct syntax for external CSS?"
+      ],
+      "responses": [
+        "Use '<link rel=\"stylesheet\" href=\"filename.css\" />' to link an external file.",
+        "To include an external CSS file, use the '<link>' tag with the 'rel' and 'href' attributes.",
+        "The syntax is: '<link rel=\"stylesheet\" href=\"yourfile.css\" />'.",
+        "You link external CSS files using the '<link>' tag with 'rel' and 'href' attributes."
+      ]
+    },
+    {
+      "tag": "css_class_id",
+      "patterns": [
+        "How to apply a class in CSS?",
+        "CSS class application?",
+        "How to use a CSS class?",
+        "Apply a class in CSS?",
+        "How to style an element with a class in CSS?",
+        "What is the syntax to apply a CSS class?"
+      ],
+      "responses": [
+        "To apply a class in CSS, use the class selector: '.classname { // CSS code }'.",
+        "You can apply a CSS class by using a dot before the class name: '.myclass { // CSS code }'.",
+        "For a class, use a dot ('.') before the name in the selector, like '.myclass { // styles }'.",
+        "The syntax is: '.className { // CSS styles }'."
+      ]
+    },
+    {
+      "tag": "css_id",
+      "patterns": [
+        "How to apply an ID in CSS?",
+        "CSS ID selector?",
+        "How to use an ID in CSS?",
+        "Apply an ID in CSS?",
+        "How to style an element with an ID in CSS?",
+        "What is the syntax for applying an ID?"
+      ],
+      "responses": [
+        "To apply an ID in CSS, use the ID selector: '#idName { // CSS code }'.",
+        "You can apply an ID by using a hash before the ID name: '#myId { // CSS code }'.",
+        "For an ID, use a hash ('#') before the name in the selector, like '#myId { // styles }'.",
+        "The syntax is: '#idName { // CSS styles }'."
+      ]
+    },
+    {
+      "tag": "css_inline",
+      "patterns": [
+        "How to add inline CSS?",
+        "Inline CSS example?",
+        "How do I add CSS directly in HTML?",
+        "Syntax for inline CSS?",
+        "How to apply CSS directly to an element?",
+        "What is the syntax for inline CSS?"
+      ],
+      "responses": [
+        "Use the 'style' attribute directly within an HTML tag, like '<div style=\"color: red;\">'.",
+        "Inline CSS can be added using the 'style' attribute, like '<tag style=\"property: value;\">'.",
+        "To apply inline CSS, use the 'style' attribute inside an HTML element, e.g., '<button style=\"color: blue;\">'.",
+        "You can add inline CSS with the 'style' attribute inside HTML tags, e.g., '<p style=\"font-size: 16px;\">'."
+      ]
+    },
+    {
+      "tag": "css_positioning",
+      "patterns": [
+        "How to position elements in CSS?",
+        "CSS positioning example?",
+        "What are the types of positioning in CSS?",
+        "How does 'absolute' positioning work in CSS?",
+        "What is 'relative' positioning in CSS?",
+        "How to use 'fixed' positioning in CSS?"
+      ],
+      "responses": [
+        "CSS provides several types of positioning: 'static', 'relative', 'absolute', 'fixed', and 'sticky'.",
+        "'absolute' positioning places an element relative to its nearest positioned ancestor.",
+        "'relative' positioning moves an element relative to its normal position.",
+        "'fixed' positioning keeps the element fixed relative to the browser window.",
+        "'sticky' positioning allows an element to behave like 'relative' until it reaches a threshold, after which it becomes 'fixed'."
+      ]
+    },
+    {
+      "tag": "css_background",
+      "patterns": [
+        "How to set a background image in CSS?",
+        "CSS background example?",
+        "How to use a background color in CSS?",
+        "What is the syntax for background in CSS?",
+        "How do I set a background image in CSS?"
+      ],
+      "responses": [
+        "Use 'background-image: url(\"image.jpg\");' to set a background image.",
+        "To set a background color, use 'background-color: #000;'.",
+        "The background shorthand property is: 'background: url(image.jpg) no-repeat center center fixed;'.",
+        "You can also set a background using 'background-color' for a solid color or 'background-image' for an image."
+      ]
+    },
+    {
+      "tag": "css_fonts",
+      "patterns": [
+        "How to change font in CSS?",
+        "CSS font example?",
+        "How to apply fonts in CSS?",
+        "What is the syntax for font in CSS?",
+        "How to set font family in CSS?"
+      ],
+      "responses": [
+        "To change the font, use 'font-family: Arial, sans-serif;'.",
+        "To apply a font size, use 'font-size: 16px;'.",
+        "You can also set font style with 'font-style: italic;' or 'font-weight: bold;'.",
+        "The full syntax for font properties: 'font: italic bold 16px Arial, sans-serif;'."
+      ]
+    },
+    {
+      "tag": "css_margin_padding",
+      "patterns": [
+        "How to set margin in CSS?",
+        "CSS margin example?",
+        "How to apply padding in CSS?",
+        "What is the syntax for margin and padding in CSS?",
+        "How to use padding and margin in CSS?"
+      ],
+      "responses": [
+        "Use 'margin: 10px;' to set the margin around an element.",
+        "For padding, use 'padding: 20px;' to add space inside an element.",
+        "You can specify margin and padding for each side: 'margin-top', 'margin-right', 'margin-bottom', 'margin-left'.",
+        "Shorthand for margin and padding: 'margin: 10px 20px 30px 40px;' and 'padding: 5px 10px 15px 20px;'."
+      ]
+    },
+    {
+      "tag": "css_display",
+      "patterns": [
+        "How to change display property in CSS?",
+        "CSS display example?",
+        "What is 'display' in CSS?",
+        "How to use 'block' display in CSS?",
+        "What does 'inline' display mean in CSS?"
+      ],
+      "responses": [
+        "The 'display' property defines how an element is displayed: 'block', 'inline', 'inline-block', 'flex', 'grid', etc.",
+        "'block' makes an element a block-level element (takes full width).",
+        "'inline' makes an element inline (only takes the width of its content).",
+        "'flex' and 'grid' are used for flexible layouts in modern web design."
+      ]
+    }
+
+  ]
+}

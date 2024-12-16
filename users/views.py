@@ -64,12 +64,36 @@ def custom_404_view(request, exception=None):
     }
     return render(request, 'users/404.html', context, status=404)
 
-def guest_home(request):
+
+
+
+# def guest_home(request):
+#     user_groups = request.user.groups.all()
+#     user_role = user_groups[0].name if user_groups.exists() else None
+#     # menu = MENU_ITEMS.get(user_role, MENU_ITEMS['guest'])
+#     menu = MENU_ITEMS['guest']
+#     print(menu)
+#     latest_post = Post.objects.filter(status=1).order_by('-created_on').first()
+#     posts3MaxLike = Post.objects.filter(status=1).order_by('-likes')[:3]
+#     courses = Course.objects.all()
+
+#     user_duckycoins = getattr(request.user.duckycoins, 'balance', 0) if request.user.is_authenticated else None
+
+#     current_path = request.path  # Captura la URL actual
+#     return render(request, 'users/home.html', {
+#         'latest_post': latest_post,
+#         'posts3MaxLike': posts3MaxLike,
+#         'courses': courses,
+#         'user_duckycoins': user_duckycoins,
+#         'menu_items': menu,
+#         'current_path': current_path,  # Pasa la URL actual al contexto
+#     })
+
+def home(request):
     user_groups = request.user.groups.all()
     user_role = user_groups[0].name if user_groups.exists() else None
-    # menu = MENU_ITEMS.get(user_role, MENU_ITEMS['guest'])
-    menu = MENU_ITEMS['guest']
-    print(menu)
+    menu = MENU_ITEMS.get(user_role, MENU_ITEMS['guest'])
+
     latest_post = Post.objects.filter(status=1).order_by('-created_on').first()
     posts3MaxLike = Post.objects.filter(status=1).order_by('-likes')[:3]
     courses = Course.objects.all()
@@ -77,16 +101,16 @@ def guest_home(request):
     user_duckycoins = getattr(request.user.duckycoins, 'balance', 0) if request.user.is_authenticated else None
 
     current_path = request.path  # Captura la URL actual
-    return render(request, 'users/home.html', {
+    return render(request, 'users/index.html', {
         'latest_post': latest_post,
         'posts3MaxLike': posts3MaxLike,
         'courses': courses,
         'user_duckycoins': user_duckycoins,
-        'menu_items': menu,
+        'menu': menu,
         'current_path': current_path,  # Pasa la URL actual al contexto
     })
 
-def home(request):
+def backToHome(request):
     user_groups = request.user.groups.all()
     user_role = user_groups[0].name if user_groups.exists() else None
     menu = MENU_ITEMS.get(user_role, MENU_ITEMS['guest'])
@@ -106,8 +130,6 @@ def home(request):
         'menu': menu,
         'current_path': current_path,  # Pasa la URL actual al contexto
     })
-
-    
 
 
 class RegisterView(View):

@@ -370,7 +370,6 @@ def work_experience_create(request, user_id):
     else:
         form = WorkExperienceForm()
     return render(request, "work_experience/work_experience_form.html", {"form": form, "user": user})
-    return render(request, "work_experience/work_experience_form.html", {"form": form, "user": user})
 
 # ? Función para listar las experiencias laborales
 @login_required

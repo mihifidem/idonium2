@@ -1,5 +1,12 @@
-{% extends 'base.html' %}
-{% block title %}User Certification List{% endblock %}
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
 {% block content %}
 <h1>Certification</h1>
 <table class="table table-striped">

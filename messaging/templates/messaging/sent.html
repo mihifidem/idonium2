@@ -1,10 +1,14 @@
 {% extends "users/base.html" %}
-{%block navbar%}
-{%include 'users/navbar.html'%}
-{%endblock navbar%}
+{% load static %}
+{% block title %}Sent Messages{% endblock %}
+
 {% block content %}
-<div class="container">
-<h2>Sent Messages</h2>
+<div class="container mt-50 mb-50">
+
+    <h2>Sent Messages 
+        <a href="/messaging/inbox"><i class="bi bi-inboxes-fill text-warning" title="In Box"></i></a> 
+        <a href="/messaging/send"><i class="bi bi-envelope-plus-fill text-warning" title="Send Message"></i></a></i>
+    </h2>
 {% if messages %}
 <table class="table table-striped">
     <thead>
@@ -39,4 +43,4 @@
 <p>No hay mensajes enviados.</p>
 {% endif %}
 </div>
-{%endblock content%}
+{% endblock %}

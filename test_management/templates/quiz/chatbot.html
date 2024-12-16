@@ -1,0 +1,180 @@
+<!-- HTML PART -->
+
+<!-- Chatbot UI -->
+<div class="robot">
+    <div id="chatbot-container" class="main-card collapsed">
+        <!-- Toggle button -->
+        <button id="chatbot-toggle" onclick="toggleChatbot()">
+            <img src="/static/images/chatbot.png" alt="Chatbot Toggle" />
+        </button>
+
+        <!-- Chatbot Popup -->
+        <div id="chatbot-popup" style="display: none;">
+            <div id="chatbot-header">
+                <h3>Duckbot</h3>
+                <!-- Close button inside the popup -->
+                <button id="close-chatbot" onclick="toggleChatbot()">&times;</button>
+            </div>
+            <div id="chatbot-messages"></div>
+            <form id="chatbot-form" onsubmit="sendChatbotMessage(event)">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." required />
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- CSS PART -->
+
+/* Chatbot UI */
+.robot {
+    position: fixed;
+    top: 10%;
+    right: 60px;
+    z-index: 1000;
+}
+
+.main-card.collapsed {
+    display: block;
+}
+
+#chatbot-toggle {
+    background-color: #ffeb3b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#chatbot-popup {
+    display: none;
+    background-color: #ffeb3b;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#chatbot-header {
+    position: relative;
+}
+
+#chatbot-header h3 {
+    margin: 0;
+    font-family: 'Comic Sans MS', sans-serif;
+    color: #333;
+}
+
+#close-chatbot {
+    background-color: #ffd54f;
+    border: 2px solid #ffcc00;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#close-chatbot:hover {
+    background-color: #ffcc80;
+    transform: scale(1.1);
+    color: #000;
+}
+
+#chatbot-input {
+    width: calc(100% - 50px);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+#chatbot-form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff9800;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Chat messages container */
+#chatbot-messages {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+
+<!-- JS PART -->
+
+// Chatbot Script
+function toggleChatbot() {
+    const popup = document.getElementById("chatbot-popup");
+    const toggleButton = document.getElementById("chatbot-toggle");
+
+    if (popup.style.display === "none" || popup.style.display === "") {
+        popup.style.display = "block";
+        toggleButton.style.display = "none";
+    } else {
+        popup.style.display = "none";
+        toggleButton.style.display = "block";
+    }
+}
+
+function sendChatbotMessage(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("chatbot-input");
+    const message = input.value.trim();
+    const messagesDiv = document.getElementById("chatbot-messages");
+    const category = "{{ quiz_file }}"; // Dynamic context for the chatbot
+
+    if (!message) return;
+
+    const userMessage = document.createElement("div");
+    userMessage.textContent = "You: " + message;
+    messagesDiv.appendChild(userMessage);
+
+    function getCSRFToken() {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            const [name, value] = cookie.trim().split('=');
+            if (name === 'csrftoken') {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    fetch("/tu_ruta/chatbot/view/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCSRFToken(),
+        },
+        body: JSON.stringify({ message: message, category: category }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        const botMessage = document.createElement("div");
+        botMessage.textContent = "Duckbot: " + data.bot_message;
+        messagesDiv.appendChild(botMessage);
+    })
+    .catch(error => console.error("Error:", error));
+
+    input.value = "";
+
+    // Scroll to the bottom of the chat to show the latest message
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}

@@ -1,5 +1,12 @@
 {% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
 
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
 {% block content %}
 <h2>{% if lesson %}Actualizar Leccion{% else %}Crear Leccion{% endif %}</h2>
 

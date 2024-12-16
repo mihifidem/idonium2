@@ -49,8 +49,6 @@ urlpatterns = [
     path("blog/", include("blog.urls"), name="blog-urls"),
     re_path(r"^summernote/", include("django_summernote.urls")),
     path('__debug__/', include(debug_toolbar.urls)),
-    path('courses/', include('courses.urls')),
-    path("headhunters/",include('headhunters.urls')),
 #     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 
 
@@ -61,7 +59,10 @@ urlpatterns = [
     path('messaging/', include('messaging.urls')),
     path('forum/', include('forum.urls')),
     path('profile/', include('profile_cv.urls')), 
-    path('test/', include('test_management.urls')), 
+    path('quiz/', include('test_management.urls')), 
+    path('courses/', include('courses.urls')), 
+    path('headhunters/', include('headhunters.urls')),
+    path('users/', include('users.urls', namespace='users')),  # Asegúrate de usar el namespace aquí
 
 
 

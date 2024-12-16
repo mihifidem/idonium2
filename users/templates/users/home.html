@@ -6,8 +6,6 @@
 {%include 'users/navbar.html'%}
 {%endblock navbar%}
 
-
-
 {% block content %}
 
 <!--====== SLIDER PART START ======-->
@@ -162,29 +160,29 @@
                     <ul>
                         <li>
                             <div class="singel-event">
-                                <span><i class="fa fa-calendar"></i> 2 December 2018</span>
+                                <span><i class="fa fa-calendar"></i> 16 December 2024</span>
                                 <a href="events-singel.html">
-                                    <h4>Campus clean workshop</h4>
+                                    <h4>Ensayo  presentación Proyecto</h4>
                                 </a>
-                                <span><i class="fa fa-clock-o"></i> 10:00 Am - 3:00 Pm</span>
-                                <span><i class="fa fa-map-marker"></i> Rc Auditorim</span>
+                                <span><i class="fa fa-clock-o"></i> 9:00 Am - 2:00 Pm</span>
+                                <span><i class="fa fa-map-marker"></i> Meet&Go Caballero 72</span>
                             </div>
                         </li>
                         <li>
                             <div class="singel-event">
-                                <span><i class="fa fa-calendar"></i> 2 December 2018</span>
+                                <span><i class="fa fa-calendar"></i> 17 December 2018</span>
                                 <a href="events-singel.html">
-                                    <h4>Tech Summit</h4>
+                                    <h4>Project Presentation</h4>
                                 </a>
-                                <span><i class="fa fa-clock-o"></i> 10:00 Am - 3:00 Pm</span>
-                                <span><i class="fa fa-map-marker"></i> Rc Auditorim</span>
+                                <span><i class="fa fa-clock-o"></i> 10:00 Am - 2:00 Pm</span>
+                                <span><i class="fa fa-map-marker"></i> Fundación Esplai El Prat</span>
                             </div>
                         </li>
                         <li>
                             <div class="singel-event">
-                                <span><i class="fa fa-calendar"></i> 2 December 2018</span>
+                                <span><i class="fa fa-calendar"></i> 18 December 2018</span>
                                 <a href="events-singel.html">
-                                    <h4>Enviroement conference</h4>
+                                    <h4>Feedback</h4>
                                 </a>
                                 <span><i class="fa fa-clock-o"></i> 10:00 Am - 3:00 Pm</span>
                                 <span><i class="fa fa-map-marker"></i> Rc Auditorim</span>
@@ -210,7 +208,7 @@
             <div class="row no-gutters">
                 <div class="col-lg-6">
                     <div class="apply-cont apply-color-1">
-                        <h3>Apply for fall 2019</h3>
+                        <h3>Apply for fall 2025</h3>
                         <p>Gravida nibh vel velit auctor aliquetn sollicitudirem sem quibibendum auci elit cons equat
                             ipsutis sem nibh id elituis sed odio sit amet nibh vulputate cursus equat ipsutis.</p>
                         <a href="#" class="main-btn">Apply Now</a>
@@ -232,8 +230,7 @@
 <!--====== APPLY PART ENDS ======-->
 
 <!--====== COURSE PART START ======-->
-
-<section id="course-part" class="pt-115 pb-120 gray-bg">
+<section id="course-part" class="pt-115 pb-120 ">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -249,7 +246,7 @@
 
             {% for course in courses %}
             <div class="col-lg-4">
-                <div class="singel-course">
+                <div class="singel-course m-3">
                     <div class="thum">
                         <div class="image">
                             <img src="{{ course.image.url }}" alt="{{ course.title }}">
@@ -276,6 +273,7 @@
                         <a href="{% url 'courses:course-detail' course.id %}">
                             <h4>{{course.title}}</h4>
                         </a>
+                        
                         <div class="course-teacher">
                             <div class="thum">
                                 <a href="#"><img src="{{ course.profile_teacher.image.url }}" alt="teacher"></a>
@@ -669,13 +667,14 @@
                             <li><a href="#"><i class="fa fa-tags"></i>{{ latest_post.category_post.nameCategoryPost}}</a></li>
                             <li><a href="#"><i class="fa fa-heart"></i>{{ latest_post.likes}}</a></li>
                         </ul>
-                        <a href="{% url 'post_detail' latest_post.pk  %}">
+                        <a href="{% url 'post_detail' latest_post.slug %}">
                             <h3>{{ latest_post.title}}</h3>
                         </a>
                         <p>{{ latest_post.content|safe|slice:":200" }}</p>
                     </div>
                 </div> <!-- singel news -->
             </div>
+        </div>
             <div class="col-lg-6">
                 {% for post2 in posts3MaxLike %}
                 <div class="singel-news news-list">
@@ -770,3 +769,4 @@
 
 
 {% endblock content %}
+

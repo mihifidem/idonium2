@@ -1,10 +1,17 @@
 {% extends "users/base.html" %}
-{%block navbar%}
-{%include 'users/navbar.html'%}
-{%endblock navbar%}
+{% load static %}
+
+{% block title %}Send Message{% endblock %}
+
 {% block content %}
-<div class="container">
-<h2>Send a Message</h2>
+<div class="container mt-50 mb-50">
+
+    
+    <h2>Send a Message 
+        <a href="/messaging/inbox"><i class="bi bi-inboxes-fill text-warning" title="In Box"></i></a> 
+        <a href="/messaging/sent"><i class="bi bi-inbox-fill text-warning" title="Sent"></i></a></i>
+    </h2>
+
 <form method="POST">
     {% csrf_token %}
     <div class="mb-3 position-relative">
@@ -64,5 +71,5 @@
     });
 </script>
 </div>
-{%endblock content%}
+{% endblock %}
 

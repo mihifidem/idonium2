@@ -1,5 +1,12 @@
 {% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
 
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
 {% block content %}
 <h2>{% if course %}Actualizar Curso{% else %}Crear Curso{% endif %}</h2>
 
@@ -12,7 +19,7 @@
 {% if course %}
     <a href="{% url 'courses:teacher-course-detail' course.id %}" class="btn btn-secondary">Cancelar</a>
 {% else %}
-    <a href="{% url 'teacher_dashboard' %}" class="btn btn-secondary">Cancelar</a>
+    <a href="/courses/teacher/courses" class="btn btn-secondary">Cancelar</a>
 {% endif %}
 
 {% endblock %}

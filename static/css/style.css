@@ -49,7 +49,59 @@
 	font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #d4e0f3;
 }
+
+
+/******************************
+ICON
+**********************************/
+
+.icon-30{
+    font-size: 30px;
+    color: #07294d;
+}
+/* ***************************  
+
+ASIDE
+***************************** */
+
+
+aside {
+    width: 80px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+aside a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #212529;
+    margin-bottom: 20px;
+}
+
+aside a i {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+aside a:hover {
+    color: #007bff;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+/***************************/
 
 img {
 	max-width: 100%;
@@ -119,9 +171,6 @@ p {
 }
 
 .bg_cover{
-    
-    
-
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -403,7 +452,6 @@ p {
     background-color: #07294d;
     padding-top: 10px;
     padding-bottom: 10px;
-    color: #FFC017;
 }
 .header-contact{}
 .header-contact ul{}
@@ -449,12 +497,6 @@ p {
 	align-items: flex-start;
 	margin-top: 7px;
 }
-
-
-.icon-hover:hover {
-    color: rgb(221, 204, 14); /* Cambia este color según tus necesidades */
-}
-
 .support-button .support .icon{}
 .support-button .support .cont{
     margin-left: 15px;
@@ -477,8 +519,6 @@ p {
 }
 
 /*===== Header Menu =====*/
-
-
 
 .navigation{}
 
@@ -524,7 +564,7 @@ p {
 
 .navigation .navbar .navbar-nav{}
 .navigation .navbar .navbar-nav li{
-    margin-right:30px;
+    margin-right: 40px;
     position: relative;
 }
 .navigation .navbar .navbar-nav li:last-child{
@@ -532,13 +572,14 @@ p {
 }
 
 .navigation .navbar .navbar-nav li a{
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     color: #07294d;
     text-transform: uppercase;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
+    padding: 25px 0;
 }
 
 .navigation .navbar .navbar-nav > li > a.active,
@@ -549,7 +590,6 @@ p {
 .navigation .navbar .navbar-nav li .sub-menu{
     position: absolute;
     top: 110%;
-    padding: 20px;
     left: 0;
     background-color: #07294d;
     width: 200px;
@@ -780,10 +820,6 @@ p {
     font-size: 16px;
 }
 
-.icon_menu{
-    color: #07294d;
-
-}
 
 /*=====================================================
     3. SLIDER css 
@@ -1183,17 +1219,6 @@ p {
     border-radius: 5px;
     overflow: hidden;
 }
-
-.thum-hh{
-    width: 30px;
-    height: 30px;
-}
-
-.thum-red{
-    border-radius: 50%;
-}
-
-
 .singel-course > .thum{
     position: relative;
 }

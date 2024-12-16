@@ -34,50 +34,103 @@ def group_required(group_name):
         return wrapper
     return decorator
 
+# def create_interaction_matrix():
+#     users = User.objects.all()
+#     courses = Course.objects.all()
+
+#     # Crear un DataFrame vacío con usuarios como índices y cursos como columnas
+#     matrix = pd.DataFrame(0, index=[user.id for user in users], columns=[course.id for course in courses])
+
+#     wishlist = WishListUser.objects.filter(type_wish__name = 'Course')
+#     # Llenar la matriz con datos de WishlistUser
+#     for wish in wishlist: 
+#         user_id = wish.user.id
+#         course_id = wish.id_wish
+#         if course_id in matrix.columns:
+#             matrix.at[user_id, course_id] = 1
+
+#     return matrix
+
 def create_interaction_matrix():
     users = User.objects.all()
     courses = Course.objects.all()
 
-    # Crear un DataFrame vacío con usuarios como índices y cursos como columnas
-    matrix = pd.DataFrame(0, index=[user.id for user in users], columns=[course.id for course in courses])
+    # Verifica si hay usuarios y cursos antes de continuar
+    if users.exists() and courses.exists():
+        # Crear un DataFrame vacío con usuarios como índices y cursos como columnas
+        matrix = pd.DataFrame(0, index=[user.id for user in users], columns=[course.id for course in courses])
+    else:
+        # Si no hay usuarios o cursos, retorna un DataFrame vacío
+        return pd.DataFrame()
 
-    wishlist = WishListUser.objects.filter(type_wish__name = 'Course')
-    # Llenar la matriz con datos de WishlistUser
-    for wish in wishlist: 
+    wishlist = WishListUser.objects.filter(type_wish__name='Course')
+
+    for wish in wishlist:
         user_id = wish.user.id
         course_id = wish.id_wish
-        if course_id in matrix.columns:
+
+        # Asegúrate de que las claves existen en la matriz
+        if user_id in matrix.index and course_id in matrix.columns:
             matrix.at[user_id, course_id] = 1
 
     return matrix
 
+# def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
+#     # Obtener el ID del usuario actual
+#     user_id = request.user.id
+
+#     # Obtener los cursos ya valorados por el usuario actual
+#     already_rated = interaction_matrix.loc[user_id]
+#     already_rated = already_rated[already_rated > 0].index
+
+#     # Obtener las similitudes del usuario actual con otros usuarios
+#     similar_users = user_similarity_df[user_id]
+
+#     # Ponderar las interacciones de otros usuarios por la similitud
+#     weighted_scores = interaction_matrix.T.dot(similar_users)
+
+#     # Normalizar por las similitudes totales
+#     similarity_sums = similar_users.sum()
+#     recommendations = weighted_scores / similarity_sums
+
+#     # Ordenar las recomendaciones en orden descendente
+#     recommendations_sorted = recommendations.sort_values(ascending=False)
+
+#     # Excluir los cursos que el usuario ya ha valorado
+#     recommendations_sorted = recommendations_sorted.drop(already_rated, errors='ignore')
+
+#     recommended_courses = recommendations_sorted.head(2).index.tolist()
+
+#     # Devolver los dos mejores cursos recomendados
+#     return Course.objects.filter(id__in=recommended_courses)
+
 def recommend_courses_for_user(request, interaction_matrix, user_similarity_df):
-    # Obtener el ID del usuario actual
     user_id = request.user.id
 
-    # Obtener los cursos ya valorados por el usuario actual
+    # Verifica que el usuario está en el índice de la matriz
+    if user_id not in interaction_matrix.index:
+        return Course.objects.none()
+
     already_rated = interaction_matrix.loc[user_id]
     already_rated = already_rated[already_rated > 0].index
 
-    # Obtener las similitudes del usuario actual con otros usuarios
+    # Verifica que el usuario está en las similitudes
+    if user_id not in user_similarity_df.index:
+        return Course.objects.none()
+
     similar_users = user_similarity_df[user_id]
 
-    # Ponderar las interacciones de otros usuarios por la similitud
+    # Ponderar las interacciones
     weighted_scores = interaction_matrix.T.dot(similar_users)
 
-    # Normalizar por las similitudes totales
     similarity_sums = similar_users.sum()
-    recommendations = weighted_scores / similarity_sums
+    recommendations = weighted_scores / (similarity_sums if similarity_sums != 0 else 1)
 
-    # Ordenar las recomendaciones en orden descendente
     recommendations_sorted = recommendations.sort_values(ascending=False)
-
-    # Excluir los cursos que el usuario ya ha valorado
     recommendations_sorted = recommendations_sorted.drop(already_rated, errors='ignore')
 
     recommended_courses = recommendations_sorted.head(2).index.tolist()
 
-    # Devolver los dos mejores cursos recomendados
     return Course.objects.filter(id__in=recommended_courses)
 
 @login_required
@@ -185,7 +238,7 @@ def course_detail_view(request, course_id):
     # Obtener las recomendaciones para el usuario actual
     recommended_courses = recommend_courses_for_user(request, interaction_matrix, user_similarity_df)
     
-    courses = Course.objects.filter(is_active=True)
+    courses = Course.objects.filter(is_active=True, id=course_id)
 
     for course in courses:
         # Contar los usuarios que han completado el curso
@@ -205,7 +258,7 @@ def course_detail_view(request, course_id):
 
         else:
             average_rating = 0  # Si no hay calificaciones, el promedio es 0
-
+        print(course)
     context = {
         'course': course,
         'total_lessons': total_lessons,
@@ -272,6 +325,8 @@ def course_teacher_list_view(request):
         'profile_teacher': profile_teacher,
         'teacher_courses': profile_teacher.courses.all()
     }
+    print(context)
+    
     return render(request, 'teacher_course_list.html', context)
 
 # Course: ---- Enroll User View ----
@@ -561,6 +616,8 @@ def lesson_delete_view(request, course_id, module_id, lesson_id):
 
 def resources_list_view(request):
     resources = Resource.objects.filter(is_active=True, downloadable=True, lesson=None)
+    print(resources)
+
     resource_type = WishListType.objects.get(name="Resource")
 
     resources_list = []
@@ -580,7 +637,6 @@ def resources_list_view(request):
             "resource_reviews_count": resource_reviews_count,
             "average_rating": round(average_rating, 1)
         })
-
     return render(request, 'resources_list.html', {'resources_list': resources_list})
 
 @login_required

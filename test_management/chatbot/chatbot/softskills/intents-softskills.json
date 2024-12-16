@@ -1,0 +1,285 @@
+{
+  "intents": [
+      {
+      "tag": "greetings",
+      "patterns": [
+        "Hello",
+        "Hi",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "What's up?",
+        "How are you?"
+        ],
+      "responses": [
+        "Hello! How can I assist you today?",
+        "Hi there! How can I help you?",
+        "Hey! What's up?",
+        "Good day! How can I help?",
+        "Hello! How's it going?"
+        ]
+      },
+      {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye",
+        "Bye",
+        "See you later",
+        "Take care",
+        "Catch you later",
+        "Bye for now"
+        ],
+      "responses": [
+        "Goodbye! Have a great day!",
+        "See you later! Take care!",
+        "Bye! Hope to chat with you again soon!",
+        "Catch you later! Stay safe!"
+        ]
+      },
+      {
+      "tag": "thanks",
+      "patterns": [
+        "Thank you",
+        "Thanks",
+        "Thanks a lot",
+        "I appreciate it",
+        "Thanks for your help",
+        "Thank you very much"
+        ],
+      "responses": [
+        "You're welcome!",
+        "Glad to help!",
+        "You're very welcome!",
+        "No problem at all!",
+        "Happy to help!"
+        ]
+      },
+      {
+      "tag": "sorry",
+      "patterns": [
+        "Sorry",
+        "I'm sorry",
+        "Apologies",
+        "My apologies",
+        "I apologize"
+        ],
+      "responses": [
+        "No worries! It's all good.",
+        "It's okay! Don't worry about it.",
+        "No problem, all forgiven.",
+        "It's all right, don't worry."
+        ]
+      },
+      {
+      "tag": "affirmative",
+      "patterns": [
+        "Yes",
+        "Yeah",
+        "Of course",
+        "Sure",
+        "Definitely",
+        "Absolutely"
+        ],
+      "responses": [
+        "Great! How can I assist you further?",
+        "Awesome! What else can I help you with?",
+        "Thanks for confirming! What's next?",
+        "Wonderful! What's on your mind?"
+        ]
+      },
+      {
+      "tag": "negative",
+      "patterns": [
+        "No",
+        "Nope",
+        "Not really",
+        "I don't think so",
+        "Definitely not",
+        "Not at all"
+        ],
+      "responses": [
+        "Okay, let me know if you change your mind.",
+        "Alright, feel free to ask me anything else!",
+        "No problem, let me know if you need anything.",
+        "Got it! I'm here if you need anything later."
+        ]
+      },
+    {
+      "tag": "dependability",
+      "patterns": [
+        "What does dependability mean?",
+        "How can dependability help in a team?",
+        "Why is being dependable important?",
+        "Can you explain the importance of dependability?",
+        "What are the traits of a dependable person?",
+        "How do you show dependability?",
+        "Why is dependability a key soft skill?",
+        "What makes someone dependable?",
+        "How can dependability improve work performance?",
+        "What are examples of dependability in the workplace?"
+      ],
+      "responses": [
+        "Dependability means being reliable and consistent in your actions.",
+        "Being dependable means others can count on you to follow through on tasks.",
+        "Dependability helps build trust within teams and increases productivity.",
+        "A dependable person ensures that tasks are completed on time and to a high standard.",
+        "Dependability is crucial for establishing strong working relationships and reliability."
+      ]
+    },
+    {
+      "tag": "teamwork",
+      "patterns": [
+        "Why is teamwork important?",
+        "What are the qualities of a good team member?",
+        "How do you work well with others?",
+        "Can you give an example of effective teamwork?",
+        "What makes a team successful?",
+        "How do you contribute to a team?",
+        "What does teamwork look like in the workplace?",
+        "Why is collaboration important in teamwork?",
+        "How do you solve conflicts in a team?",
+        "What makes someone a good team player?"
+      ],
+      "responses": [
+        "Teamwork involves working together toward common goals and helping each other.",
+        "Good teamwork is built on trust, communication, and collaboration.",
+        "A successful team communicates effectively, shares responsibilities, and supports each other.",
+        "Teamwork helps leverage diverse skills and perspectives to achieve better results.",
+        "Working well with others involves listening, compromising, and being supportive."
+      ]
+    },
+    {
+      "tag": "problem-solving",
+      "patterns": [
+        "How do you solve a problem?",
+        "What is problem-solving in the workplace?",
+        "Can you give an example of problem-solving?",
+        "Why is problem-solving important?",
+        "What are the steps in solving a problem?",
+        "How do you approach problem-solving?",
+        "What skills are needed for problem-solving?",
+        "Can you explain critical problem-solving skills?",
+        "What makes a good problem solver?",
+        "How do you overcome challenges?"
+      ],
+      "responses": [
+        "Problem-solving involves identifying an issue and finding a solution.",
+        "Effective problem-solving requires critical thinking, creativity, and persistence.",
+        "A good problem solver breaks down complex issues into manageable parts and seeks solutions.",
+        "Problem-solving is important because it helps overcome obstacles and improve performance.",
+        "To solve a problem, you should define the issue, explore options, and evaluate outcomes."
+      ]
+    },
+    {
+      "tag": "flexibility",
+      "patterns": [
+        "What is flexibility in the workplace?",
+        "How do you demonstrate flexibility?",
+        "Why is being flexible important?",
+        "Can you provide an example of flexibility?",
+        "What does it mean to be adaptable?",
+        "How do you deal with unexpected changes?",
+        "What are the benefits of being flexible?",
+        "How can flexibility improve productivity?",
+        "How do you handle change in the workplace?",
+        "What makes someone flexible in a team?"
+      ],
+      "responses": [
+        "Flexibility means being able to adjust to new conditions and challenges.",
+        "Being flexible allows you to adapt to change and work effectively in different situations.",
+        "Flexibility helps you remain calm and productive when things don't go as planned.",
+        "A flexible person can quickly change strategies when faced with unexpected challenges.",
+        "Adaptability and flexibility are essential for thriving in dynamic work environments."
+      ]
+    },
+    {
+      "tag": "critical_thinking",
+      "patterns": [
+        "What is critical thinking?",
+        "Why is critical thinking important?",
+        "How can I improve my critical thinking skills?",
+        "Can you give an example of critical thinking?",
+        "How do you make decisions based on critical thinking?",
+        "What does it mean to think critically?",
+        "How can critical thinking improve work performance?",
+        "What role does critical thinking play in problem-solving?",
+        "How does critical thinking affect decision-making?",
+        "What are the key aspects of critical thinking?"
+      ],
+      "responses": [
+        "Critical thinking involves analyzing information objectively and making reasoned judgments.",
+        "It's about questioning assumptions and considering multiple perspectives before making decisions.",
+        "Critical thinking helps you evaluate problems from different angles and find the best solution.",
+        "Improving critical thinking helps you make more informed and effective decisions.",
+        "Critical thinking is vital for navigating complex situations and finding creative solutions."
+      ]
+    },
+    {
+      "tag": "communication",
+      "patterns": [
+        "What is effective communication?",
+        "Why is communication important?",
+        "How can I improve my communication skills?",
+        "What does good communication look like?",
+        "How do you communicate clearly?",
+        "What are the barriers to communication?",
+        "How do you overcome communication challenges?",
+        "What role does communication play in teamwork?",
+        "How can communication improve workplace relationships?",
+        "Can you give an example of effective communication?"
+      ],
+      "responses": [
+        "Effective communication involves conveying your message clearly and listening actively.",
+        "Good communication helps avoid misunderstandings and builds stronger relationships.",
+        "Improving communication skills involves being clear, concise, and an active listener.",
+        "Clear communication ensures everyone is on the same page and working toward common goals.",
+        "Effective communication is key to resolving conflicts and achieving success in teams."
+      ]
+    },
+    {
+      "tag": "creativity",
+      "patterns": [
+        "How do you demonstrate creativity?",
+        "What is creativity in the workplace?",
+        "Why is creativity important?",
+        "Can you give an example of creative thinking?",
+        "What are the benefits of creativity?",
+        "How does creativity solve problems?",
+        "What does it mean to be creative in your work?",
+        "How do you foster creativity in a team?",
+        "What is creative problem-solving?",
+        "Why is creative thinking important for innovation?"
+      ],
+      "responses": [
+        "Creativity involves thinking outside the box to come up with new ideas and solutions.",
+        "Being creative in the workplace can lead to innovation and problem-solving.",
+        "Creative thinking helps you approach problems in unique and efficient ways.",
+        "Fostering creativity means encouraging new ideas, brainstorming, and exploration.",
+        "Creativity in work leads to innovative solutions and improved processes."
+      ]
+    },
+    {
+      "tag": "cultural_intelligence",
+      "patterns": [
+        "What is cultural intelligence?",
+        "Why is cultural intelligence important?",
+        "How can I improve my cultural intelligence?",
+        "Can you give an example of cultural intelligence?",
+        "What does it mean to have cultural awareness?",
+        "How does cultural intelligence benefit teams?",
+        "Why is cultural sensitivity important in the workplace?",
+        "How do you work with people from different cultures?",
+        "What role does cultural intelligence play in communication?",
+        "How can cultural intelligence improve work relationships?"
+      ],
+      "responses": [
+        "Cultural intelligence means understanding and respecting cultural differences.",
+        "Being culturally intelligent helps you work effectively with people from diverse backgrounds.",
+        "Cultural intelligence enhances communication and reduces misunderstandings in multicultural environments.",
+        "Improving cultural intelligence involves learning about different cultures and being open-minded.",
+        "Cultural intelligence is essential for fostering inclusivity and collaboration in diverse teams."
+      ]
+    }
+  ]
+}

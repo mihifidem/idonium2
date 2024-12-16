@@ -1,5 +1,13 @@
-{% extends "role_management/dashboard_premium.html" %}
-{% block user_course %}
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
+{% block content %}
 <!-- START CENTRAL CONTENT -->
     <div class="col-sm p-3 min-vh-100">
         <h2 class="mb-4">MIS CURSOS</h2>

@@ -1,6 +1,12 @@
 {% extends "users/base.html" %}
 {% block title %} Home Page {% endblock title%}
 {% load static %}
+
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
 {% block content %}
 <section id="corses-singel" class="pt-90 pb-120 gray-bg">
     <div class="container">

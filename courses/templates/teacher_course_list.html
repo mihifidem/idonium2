@@ -1,8 +1,17 @@
-{% extends "role_management/dashboard_teacher.html" %}
-{% block teacher_course %}
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
+{% block content %}
+
     <!-- START CENTRAL CONTENT -->
         <div class="col-sm p-3 min-vh-100">
-            <h2 class="mb-4">MIS CURSOS</h2>
+            <h6 class="mb-4">Mis Cursos</h5>
 
             <!-- Teacher Courses -->
             <div class="container">
@@ -13,9 +22,9 @@
                             <a href="{% url 'courses:teacher-course-detail' course.id %}"><img src="{{ course.image.url }}" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;"></a>
                             <div class="card-body">
                                 <a href="{% url 'courses:teacher-course-detail' course.id %}"><h5 class="card-title">{{ course.title }}</h5></a>
-                                <p class="card-text">{{ course.description }}</p>
-                                <a href="#url_activar_desactivar" class="btn btn-primary">Activate</a>
-                                <a href="#url_delete" class="btn btn-danger">Delete</a>
+                                <!-- <p class="card-text">{{ course.description|slice:":100"}}</p> -->
+                                <a href="#url_activar_desactivar" class="btn btn-warning"><i class="bi bi-eye-slash" title="Desactivar"></i></a>
+                                <a href="#url_delete" class="btn btn-danger"><i class="bi bi-trash" title="Delete"></i></a>
                             </div>
                         </div>
                     </div>

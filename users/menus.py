@@ -49,7 +49,7 @@ MENU_ITEMS = {
         },
         {
             'name': 'Blog',
-            'url': '/blog',
+            'url': '#id01',
             'submenu': [
                 
             ]
@@ -58,16 +58,16 @@ MENU_ITEMS = {
     'teacher': [
         {
             'name': 'Dashboard',
-            'url': '/',
+            'url': '/courses',
             'submenu': [
-                 {'name': 'My Test', 'url': '/settings/profile/','icon':'bi bi-check2-square'},
-                 {'name': 'Add Test', 'url': '/settings/system/','icon':'bi bi-plus-square'},
+                #  {'name': 'My Test', 'url': '/settings/profile/','icon':'bi bi-check2-square'},
+                #  {'name': 'Add Test', 'url': '/settings/system/','icon':'bi bi-plus-square'},
 
             ]
         },
         {
-            'name': 'Courses',
-            'url': '/profile/',
+            'name': 'Create Course',
+            'url': '/courses/courses/add',
             'submenu': [
                  
 
@@ -121,9 +121,10 @@ MENU_ITEMS = {
         },
         {
             'name': 'Courses',
-            'url': '/blog',
+            'url': '#course-part',
             'submenu': [  
-                {'name': 'Blog', 'url': '/blog','icon':'bi bi-plus-square'},
+                 {'name': 'Course List', 'url': '/courses/courses','icon':'bi bi-check2-square'},
+
 ]
         },
         {

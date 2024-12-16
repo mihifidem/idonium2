@@ -58,4 +58,6 @@ urlpatterns = [
 
     #------------ Wishlist URL patterns --------------
     path('courses/<int:course_id>/add_wish/', add_userwish_view, name = 'add-userwish'), # Add
+    path('',  course_teacher_list_view, name = 'landing_page'), # Add
+
 ]

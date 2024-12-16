@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+
+  <div style="background-color: rgb(235, 239, 245);" class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a href="/">Dashboard</a>
+      </li>
+
+      <!-- <li class="nav-item">
+              <a class="active" href="index-2.html">Home</a>
+              <ul class="sub-menu">
+                  <li><a class="active" href="index-2.html">Home 01</a></li>
+                  <li><a href="index-3.html">Home 02</a></li>
+                  <li><a href="index-4.html">Home 03</a></li>
+              </ul>
+          </li> -->
+      <li class="nav-item">
+        <a href="#course-part">My Profile</a>
+        <ul class="sub-menu">
+          <li><a href="{%url 'profile_view' user.id%}">Profile</a></li>
+          <li><a href="{%url 'work_experience_list' user.id%}">Work Experiences</a></li>
+          <li><a href="{%url 'academic_education_list' user.id%}">Academic Education</a></li>
+          <li><a href="/courses/resources">Skills</a></li>
+          <li><a href="/courses/resources">Volunteering</a></li>
+          <li><a href="/courses/resources">Projects</a></li>
+          <li><a href="/courses/resources">Awards</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="#about-part">Management CV</a>
+      </li>
+      <li class="nav-item">
+        <a href="#about-part">My Courses</a>
+      </li>
+      <li class="nav-item">
+        <a href="/headhunters/joboffers/">My Offers</a>
+      </li>
+      <li class="nav-item">
+        <a href="#about-part">My Test</a>
+      </li>
+      <li class="nav-item">
+        <a href="/back_to_home">Back to Home</a>
+      </li>
+
+    </ul>
+  </div>
+</nav> <!-- nav -->

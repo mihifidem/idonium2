@@ -1,5 +1,12 @@
 {% extends "users/base.html" %}
-{% block title %} {{ lesson.title }} {% endblock title%}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
 {% block content %}
 <h1>{{ lesson.name }}</h1>
 <p>{{ lesson.description }}</p>

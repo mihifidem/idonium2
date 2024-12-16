@@ -1,5 +1,12 @@
-{% extends 'base.html' %}
-{% block title %}Add/Edit Certification{% endblock %}
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+
+
+
+{%block navbar%}
+{%include 'users/navbar.html'%}
+{%endblock navbar%}
 {% block content %}
 <h1>{{ view.action }} Certification</h1>
 <form method="post">

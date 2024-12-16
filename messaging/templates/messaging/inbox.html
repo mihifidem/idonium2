@@ -1,11 +1,12 @@
 {% extends "users/base.html" %}
-{%block navbar%}
-{%include 'users/navbar.html'%}
-{%endblock navbar%}
-{% block content %}
-<div class="container">
 
-<h2>Inbox</h2>
+{% block content %}
+<div class="container mt-50 mb-50">
+
+<h2>Inbox 
+    <a href="/messaging/send"><i class="bi bi-envelope-plus-fill text-warning" title="Send"></i></a> 
+    <a href="/messaging/sent"><i class="bi bi-inboxes-fill text-warning" title="Sent"></i></a></i>
+</h2>
 
  <form method="GET" class="mb-4 row g-3">
     <div class="col-md-3">
@@ -125,5 +126,4 @@
     });
 </script>
 </div>
-
 {% endblock content%}

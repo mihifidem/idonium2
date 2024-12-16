@@ -38,25 +38,25 @@ $(function() {
     
     //===== Mobile Menu
     
-    $(".navbar-toggler").on('click', function() {
-        $(this).toggleClass("active");
-    });
+    // $(".navbar-toggler").on('click', function() {
+    //     $(this).toggleClass("active");
+    // });
     
-    var subMenu = $('.sub-menu-bar .navbar-nav .sub-menu');
+    // var subMenu = $('.sub-menu-bar .navbar-nav .sub-menu');
     
-    if(subMenu.length) {
-        subMenu.parent('li').children('a').append(function () {
-            return '<button class="sub-nav-toggler"> <i class="fa fa-chevron-down"></i> </button>';
-        });
+    // if(subMenu.length) {
+    //     subMenu.parent('li').children('a').append(function () {
+    //         return '<button class="sub-nav-toggler"> <i class="fa fa-chevron-down"></i> </button>';
+    //     });
         
-        var subMenuToggler = $('.sub-menu-bar .navbar-nav .sub-nav-toggler');
+    //     var subMenuToggler = $('.sub-menu-bar .navbar-nav .sub-nav-toggler');
         
-        subMenuToggler.on('click', function() {
-            $(this).parent().parent().children('.sub-menu').slideToggle();
-            return false
-        });
+    //     subMenuToggler.on('click', function() {
+    //         $(this).parent().parent().children('.sub-menu').slideToggle();
+    //         return false
+    //     });
         
-    }
+    // }
     
     
     
@@ -398,5 +398,8 @@ $(function() {
     
     
     
-    
 });
+
+
+
+
