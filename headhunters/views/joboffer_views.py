@@ -1,5 +1,6 @@
 
 
+from django.forms import FileField, ImageField, model_to_dict
 from django.http import JsonResponse
 from datetime import datetime
 import json
@@ -11,8 +12,13 @@ from ..forms import JobOfferForm
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from profile_cv.models import Category, HardSkill, Profile_CV, Sector, SoftSkill
+from profile_cv.models import Category, HardSkill, Profile_CV, Sector, SoftSkill, User_cv, UserCvRelation
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer, util
 
 
 
@@ -74,19 +80,106 @@ class JobOfferListView(ListView):
             return queryset.filter(headhunter=headhunter)
         else:
             return queryset
+
     
     def get_context_data(self, **kwargs):
+        logged_in_user = self.request.user
         context = super().get_context_data(**kwargs)
-        groups = list(self.request.user.groups.all())
-        # Añadimos los filtros disponibles al contexto
+        groups = list(self.request.user.groups.all())        
+
+        if logged_in_user.is_authenticated and any(group.name in ['premium', 'freemium'] for group in groups):
+            user_json, job_json = self.generate_json()
+            if user_json and job_json:
+                users_data = json.loads(user_json)
+                jobs_data = json.loads(job_json)
+                users_df = pd.DataFrame(users_data)
+                jobs_df = pd.DataFrame(jobs_data)
+                recommendations = self._generate_recommendation(users_df, jobs_df, logged_in_user.id)
+                context['recommended_offers'] = recommendations
+            else:
+                context['recommended_offers'] = None
+        else:
+            context['recommended_offers'] = None
+
         context['sectors'] = Sector.objects.all()
         context['categories'] = Category.objects.all()
         context['hard_skills'] = HardSkill.objects.all()
         context['soft_skills'] = SoftSkill.objects.all()
-        context['is_headhunter'] = groups[0].name == 'headhunter'
+        context['is_headhunter'] = any(group.name == 'headhunter' for group in self.request.user.groups.all())
         context['active_filter'] = True
         return context
 
+    def generate_json(self):
+        logged_in_user = self.request.user
+
+        if not logged_in_user.is_authenticated:
+            print("no esta logeado")
+            return json.dumps([], indent=4), json.dumps([], indent=4)
+
+        profile = Profile_CV.objects.filter(user=logged_in_user).first()
+        if not profile:
+            print("no tiene perfil")
+            return json.dumps([], indent=4), json.dumps([], indent=4)
+
+        user_cv = User_cv.objects.filter(profile_user=profile).first()
+        user_id = profile.user.id
+
+        cv_text = ""
+        if user_cv:
+            hard_skills = UserCvRelation.objects.filter(user_cv=user_cv)
+            hard_skill_names = [relation.hard_skill.hard_skill.name_hard_skill for relation in hard_skills]
+            cv_text = ', '.join(hard_skill_names)
+
+        user_list = [{
+            'id': user_id,
+            'cv_text': cv_text.strip(", ")
+        }]
+
+        job_offers = JobOffer.objects.prefetch_related('required_hard_skills', 'required_soft_skills')
+        job_list = []
+        for job in job_offers:
+            job_hard_skills = list(job.required_hard_skills.values_list('name_hard_skill', flat=True))
+            job_soft_skills = list(job.required_soft_skills.values_list('name_soft_skill', flat=True))
+            job_requirements = ", ".join(job_hard_skills + job_soft_skills)
+            job_list.append({
+                "id": job.id,
+                "title": job.title,
+                "requirements": job_requirements
+            })
+
+        return json.dumps(user_list, indent=4), json.dumps(job_list, indent=4)
+
+
+    def _calculate_similarity(self, cv_text, job_requirements):
+        """Calcula la similitud entre el CV del usuario y los requisitos del trabajo."""
+        documents = [cv_text, job_requirements]
+        vectorizer = TfidfVectorizer(stop_words='english')
+        tfidf_matrix = vectorizer.fit_transform(documents)
+        similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
+        return similarity[0][0]
+
+
+    def _generate_recommendation(self, users_df, jobs_df, logged_in_user_id):
+        """Generar recomendaciones para el usuario logueado.""" 
+        user_filtered = users_df[users_df['id'] == logged_in_user_id]
+
+        if user_filtered.empty:
+            return []
+
+        user = user_filtered.iloc[0]
+        recommendations = []
+
+        for _, job in jobs_df.iterrows():
+            similarity = self._calculate_similarity(user['cv_text'], job['requirements'])
+            recommendations.append({
+                "job_id": job['id'],
+                "title": job['title'],
+                "similarity": similarity
+            })
+
+        recommendations = sorted(recommendations, key=lambda x: x['similarity'], reverse=True)[:2]
+        print("recom", recommendations)
+        return recommendations
 
 class JobOfferDetailView(DetailView):
     model = JobOffer
@@ -100,7 +193,9 @@ class JobOfferDetailView(DetailView):
 
         # Obtener todos los candidatos relacionados a través de ManagementCandidates
         all_candidates = ManagementCandidates.objects.filter(job_offer=job_offer).select_related('candidate')
-
+        hard_skills = job_offer.required_hard_skills.all()
+        soft_skills = job_offer.required_soft_skills.all()
+        print(soft_skills)
         # Filtrar candidatos por los que están seleccionados por el headhunter
         selected_candidates = all_candidates.filter(is_selected_by_headhunter=True)
         
@@ -108,6 +203,8 @@ class JobOfferDetailView(DetailView):
         direct_application_candidates = all_candidates.filter(applied_directly=True)
 
         # Añadir los candidatos seleccionados y los aplicados directamente al contexto
+        context['required_hard_skills']=hard_skills
+        context['required_soft_skills']=soft_skills
         context['selected_candidates'] = selected_candidates
         context['direct_application_candidates'] = direct_application_candidates
 
@@ -143,6 +240,12 @@ class JobOfferCreateView(CreateView):
     form_class = JobOfferForm
     template_name = 'joboffers/create_offer.html'
     success_url = reverse_lazy('joboffer_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hard_skills'] = HardSkill.objects.all()  
+        context['soft_skills'] = SoftSkill.objects.all()
+        return context
     
     def form_valid(self, form):
         # Aquí puedes agregar cualquier lógica adicional antes de guardar los datos
@@ -369,5 +472,5 @@ class MyOffers(ListView):
     def get_queryset(self):
         super().get_queryset()
         management_candidates = ManagementCandidates.objects.filter(candidate__user=self.request.user)
-        print(JobOffer.objects.filter(id__in=management_candidates.values('job_offer')))
         return JobOffer.objects.filter(id__in=management_candidates.values('job_offer'))
+

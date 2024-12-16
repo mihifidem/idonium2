@@ -15,11 +15,11 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <h5 class="section-title">Categoría:</h5>
-            <p>{{ job_offer.category.name }}</p>
+            <p>{{ job_offer.category.name_category }}</p>
         </div>
         <div class="col-md-6">
             <h5 class="section-title">Sector:</h5>
-            <p>{{ job_offer.sector.name }}</p>
+            <p>{{ job_offer.sector.name_sector }}</p>
         </div>
     </div>
 
@@ -56,8 +56,8 @@
             <div class="col-md-6">
                 <h6 class="sub-title">Habilidades Técnicas:</h6>
                 <ul>
-                    {% for hard_skill in job_offer.required_hard_skills.all %}
-                    <li>{{ hard_skill.name }}</li>
+                    {% for hard_skill in required_hard_skills %}
+                    <li>{{ hard_skill.name_hard_skill }}</li>
                     {% empty %}
                     <li>No especificadas</li>
                     {% endfor %}
@@ -66,8 +66,8 @@
             <div class="col-md-6">
                 <h6 class="sub-title">Habilidades Blandas:</h6>
                 <ul>
-                    {% for soft_skill in job_offer.required_soft_skills.all %}
-                    <li>{{ soft_skill.name }}</li>
+                    {% for soft_skill in required_soft_skills %}
+                    <li>{{ soft_skill.name_soft_skill }}</li>
                     {% empty %}
                     <li>No especificadas</li>
                     {% endfor %}
