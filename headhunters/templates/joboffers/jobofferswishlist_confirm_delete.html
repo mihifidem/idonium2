@@ -1,8 +1,19 @@
-<h1>Remove Job Offer</h1>
-<p>Are you sure you want to remove "{{ object.job_offer.title }}" from your wishlist?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, remove</button>
-    <a href="{% url 'wishlist' %}">Cancel</a>
-</form>
+{% extends "users/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="card-title text-danger text-center">Remove Job Offer</h2>
+      <p class="text-center">Are you sure you want to remove <strong>"{{ object.job_offer.title }}"</strong> from your wishlist?</p>
+
+      <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger me-2">Yes, Remove</button>
+        <a href="{% url 'wishlist' %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
 {% include "chatbot/chat.html" %}
+{% endblock %}

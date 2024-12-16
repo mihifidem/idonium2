@@ -107,6 +107,23 @@ class JobOfferListView(ListView):
         context['soft_skills'] = SoftSkill.objects.all()
         context['is_headhunter'] = any(group.name == 'headhunter' for group in self.request.user.groups.all())
         context['active_filter'] = True
+
+        # Añadimos la cantidad de candidatos al contexto
+        job_offers = self.get_queryset()
+        
+        # Calcular los candidatos para cada oferta individualmente
+        candidate_count_per_offer = {}
+        for job_offer in job_offers:
+            candidate_count_per_offer[job_offer.id] = ManagementCandidates.objects.filter(job_offer=job_offer).count()
+        
+        # Ahora contamos todos los candidatos asociados al headhunter para todas las ofertas
+        candidate_count_total = ManagementCandidates.objects.filter(job_offer__in=job_offers).count()
+
+        # Pasamos ambos valores al contexto
+        context['candidate_count_total'] = candidate_count_total
+        context['candidate_count_per_offer'] = candidate_count_per_offer
+        context['job_offers'] = job_offers
+
         return context
 
     def generate_json(self):
@@ -238,7 +255,7 @@ class JobOfferDeleteView(DeleteView):
 class JobOfferCreateView(CreateView):
     model = JobOffer
     form_class = JobOfferForm
-    template_name = 'joboffers/create_offer.html'
+    template_name = 'joboffers/joboffer_form.html'
     success_url = reverse_lazy('joboffer_list')
     
     def get_context_data(self, **kwargs):

@@ -9,6 +9,7 @@ from profile_cv.models import Profile_CV,HardSkill, SoftSkill
 from django.views import View
 from django.http import JsonResponse
 from django.db.models import Q
+from django.contrib.auth.models import Group
 
 
 
@@ -31,6 +32,14 @@ class HeadhunterCreateView(CreateView):
     def form_valid(self, form):
         #Guardo el headhunter en la base de datos
         headhunter = form.save()
+        # Obtener el usuario asociado al headhunter
+        user = headhunter.user  # Ajusta esto según cómo se relacione tu modelo HeadHunterUser con el usuario
+
+        # Asignar el grupo "headhunter" al usuario
+        group_name = "headhunter"
+        group, created = Group.objects.get_or_create(name=group_name)
+        user.groups.add(group)
+
         #lo redirigo a el detalle del headhunter
         return redirect('headhunter_detail', pk=headhunter.pk)
 
@@ -50,8 +59,7 @@ class LandingHeadHuntersView(ListView):
     model = Profile_CV
     template_name = 'headhunters/landing_headhunters.html'
     context_object_name = 'candidates'
-    #manejar la paginacion
-    paginate_by = 9
+    
     
 
     def get_queryset(self):
@@ -144,6 +152,17 @@ class CandidateSearchView(View):
             filter_conditions |= Q(
                 softskilluser__soft_skill__name_soft_skill__icontains=keyword
             )
+            # Filtrar por dirección
+            filter_conditions |= Q(address__icontains=keyword)
+            # Filtrar por biografía
+            filter_conditions |= Q(biography__icontains=keyword)
+            # Filtrar por vehículo
+            if keyword in ['vehicle', 'car', 'transport']:
+                filter_conditions |= Q(vehicle=True)
+            # Filtrar por discapacidad
+            if keyword in ['disability', 'disabled', 'accessible']:
+                filter_conditions |= Q(disability=True)
+
 
         # Aplicar el filtro compuesto al queryset
         candidates = candidates.filter(filter_conditions)
@@ -158,6 +177,11 @@ class CandidateSearchView(View):
                 "username": candidate.user.username,
                 "email": candidate.email_1,
                 "phone": candidate.phone_1,
+                "address": candidate.address,
+                "biography": candidate.biography,
+                "vehicle": candidate.vehicle,
+                "disability": candidate.disability,
+                "disability_percentage": candidate.disability_percentage,
             }
             for candidate in candidates
         ]

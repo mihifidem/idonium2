@@ -1,0 +1,860 @@
+{
+    "intents":[
+        {
+            "tag": "trends_programming_languages",
+            "patterns": [
+                "What are the most in-demand programming languages",
+                "Tell me about the current trends in programming languages",
+                "Which languages are on the rise",
+                "What are the most popular languages this year"
+            ],
+            "responses": [
+                "The most in-demand programming languages in 2024 include Python, JavaScript, Java, Go, and Rust. Python leads in artificial intelligence and data analysis, while Rust and Go are growing in backend development. JavaScript continues to dominate web and mobile development."
+            ]
+        },
+        {
+            "tag": "html_info",
+            "patterns": [
+                "What is HTML",
+                "What is HTML used for",
+                "Is it important to learn HTML",
+                "Tell me something about HTML"
+            ],
+            "responses": [
+                "HTML, or HyperText Markup Language, is the foundational language for structuring content on the web. It is essential for creating websites and applications, forming the base alongside CSS and JavaScript."
+            ]
+        },
+        {
+            "tag": "fullstack_info",
+            "patterns": [
+                "What languages are important for Fullstack",
+                "What programming languages are used in Fullstack",
+                "What technologies should a Fullstack Developer know",
+                "What does a Fullstack Developer do"
+            ],
+            "responses": [
+                "A Fullstack developer uses technologies for both frontend and backend development. Key languages include JavaScript (with frameworks like React and Node.js), Python (with Django or Flask), Ruby (with Ruby on Rails), and Java (with Spring). It is also essential to know databases like MySQL or MongoDB."
+            ]
+        },
+        {
+            "tag": "python_info",
+            "patterns": [
+                "Tell me something about Python",
+                "Why is Python important",
+                "What can be done with Python",
+                "Tell me about the advantages of Python"
+            ],
+            "responses": [
+                "Python is a versatile and easy-to-learn language. It is widely used in web development, data analysis, machine learning, and scripting. Its active community and vast libraries make it a key tool for many projects."
+            ]
+        },
+        {
+            "tag": "javascript_info",
+            "patterns": [
+                "Tell me about JavaScript",
+                "Why is JavaScript important",
+                "What are the uses of JavaScript",
+                "What are the advantages of JavaScript"
+            ],
+            "responses": [
+                "JavaScript is the primary language for web development. It is used both in frontend, with frameworks like React and Angular, and in backend with Node.js. Its flexibility makes it an essential language for any web developer."
+            ]
+        },
+        {
+            "tag": "java_info",
+            "patterns": [
+                "What is Java",
+                "What is Java used for",
+                "What are the advantages of Java",
+                "Where is Java used"
+            ],
+            "responses": [
+                "Java is a mature and robust language primarily used in enterprise applications, Android development, and critical systems. Its stability makes it ideal for large-scale projects in sectors like banking and telecommunications."
+            ]
+        },
+        {
+            "tag": "csharp_info",
+            "patterns": [
+                "What is C#",
+                "What is C# used for",
+                "What are the benefits of C#",
+                "Tell me something about C#"
+            ],
+            "responses": [
+                "C# is a language developed by Microsoft, popular in game development with Unity, desktop applications, and web services. It is a powerful option for creating applications within the Microsoft ecosystem."
+            ]
+        },
+        {
+            "tag": "go_info",
+            "patterns": [
+                "What is Go",
+                "Why is Go popular",
+                "What are the advantages of Go",
+                "Where is Go used"
+            ],
+            "responses": [
+                "Go, also known as Golang, is an efficient and fast language designed for cloud applications and backend systems. It is popular for its performance and ease of use, being adopted by companies like Google and Uber."
+            ]
+        },
+        {
+            "tag": "rust_info",
+            "patterns": [
+                "What is Rust",
+                "What is Rust used for",
+                "Why is Rust important",
+                "What are the advantages of Rust"
+            ],
+            "responses": [
+                "Rust is a language focused on safety and performance. It is ideal for low-level systems, such as operating system development and high-concurrency applications. Its growing adoption positions it as a key technology for the future."
+            ]
+        },
+        {
+            "tag": "typescript_info",
+            "patterns": [
+                "What is TypeScript",
+                "Why is TypeScript better than JavaScript",
+                "What are the advantages of TypeScript",
+                "Where is TypeScript used"
+            ],
+            "responses": [
+                "TypeScript is a superset of JavaScript that adds static typing and tools to improve the scalability of large projects. It is widely used in both frontend and modern backend development."
+            ]
+        },
+        {
+            "tag": "php_info",
+            "patterns": [
+                "What is PHP",
+                "What is PHP used for",
+                "Is PHP still relevant",
+                "Tell me about PHP"
+            ],
+            "responses": [
+                "PHP remains a popular language for web development, especially in content management systems like WordPress. While it faces competition, it is still a solid option for backend web projects."
+            ]
+        },
+        {
+            "tag": "swift_info",
+            "patterns": [
+                "What is Swift",
+                "What is Swift used for",
+                "What are the benefits of Swift",
+                "Where is Swift used"
+            ],
+            "responses": [
+                "Swift is the primary language for developing iOS and macOS applications. It offers fast performance and modern syntax, making it an excellent choice for development in the Apple ecosystem."
+            ]
+        },
+        {
+            "tag": "kotlin_info",
+            "patterns": [
+                "What is Kotlin",
+                "What is Kotlin used for",
+                "Is Kotlin better than Java",
+                "Where is Kotlin used"
+            ],
+            "responses": [
+                "Kotlin is a modern language primarily used for Android application development. It is compatible with Java and offers a simpler and safer syntax, making mobile development easier."
+            ]
+        },
+        {
+            "tag": "trends_skills",
+            "patterns": [
+                "What are the current trends in IT skills",
+                "What skills are in demand in technology",
+                "What do companies look for in soft and technical skills",
+                "What are the key skills in the tech sector"
+            ],
+            "responses": [
+                "In 2024, tech companies are looking for a combination of technical skills such as experience in DevOps, cybersecurity, and data analysis, along with soft skills like problem-solving, adaptability, and effective communication. The ability to continuously learn is key."
+            ]
+        },
+        {
+            "tag": "softskills_info",
+            "patterns": [
+                "What are soft skills",
+                "What soft skills are important in IT",
+                "Why are soft skills important in technology",
+                "Tell me about soft skills in the tech industry"
+            ],
+            "responses": [
+                "Soft skills are personal qualities that affect how you interact and work with others. In IT, the most valued ones include effective communication, critical thinking, adaptability, problem-solving, and teamwork. These skills complement technical knowledge."
+            ]
+        },
+        {
+            "tag": "hardskills_info",
+            "patterns": [
+                "What are technical skills",
+                "What hard skills are essential in IT",
+                "What technical skills are most sought after",
+                "Tell me about hard skills in technology"
+            ],
+            "responses": [
+                "Technical skills are specific and measurable knowledge acquired through learning and practice. In IT, they include proficiency in programming languages like Python or JavaScript, experience with databases, knowledge of DevOps tools, and cybersecurity."
+            ]
+        },
+        {
+            "tag": "softskills_info",
+            "patterns": [
+                "What are soft skills",
+                "What soft skills are important in IT",
+                "Why are soft skills important in technology",
+                "Tell me something about soft skills in the tech industry"
+            ],
+            "responses": [
+                "Soft skills are personal qualities that affect how you interact and work with others. In IT, the most valued include effective communication, critical thinking, adaptability, problem-solving, and teamwork. These skills complement technical knowledge."
+            ]
+        },
+        {
+            "tag": "hardskills_info",
+            "patterns": [
+                "What are hard skills",
+                "What hard skills are essential in IT",
+                "What are the most sought-after hard skills",
+                "Tell me something about hard skills in technology"
+            ],
+            "responses": [
+                "Hard skills are specific and measurable knowledge acquired through learning and practice. In IT, these include proficiency in programming languages like Python or JavaScript, experience with databases, proficiency with DevOps tools, and cybersecurity expertise."
+            ]
+        },
+        {
+            "tag": "softskills_trends",
+            "patterns": [
+                "What are the trends in soft skills",
+                "Which soft skills are more valued now",
+                "What non-technical skills do IT companies look for",
+                "Which soft skills are on the rise in technology"
+            ],
+            "responses": [
+                "The trends in soft skills for 2024 include inclusive leadership, remote collaboration skills, empathy in managing distributed teams, and intercultural communication. The ability to work in dynamic environments is also crucial."
+            ]
+        },
+        {
+            "tag": "hardskills_trends",
+            "patterns": [
+                "What are the trends in hard skills",
+                "Which hard skills are popular now",
+                "What do companies look for in technical skills",
+                "Tell me the most relevant hard skills in IT"
+            ],
+            "responses": [
+                "The most in-demand technical skills include experience with artificial intelligence and machine learning, proficiency with cloud platforms like AWS or Azure, development with modern frameworks like React and Vue.js, and advanced knowledge in cybersecurity."
+            ]
+        },
+        {
+            "tag": "problem_solving",
+            "patterns": [
+                "What is problem solving",
+                "Why is problem solving important in IT",
+                "What skills are needed to solve problems",
+                "Tell me about problem solving in technology"
+            ],
+            "responses": [
+                "Problem solving is an essential skill in IT that involves identifying, analyzing, and solving technical or process-related challenges. It is crucial for developers, data analysts, and technical support roles, where logical and proactive thinking is required."
+            ]
+        },
+        {
+            "tag": "adaptability",
+            "patterns": [
+                "What is adaptability",
+                "Why is it important to be adaptable in technology",
+                "What does adaptability mean in IT",
+                "Tell me about adaptability as a soft skill"
+            ],
+            "responses": [
+                "Adaptability is the ability to adjust quickly to changes and new challenges. In technology, this includes learning new tools or languages, managing dynamic environments, and working efficiently in unforeseen situations."
+            ]
+        },
+        {
+            "tag": "communication_skills",
+            "patterns": [
+                "What are communication skills",
+                "Why is good communication important in IT",
+                "What are the key communication skills in technology",
+                "Tell me something about communication in technical teams"
+            ],
+            "responses": [
+                "Communication skills are essential for collaborating in teams and conveying technical ideas to non-technical audiences. These include the ability to listen actively, explain complex concepts, and write clear documentation."
+            ]
+        },
+        {
+            "tag": "collaboration",
+            "patterns": [
+                "What is collaboration",
+                "Why is collaboration important in IT",
+                "What are the keys to effective collaboration",
+                "Tell me about collaboration in tech teams"
+            ],
+            "responses": [
+                "Collaboration is crucial in IT, especially in agile or distributed teams. It involves working together towards a common goal, using tools like Slack, Jira, and Git to synchronize efforts."
+            ]
+        },
+        {
+            "tag": "team_leadership",
+            "patterns": [
+                "What is team leadership",
+                "What are the key leadership skills in IT",
+                "What skills does a good technical leader need",
+                "Why is leadership important in technology"
+            ],
+            "responses": [
+                "Team leadership in IT involves guiding a group towards technical and organizational goals. Key skills include communication, decision-making, mentoring, and the ability to inspire and motivate others to overcome technical challenges."
+            ]
+        },
+        {
+            "tag": "self_learning",
+            "patterns": [
+                "Why is self-learning important",
+                "What is self-training",
+                "What skills do self-taught people need in IT",
+                "What are the benefits of continuous learning in technology"
+            ],
+            "responses": [
+                "Self-learning is essential in IT due to the fast-paced nature of the industry. The ability to independently learn new technologies and tools allows professionals to remain competitive and relevant."
+            ]
+        },
+        {
+            "tag": "job_offer_structure",
+            "patterns": [
+                "How to structure a job offer in IT",
+                "What is the ideal format for a job offer",
+                "What sections should a tech job offer include",
+                "How to write an effective job offer"
+            ],
+            "responses": [
+                "A job offer in IT should include: 1. Job title, 2. Brief introduction about the company, 3. Role description and responsibilities, 4. Technical requirements and desired skills, 5. Benefits and working conditions, and 6. Application process. Each section should be clear and direct."
+            ]
+        },
+        {
+            "tag": "job_offer_tone",
+            "patterns": [
+                "What tone to use in a job offer",
+                "How to make a job offer attractive",
+                "What language to use when writing a job offer in IT",
+                "How to attract candidates with a job offer"
+            ],
+            "responses": [
+                "The tone of the job offer should be professional but approachable. Use inclusive language and focus on the benefits for the candidate. Highlight aspects such as company culture, the impact of the role, and avoid overly technical or corporate jargon."
+            ]
+        },
+        {
+            "tag": "job_title_tips",
+            "patterns": [
+                "How to write a job title for a job offer",
+                "What title to put in a job offer",
+                "How to name a job position in technology",
+                "Give me tips for the job title"
+            ],
+            "responses": [
+                "The title should be clear, concise, and descriptive. For example, instead of 'IT Engineer', use 'Backend Software Engineer - Python'. Avoid confusing abbreviations and ensure it reflects the main responsibilities of the role."
+            ]
+        },
+        {
+            "tag": "job_offer_requirements",
+            "patterns": [
+                "What to include in the requirements of a job offer",
+                "How to list skills in a job offer",
+                "What to put in the requirements section",
+                "How to detail the skills needed for a job"
+            ],
+            "responses": [
+                "In the requirements section, divide between 'Essential requirements' and 'Desired skills'. Only include the competencies truly necessary for the role. Avoid long and unrealistic lists, and focus on key skills such as programming languages, specific tools, and relevant experience."
+            ]
+        },
+        {
+            "tag": "job_offer_responsibilities",
+            "patterns": [
+                "How to describe responsibilities in a job offer",
+                "What to include in the responsibilities section",
+                "How to detail the work in a job offer",
+                "What to put in the job description"
+            ],
+            "responses": [
+                "Responsibilities should be clear and specific. Use bullet points to make reading easier and describe daily tasks, typical projects, and the expected impact of the role. For example: 'Develop and maintain backend applications using Python and Django.'"
+            ]
+        },
+        {
+            "tag": "job_offer_benefits",
+            "patterns": [
+                "What benefits to include in a job offer",
+                "How to highlight benefits in a job",
+                "What advantages do candidates look for in IT",
+                "What to put in the benefits section of a job offer"
+            ],
+            "responses": [
+                "Include benefits such as competitive salary, work flexibility (remote or hybrid), learning opportunities, extra vacation days, and modern tools. Highlight unique aspects of your company, such as an inclusive culture or innovative projects."
+            ]
+        },
+        {
+            "tag": "job_offer_common_mistakes",
+            "patterns": [
+                "Common mistakes when writing a job offer",
+                "What to avoid in a job offer",
+                "What are the typical mistakes in IT job offers",
+                "Give me tips to avoid mistakes in job offers"
+            ],
+            "responses": [
+                "Common mistakes include: 1. Listing too many unrealistic requirements, 2. Using unclear language or excessive technical jargon, 3. Not highlighting attractive benefits, 4. Lack of company information, and 5. Not mentioning key details like work model (remote, hybrid, or in-office)."
+            ]
+        },
+        {
+            "tag": "job_offer_inclusivity",
+            "patterns": [
+                "How to create an inclusive job offer",
+                "What is an inclusive job offer",
+                "How to write job offers without bias",
+                "Give me tips for creating inclusive job offers"
+            ],
+            "responses": [
+                "For an inclusive offer: 1. Use neutral language and avoid gendered terms, 2. Highlight the commitment to diversity and inclusion, 3. Avoid unrealistic requirement lists that might discourage certain groups, and 4. Highlight policies such as parental leave or mental health days."
+            ]
+        },
+        {
+            "tag": "job_offer_remote",
+            "patterns": [
+                "How to write a remote job offer",
+                "What to include in a remote job offer",
+                "Tips for remote job offers",
+                "What do candidates look for in remote jobs"
+            ],
+            "responses": [
+                "For remote jobs, highlight flexible working hours, collaboration tools used (like Slack, Zoom, Trello), support for home office (equipment, internet), and clear communication and deliverable policies. Specify time zones if applicable."
+            ]
+        },
+        {
+            "tag": "job_offer_trends",
+            "patterns": [
+                "What are the trends in job offers",
+                "What are candidates looking for in 2024",
+                "How to attract IT talent with job offers",
+                "What are the current trends in recruitment"
+            ],
+            "responses": [
+                "In 2024, job offers highlight flexibility (remote/hybrid), inclusive culture, continuous learning, and impactful projects. Candidates value role clarity, competitive salaries, and modern benefits like additional time off and mental health support."
+            ]
+        },
+        {
+            "tag": "backend_info",
+            "patterns": [
+                "What is backend development",
+                "What are the tasks of a backend developer",
+                "What does a backend developer do",
+                "Tell me about backend roles in technology"
+            ],
+            "responses": [
+                "Backend development focuses on server logic, databases, and the architecture that ensures applications work properly. Backend developers work with languages like Python, Java, PHP, and Node.js, and manage databases like MySQL or MongoDB."
+            ]
+        },
+        {
+            "tag": "backend_trends",
+            "patterns": [
+                "What are the trends in backend",
+                "What's trending in backend development",
+                "What are the most popular backend technologies",
+                "What do companies look for in backend developers"
+            ],
+            "responses": [
+                "In 2024, backend trends include the use of GraphQL for efficient queries, languages like Go and Rust for high-performance systems, and serverless architectures on platforms like AWS Lambda. There's also an increasing demand for microservices and integrated DevOps."
+            ]
+        },
+        {
+            "tag": "frontend_info",
+            "patterns": [
+                "What is frontend development",
+                "What are the tasks of a frontend developer",
+                "What does a frontend developer do",
+                "Tell me about frontend roles in technology"
+            ],
+            "responses": [
+                "Frontend development focuses on the user interface (UI) and user experience (UX). Frontend developers work with languages like HTML, CSS, and JavaScript, using frameworks like React, Angular, or Vue.js to create attractive and functional interfaces."
+            ]
+        },
+        {
+            "tag": "frontend_trends",
+            "patterns": [
+                "What are the trends in frontend",
+                "What's trending in frontend development",
+                "What are the most popular frontend technologies",
+                "What do companies look for in frontend developers"
+            ],
+            "responses": [
+                "In frontend, trends include the use of frameworks like Svelte, advanced responsive design, and optimizing web performance through techniques like lazy loading and edge computing. There's also a growing focus on accessibility and mobile-first development."
+            ]
+        },
+        {
+            "tag": "fullstack_info",
+            "patterns": [
+                "What is a fullstack developer",
+                "What are the tasks of a fullstack developer",
+                "What skills does a fullstack developer have",
+                "Tell me about fullstack roles in technology"
+            ],
+            "responses": [
+                "A fullstack developer can work on both the frontend and backend of an application. They master technologies like HTML, CSS, and JavaScript frameworks for the frontend, and languages like Node.js, Python, or Ruby for the backend, along with databases like PostgreSQL or MongoDB."
+            ]
+        },
+        {
+            "tag": "fullstack_trends",
+            "patterns": [
+                "What are the trends in fullstack development",
+                "What do companies look for in fullstack developers",
+                "What's trending in fullstack development",
+                "What are the most popular technologies for fullstack"
+            ],
+            "responses": [
+                "In 2024, fullstack development trends include the use of modern stacks like MERN (MongoDB, Express, React, Node.js) and JAMstack (JavaScript, APIs, Markup). Experience with GraphQL, TypeScript, and microservice frameworks is also valued."
+            ]
+        },
+        {
+            "tag": "backend_skills",
+            "patterns": [
+                "What skills does a backend developer need",
+                "What should a backend developer know",
+                "What are the key competencies for a backend developer",
+                "What is expected from a backend developer"
+            ],
+            "responses": [
+                "A backend developer should master languages like Python, Java, or Node.js, have experience with relational and non-relational databases, know REST and GraphQL APIs, and have skills in server management and tools like Docker and Kubernetes."
+            ]
+        },
+        {
+            "tag": "frontend_skills",
+            "patterns": [
+                "What skills does a frontend developer need",
+                "What should a frontend developer know",
+                "What are the key competencies for a frontend developer",
+                "What is expected from a frontend developer"
+            ],
+            "responses": [
+                "A frontend developer should be proficient in languages like HTML, CSS, and JavaScript, have experience with frameworks like React or Angular, understand UX/UI design principles, and be familiar with version control tools like Git."
+            ]
+        },
+        {
+            "tag": "fullstack_skills",
+            "patterns": [
+                "What skills does a fullstack developer need",
+                "What should a fullstack developer know",
+                "What are the key competencies for a fullstack developer",
+                "What is expected from a fullstack developer"
+            ],
+            "responses": [
+                "A fullstack developer should master both frontend and backend technologies. This includes HTML, CSS, JavaScript, frameworks like React or Vue.js, backend languages like Python or Node.js, and databases like PostgreSQL or MongoDB. Experience with DevOps and deployment tools is also valued."
+            ]
+        },
+        {
+            "tag": "greeting_general",
+            "patterns": [
+                "Hi",
+                "Hello",
+                "Hey",
+                "Good morning",
+                "Good afternoon",
+                "Good evening"
+            ],
+            "responses": [
+                "Hi! How can I assist you today?",
+                "Hello! How can I help?",
+                "Hi there, I hope you’re having a good day. How can I assist you?",
+                "Greetings! I’m here to answer your questions. What do you need?"
+            ]
+        },
+        {
+            "tag": "greeting_followup",
+            "patterns": [
+                "How are you?",
+                "How's it going?",
+                "How are you doing?",
+                "What's up?",
+                "How do you feel?"
+            ],
+            "responses": [
+                "I’m great! Always ready to help. What do you need?",
+                "All good here! Thanks for asking. How can I assist you?",
+                "I’m here to help with any questions you have. How can I start?"
+            ]
+        },
+        {
+            "tag": "farewell_general",
+            "patterns": [
+                "Goodbye",
+                "See you later",
+                "Bye",
+                "Thanks, that's all",
+                "I’m leaving",
+                "That's everything"
+            ],
+            "responses": [
+                "Goodbye! Feel free to return if you have more questions.",
+                "See you later! Have a great day.",
+                "See you soon! I’m always here to help you whenever you need.",
+                "Thanks for visiting me. Good luck with everything!"
+            ]
+        },
+        {
+            "tag": "farewell_night",
+            "patterns": [
+                "Good night",
+                "See you tomorrow",
+                "I’m going to sleep",
+                "See you later",
+                "That’s all for today"
+            ],
+            "responses": [
+                "Good night! Rest well and come back whenever you need help.",
+                "See you tomorrow. I hope you have a good rest.",
+                "Have a great night! See you soon."
+            ]
+        },
+        {
+            "tag": "thanks",
+            "patterns": [
+                "Thank you",
+                "Thanks a lot",
+                "I appreciate it",
+                "You’re very helpful",
+                "Thank you so much"
+            ],
+            "responses": [
+                "You’re welcome! I’m here to help anytime.",
+                "It’s a pleasure to assist you. If you need anything else, just let me know.",
+                "Thanks to you for using me. Good luck with everything!"
+            ]
+        },
+        {
+            "tag": "preparation_tips",
+            "patterns": [
+                "How to prepare for an interview",
+                "What should I do before an interview",
+                "Tips to prepare for an interview",
+                "How to get ready before interviewing a candidate"
+            ],
+            "responses": [
+                "Before an interview, review the candidate’s resume and note specific questions about their experience. Make sure you have a clear understanding of the necessary skills for the position and prepare a list of relevant technical and behavioral questions. Also, consider coordinating with other team members to cover different areas."
+            ]
+        },
+        {
+            "tag": "technical_interview",
+            "patterns": [
+                "How to ask technical questions",
+                "What to ask in a technical interview",
+                "Tips for technical interviews",
+                "How to evaluate technical skills in an interview"
+            ],
+            "responses": [
+                "In a technical interview, use practical problems that reflect real tasks for the role, like writing or analyzing code. Ask about past problem-solving experiences and evaluate their thought process. Use platforms like HackerRank or Codility for online technical tests if needed."
+            ]
+        },
+        {
+            "tag": "behavioral_interview",
+            "patterns": [
+                "What to ask in a behavioral interview",
+                "How to assess soft skills",
+                "What are STAR questions",
+                "Tips for behavioral questions"
+            ],
+            "responses": [
+                "In behavioral interviews, use the STAR method (Situation, Task, Action, Result) to have candidates explain concrete examples from their experience. Ask about how they handled challenges, worked in teams, or resolved conflicts in the past."
+            ]
+        },
+        {
+            "tag": "remote_interview_tips",
+            "patterns": [
+                "Tips for remote interviews",
+                "How to conduct interviews via video call",
+                "What to consider in online interviews",
+                "How to interview remotely"
+            ],
+            "responses": [
+                "In remote interviews, ensure a stable connection and use a reliable platform like Zoom or Teams. Share the link in advance and confirm the time according to the candidate’s time zone. Be clear about expectations and keep the conversation professional yet friendly."
+            ]
+        },
+        {
+            "tag": "avoiding_bias",
+            "patterns": [
+                "How to avoid bias in interviews",
+                "Tips for impartial interviews",
+                "How to be objective in an interview",
+                "What to do to reduce bias in interviews"
+            ],
+            "responses": [
+                "To avoid bias, use a standard list of questions for all candidates and evaluate answers based on predefined criteria. Focus on demonstrated skills and experience, and avoid irrelevant questions that might lead to subjective judgments."
+            ]
+        },
+        {
+            "tag": "red_flags",
+            "patterns": [
+                "How to identify red flags in an interview",
+                "What negative signs to look for in an interview",
+                "How to know if a candidate isn’t suitable",
+                "What indicators signal problems with a candidate"
+            ],
+            "responses": [
+                "Pay attention to signals like lack of preparation, evasive or inconsistent answers, and difficulty explaining past experiences. Also, watch for attitude: a lack of interest or negativity towards previous roles could be a red flag."
+            ]
+        },
+        {
+            "tag": "cultural_fit",
+            "patterns": [
+                "How to assess cultural fit",
+                "What to ask about values in an interview",
+                "How to know if a candidate fits the company",
+                "Tips for evaluating cultural fit"
+            ],
+            "responses": [
+                "To evaluate cultural fit, ask about the candidate’s values and how they align with the company’s. Use questions like: 'What type of work environment do you prefer?' or 'What motivates you day-to-day?'. Observe if their responses reflect compatibility with your organization’s culture."
+            ]
+        },
+        {
+            "tag": "follow_up",
+            "patterns": [
+                "What to do after an interview",
+                "How to follow up after an interview",
+                "Tips for post-interview process",
+                "How to close the interview process"
+            ],
+            "responses": [
+                "After the interview, take detailed notes of the candidate’s responses and share them with the hiring team. Thank the candidate for their time and communicate the next steps of the process. If the candidate is not selected, provide constructive feedback whenever possible."
+            ]
+        },
+        {
+            "tag": "common_mistakes",
+            "patterns": [
+                "Common mistakes in interviews",
+                "What to avoid during interviews",
+                "Tips to not make mistakes in interviews",
+                "What are the most common interview mistakes"
+            ],
+            "responses": [
+                "Common mistakes include not preparing adequately, asking irrelevant questions, interrupting the candidate, or allowing biases to influence the evaluation. Always stay professional, objective, and ensure the candidate has a positive experience."
+            ]
+        },
+        {
+            "tag": "creative_questions",
+            "patterns": [
+                "What creative questions to ask in an interview",
+                "How to ask different questions in interviews",
+                "Ideas for original interview questions",
+                "Examples of out-of-the-box questions"
+            ],
+            "responses": [
+                "You can use questions like 'If you had to explain your job to a child, how would you do it?' or 'What personal project are you most proud of and why?'. These questions help assess the candidate’s creativity, communication, and passion."
+            ]
+        },
+        {
+            "tag": "software_developer_salary",
+            "patterns": [
+                "What is the average salary for a software developer",
+                "How much does a software developer earn",
+                "What salary does a developer have",
+                "How much should I pay a software developer",
+                "What is the salary range for a developer",
+                "How much does a software programmer charge",
+                "What do software developers earn in general"
+            ],
+            "responses": [
+                "The average salary for a software developer depends on their experience and location. In Europe, it ranges from 30,000 to 80,000 EUR annually, while in the US, it ranges from 60,000 to 120,000 USD per year.",
+                "Software developers earn based on their experience level: in the US, the range goes from 60,000 to 120,000 USD annually and in Europe, between 30,000 and 80,000 EUR.",
+                "For software developers, the average salary is adjusted to the market and the candidate's skills. In Europe, it ranges between 30,000 and 80,000 EUR, and in the US, between 60,000 and 120,000 USD annually."
+            ]
+        },
+        {
+            "tag": "cybersecurity_salary",
+            "patterns": [
+                "What salary does a cybersecurity engineer have",
+                "How much does a cybersecurity expert earn",
+                "What is the salary range for a cybersecurity engineer",
+                "What do cybersecurity professionals earn",
+                "How much is paid in cybersecurity",
+                "What is the average salary for cybersecurity",
+                "What salary range does the cybersecurity sector offer"
+            ],
+            "responses": [
+                "The salary of a cybersecurity engineer ranges from 60,000 to 120,000 USD annually in the US and between 50,000 and 95,000 EUR in Europe, depending on their experience.",
+                "In cybersecurity, salaries vary according to region and candidate skills: from 50,000 to 95,000 EUR in Europe and from 60,000 to 120,000 USD in the US.",
+                "A cybersecurity engineer can expect between 50,000 and 95,000 EUR per year in Europe and between 60,000 and 120,000 USD in the US depending on their level of expertise."
+            ]
+        },
+        {
+            "tag": "junior_programmer_salary",
+            "patterns": [
+                "How much does a junior programmer earn",
+                "What does a programmer with little experience earn",
+                "What is the starting salary of a junior developer",
+                "How much should I pay a junior programmer",
+                "What is the salary range for junior programmers",
+                "What is the average salary for a junior developer",
+                "What does a programmer who is just starting in technology earn"
+            ],
+            "responses": [
+                "A junior programmer earns between 25,000 and 40,000 EUR annually in Europe, while in the US, the range is from 30,000 to 50,000 USD per year.",
+                "In Europe, a junior programmer has a starting salary of between 25,000 and 40,000 EUR, while in the US, they can earn between 30,000 and 50,000 USD per year.",
+                "The salary range for a junior programmer is typically between 25,000 and 40,000 EUR annually in Europe and between 30,000 and 50,000 USD in the US depending on region and market."
+            ]
+        },
+        {
+            "tag": "common_tech_benefits",
+            "patterns": [
+                "What benefits are common in a tech company",
+                "What benefits to offer a developer",
+                "What perks do tech companies have",
+                "What extras to offer IT professionals",
+                "What are the most common benefits for programmers",
+                "What do tech benefits include",
+                "What are typical benefits packages in tech"
+            ],
+            "responses": [
+                "Tech companies typically offer health insurance, remote work options, performance bonuses, extra days off, and continuous professional training.",
+                "Common benefits in tech companies include: paid time off, wellness programs, bonuses, training opportunities, and work flexibility.",
+                "Some of the most frequent benefits are: insurance, flexible hours, remote options, and access to professional development tools and growth opportunities."
+            ]
+        },
+        {
+            "tag": "negotiating_salaries",
+            "patterns": [
+                "How to negotiate salary with a candidate",
+                "Tips for negotiating salaries",
+                "What to say when negotiating salary",
+                "How to improve the salary offer",
+                "How to manage candidate salary expectations",
+                "What factors to consider when negotiating salary",
+                "What to consider in salary negotiations"
+            ],
+            "responses": [
+                "Present a competitive offer based on the market and emphasize extra benefits like remote options or bonuses.",
+                "Know the salary range of the market and listen to the candidate's expectations to adjust your offer.",
+                "Offer additional benefits like flexibility or training to compensate in case of limitations on the base salary."
+            ]
+        },
+        {
+            "tag": "remote_interview_tips",
+            "patterns": [
+                "Tips for remote interviews",
+                "How to conduct an online interview",
+                "What to consider for video interviews",
+                "What precautions to take in remote interviews",
+                "How to improve online interviews",
+                "Tips for video call interviews",
+                "How to manage remote interviews"
+            ],
+            "responses": [
+                "Make sure to use a reliable platform like Zoom or Teams, and send the link in advance. Check your internet connection, and verify the time according to the candidate's time zone. Maintain a professional yet friendly tone and create an environment that allows clear and smooth conversation."
+            ]
+        },
+        {
+            "tag": "behavioral_questions",
+            "patterns": [
+                "How to ask about soft skills",
+                "What is the STAR method in interviews",
+                "How to assess previous experiences",
+                "What to ask in behavioral interviews",
+                "How to discover how a candidate acts",
+                "Examples of soft skills questions",
+                "What to ask to assess teamwork"
+            ],
+            "responses": [
+                "Use the STAR method (Situation, Task, Action, Result) to get concrete examples from the candidate's past.",
+                "Ask about how the candidate handled specific challenges or conflicts to assess their soft skills.",
+                "Examples of questions: 'Describe a time when you led a project', or 'How do you handle working under pressure?'"
+            ]
+        }
+    ]
+    }

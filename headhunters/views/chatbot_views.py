@@ -15,7 +15,7 @@ with open('headhunters/chatbot/tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
 with open('headhunters/chatbot/label_encoder.pickle', 'rb') as handle:
     label_encoder = pickle.load(handle)
-with open('headhunters/chatbot/intents2.json',encoding='utf-8') as file:
+with open('headhunters/chatbot/intents3.json',encoding='utf-8') as file:
     intents = json.load(file)
 
 responses = {}
@@ -39,9 +39,26 @@ def chatbot_response(user_input):
     # Predecir la etiqueta
     pred = model.predict(input_data)
     predicted_label = np.argmax(pred, axis=1)
+    predicted_prob = np.max(pred)
     
     # Decodificar la etiqueta
     label = label_encoder.inverse_transform(predicted_label)[0]
+    if predicted_prob < 0.85:
+        return "Sorry, I didn't understand the question. Please be clearer."
+    
+    valid_labels = ['trends_programming_languages', 'html_info', 'fullstack_info', 'python_info', 'javascript_info', 'java_info', 'csharp_info', 'go_info', 'rust_info',
+                    'typescript_info', 'php_info', 'swift_info', 'kotlin_info', 'trends_skills', 'softskills_info', 'hardskills_info', 'softskills_trends', 
+                    'hardskills_trends','problem_solving', 'adaptability', 'communication_skills', 'collaboration', 'team_leadership', 'self_learning', 
+                    'job_offer_structure', 'job_offer_tone', 'job_title_tips', 'job_offer_requirements', 'job_offer_responsibilities', 'job_offer_benefits', 
+                    'job_offer_common_mistakes','job_offer_inclusivity', 'job_offer_remote', 'job_offer_trends', 'backend_info', 'backend_trends', 'frontend_info',
+                    'frontend_trends', 'fullstack_info', 'fullstack_trends', 'backend_skills', 'frontend_skills', 'fullstack_skills', 'greeting_general', 'greeting_followup', 
+                    'farewell_general','farewell_night', 'thanks', 'preparation_tips', 'technical_interview', 'behavioral_interview', 'remote_interview_tips', 'avoiding_bias',
+                    'red_flags', 'cultural_fit', 'follow_up', 'common_mistakes', 'creative_questions', 'software_developer_salary', 'cybersecurity_salary', 'junior_programmer_salary',
+                    'common_tech_benefits', 'negotiating_salaries', 'remote_interview_tips', 'behavioral_questions']  # Aquí puedes colocar las etiquetas que el chatbot pueda responder
+    
+    # Si la etiqueta predicha no está en el conjunto de etiquetas válidas
+    if label not in valid_labels:
+        return "Sorry, I didn't understand the question. Please be clearer."
     
     # Obtener las posibles respuestas para esta etiqueta
     possible_responses = responses[label]
