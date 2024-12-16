@@ -15,6 +15,62 @@ from headhunters.urls import AddToExistingOfferView
 # from transformers import pipeline
 
 # * |--------------------------------------------------------------------------
+# * | Predict Salary
+# * |--------------------------------------------------------------------------
+from .ml import predictor
+def predict_salary(request):
+    if request.method == 'POST':
+        try:
+            # Obtener datos del formulario
+            job_title = request.POST.get('job_title')
+            company_size = request.POST.get('company_size')
+            company_location = request.POST.get('company_location').upper()
+            experience_level = request.POST.get('experience_level')
+            
+            # Validar que todos los campos estén presentes
+            if not all([job_title, company_size, company_location, experience_level]):
+                raise ValueError("Todos los campos son requeridos")
+            
+            # Hacer predicción
+            predicted_salary = predictor.predict(
+                experience_level,
+                job_title,
+                company_location,
+                company_size
+            )
+            
+            # Formatear el salario
+            formatted_salary = "${:,.0f}".format(predicted_salary)
+            
+            # Preparar el contexto con todos los datos
+            context = {
+                'prediction': formatted_salary,
+                'show_results': True,  # Nueva variable para controlar la visualización
+                'form_data': {
+                    'job_title': job_title,
+                    'company_size': {
+                        'S': 'Pequeña',
+                        'M': 'Mediana',
+                        'L': 'Grande'
+                    }[company_size],
+                    'company_location': company_location,
+                    'experience_level': {
+                        'ju': 'Junior',
+                        'mi': 'Mid Level',
+                        'se': 'Senior'
+                    }[experience_level]
+                }
+            }
+            
+            return render(request, 'ai_salaryprediction/ai_salaryprediction.html', context)
+            
+        except Exception as e:
+            return render(request, 'ai_salaryprediction/ai_salaryprediction.html', 
+                        {'error': str(e)})
+    
+    return render(request, 'ai_salaryprediction/ai_salaryprediction.html')
+
+# * |--------------------------------------------------------------------------
 # * | Chatbot
 # * |--------------------------------------------------------------------------
 

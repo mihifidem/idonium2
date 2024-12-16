@@ -87,4 +87,7 @@ urlpatterns = [
     path('user_cvs/pdf/<int:user_cv_id>/<int:profile_cv_id>', user_cv_pdf_view, name='user_cv_pdf_view'),
     path('user_cvs/view/<str:url>/', user_cv_view, name='user_cv_view'),
 
+    # Salary prediction URL
+    path('salary/', predict_salary, name='predict_salary'),
+
 ]

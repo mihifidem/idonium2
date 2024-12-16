@@ -1,0 +1,276 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header" style="background:  #07294D">
+                    <h2 class="h3 mb-0 text-white p-2 d-flex align-items-center">
+                        <i class="fas fa-chart-line me-3"></i>
+                        Predictor de Salarios en IA
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate autocomplete="off" id="salary-form">
+                        {% csrf_token %}
+                        <div id="error-container"></div>
+                        <div class="row g-3">
+                            <!-- Puesto de Trabajo -->
+                            <div class="col-md-6">
+                                <label for="job_title" class="form-label">
+                                    <i class="fas fa-briefcase me-1"></i>
+                                    Puesto de Trabajo
+                                </label>
+                                <select name="job_title" id="job_title" class="form-select" required>
+                                    <option value="">Selecciona puesto...</option>
+                                    <option value="AI Architect">AI Architect</option>
+                                    <option value="AI Developer">AI Developer</option>
+                                    <option value="AI Engineer">AI Engineer</option>
+                                    <option value="AI Product Manager">AI Product Manager</option>
+                                    <option value="AI Programmer">AI Programmer</option>
+                                    <option value="AI Research Engineer">AI Research Engineer</option>
+                                    <option value="AI Research Scientist">AI Research Scientist</option>
+                                    <option value="AI Scientist">AI Scientist</option>
+                                    <option value="AI Software Engineer">AI Software Engineer</option>
+                                    <option value="AWS Data Architect">AWS Data Architect</option>
+                                    <option value="Admin & Data Analyst">Admin & Data Analyst</option>
+                                    <option value="Ag Data Scientist">Ag Data Scientist</option>
+                                    <option value="Analytics - Business Assurance Data Analyst">Analytics - Business Assurance Data Analyst</option>
+                                    <option value="Analytics Consultant">Analytics Consultant</option>
+                                    <option value="Analytics Engineer">Analytics Engineer</option>
+                                    <option value="Analytics Engineering Manager">Analytics Engineering Manager</option>
+                                    <option value="Analytics Manager">Analytics Manager</option>
+                                    <option value="Analytics Manager - Data Mart">Analytics Manager - Data Mart</option>
+                                    <option value="Applied Data Scientist">Applied Data Scientist</option>
+                                    <option value="Applied Machine Learning Engineer">Applied Machine Learning Engineer</option>
+                                    <option value="Applied Machine Learning Scientist">Applied Machine Learning Scientist</option>
+                                    <option value="Applied Research Scientist">Applied Research Scientist</option>
+                                    <option value="Applied Scientist">Applied Scientist</option>
+                                    <option value="VP, Data Science">VP, Data Science</option>
+                                    <option value="Web Data Analyst">Web Data Analyst</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor selecciona un puesto.
+                                </div>
+                            </div>
+
+                            <!-- Nivel de Experiencia -->
+                            <div class="col-md-6">
+                                <label for="experience_level" class="form-label">
+                                    <i class="fas fa-star me-1"></i>
+                                    Nivel de Experiencia
+                                </label>
+                                <select name="experience_level" id="experience_level" class="form-select" required>
+                                    <option value="">Selecciona nivel de experiencia</option>
+                                    <option value="ju">Junior</option>
+                                    <option value="mi">Mid Level</option>
+                                    <option value="se">Senior</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor selecciona un nivel de experiencia.
+                                </div>
+                            </div>
+
+                            <!-- Tamaño de la Empresa -->
+                            <div class="col-md-6">
+                                <label for="company_size" class="form-label">
+                                    <i class="fas fa-building me-1"></i>
+                                    Tamaño de la Empresa
+                                </label>
+                                <select name="company_size" id="company_size" class="form-select" required>
+                                    <option value="">Selecciona tamaño...</option>
+                                    <option value="S">Pequeña</option>
+                                    <option value="M">Mediana</option>
+                                    <option value="L">Grande</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor selecciona el tamaño de la empresa.
+                                </div>
+                            </div>
+
+                            <!-- Ubicación de la Empresa -->
+                            <div class="col-md-6">
+                                <label for="company_location" class="form-label">
+                                    <i class="fas fa-location-dot me-1"></i>
+                                    País de la Empresa
+                                </label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="company_location" 
+                                       name="company_location"
+                                       placeholder="Ej: US, ES, GB" 
+                                       maxlength="2"
+                                       required>
+                                <div class="form-text">Usa el código de país de dos letras (US, ES, GB, etc.)</div>
+                                <div class="invalid-feedback">
+                                    Por favor ingresa el código de país.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-calculator me-2"></i>
+                                Calcular Salario
+                            </button>
+                        </div>
+                    </form>
+                    <div id="result-container" class="mt-4" {% if not show_results %}style="display: none;"{% endif %}>
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">
+                                    <i class="fas fa-money-bill-wave me-2"></i>
+                                    Salario Estimado Anual
+                                </h4>
+                                <h2 class="display-4 text-primary" id="predicted-salary">
+                                    {% if prediction %}{{ prediction }}{% else %}$0{% endif %}
+                                </h2>
+                                
+                                <div class="row g-3 text-start">
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <i class="fas fa-briefcase me-2 text-primary"></i>
+                                            <strong>Puesto:</strong> 
+                                            <span id="result-job">
+                                                {% if form_data %}{{ form_data.job_title }}{% endif %}
+                                            </span>
+                                        </p>
+                                        <p class="mb-2">
+                                            <i class="fas fa-star me-2 text-primary"></i>
+                                            <strong>Nivel:</strong> 
+                                            <span id="result-level">
+                                                {% if form_data %}{{ form_data.experience_level }}{% endif %}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <i class="fas fa-building me-2 text-primary"></i>
+                                            <strong>Tamaño de Empresa:</strong> 
+                                            <span id="result-size">
+                                                {% if form_data %}{{ form_data.company_size }}{% endif %}
+                                            </span>
+                                        </p>
+                                        <p class="mb-2">
+                                            <i class="fas fa-globe me-2 text-primary"></i>
+                                            <strong>País:</strong> 
+                                            <span id="result-location">
+                                                {% if form_data %}{{ form_data.company_location }}{% endif %}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-4">
+                                
+
+                                <!-- Información Adicional -->
+            <div class="card mt-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Información Importante
+                    </h5>
+                    <p class="card-text">
+                        Esta herramienta utiliza machine learning para predecir salarios basándose en datos históricos.
+                        Los resultados son estimaciones y pueden variar según múltiples factores adicionales.
+                    </p>
+                </div>
+            </div>
+                            </div>
+                            </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        'use strict';
+        
+        const form = document.getElementById('salary-form');
+        
+        if (form) {  // Verificar que el formulario existe
+            const fields = form.querySelectorAll('select, input');
+            const errorContainer = document.getElementById('error-container');
+            
+            // Función para mostrar mensaje de error general
+            const showErrorMessage = (message) => {
+                const errorAlert = document.createElement('div');
+                errorAlert.className = 'alert alert-danger mt-3';
+                errorAlert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    ${message}
+                `;
+                
+                // Limpiar mensajes de error anteriores
+                errorContainer.innerHTML = '';
+                errorContainer.appendChild(errorAlert);
+                
+                // Eliminar después de 5 segundos
+                setTimeout(() => {
+                    errorAlert.remove();
+                }, 5000);
+            };
+    
+            // Validar campos individuales
+            fields.forEach(field => {
+                // Validar al perder el foco
+                field.addEventListener('blur', () => {
+                    if (!field.value) {
+                        field.classList.add('is-invalid');
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+    
+                // Limpiar error al escribir/seleccionar
+                field.addEventListener('input', () => {
+                    field.classList.remove('is-invalid');
+                });
+            });
+    
+            // Validar al enviar el formulario
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();  // Prevenir envío por defecto
+                
+                let isValid = true;
+                let firstInvalidField = null;
+    
+                // Validar todos los campos
+                fields.forEach(field => {
+                    if (!field.value) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                        if (!firstInvalidField) {
+                            firstInvalidField = field;
+                        }
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+    
+                if (!isValid) {
+                    // Mostrar mensaje de error general
+                    showErrorMessage('Por favor, completa todos los campos requeridos correctamente.');
+                    
+                    // Hacer scroll al primer campo con error
+                    if (firstInvalidField) {
+                        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    // Si todo está válido, enviar el formulario
+                    form.submit();
+                }
+            });
+        }
+    });
+    </script>
+{% endblock %}
+{% endblock %}
