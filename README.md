@@ -126,4 +126,4 @@ zopfli==0.2.3.post1
 # INTERACCIÓN CON LOS DEMÁS COMPONENTES DEL PROYECTO
 
 Nuestro módulo interactúa continuamente con el grupo **CV PROFILE USER** debido al hecho de que los head hunters buscan candidatos, y estos candidatos son gestionados por dicho grupo, incluyendo los currículums y sus características.  
-También se conecta con el grupo de **TESTS** para relacionar una oferta con esos test.
+
