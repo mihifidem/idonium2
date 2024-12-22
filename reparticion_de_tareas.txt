@@ -1,0 +1,6 @@
+Reparticion de tareas:
+
+Joel - scrum master - modelos, duckycoins, chatbots, improvements
+Virgil - chatbot, JSON, tests, front, 
+Raul - mapa modelos, templates, chatbots
+Raul Rufo - git, modelos, chatbots
